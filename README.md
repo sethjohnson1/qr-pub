@@ -1,5 +1,11 @@
-intern-list
+QR Pub
 ===========
+When installing make sure to modify private_sample to private
 
-Will be used as a registry for internships in conservation. More documentation to follow.
-Just getting this started, it will be loosely based on the conf-list from Niles.
+also in app folder run:
+	curl -sS https://getcomposer.org/installer | php
+Then run:
+	php composer.phar install
+
+
+
