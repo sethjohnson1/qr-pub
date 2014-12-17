@@ -1,0 +1,28 @@
+<div class="templates form">
+<?php echo $this->Form->create('Template'); ?>
+	<fieldset>
+		<legend><?php echo __('Edit Template'); ?></legend>
+	<?php
+		echo $this->Form->input('id');
+		echo $this->Form->input('name');
+		echo $this->Form->input('active');
+		echo $this->Form->input('meta_title');
+		echo $this->Form->input('meta_desc');
+		echo $this->Form->input('nextid');
+		echo $this->Form->input('previd');
+		echo $this->Form->input('code');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+
+			<li><?php echo $this->Html->link(__('List Templates'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Assets'), array('controller' => 'assets', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Asset'), array('controller' => 'assets', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Beacons'), array('controller' => 'beacons', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Beacon'), array('controller' => 'beacons', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
