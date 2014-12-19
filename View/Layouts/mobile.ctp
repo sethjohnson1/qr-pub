@@ -2,23 +2,30 @@
 <html>
 <head>
 	<title>
-Internships
+Center of the West Cody, Wyoming
 	</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<?php
-	
-		echo $this->Html->meta('icon');
-		echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
-		echo $this->Html->css('jquery.mobile-1.4.5');		
-		echo $this->html->script('jquery.mobile-1.4.5');
 
+		echo $this->Html->css('jquery.mobile-1.4.5');		
+		echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
+		echo $this->Html->script('jquery.mobile-1.4.5');		
+		echo $this->Html->script('qr_scripts');
+		
 		echo $this->fetch('script');
 		echo $this->fetch('css');
 		echo $this->fetch('meta');
 	?>
-
+<!--<style>
+.ui-popup-container, .ui-popup {
+    height: 85%;
+    width: 100%;
+	
+	top:10% !important;
+}
+</style>-->
 </head>
 <body>
 	<?php echo $this->Session->flash(); ?>
