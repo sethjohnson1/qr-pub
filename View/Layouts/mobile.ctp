@@ -10,6 +10,7 @@ Center of the West Cody, Wyoming
 	<?php
 
 		echo $this->Html->css('jquery.mobile-1.4.5');		
+		echo $this->Html->css('style');		
 		echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
 		echo $this->Html->script('jquery.mobile-1.4.5');		
 		echo $this->Html->script('qr_scripts');
@@ -18,14 +19,6 @@ Center of the West Cody, Wyoming
 		echo $this->fetch('css');
 		echo $this->fetch('meta');
 	?>
-<!--<style>
-.ui-popup-container, .ui-popup {
-    height: 85%;
-    width: 100%;
-	
-	top:10% !important;
-}
-</style>-->
 </head>
 <body>
 	<?php echo $this->Session->flash(); ?>

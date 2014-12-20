@@ -25,12 +25,42 @@ class TemplatesController extends AppController {
 
 
 	public function view($id = null) {
+//		debug("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+		//begin the long pathway to disqus
+		if ($this->request->is('post')) {
+			
+		}
+	
+	
 		if (!$this->Template->exists($id)) {
 			throw new NotFoundException(__('Invalid template'));
 		}
 		$options = array('conditions' => array('Template.' . $this->Template->primaryKey => $id));
 		$this->set('template', $this->Template->find('first', $options));
 	}
+	
+	public function commentbutton() {
+		$disqus = new DisqusAPI(Configure::read('disqusSecret'));
+		//first find the thread, eventually an IF statement will be here where if it exists bl blah
+		//the thing to keep in mind is that if it doesn't find something, it returns everything - very stupid
+		$thread=$disqus->forums->listThreads(array('forum'=>'iscouttest','thread:link'=>$this->request->data['dComment']['url']));
+		
+		//3340880605 is the id of forum: iscouttest thread:test1
+		
+		$data=$disqus->posts->create(array(
+			'message'=>$this->request->data['dComment']['comment'],
+			'thread'=>$thread[0]->id,
+			'access_token'=>Configure::read('disqusAccessToken')
+			//'author_name'=>'someguy'
+			//etc, etc we will use Auth->user variables for portions of it, so the comment is tied to the user
+		
+		));
+        //$this->set('content', $thread[0]->id); 
+        $this->set('content', $data); 
+
+        $this->render('ajax_response', 'ajax');
+		//}
+    }
 
 
 	public function add($id = null) {

@@ -22,11 +22,17 @@ class Template extends AppModel {
 				if ($template->save()) return true;
 				else return false;
 			}
-			//lazy error checking, but moving on
+			//lazy no error checking, but moving on
 			else return false;
 		}
 		
-		$this->data['Template']['ip'] = $_SERVER["REMOTE_ADDR"]; 
+		$this->data['Template']['ip'] = $_SERVER["REMOTE_ADDR"];
+		
+		//generate a code if its empty, which is should usually be except for the whitney thing where we want to reuse the AcoustiGuide codes
+		if (empty($this->data['Template']['code'])){
+			$last=$this->find('first',array('order'=>array('code'=>'DESC')));
+			$this->data['Template']['code'] = $last['Template']['code']+1;
+		}
 
 		//this should be return TRUE, but false for testing
 		return true;
