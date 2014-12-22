@@ -15,7 +15,7 @@ class TemplatesController extends AppController {
 		$this->set(compact('templates','locations'));
 		//$this->set('templates',$templates);
 	}
-	public $components = array('Paginator');
+	public $components = array('Paginator','Comment');
 
 
 	public function index() {
@@ -25,40 +25,28 @@ class TemplatesController extends AppController {
 
 
 	public function view($id = null) {
-//		debug("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
-		//begin the long pathway to disqus
-		if ($this->request->is('post')) {
-			
-		}
-	
-	
 		if (!$this->Template->exists($id)) {
 			throw new NotFoundException(__('Invalid template'));
 		}
 		$options = array('conditions' => array('Template.' . $this->Template->primaryKey => $id));
-		$this->set('template', $this->Template->find('first', $options));
+		$template=$this->Template->find('first', $options);
+		$this->set('id',$id);
+		$user=$this->Auth->user();
+		if (isset($user)) $this->set('user',$user);
+		
+		//user Comments component to load up view variables
+		$comments=$this->Comment->getComments($id);
+		$usercomments=$this->Comment->userComment($id,$user['id']);
+		
+		//debug($usercomments);
+		$this->set(compact('comments','template','usercomments'));
 	}
 	
 	public function commentbutton() {
-		$disqus = new DisqusAPI(Configure::read('disqusSecret'));
-		//first find the thread, eventually an IF statement will be here where if it exists bl blah
-		//the thing to keep in mind is that if it doesn't find something, it returns everything - very stupid
-		$thread=$disqus->forums->listThreads(array('forum'=>'iscouttest','thread:link'=>$this->request->data['dComment']['url']));
-		
-		//3340880605 is the id of forum: iscouttest thread:test1
-		
-		$data=$disqus->posts->create(array(
-			'message'=>$this->request->data['dComment']['comment'],
-			'thread'=>$thread[0]->id,
-			'access_token'=>Configure::read('disqusAccessToken')
-			//'author_name'=>'someguy'
-			//etc, etc we will use Auth->user variables for portions of it, so the comment is tied to the user
-		
-		));
-        //$this->set('content', $thread[0]->id); 
-        $this->set('content', $data); 
-
-        $this->render('ajax_response', 'ajax');
+		//if ($this->request->is('ajax')){
+			//$this->set('content', $thread[0]->id); 
+			$this->set('content', $data);
+			$this->render('ajax_response', 'ajax');
 		//}
     }
 

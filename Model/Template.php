@@ -1,11 +1,6 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * Template Model
- *
- * @property Asset $Asset
- * @property Beacon $Beacon
- */
+
 class Template extends AppModel {
 
 	public function beforeSave($options=array()){
@@ -44,6 +39,19 @@ class Template extends AppModel {
 	public $hasMany = array(
 		'Asset' => array(
 			'className' => 'Asset',
+			'foreignKey' => 'template_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Comment' => array(
+			'className' => 'Comment',
 			'foreignKey' => 'template_id',
 			'dependent' => false,
 			'conditions' => '',

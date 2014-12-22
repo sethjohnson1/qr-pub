@@ -1,3 +1,5 @@
+<?
+if($passed=='header'){?>
 <div id="CodePopUp" data-theme="a">
 	<form>
 		<div style="padding:10px 20px;">
@@ -65,3 +67,19 @@
 		</div>
 	</div>
 	<div role="main" class="ui-content">
+<?
+}
+if($passed=='footer'){
+?>
+	</div><!-- /content main -->
+	<div data-role="footer" data-position="fixed" data-id="myfooter" style="background-color:transparent;border:none;">
+	<!--right here we need 2 pull out Qs that 1 for score card and 1 for comments, then also design those panels-->
+		<div class="ui-grid-d" style="text-align:center;position: relative;top: 7px;">
+			<? echo $this->Html->link('Score Card','#Scorecard',array('class'=>'ui-btn ui-icon-carat-u ui-btn-icon-top','data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'slideup'));?>
+			<a href="#" class="ui-btn ui-icon-carat-u ui-btn-icon-top">Comments</a>
+			
+		</div>
+	</div><!-- /footer -->
+</div><!-- /page -->
+<?
+}

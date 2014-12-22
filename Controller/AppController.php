@@ -4,7 +4,7 @@ App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
 
-	public $components = array('Users.RememberMe','DebugKit.Toolbar','Session','Cookie','Auth'=>array()
+	public $components = array('DebugKit.Toolbar','Session','Cookie','Auth'=>array()
 	
 	);
 	

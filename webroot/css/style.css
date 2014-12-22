@@ -22,7 +22,6 @@ speak: none;
 line-height: 1;
 -webkit-font-smoothing: antialiased;
 height:1em !important;
-
 font-size:7em
 }
 #mycounters{
@@ -58,3 +57,16 @@ padding-top:2.5%;
   background-size: contain;
 }
 .caption{background-color:#fff;width:150px;border: 1px dashed #ede9e7;}
+#popedimg{
+max-height:85%;
+}
+#comments-popup{
+    height: 100% !important;
+    width: 100% !important;
+	max-width: 90% !important;
+	max-height: 90% !important;	
+	top:10% !important;
+}
+#comments{
+	height:100% !important;
+}
