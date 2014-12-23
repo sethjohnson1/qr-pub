@@ -1,11 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Templates Controller
- *
- * @property Template $Template
- * @property PaginatorComponent $Paginator
- */
+
 class TemplatesController extends AppController {
 
 	public function beforeFilter() {
@@ -13,8 +8,8 @@ class TemplatesController extends AppController {
 		$templates=array('splash'=>'Big image','video'=>'AV page','blog'=>'Web article','vgal'=>'Virtual Gallery');
 		$locations=array('BBM'=>'BBM','CFM'=>'CFM','DMNH'=>'DMNH','Garden'=>'Garden','HMRL'=>'HMRL','PIM'=>'PIM','WG'=>'WG');
 		$this->set(compact('templates','locations'));
-		//$this->set('templates',$templates);
 	}
+	
 	public $components = array('Paginator','Comment');
 
 
@@ -33,13 +28,11 @@ class TemplatesController extends AppController {
 		$this->set('id',$id);
 		$user=$this->Auth->user();
 		if (isset($user)) $this->set('user',$user);
-		
 		//user Comments component to load up view variables
-		$comments=$this->Comment->getComments($id);
-		$usercomments=$this->Comment->userComment($id,$user['id']);
-		
-		//debug($usercomments);
-		$this->set(compact('comments','template','usercomments'));
+		$comments=$this->Comment->getComments($id,$user['id']);
+		$usercomment=$this->Comment->userComment($id,$user['id']);
+		//debug($usercomment);
+		$this->set(compact('comments','template','usercomment'));
 	}
 	
 	public function commentbutton() {

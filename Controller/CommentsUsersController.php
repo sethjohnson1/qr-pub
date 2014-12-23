@@ -16,15 +16,12 @@ class CommentsUsersController extends AppController {
 					'conditions'=>array('CommentsUser.comment_id'=>$id,'CommentsUser.user_id'=>$user['id'])
 				));
 				$this->CommentsUser->create();
-				
 				if (isset($commentsuser['CommentsUser']['id'])){
 					$data['id']=$commentsuser['CommentsUser']['id'];
 					//do nothing if same choice
-					if ($commentsuser['CommentsUser']['flagged'] == true && $flag==1) return false;
-					if ($commentsuser['CommentsUser']['flagged'] == false && $flag==-1) return false;
+					if ($commentsuser['CommentsUser']['flagged'] == true && $flag==1) return true;
+					if ($commentsuser['CommentsUser']['flagged'] == false && $flag==-1) return true;
 				}
-				
-				
 				$data['user_id']=$user['id'];
 				$data['comment_id']=$id;
 				if ($flag==1) $data['flagged']=true;
@@ -36,21 +33,13 @@ class CommentsUsersController extends AppController {
 						'recursive'=>-1
 					));
 					$commentdata['Comment']['flags']=$commentdata['Comment']['flags']+$flag;
-					//$commentdata['id']=$id;
-					debug($commentdata['Comment']['flags']);
-					/*if ($this->CommentsUser->Comment->save($commentdata)){
-					
+					if ($this->CommentsUser->Comment->save($commentdata)){
+						//call the component
+						$comments=$this->Comment->getComments($templateid,$user['id']);
+						$this->set(compact('comments','user'));
+						$this->render('comment_add','ajax');
 					}
-					*/
-					
-					//call the component
-					$comments=$this->Comment->getComments($templateid);
-					$usercomments=$this->Comment->userComment($templateid,$user['id']);
-					$this->set(compact('comments','usercomments'));
-					$this->render('comment_add','ajax');
 				}
-				
-				
 			}
 			else {
 				echo 'you must be logged in to do this';
@@ -83,14 +72,13 @@ class CommentsUsersController extends AppController {
 				if(isset($comment['rating'])) $comment['rating']=$this->request->data['sComment']['rating'];
 				$comment['user_id']=$this->Auth->user('id');
 				$comment['template_id']=$id;
+				$comment['hidden']=0;
 				if (isset($parentid)) $comment['parent_id']=$parentid;
-				$comment['visible']=1;
 				$this->CommentsUser->Comment->create();
 				if ($this->CommentsUser->Comment->save($comment)){
 					//Comment component..
-					$comments=$this->Comment->getComments($id);
-					$usercomments=$this->Comment->userComment($id,$user['id']);
-					$this->set(compact('comments','usercomments'));
+					$comments=$this->Comment->getComments($id,$user['id']);
+					$this->set(compact('comments','user'));
 					$this->render('comment_add','ajax');
 				}
 			}
@@ -109,9 +97,11 @@ class CommentsUsersController extends AppController {
 				//eventually want to add counts to user, moving on for now
 				// (i left everything in place, but it doesn't work right)
 				$user=$this->Auth->user();
+				debug($user);
 				$data['user_id']=$this->Auth->user('id');
 				$data['comment_id']=$id;
 				//this button should be disabled if they already upvoted, but we'll check the count here anyway
+				//this is flawed because what if.. yeah
 				$commentuser=$this->CommentsUser->find('first',array(
 					'conditions'=>array('CommentsUser.comment_id'=>$id,'CommentsUser.user_id'=>$this->Auth->user('id')),
 					'recursive'=>-1
@@ -122,38 +112,44 @@ class CommentsUsersController extends AppController {
 				
 				));
 				$this->CommentsUser->create();
+				//THIS IS WHERE I LEFT OFF
+				// the problem is that Auth does not refresh on these Ajax calls, so it keeps getting set to null
 				if(!empty($commentuser)){
 					if ($vote==1 && $commentuser['CommentsUser']['upvoted']!=true){
-						$user['upvotes']=$user['upvotes']+1;
-						unset($user['downvotes']);
 						$data['id']=$commentuser['CommentsUser']['id'];
 						//means we're reversing direction
 						if ($commentuser['CommentsUser']['downvoted']==true){
+							debug('subtract one');
 							$data['upvoted']=false;
 							$data['downvoted']=false;
 							$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']-1;
+							debug($user['downvotes']);
+							$user['downvotes']=$user['downvotes']-1;
+							debug($user['downvotes']);
 						}
 						else {
 							$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
-							//$user['upvotes']=$user['upvotes']+1;
+							$user['upvotes']=$user['upvotes']+1;
 							unset($commentdata['Comment']['downvotes']);
+							unset($user['downvotes']);
 							$data['upvoted']=true;
 						}
 						//$data['vote']=1;
 					}
 					else if ($vote==-1 && $commentuser['CommentsUser']['downvoted']!=true){
-						$user['downvotes']=$user['downvotes']+1;
-						unset($user['upvotes']);
-						//debug($user);
 						$data['id']=$commentuser['CommentsUser']['id'];
 							if ($commentuser['CommentsUser']['upvoted']==true){
 								$data['upvoted']=false;
 								$data['downvoted']=false;
 								$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']-1;
+								$user['upvotes']=$user['upvotes']-1;
+								//debug($user);
 							}
 							else {
 								$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']+1;
+								$user['downvotes']=$user['downvotes']+1;
 								unset($commentdata['Comment']['upvotes']);
+								unset($user['upvotes']);
 								$data['downvoted']=true;
 							}
 					}
@@ -172,15 +168,15 @@ class CommentsUsersController extends AppController {
 						$data['already_upvoted']=true;
 						$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
 						$user['upvotes']=$user['upvotes']+1;
-						unset($user['downvotes']);
+						//unset($user['downvotes']);
 						unset($commentdata['Comment']['downvotes']);
 					}
 					if ($vote==-1){
 						$data['downvoted']=1;
 						$data['already_downvoted']=1;
 						$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']+1;
-						//$user['downvotes']=$user['downvotes']+1;
-						unset($user['upvotes']);
+						$user['downvotes']=$user['downvotes']+1;
+						//unset($user['upvotes']);
 						unset($commentdata['Comment']['upvotes']);
 					}
 				}
@@ -190,16 +186,14 @@ class CommentsUsersController extends AppController {
 					$this->CommentsUser->Comment->create();
 					$commentdata['Comment']['id']=$id;
 					if ($this->CommentsUser->Comment->save($commentdata['Comment'])){
-						$comments=$this->Comment->getComments($templateid);
-						$usercomments=$this->Comment->userComment($templateid,$user['id']);
-						$this->set(compact('comments','usercomments'));
-						//debug
+						$comments=$this->Comment->getComments($templateid,$user['id']);
+						$this->set(compact('comments','user'));
 						$this->render('comment_add','ajax');
-						/* //would save the counts here
+						 //would save the counts here
 						if ($this->CommentsUser->User->save($user)){
 							//wow, it all went through... (and component call would be in here)
 						}
-						*/
+						
 					}
 
 				}
@@ -212,6 +206,40 @@ class CommentsUsersController extends AppController {
 		//}
 	
 	}
+	
+	//$id is the id of the comment
+	public function comment_hide($id = null, $parentid=null) {
+	//technically this should be on the Comment controller as well
+	//be sure to turn this on in production
+		//if ($this->request->is('ajax')){
+			if ($this->Auth->user()){
+				$user=$this->Auth->user();
+				//first see if this is an existing comment and that it matches the logged in user
+				$commentdata=$this->CommentsUser->Comment->find('first',array(
+					'recursive'=>-1,
+					'conditions'=>array('Comment.id'=>$id,'Comment.user_id'=>$user['id'])
+				));
+				if (isset($commentdata['Comment']['id'])){
+					$commentdata['Comment']['hidden']=1;
+					$this->CommentsUser->Comment->create();
+					if ($this->CommentsUser->Comment->save($commentdata)){
+						//Comment component
+						$comments=$this->Comment->getComments($id,$user['id']);
+						$this->set(compact('comments','user'));
+						$this->render('comment_add','ajax');
+					}
+				}
+				else {
+					return true;
+				}
+				
+			}
+			else {
+				echo 'you must be logged in to do this';
+				$this->render(false,'ajax');
+			}
+		//}
+	}	
 	
 
 	public function index() {

@@ -66,11 +66,13 @@ if (isset($user)){
  	echo $this->Html->link('FBAuth', array('controller' => 'users', 'action' => 'auth_login','Facebook')).'<br>'; 
 	echo $this->Html->link('GAuth', array('controller' => 'users', 'action' => 'auth_login','Google')).'<br>'; 
 	echo $this->Html->link('TAuth', array('controller' => 'users', 'action' => 'auth_login','Twitter')).'<br>'; 
-	echo $this->Html->link('DAuth', array('controller' => 'users', 'action' => 'dummyAuth')).'<br>'; }
+	echo $this->Html->link('DAuth', array('controller' => 'users', 'action' => 'dummyAuth/666')).'<br>'; }
  
 ?>
 	<div id="comments" style="border: solid black; padding: 12px 12px 12px 12px">
-		<? echo $this->element('commentswidget',array($comments,$usercomments)); ?>
+		<? 
+		if(empty($user))$user='';
+		echo $this->element('commentswidget',array($comments,$user));?>
 	</div>
 </div>
 <?

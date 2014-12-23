@@ -65,8 +65,23 @@ max-height:85%;
     width: 100% !important;
 	max-width: 90% !important;
 	max-height: 90% !important;	
-	top:10% !important;
+	top:0 !important;
 }
 #comments{
 	height:100% !important;
+}
+.mine{border: 1px double blue}
+
+.notmine{border: 1px double green}
+
+.commentbutton{
+}
+#comments div form label{
+float:left;
+}
+.fsign:after{
+background-color: rgb(187, 187, 94) !important;
+}
+.total{
+	padding-left:16px;
 }
