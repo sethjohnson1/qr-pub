@@ -1,9 +1,5 @@
 <?
-if($this->layout = 'mobile') 
-	require_once(APP . 'Vendor' . DS.'jqm/header.php');
-//resason to refrence the file this way was given by a cakephp contributer here, 
-//look for him trolling a commenter saying its not mentioned in the cookbook  because they need help with documenting
-//http://stackoverflow.com/questions/8158129/loading-vendor-files-in-cakephp-2-0
+echo $this->element('jqm_header');
 
 // the following draws all the hidden lightbox
 foreach ($template['Asset'] as $asset)
@@ -12,7 +8,7 @@ foreach ($template['Asset'] as $asset)
 	{
 		echo '<div data-role="popup" id="'.$template['Template']['id'].'_'.$asset['id'].'" data-overlay-theme="b" data-theme="b" data-corners="false">';
 		echo 	'<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>';
-		echo 	$this->Html->image('http://172.16.144.30/qr-pub/img/uploads/'.$template['Template']['id'].'_'.$asset['filename'].'.jpg', array('alt'=>$asset['asset_text'],'id'=>'popedimg'));
+		echo 	$this->Html->image('uploads/'.$template['Template']['id'].'_'.$asset['filename'].'.jpg', array('alt'=>$asset['asset_text'],'id'=>'popedimg'));
 		echo '</div>';
 	}
 } //this part draws the images that link to the lightboxes above
@@ -20,7 +16,8 @@ foreach ($template['Asset'] as $asset)
 {
 	if ($asset['name']=='treasure')
 	{
-		$imageSrc = 'http://172.16.144.30/qr-pub/img/uploads/'.$template['Template']['id'].'_'.$asset['id'].'.jpg';
+	//this needs to be fixed to conventional call
+		$imageSrc = '/img/uploads/'.$template['Template']['id'].'_'.$asset['id'].'.jpg';
 		$caption = '';
 		if(!empty($asset['asset_text']))
 			$caption = '<div class="caption">'.$asset['asset_text'].'</div>';
@@ -63,10 +60,10 @@ if (isset($user)){
  }
  else {
 	echo 'you must login to comment<br>';
- 	echo $this->Html->link('FBAuth', array('controller' => 'users', 'action' => 'auth_login','Facebook')).'<br>'; 
-	echo $this->Html->link('GAuth', array('controller' => 'users', 'action' => 'auth_login','Google')).'<br>'; 
-	echo $this->Html->link('TAuth', array('controller' => 'users', 'action' => 'auth_login','Twitter')).'<br>'; 
-	echo $this->Html->link('DAuth', array('controller' => 'users', 'action' => 'dummyAuth/666')).'<br>'; }
+ 	echo $this->Html->link('FBAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Facebook'),array('rel'=>'external')).'<br>'; 
+	echo $this->Html->link('GAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Google'),array('rel'=>'external')).'<br>'; 
+	echo $this->Html->link('TAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Twitter'),array('rel'=>'external')).'<br>'; 
+	echo $this->Html->link('DAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'dummyAuth')).'<br>'; }
  
 ?>
 	<div id="comments" style="border: solid black; padding: 12px 12px 12px 12px">
@@ -76,9 +73,5 @@ if (isset($user)){
 	</div>
 </div>
 <?
-if($this->layout = 'mobile') 
-	require_once(APP . 'Vendor' . DS.'jqm/footer.php');
-//resason to refrence the file this way was given by a cakephp contributer here, 
-//look for him trolling a commenter saying its not mentioned in the cookbook  because they need help with documenting
-//http://stackoverflow.com/questions/8158129/loading-vendor-files-in-cakephp-2-0
+echo $this->element('jqm_footer');
 ?>
