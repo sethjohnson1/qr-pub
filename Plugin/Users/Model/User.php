@@ -14,67 +14,28 @@ App::uses('UsersAppModel', 'Users.Model');
 App::uses('SearchableBehavior', 'Search.Model/Behavior');
 App::uses('SluggableBehavior', 'Utils.Model/Behavior');
 
-/**
- * Users Plugin User Model
- *
- * @package User
- * @subpackage User.Model
- */
+
 class User extends UsersAppModel {
 
-/**
- * Name
- *
- * @var string
- */
 	public $name = 'User';
 
-/**
- * Additional Find methods
- *
- * @var array
- */
+
 	public $findMethods = array(
 		'search' => true
 	);
 
-/**
- * All search fields need to be configured in the Model::filterArgs array.
- *
- * @var array
- * @link https://github.com/CakeDC/search
- */
 	public $filterArgs = array(
 		'username' => array('type' => 'like'),
 		'email' => array('type' => 'value')
 	);
 
-/**
- * Displayfield
- *
- * @var string $displayField
- */
+
 	public $displayField = 'username';
 
-/**
- * Time the email verification token is valid in seconds
- *
- * @var integer
- */
 	public $emailTokenExpirationTime = 86400;
 
-/**
- * Validation domain for translations
- *
- * @var string
- */
 	public $validationDomain = 'users';
 
-/**
- * Validation parameters
- *
- * @var array
- */
 	public $validate = array(
 		'username' => array(
 			'required' => array(
@@ -126,28 +87,12 @@ class User extends UsersAppModel {
 		)
 	);
 
-/**
- * Constructor
- *
- * @param bool|string $id ID
- * @param string $table Table
- * @param string $ds Datasource
- */
 	public function __construct($id = false, $table = null, $ds = null) {
 		$this->_setupBehaviors();
 		$this->_setupValidation();
 		parent::__construct($id, $table, $ds);
 	}
 
-/**
- * Setup available plugins
- *
- * This checks for the existence of certain plugins, and if available, uses them.
- *
- * @return void
- * @link https://github.com/CakeDC/search
- * @link https://github.com/CakeDC/utils
- */
 	protected function _setupBehaviors() {
 		if (CakePlugin::loaded('Search') && class_exists('SearchableBehavior')) {
 			$this->actsAs[] = 'Search.Searchable';
@@ -177,28 +122,12 @@ class User extends UsersAppModel {
 		);
 	}
 
-/**
- * Create a hash from string using given method.
- * Fallback on next available method.
- *
- * Override this method to use a different hashing method
- *
- * @param string $string String to hash
- * @param string $type Method to use (sha1/sha256/md5)
- * @param boolean $salt If true, automatically appends the application's salt
- *	 value to $string (Security.salt)
- * @return string Hash
- */
+
 	public function hash($string, $type = null, $salt = false) {
 		return Security::hash($string, $type, $salt);
 	}
 
-/**
- * Custom validation method to ensure that the two entered passwords match
- *
- * @param string $password Password
- * @return boolean Success
- */
+
 	public function confirmPassword($password = null) {
 		if ((isset($this->data[$this->alias]['password']) && isset($password['temppassword']))
 			&& !empty($password['temppassword'])
@@ -208,12 +137,6 @@ class User extends UsersAppModel {
 		return false;
 	}
 
-/**
- * Compares the email confirmation
- *
- * @param array $email Email data
- * @return boolean
- */
 	public function confirmEmail($email = null) {
 		if ((isset($this->data[$this->alias]['email']) && isset($email['confirm_email']))
 			&& !empty($email['confirm_email'])
@@ -233,7 +156,7 @@ class User extends UsersAppModel {
 		$result = $this->find('first', array(
 			'contain' => array(),
 			'conditions' => array(
-				$this->alias . '.email_verified' => 0,
+				$this->alias . '.email_verified' => null,
 				$this->alias . '.email_token' => $token),
 			'fields' => array(
 				'id', 'email', 'email_token_expires', 'role')
@@ -923,4 +846,39 @@ class User extends UsersAppModel {
 		}
 		return new CakeEmail('default');
 	}
+	
+	// this is for comments the user makes
+	public $hasMany = array(
+		'Comment' => array(
+			'className' => 'Comment',
+			'foreignKey' => 'user_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
+
+//and this is for the interaction the user has with comments
+	
+	public $hasAndBelongsToMany = array(
+		'Comment' => array(
+			'className' => 'User',
+			'joinTable' => 'comments_users',
+			'foreignKey' => 'comment_id',
+			'associationForeignKey' => 'user_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		)
+	);
 }
