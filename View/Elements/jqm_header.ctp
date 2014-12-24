@@ -45,7 +45,7 @@
 <div id="menu" data-role="panel" data-position="left" data-display="reveal" data-theme="a">
 	<h3>Menu</h3>
 	<?php echo $this->Html->link('FBAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Facebook'),array('rel'=>'external')); ?><BR>
-	<?php echo $this->Html->link('hey', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Google'),array('rel'=>'external')); ?><BR>
+	<?php echo $this->Html->link('GAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Google'),array('rel'=>'external')); ?><BR>
 	<?php echo $this->Html->link('TAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Twitter'),array('rel'=>'external')); ?><BR>
 	<?php echo $this->Html->link('DAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'dummyAuth')); ?><BR>
 	<?php echo $this->Html->link('Logout', array('plugin'=>'users','controller' => 'users', 'action' => 'logout')); ?><BR>

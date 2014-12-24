@@ -1,6 +1,5 @@
 <?php
 App::uses('AppController', 'Controller');
-App::uses('htmlpurifier/HTMLPurifier.standalone', 'Vendor');
 
 class AssetsController extends AppController {
 

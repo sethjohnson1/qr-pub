@@ -97,7 +97,7 @@ class CommentsUsersController extends AppController {
 				//eventually want to add counts to user, moving on for now
 				// (i left everything in place, but it doesn't work right)
 				$user=$this->Auth->user();
-				debug($user);
+				//debug($user);
 				$data['user_id']=$this->Auth->user('id');
 				$data['comment_id']=$id;
 				//this button should be disabled if they already upvoted, but we'll check the count here anyway

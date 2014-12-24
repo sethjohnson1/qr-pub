@@ -1,6 +1,5 @@
 <? 
-$passed = 'header';
-echo $this->element('jqm',array($passed)); ?>
+echo $this->element('jqm_header'); ?>
 
 <div class="templates index">
 	<h2><?php echo __('Templates'); ?></h2>
@@ -67,9 +66,5 @@ echo $this->element('jqm',array($passed)); ?>
 	</ul>
 </div>
 <?
-if($this->layout = 'mobile') 
-	require_once(APP . 'Vendor' . DS.'jqm/footer.php');
-//resason to refrence the file this way was given by a cakephp contributer here, 
-//look for him trolling a commenter saying its not mentioned in the cookbook  because they need help with documenting
-//http://stackoverflow.com/questions/8158129/loading-vendor-files-in-cakephp-2-0
+echo $this->element('jqm_footer');
 ?>
