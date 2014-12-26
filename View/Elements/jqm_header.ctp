@@ -1,12 +1,5 @@
 <div id="CodePopUp" data-theme="a">
-	<form>
-		<div style="padding:10px 20px;">
-			<h3>Enter Code</h3>
-			<label for="un" class="ui-hidden-accessible">Code:</label>
-			<input type="text" name="user" id="un" value="" placeholder="Code" data-theme="a">
-			<button type="submit" class="ui-btn ui-btn-icon-left ui-icon-check">Go</button>
-		</div>
-	</form>
+<? echo $this->element('CodePopUp'); ?>
 </div>
 <div id="Scorecard" data-theme="a">
 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>

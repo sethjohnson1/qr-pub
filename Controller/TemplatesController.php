@@ -20,6 +20,27 @@ class TemplatesController extends AppController {
 
 
 	public function view($id = null) {
+		if ($this->request->is('post')) {
+			if (isset($this->request->data['Code']['3digitcode'])){
+				$template_redir=$this->Template->find('first',array(
+					'conditions'=>array('Template.code'=>$this->request->data['Code']['3digitcode']),
+					'recursive'=>-1
+					
+				));
+				
+				if (!isset($template_redir['Template']['id'])) {
+					throw new NotFoundException(__('Code came back 404'));
+				}
+				
+				else {
+					return $this->redirect(array('controller'=>'templates','action'=>'view',
+					$this->request->data['Code']['3digitcode']));
+				}
+			}
+			debug($template);
+			//return false;
+			//return $this->redirect($this->request->data['Code']['3digitcode'].'/');
+		}	
 		if (!$this->Template->exists($id)) {
 			throw new NotFoundException(__('Invalid template'));
 		}
@@ -32,9 +53,18 @@ class TemplatesController extends AppController {
 		$comments=$this->Comment->getComments($id,$user['id']);
 		$usercomment=$this->Comment->userComment($id,$user['id']);
 		//debug($usercomment);
-		$this->set(compact('comments','template','usercomment'));
+		$this->set(compact('comments','template','usercomment','template_redir'));
 	}
 	
+	public function code_lookup() {
+		//if ($this->request->is('ajax')){
+		$this->Session->delete('hey');
+		//$this->Session->write('hey','hey');
+			debug('hello');
+			$this->render('ajax_response', 'ajax');
+			return $this->redirect('/');
+		//}
+    }
 	public function commentbutton() {
 		//if ($this->request->is('ajax')){
 			//$this->set('content', $thread[0]->id); 

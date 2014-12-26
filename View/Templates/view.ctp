@@ -1,6 +1,7 @@
 <?
 echo $this->element('jqm_header');
 
+//debug($template_redir);
 // the following draws all the hidden lightbox
 foreach ($template['Asset'] as $asset)
 {
@@ -17,7 +18,7 @@ foreach ($template['Asset'] as $asset)
 	if ($asset['name']=='treasure')
 	{
 	//this needs to be fixed to conventional call
-		$imageSrc = '/img/uploads/'.$template['Template']['id'].'_'.$asset['id'].'.jpg';
+		$imageSrc = 'http://ngin/qr-pub/img/uploads/'.$template['Template']['id'].'_'.$asset['id'].'.jpg';
 		$caption = '';
 		if(!empty($asset['asset_text']))
 			$caption = '<div class="caption">'.$asset['asset_text'].'</div>';
