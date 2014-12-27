@@ -22,7 +22,7 @@
 	<? 
 	echo $this->Form->end(); 
 	
-		$data = $this->Js->get('#CodeViewForm')->serializeForm(array('isForm' => true, 'inline' => true));
+	/*	$data = $this->Js->get('#CodeViewForm')->serializeForm(array('isForm' => true, 'inline' => true));
     //on button click send request to controller and displays response data in chosen field
 
 	$this->Js->get('#code')->event(
@@ -36,7 +36,7 @@
                 )
             )
     );
-	
+	*/
 	
 	?>
 </div>

@@ -66,5 +66,6 @@ echo $this->element('jqm_header'); ?>
 	</ul>
 </div>
 <?
+echo $this->Js->writeBuffer();
 echo $this->element('jqm_footer');
 ?>

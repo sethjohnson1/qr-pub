@@ -1,4 +1,4 @@
-
+<? echo $this->element('jqm_header'); ?>
 
 <div class="users index">
 	<h2><?php echo __d('users', 'Login'); ?></h2>
@@ -21,4 +21,9 @@
 		?>
 	</fieldset>
 </div>
-<?php echo $this->element('Users.Users/sidebar'); ?>
+<?php 
+//eventually put this sidebar stuff into bottom nav
+echo $this->element('Users.Users/sidebar'); 
+//simple footer without bottom buttons 
+ echo $this->element('jqm_basic_footer');
+?>

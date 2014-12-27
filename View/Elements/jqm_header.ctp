@@ -2,38 +2,7 @@
 <? echo $this->element('CodePopUp'); ?>
 </div>
 <div id="Scorecard" data-theme="a">
-<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-		<h3>Score Card</h3>
-		<div class="ui-grid-a">
-			<div class="ui-block-a" id="myicons" style="color:#6E3219;">a</div>		
-			<div class="ui-block-b" id="myicons" style="color:#054552">b</div>						
-		</div>
-		<div class="ui-grid-a">
-			<div class="ui-block-a" id="mycounters">1/2</div>			
-			<div class="ui-block-b" id="mycounters">1/2</div>			
-		</div>
-		<hr>		
-		<div class="ui-grid-a">
-			<div class="ui-block-a" id="myicons" style="color:#035642">c</div>
-			<div class="ui-block-b" id="myicons" style="color:#532E60">d</div>
-		</div>
-		<div class="ui-grid-a">
-			<div class="ui-block-a" id="mycounters">1/2</div>			
-			<div class="ui-block-b" id="mycounters">1/2</div>			
-		</div>
-		<hr>		
-		<div class="ui-grid-a">
-			<div class="ui-block-a" id="myicons" style="color:#C35118">e</div>
-			<div class="ui-block-b" id="myicons" style="color:#981E32">f</div>
-		</div>
-		<div class="ui-grid-a">
-			<div class="ui-block-a" id="mycounters">1/2</div>			
-			<div class="ui-block-b" id="mycounters">1/2</div>			
-		</div>
-		
-	<div style="padding:10px 20px;">
-		<div class="ui-grid-solo"><a href="#" id="clearall" class="ui-btn ui-btn-icon-left ui-icon-delete">Clear All Scanned</a></div>
-	</div>
+<? echo $this->element('Scorecard',array($totals)); ?>
 </div>
 <div id="menu" data-role="panel" data-position="left" data-display="reveal" data-theme="a">
 	<h3>Menu</h3>
@@ -41,6 +10,7 @@
 	<?php echo $this->Html->link('GAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Google'),array('rel'=>'external')); ?><BR>
 	<?php echo $this->Html->link('TAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Twitter'),array('rel'=>'external')); ?><BR>
 	<?php echo $this->Html->link('DAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'dummyAuth')); ?><BR>
+	<?php echo $this->Html->link('UAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'login')); ?><BR>
 	<?php echo $this->Html->link('Logout', array('plugin'=>'users','controller' => 'users', 'action' => 'logout')); ?><BR>
 	<a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ui-btn-inline">Close panel</a>
 </div>

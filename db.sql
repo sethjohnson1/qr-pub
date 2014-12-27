@@ -41,6 +41,17 @@ create table users(
 	role varchar(255)
 );
 
+drop table if exists scorecards;
+create table scorecards(
+	id varchar(42) not null, -- will combine user_id and template_id to make this unique
+	primary key(id),
+	created datetime,
+	modified datetime,
+	-- template_id int,
+	location varchar(100) -- for convenience in counting
+	-- user_id varchar(36)
+);
+
 -- for tracking user interaction with comments, not to be confused with the one-to-many relationship between users and their own comments
 drop table if exists comments_users;
 create table comments_users(

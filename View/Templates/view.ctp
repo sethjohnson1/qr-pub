@@ -1,7 +1,7 @@
 <?
 echo $this->element('jqm_header');
 
-//debug($template_redir);
+//debug($totals);
 // the following draws all the hidden lightbox
 foreach ($template['Asset'] as $asset)
 {
@@ -17,7 +17,7 @@ foreach ($template['Asset'] as $asset)
 {
 	if ($asset['name']=='treasure')
 	{
-	//this needs to be fixed to conventional call
+	//if this can't be a conventional call the URL should be a global variable in private.php
 		$imageSrc = 'http://ngin/qr-pub/img/uploads/'.$template['Template']['id'].'_'.$asset['id'].'.jpg';
 		$caption = '';
 		if(!empty($asset['asset_text']))
@@ -38,7 +38,8 @@ if (isset($user)){
 	if (isset($usercomments['Comment']['thoughts'])) $thoughts=$usercomments['Comment']['thoughts'];
 	else $thoughts='';
 	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts));		
-	//echo $this->Form->input('rating',array('type'=>'number'));		
+	echo $this->Form->input('rating',
+		array('type'=>'range','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>'3'));		
 	echo $this->Form->input('Add',array('type'=>'button','id'=>'comment_add','label'=>false));	
 	
 	//echo $this->Form->submit('Submit');

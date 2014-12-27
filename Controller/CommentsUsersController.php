@@ -69,7 +69,7 @@ class CommentsUsersController extends AppController {
 					$comment['id']=$uuid;
 				}
 				$comment['thoughts']=$this->request->data['sComment']['comment'];
-				if(isset($comment['rating'])) $comment['rating']=$this->request->data['sComment']['rating'];
+				$comment['rating']=$this->request->data['sComment']['rating'];
 				$comment['user_id']=$this->Auth->user('id');
 				$comment['template_id']=$id;
 				$comment['hidden']=0;
@@ -112,18 +112,18 @@ class CommentsUsersController extends AppController {
 				
 				));
 				$this->CommentsUser->create();
-				//THIS IS WHERE I LEFT OFF
+				//THIS IS WHERE I LEFT OFF for Issue #5
 				// the problem is that Auth does not refresh on these Ajax calls, so it keeps getting set to null
 				if(!empty($commentuser)){
 					if ($vote==1 && $commentuser['CommentsUser']['upvoted']!=true){
 						$data['id']=$commentuser['CommentsUser']['id'];
 						//means we're reversing direction
 						if ($commentuser['CommentsUser']['downvoted']==true){
-							debug('subtract one');
+							//debug('subtract one');
 							$data['upvoted']=false;
 							$data['downvoted']=false;
 							$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']-1;
-							debug($user['downvotes']);
+							//debug($user['downvotes']);
 							$user['downvotes']=$user['downvotes']-1;
 							debug($user['downvotes']);
 						}
@@ -147,7 +147,7 @@ class CommentsUsersController extends AppController {
 							}
 							else {
 								$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']+1;
-								$user['downvotes']=$user['downvotes']+1;
+								//$user['downvotes']=$user['downvotes']+1;
 								unset($commentdata['Comment']['upvotes']);
 								unset($user['upvotes']);
 								$data['downvoted']=true;

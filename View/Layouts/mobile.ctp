@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>
-Center of the West Cody, Wyoming
+iScout | Center of the West
 	</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">

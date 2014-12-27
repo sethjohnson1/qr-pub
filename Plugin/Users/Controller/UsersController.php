@@ -230,18 +230,9 @@ class UsersController extends UsersAppController {
 
 		if ($this->request->action == 'register') {
 			//sj - disabled because we will want registered users to register other users
-			//$this->Components->disable('Auth');
+			$this->Components->disable('Auth');
 		} 
-		if ($this->request->action == 'glogin' || $this->request->action=='tlogin') {
-			$this->Auth->authenticate = array(
-			//disabled for now going to try and call it on-the-fly
-			'HybridAuth.HybridAuth' => array(
-               //i cannot get the callback to work and I am giving up. It throws a SQL error in cake (?!)
-			 //  'registrationCallback' => 'hybridRegister'
-				//'userModel'=>'User'
-			)
-			);
-		}
+
 		if ($this->request->action == 'login') {
 			$this->Auth->authenticate = array(
 			'Form' => array(
@@ -264,23 +255,6 @@ class UsersController extends UsersAppController {
 	}
 	
 
-	
-	public function hybridRegister() {
- /*   $profile = (array)$profile;
-    $data = array(
-        'provider' => $provider,
-        'provider_uid' => $profile['identifier'],
-        //Extra fields here as needed like group_id, status etc.
-    );
-    unset($profile['identifier']);
-    foreach ($profile as $field => $value) {
-        $data[Inflector::underscore($field)] = $value;
-    }
-    $this->create();
-    return $this->save($data, false);
-	*/
-	debug('hey');
-}
 
 /**
  * Simple listing of all users
@@ -447,12 +421,11 @@ class UsersController extends UsersAppController {
  * @return void
  */
 	public function add() {
-		//sj - disabled 
-		/*if ($this->Auth->user()) {
+		if ($this->Auth->user()) {
 			$this->Session->setFlash(__d('users', 'You are already registered and logged in!'));
 			$this->redirect('/');
 		}
-		*/
+		
 
 		if (!empty($this->request->data)) {
 			$user = $this->{$this->modelClass}->register($this->request->data);
@@ -485,41 +458,6 @@ class UsersController extends UsersAppController {
  *
  * @return void
  */
-	public function glogin() {
-	$var=$this->Session->read('HA::STORE');
-	//debug($var);
-	if (isset($var)){
-		$this->set('var',1);
-	}
-	    if ($this->request->is('post')) {
-			if ($this->Auth->login()) {
-				$this->Session->setFlash('Used gmail to login');
-          //  	debug($this->Auth->user());
-				return $this->redirect($this->Auth->redirectUrl());
-			}
-		else {
-            $this->Session->setFlash('Username or password is incorrect!');
-        }
-		}
-	}
-	
-	public function tlogin() {
-	$var=$this->Session->read('HA::STORE');
-	//debug($var);
-	if (isset($var)){
-		$this->set('var',1);
-	}
-	    if ($this->request->is('post')) {
-			if ($this->Auth->login()) {
-				$this->Session->setFlash('Used twitter to login');
-          //  	debug($this->Auth->user());
-				return $this->redirect($this->Auth->redirectUrl());
-			}
-		else {
-            $this->Session->setFlash('Username or password is incorrect!');
-        }
-		}
-	}
  
 	public function login() {
 		$Event = new CakeEvent(
@@ -571,9 +509,12 @@ class UsersController extends UsersAppController {
 				//debug($this->Auth->user());
 				// Checking for 2.3 but keeping a fallback for older versions
 				if (method_exists($this->Auth, 'redirectUrl')) {
-					$this->redirect($this->Auth->redirectUrl($data[$this->modelClass]['return_to']));
+				//sj - added this to redirect back to the last viewed template
+					if ($this->Session->read('location')) $this->redirect($this->Session->read('location'));
+					else $this->redirect($this->Auth->redirectUrl($data[$this->modelClass]['return_to']));
 				} else {
-					$this->redirect($this->Auth->redirect($data[$this->modelClass]['return_to']));
+					if ($this->Session->read('location')) $this->redirect($this->Session->read('location'));
+					else $this->redirect($this->Auth->redirect($data[$this->modelClass]['return_to']));
 				}
 			} else {
 				$this->Auth->flash(__d('users', 'Invalid e-mail / password combination. Please try again'));
