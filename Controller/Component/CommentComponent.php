@@ -18,7 +18,7 @@ class CommentComponent extends Component {
 		$options['limit']=200;
 		//this is where you could do pagination manually (pass the variable from the controller)
 		//$options['offset']=0;
-		$options['fields']=array('CommentsUser.*','Comment.*');
+		$options['fields']=array('CommentsUser.*','Comment.*','User.username');
 		$options['conditions']=array('CommentsUser.user_id'=>$userid,'Comment.template_id'=>$templateid,'Comment.hidden != 1');
 
 		$comment=$model->find('all',$options);
@@ -31,7 +31,8 @@ class CommentComponent extends Component {
 		$model=ClassRegistry::init('Comment');
 		$comment2=$model->find('all',array(
 			'conditions'=>array('Comment.hidden != 1','Comment.template_id'=>$templateid,'AND'=>array($exclusions)),
-			'recursive'=>-1,
+			'recursive'=>1,
+			'fields'=>array('Comment.*','User.username'),
 			'limit'=>200
 		));
 		$result=array_merge($comment,$comment2);

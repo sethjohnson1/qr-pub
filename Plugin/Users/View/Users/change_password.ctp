@@ -27,6 +27,7 @@
 		echo $this->Form->end(__d('users', 'Submit'));
 	?>
 </div>
-<?php echo $this->element('Users.Users/sidebar');
-echo $this->element('jqm_basic_footer');
+<?php 
+//echo $this->element('Users.Users/sidebar');
+echo $this->element('jqm_user_footer');
  ?>

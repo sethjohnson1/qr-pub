@@ -4,11 +4,12 @@ App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
 
-	public $components = array('Users.RememberMe','DebugKit.Toolbar','Session','Cookie','Auth'=>array()
+	public $components = array('Users.RememberMe','Scorecard','DebugKit.Toolbar','Session','Cookie','Auth'=>array()
 	);
 	
 	public function beforeFilter() {
 		parent::beforeFilter();
+		$user=$this->Auth->user();
 		//will need to be tightened later
 		$this->Auth->allow();
 		$this -> layout='mobile'; //added by LJ to use the jqm layout
@@ -28,6 +29,7 @@ class AppController extends Controller {
 				$current='/'.$current;
 				$this->Session->write('location',$current);
 			}
+		$this->set('totals',$this->Scorecard->scoreTotals(null,$user['id']));
 
 	}
 	

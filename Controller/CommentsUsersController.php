@@ -125,7 +125,7 @@ class CommentsUsersController extends AppController {
 							$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']-1;
 							//debug($user['downvotes']);
 							$user['downvotes']=$user['downvotes']-1;
-							debug($user['downvotes']);
+							//debug($user['downvotes']);
 						}
 						else {
 							$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
@@ -216,17 +216,18 @@ class CommentsUsersController extends AppController {
 				$user=$this->Auth->user();
 				//first see if this is an existing comment and that it matches the logged in user
 				$commentdata=$this->CommentsUser->Comment->find('first',array(
-					'recursive'=>-1,
+					'recursive'=>1,
 					'conditions'=>array('Comment.id'=>$id,'Comment.user_id'=>$user['id'])
 				));
 				if (isset($commentdata['Comment']['id'])){
 					$commentdata['Comment']['hidden']=1;
 					$this->CommentsUser->Comment->create();
 					if ($this->CommentsUser->Comment->save($commentdata)){
-						//Comment component
-						$comments=$this->Comment->getComments($id,$user['id']);
+						//Comment component this is WYONG!
+						$comments=$this->Comment->getComments($commentdata['Template']['id'],$user['id']);
 						$this->set(compact('comments','user'));
 						$this->render('comment_add','ajax');
+						//debug($comments);
 					}
 				}
 				else {

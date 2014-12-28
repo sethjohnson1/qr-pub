@@ -1,7 +1,7 @@
 <?
-echo $this->element('CodePopUp'); 
-echo $this->element('Scorecard',array($totals)); 
 echo $this->element('jqm_header');
+
+
 
 //debug($totals);
 // the following draws all the hidden lightbox
@@ -33,11 +33,21 @@ foreach ($template['Asset'] as $asset)
 	}
 }
 ?>
-<div data-role="popup" id="comments"><?
+<!-- div data-role="popup" id="comments" -->
+<?
+/* the popup is probably a bad idea, best to just add the comments at the end
+basic styling here needs work
+
+*/
+?>
+<div id="comments_container" style="clear:both;">
+<h3>Comments</h3>
+
+<?
 if (isset($user)){
 	echo $this->Form->create('sComment');
 	//echo $this->Form->input('vgalid');
-	if (isset($usercomments['Comment']['thoughts'])) $thoughts=$usercomments['Comment']['thoughts'];
+	if (isset($usercomment['Comment']['thoughts'])) $thoughts=$usercomment['Comment']['thoughts'];
 	else $thoughts='';
 	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts));		
 	echo $this->Form->input('rating',
@@ -63,13 +73,12 @@ if (isset($user)){
 	echo $this->Js->writeBuffer();
  }
  else {
-	echo 'you must login to comment<br>';
- 	echo $this->Html->link('FBAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Facebook'),array('rel'=>'external')).'<br>'; 
-	echo $this->Html->link('GAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Google'),array('rel'=>'external')).'<br>'; 
-	echo $this->Html->link('TAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Twitter'),array('rel'=>'external')).'<br>'; 
-	echo $this->Html->link('DAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'dummyAuth')).'<br>'; }
- 
+	$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window'));
+	echo 'Join in! '.$loginlink.'<br />';
+	}
 ?>
+
+
 	<div id="comments" style="border: solid black; padding: 12px 12px 12px 12px">
 		<? 
 		if(empty($user))$user='';

@@ -8,6 +8,7 @@
  * @copyright Copyright 2010 - 2014, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+  echo $this->element('jqm_header');
 ?>
 <div class="users form">
 <h2><?php echo __d('users', 'Forgot your password?'); ?></h2>
@@ -23,4 +24,4 @@
 	echo $this->Form->end();
 ?>
 </div>
-<?php echo $this->element('Users.Users/sidebar'); ?>
+<?php echo $this->element('jqm_user_footer'); ?>

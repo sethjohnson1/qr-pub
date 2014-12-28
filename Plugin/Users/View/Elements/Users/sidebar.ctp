@@ -11,7 +11,6 @@
 		<?php endif; ?>
 		<?php else : ?>
 			<li><?php echo $this->Html->link('Logout', array('plugin' => 'users', 'controller' => 'users', 'action' => 'logout')); ?>
-			<li><?php echo $this->Html->link('My Account', array('plugin' => 'users', 'controller' => 'users', 'action' => 'edit')); ?>
 			<li><?php echo $this->Html->link('Change password', array('plugin' => 'users', 'controller' => 'users', 'action' => 'change_password')); ?>
 		<?php endif ?>
 		<?php if($this->Session->read('Auth.User.is_admin')) : ?>

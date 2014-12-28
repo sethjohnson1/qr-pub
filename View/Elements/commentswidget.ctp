@@ -23,11 +23,13 @@ foreach ($comments as $comment){
 			$hidden=true;
 			$flagvalue=-1; //used later down in link
 			$flaglabel='Unflag';
-			echo $this->Form->input($flaglabel,array('div'=>false,'type'=>'button','id'=>'comment_flag'.$comment['Comment']['id'],'label'=>false,'class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-alert fsign','style'=>'float:left'));
+			echo $this->Form->input($flaglabel,array('div'=>false,'type'=>'button','id'=>'comment_flag'
+			.$comment['Comment']['id'],'label'=>false,'class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-alert fsign',
+			'style'=>'float:left'));
 			if($flagged==true)
-				echo '<p>this message was falgged Click the Warning to see the Flagged messaged</p>';
+				echo '<p>You flagged this message as inappropriate. Click the Warning icon to unflag.</p>';
 			else if($comment['Comment']['flags']>4)
-				echo '<p>Click the Warning to see the Flagged messaged has been flagged '.$comment['Comment']['flags'].' times</p>';
+				echo '<p>This message has been flagged as inappropriate '.$comment['Comment']['flags'].' times</p>';
 		}
 		else
 			$hidden=false;
@@ -47,10 +49,14 @@ foreach ($comments as $comment){
 			$toggle='disabled';
 		$total=$comment['Comment']['upvotes']-$comment['Comment']['downvotes'];
 
-		echo '<div style="width:200px;clear:both"><div class="total" style="float:left">'.$total .'</div>';
-		echo '<div style="float:right;">User thinks: '.$comment['Comment']['thoughts'].'</div></div>';
-		echo '<div style="clear:both">&nbsp;</div>';
+		//sj- added anchor tag in case we need it
+		echo '<a name="'.$comment['Comment']['id'].'"></a>';
 		if(!$hidden){
+			//debug($comment);
+			//set height and overflow "scroll" here to prevent long-winded comments taking up more than their fair share
+			echo '<div style="width:200px;clear:both"><div class="total" style="float:left">'.$total .'</div>';
+			echo '<div style="float:right;"><strong>'.$comment['User']['username'].'</strong> -<br/> '.$comment['Comment']['thoughts'].'</div></div>';
+			echo '<div style="clear:both">&nbsp;</div>';
 		echo $this->Form->input('DownVote',array(
 			'div'=>false,'label'=>false,
 			'type'=>'button','class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-arrow-d','id'=>'comment_down'.$comment['Comment']['id'],$toggle

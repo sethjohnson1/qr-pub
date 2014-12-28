@@ -11,12 +11,12 @@
  echo $this->element('jqm_header');
 ?>
 <div class="users form">
-	<h2><?php echo __d('users', 'Add User'); ?></h2>
+	<h2><?php echo __d('users', 'Create Account'); ?></h2>
 	<fieldset>
 		<?php
 			echo $this->Form->create($model);
 			echo $this->Form->input('username', array(
-				'label' => __d('users', 'Username')));
+				'label' => __d('users', 'Handle')));
 			echo $this->Form->input('email', array(
 				'label' => __d('users', 'E-mail (used as login)'),
 				'error' => array('isValid' => __d('users', 'Must be a valid email address'),
@@ -27,13 +27,19 @@
 			echo $this->Form->input('temppassword', array(
 				'label' => __d('users', 'Password (confirm)'),
 				'type' => 'password'));
-			$tosLink = $this->Html->link(__d('users', 'Terms of Service'), array('controller' => 'pages', 'action' => 'tos', 'plugin' => null));
+			/*$tosLink = $this->Html->link(__d('users', 'Terms of Service'), array('controller' => 'pages', 'action' => 'tos', 'plugin' => null));
 			echo $this->Form->input('tos', array(
 				'label' => __d('users', 'I have read and agreed to ') . $tosLink));
+				*/
 			echo $this->Form->end(__d('users', 'Submit'));
 		?>
 	</fieldset>
+	<?
+		$link=$this->Html->link('Click here',array('action'=>'login'));
+		echo '<p>Already Registered? '.$link.' to login.';
+	?>
 </div>
-<?php echo $this->element('Users.Users/sidebar'); 
-echo $this->element('jqm_basic_footer');
+<?php 
+//echo $this->element('Users.Users/sidebar'); 
+echo $this->element('jqm_user_footer');
 ?>

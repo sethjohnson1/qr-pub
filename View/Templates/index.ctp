@@ -1,5 +1,4 @@
 <? 
-echo $this->element('CodePopUp'); 
 echo $this->element('Scorecard',array($totals)); 
 echo $this->element('jqm_header');
 ?>

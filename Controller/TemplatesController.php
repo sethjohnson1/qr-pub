@@ -29,8 +29,8 @@ class TemplatesController extends AppController {
 				));
 				
 				if (!isset($template_redir['Template']['id'])) {
-				//this needs to be better, some sort of Session flash and NOT redirect
-					throw new NotFoundException(__('Code came back 404'));
+					$this->Session->setFlash('Sorry, that code did not work');
+					return $this->redirect($this->referer());
 				}
 				
 				else {
@@ -53,6 +53,7 @@ class TemplatesController extends AppController {
 		//user Comments component to load up view variables
 		$comments=$this->Comment->getComments($id,$user['id']);
 		$usercomment=$this->Comment->userComment($id,$user['id']);
+		//override AppController value
 		$totals=$this->Scorecard->scoreTotals($template,$user['id']);
 		$this->set(compact('comments','template','usercomment','template_redir','totals','id'));
 	}

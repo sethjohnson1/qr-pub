@@ -2,7 +2,7 @@
 <? echo $this->Form->create('Code',array(
 'data-ajax'=>'false',
 'id'=>'CodeForm',
-'url'=>array('action'=>'code_button','controller'=>'templates')
+'url'=>array('action'=>'code_button','controller'=>'templates','plugin'=>'')
 ));
 
  ?>

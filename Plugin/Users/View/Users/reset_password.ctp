@@ -1,3 +1,4 @@
+<? echo $this->element('jqm_header'); ?>
 <div class="users form">
 <h2><?php echo __d('users', 'Reset your password'); ?></h2>
 <?php
@@ -15,4 +16,7 @@
 	echo $this->Form->end();
 ?>
 </div>
-<?php echo $this->element('Users.Users/sidebar'); ?>
+<?php //echo $this->element('Users.Users/sidebar');
+
+ echo $this->element('jqm_user_footer');
+ ?>
