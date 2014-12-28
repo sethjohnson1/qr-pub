@@ -1,5 +1,8 @@
 <? 
-echo $this->element('jqm_header'); ?>
+echo $this->element('CodePopUp'); 
+echo $this->element('Scorecard',array($totals)); 
+echo $this->element('jqm_header');
+?>
 
 <div class="templates index">
 	<h2><?php echo __('Templates'); ?></h2>
@@ -67,5 +70,5 @@ echo $this->element('jqm_header'); ?>
 </div>
 <?
 echo $this->Js->writeBuffer();
-echo $this->element('jqm_footer');
+echo $this->element('jqm_basic_footer');
 ?>

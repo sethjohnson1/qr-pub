@@ -1,3 +1,4 @@
+<div id="Scorecard" data-theme="a">
 <?// debug($totals);?>
 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 		<h3>Score Card</h3>
@@ -51,3 +52,4 @@
 		<!-- a href="#" id="clearall" class="ui-btn ui-btn-icon-left ui-icon-delete">Clear All Scanned</a -->
 		</div>
 	</div>
+</div>

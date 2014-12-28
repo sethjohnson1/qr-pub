@@ -1,5 +1,9 @@
 <div id="CodePopUp" data-theme="a">
-<? echo $this->Form->create('Code');
+<? echo $this->Form->create('Code',array(
+'data-ajax'=>'false',
+'id'=>'CodeForm',
+'url'=>array('action'=>'code_button','controller'=>'templates')
+));
 
  ?>
 		<div style="padding:10px 20px;">
@@ -20,23 +24,6 @@
 		</div>
 
 	<? 
-	echo $this->Form->end(); 
-	
-	/*	$data = $this->Js->get('#CodeViewForm')->serializeForm(array('isForm' => true, 'inline' => true));
-    //on button click send request to controller and displays response data in chosen field
-
-	$this->Js->get('#code')->event(
-            'click', $this->Js->request(
-                array('controller' => 'templates', 'action' => 'code_lookup'), array(
-					//'update' => '#code',
-					'async' => true,
-					'data'=>$data,
-					'dataExpression'=>true,
-					'method'=>'POST'
-                )
-            )
-    );
-	*/
-	
+	echo $this->Form->end();
 	?>
 </div>

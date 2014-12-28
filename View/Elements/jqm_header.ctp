@@ -1,9 +1,3 @@
-<div id="CodePopUp" data-theme="a">
-<? echo $this->element('CodePopUp'); ?>
-</div>
-<div id="Scorecard" data-theme="a">
-<? echo $this->element('Scorecard',array($totals)); ?>
-</div>
 <div id="menu" data-role="panel" data-position="left" data-display="reveal" data-theme="a">
 	<h3>Menu</h3>
 	<?php echo $this->Html->link('FBAuth', array('plugin'=>'users','controller' => 'users', 'action' => 'auth_login','Facebook'),array('rel'=>'external')); ?><BR>
@@ -23,8 +17,18 @@
 		<div class="ui-block-e">
 			<div class="ui-btn-right ui-grid-a">
 				<div align="center"><a href="#menu" data-icon="bars" data-iconpos="notext" data-corners="false" data-role="button" style="margin:0px;border-left:none;" data-position-to="window" data-rel="pop" class="ui-link ui-btn ui-icon-bars ui-btn-icon-notext ui-shadow" role="button">Menu</a></div>
-				<div class="ui-block-solo"><? echo $this->Html->link('Enter Code','#CodePopUp',array('class'=>'ui-btn','data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'turn'));?></div>
+				
+				<div class="ui-block-solo">
+				<?
+				echo $this->Html->link('Enter Code','#CodePopUp',
+				array('class'=>'ui-btn','data-rel'=>'popup','data-position-to'=>'window',
+				'data-transition'=>'turn'));?>
+				</div>
+				
 			</div>
 		</div>
 	</div>
 	<div role="main" class="ui-content">
+	<?
+	//debug($this->params['action']);
+	?>
