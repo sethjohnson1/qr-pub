@@ -941,7 +941,7 @@ class UsersController extends UsersAppController {
 		//make a new account, not much needs to be done with the data the fields were named for the API calls
 			//ensure username is unique - or maybe we just remove this constraint?
 			$an=preg_replace("/[^A-Za-z0-9]/", '', $incomingProfile['oid']);
-			$incomingProfile['username']=$incomingProfile['given_name'].'_'.substr($incomingProfile['family_name'],0).'^'.$an;
+			$incomingProfile['username']=$incomingProfile['given_name'].'_'.substr($incomingProfile['family_name'],0,1).'^'.$an;
 			
 			//just get rid of email validation and skip it
 			$this->User->validator()->remove('email');
