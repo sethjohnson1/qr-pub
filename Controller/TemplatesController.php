@@ -29,7 +29,9 @@ class TemplatesController extends AppController {
 				));
 				
 				if (!isset($template_redir['Template']['id'])) {
-					$this->Session->setFlash('Sorry, that code did not work');
+					$this->Session->setFlash('Sorry, that code did not work','default',array(
+						'class'=>'ui-body ui-body-a ui-corner-all'
+					));
 					return $this->redirect($this->referer());
 				}
 				
