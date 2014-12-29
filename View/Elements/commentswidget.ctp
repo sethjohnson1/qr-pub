@@ -54,8 +54,11 @@ foreach ($comments as $comment){
 		if(!$hidden){
 			//debug($comment);
 			//set height and overflow "scroll" here to prevent long-winded comments taking up more than their fair share
+			$formattedname=explode('^',$comment['User']['username']);
+			$formattedname[0]=str_replace('_',' ',$formattedname[0]);
 			echo '<div style="width:200px;clear:both"><div class="total" style="float:left">'.$total .'</div>';
-			echo '<div style="float:right;"><strong>'.$comment['User']['username'].'</strong> -<br/> '.$comment['Comment']['thoughts'].'</div></div>';
+			echo '<div style="float:right;"><strong>'.$formattedname[0].'</strong> rated '.$comment['Comment']['rating'].'/5 '
+			.'<br/> '.$comment['Comment']['thoughts'].'</div></div>';
 			echo '<div style="clear:both">&nbsp;</div>';
 		echo $this->Form->input('DownVote',array(
 			'div'=>false,'label'=>false,

@@ -26,11 +26,19 @@ basic styling here needs work
 if (isset($user)){
 	echo $this->Form->create('sComment');
 	//echo $this->Form->input('vgalid');
-	if (isset($usercomment['Comment']['thoughts'])) $thoughts=$usercomment['Comment']['thoughts'];
-	else $thoughts='';
-	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts));		
+	if (isset($usercomment['Comment']['thoughts'])) {
+		$thoughts=$usercomment['Comment']['thoughts'];
+		$rating=$usercomment['Comment']['rating'];
+		$labelcomment='Edit your comment and rating';
+	}
+	else { 
+		$thoughts='';
+		$rating=3;
+		$labelcomment='Add a comment and rating';
+	}
+	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'label'=>$labelcomment));		
 	echo $this->Form->input('rating',
-		array('type'=>'range','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>'3'));		
+		array('type'=>'range','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>$rating,'label'=>false));		
 	echo $this->Form->input('Add',array('type'=>'button','id'=>'comment_add','label'=>false));	
 	
 	//echo $this->Form->submit('Submit');

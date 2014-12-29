@@ -285,7 +285,7 @@ class UsersController extends UsersAppController {
 		try {
 			$this->set('user', $this->{$this->modelClass}->view($slug));
 		} catch (Exception $e) {
-			$this->Session->setFlash($e->getMessage());
+			$this->Session->setFlash($e->getMessage(),'flash_custom');
 			$this->redirect('/');
 		}
 	}
@@ -337,7 +337,7 @@ class UsersController extends UsersAppController {
 		try {
 			$user = $this->{$this->modelClass}->view($id, 'id');
 		} catch (NotFoundException $e) {
-			$this->Session->setFlash(__d('users', 'Invalid User.'));
+			$this->Session->setFlash('Invalid User.','flash_custom');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -422,7 +422,7 @@ class UsersController extends UsersAppController {
  */
 	public function add() {
 		if ($this->Auth->user()) {
-			$this->Session->setFlash(__d('users', 'You are already registered and logged in!'));
+			$this->Session->setFlash('You are already registered and logged in!','flash_custom');
 			$this->redirect('/');
 		}
 		
@@ -443,12 +443,12 @@ class UsersController extends UsersAppController {
 				}
 
 				$this->_sendVerificationEmail($this->{$this->modelClass}->data);
-				$this->Session->setFlash(__d('users', 'Your account has been created. You should receive an e-mail shortly to authenticate your account. Once validated you will be able to login.'));
+				$this->Session->setFlash('Your account has been created. You should receive an e-mail shortly to authenticate your account. Once validated you will be able to login.','flash_custom');
 				$this->redirect(array('action' => 'login'));
 			} else {
 				unset($this->request->data[$this->modelClass]['password']);
 				unset($this->request->data[$this->modelClass]['temppassword']);
-				$this->Session->setFlash(__d('users', 'Your account could not be created. Please, try again.'), 'default', array('class' => 'message warning'));
+				$this->Session->setFlash('Your account could not be created. Please, try again.','flash_custom');
 			}
 		}
 	}
@@ -493,7 +493,7 @@ class UsersController extends UsersAppController {
 				if ($this->here == $this->Auth->loginRedirect) {
 					$this->Auth->loginRedirect = '/';
 				}
-				$this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged in'), $this->Auth->user($this->{$this->modelClass}->displayField)));
+				$this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged in'), $this->Auth->user($this->{$this->modelClass}->displayField)),'flash_custom');
 				if (!empty($this->request->data)) {
 					$data = $this->request->data[$this->modelClass];
 					if (empty($this->request->data[$this->modelClass]['remember_me'])) {
@@ -517,7 +517,7 @@ class UsersController extends UsersAppController {
 					else $this->redirect($this->Auth->redirect($data[$this->modelClass]['return_to']));
 				}
 			} else {
-				$this->Auth->flash(__d('users', 'Invalid e-mail / password combination. Please try again'));
+				$this->Session->setFlash('Invalid e-mail / password combination. Please try again','flash_custom');
 			}
 		}
 		if (isset($this->request->params['named']['return_to'])) {
@@ -586,7 +586,8 @@ class UsersController extends UsersAppController {
 		$this->Session->destroy();
 		$this->RememberMe->destroyCookie();
 		//$this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged out'), $user[$this->{$this->modelClass}->displayField]));
-		$this->redirect($this->Auth->logout());
+		if ($this->Session->read('location')) $this->redirect($this->Session->read('location'));
+		else $this->redirect($this->Auth->logout());
 	}
 
 /**
@@ -599,13 +600,13 @@ class UsersController extends UsersAppController {
 			try {
 				if ($this->{$this->modelClass}->checkEmailVerification($this->request->data)) {
 					$this->_sendVerificationEmail($this->{$this->modelClass}->data);
-					$this->Session->setFlash(__d('users', 'The email was resent. Please check your inbox.'));
+					$this->Session->setFlash('The email was resent. Please check your inbox.','flash_custom');
 					$this->redirect('login');
 				} else {
-					$this->Session->setFlash(__d('users', 'The email could not be sent. Please check errors.'));
+					$this->Session->setFlash('The email could not be sent. Please check errors.','flash_custom');
 				}
 			} catch (Exception $e) {
-				$this->Session->setFlash($e->getMessage());
+				$this->Session->setFlash($e->getMessage(),'flash_custom');
 			}
 		}
 	}
@@ -624,12 +625,24 @@ class UsersController extends UsersAppController {
 		}
 
 		try {
+			/*sj - added Auth-login here to save the trouble of having to log in again
+			a more secure way to deal with this would be to remove the email token now so this only works once.
+			However we'll see if it becomes a problem first
+			*/
+			$user=$this->User->findByEmail_token($token);
+			//debug($user);
 			$this->{$this->modelClass}->verifyEmail($token);
-			$this->Session->setFlash(__d('users', 'Your e-mail has been validated!'));
-			return $this->redirect(array('action' => 'login'));
+			//unset all the fields saved in the previous function otherwise it will save the old info back during __doAuthLogin
+			unset($user['User']['active']);
+			unset($user['User']['email_verified']);
+			unset($user['User']['email_token']);
+			unset($user['User']['email_token_expires']);
+			$this->__doAuthLogin($user);
+			//$this->Session->setFlash('Your e-mail has been validated!','flash_custom');
+			//return $this->redirect(array('action' => 'login'));
 		} catch (RuntimeException $e) {
-			$this->Session->setFlash($e->getMessage());
-			return $this->redirect('/');
+			$this->Session->setFlash($e->getMessage(),'flash_custom');
+			//return $this->redirect('/');
 		}
 	}
 
@@ -648,17 +661,17 @@ class UsersController extends UsersAppController {
 		$data = $this->{$this->modelClass}->verifyEmail($token);
 
 		if (!$data) {
-			$this->Session->setFlash(__d('users', 'The url you accessed is not longer valid'));
+			$this->Session->setFlash('The url you accessed is not longer valid','flash_custom');
 			return $this->redirect('/');
 		}
 
 		if ($this->{$this->modelClass}->save($data, array('validate' => false))) {
 			$this->_sendNewPassword($data);
-			$this->Session->setFlash(__d('users', 'Your password was sent to your registered email account'));
+			$this->Session->setFlash('Your password was sent to your registered email account','flash_custom');
 			$this->redirect(array('action' => 'login'));
 		}
 
-		$this->Session->setFlash(__d('users', 'There was an error verifying your account. Please check the email you were sent, and retry the verification link.'));
+		$this->Session->setFlash('There was an error verifying your account. Please check the email you were sent, and retry the verification link.','flash_custom');
 		$this->redirect('/');
 	}
 
@@ -691,7 +704,7 @@ class UsersController extends UsersAppController {
 		if ($this->request->is('post')) {
 			$this->request->data[$this->modelClass]['id'] = $this->Auth->user('id');
 			if ($this->{$this->modelClass}->changePassword($this->request->data)) {
-				$this->Session->setFlash(__d('users', 'Password changed.'));
+				$this->Session->setFlash('Password changed.','flash_custom');
 				// we don't want to keep the cookie with the old password around
 				$this->RememberMe->destroyCookie();
 				$this->redirect('/');
@@ -810,16 +823,14 @@ class UsersController extends UsersAppController {
 					->send();
 
 				if ($admin) {
-					$this->Session->setFlash(sprintf(
-						__d('users', '%s has been sent an email with instruction to reset their password.'),
-						$user[$this->modelClass]['email']));
+					$this->Session->setFlash('Instructions to reset the password have been sent.','flash_custom');
 					$this->redirect(array('action' => 'index', 'admin' => true));
 				} else {
-					$this->Session->setFlash(__d('users', 'You should receive an email with further instructions shortly'));
+					$this->Session->setFlash('You should receive an email with further instructions shortly','flash_custom');
 					$this->redirect(array('action' => 'login'));
 				}
 			} else {
-				$this->Session->setFlash(__d('users', 'No user was found with that email.'));
+				$this->Session->setFlash('No user was found with that email.','flash_custom');
 				$this->redirect($this->referer('/'));
 			}
 		}
@@ -849,17 +860,17 @@ class UsersController extends UsersAppController {
 	protected function _resetPassword($token) {
 		$user = $this->{$this->modelClass}->checkPasswordToken($token);
 		if (empty($user)) {
-			$this->Session->setFlash(__d('users', 'Invalid password reset token, try again.'));
+			$this->Session->setFlash('Invalid password reset token, try again.','flash_custom');
 			$this->redirect(array('action' => 'reset_password'));
 			return;
 		}
 
 		if (!empty($this->request->data) && $this->{$this->modelClass}->resetPassword(Hash::merge($user, $this->request->data))) {
 			if ($this->RememberMe->cookieIsSet()) {
-				$this->Session->setFlash(__d('users', 'Password changed.'));
+				$this->Session->setFlash('Password changed.','flash_custom');
 				$this->_setCookie();
 			} else {
-				$this->Session->setFlash(__d('users', 'Password changed, you can now login with your new password.'));
+				$this->Session->setFlash('Password changed, you can now login with your new password.','flash_custom');
 				$this->redirect($this->Auth->loginAction);
 			}
 		}
@@ -914,7 +925,7 @@ class UsersController extends UsersAppController {
 			$this->redirect($result['redirectURL']);
 
 		} else {
-			$this->Session->setFlash($result['message']);
+			$this->Session->setFlash($result['message'],'flash_custom');
 			$this->redirect($this->Auth->loginAction);
 		}
 	}
@@ -926,7 +937,7 @@ class UsersController extends UsersAppController {
 			$this->__successfulExtAuth($result['profile'], $result['accessToken']);
 
 		} else {
-			$this->Session->setFlash($result['message']);
+			$this->Session->setFlash($result['message'],'flash_custom');
 			$this->redirect($this->Auth->loginAction);
 		}
 	}
@@ -959,27 +970,29 @@ class UsersController extends UsersAppController {
 				$this->__doAuthLogin($user);
 			}
 			else {
-				$this->Session->setFlash('Something has gone wrong. Please try again or contact the system admin.');
+				$this->Session->setFlash('Something has gone wrong. Please try again or contact the system admin.','flash_custom');
 				debug($this->User->invalidFields());
 			}
 		}
 		//debug($incomingProfile);
 	}
+	//this is used by ExtAuth AND by the email token login
 	private function __doAuthLogin($user) {
 		if ($this->Auth->login($user['User'])) {
 			$user['User']['last_login'] = date('Y-m-d H:i:s');
+			if (is_null($user['User']['given_name'])) $user['User']['given_name']=$user['User']['username'];
 			//fails validation otherwise
 			unset($user['User']['password']);
 			$this->User->validator()->remove('email');
 			$this->User->validator()->remove('tos');
 			if ($this->User->save($user['User'])){
-				$this->Session->setFlash('Thanks '.$this->Auth->user('given_name').'! You are logged in.');
+				$this->Session->setFlash('Thanks '.$user['User']['given_name'].'! You are logged in.','flash_custom');
 				
 				if ($this->Session->read('location')) $this->redirect($this->Session->read('location'));
 				else $this->redirect('/');
 			}
 			else {
-				$this->Session->setFlash('Something has gone wrong. Please try again or contact the system admin.');
+				$this->Session->setFlash('Something has gone wrong. Please try again or contact the system admin.','flash_custom');
 				debug($this->User->invalidFields());
 			}
 		}
