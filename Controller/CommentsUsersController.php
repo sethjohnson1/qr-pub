@@ -4,6 +4,14 @@ App::uses('AppController', 'Controller');
 class CommentsUsersController extends AppController {
 
 	public $components = array('Paginator','Comment');
+	public function beforeFilter() {
+		parent::beforeFilter();
+	//	$this->Security->blackHoleCallback = 'blackhole';
+	}
+	public function blackhole($type) {
+		//debug($type);
+		$this->Session->setFlash($type,'flash_custom');
+	}
 	
 	//$id is the id of the Comment
 	//$flag is whether to flag or unflag (1, -1)
@@ -50,8 +58,11 @@ class CommentsUsersController extends AppController {
 	
 	//$id is the id of the Template
 	public function comment_add($id = null, $parentid=null) {
-	//technically this should be on the Comment controller, as the junc table has nothing to do with add
-	//but for now I just leave it..
+	/* technically this should be on the Comment controller, as the junc table has nothing to do with add
+	   but it seems better to have all of these in one place
+	FLAW: HTML tags are currently not stripped out, mainly because I plan to use them. The SecurityComponent should prevent anything bad from happening,
+	but if not then we'll strip HTML tags too
+	   */
 	//be sure to turn this on in production
 		//if ($this->request->is('ajax')){
 			if ($this->Auth->user()){

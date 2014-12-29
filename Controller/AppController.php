@@ -4,11 +4,13 @@ App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
 
-	public $components = array('Users.RememberMe','Scorecard','DebugKit.Toolbar','Session','Cookie','Auth'=>array()
+	public $components = array('Users.RememberMe','Scorecard','DebugKit.Toolbar','Session','Cookie','Auth'=>array(),
+	'Security'=>array('csrfUseOnce' => false,'allowedControllers'=>array('templates','commentsusers'))
 	);
 	
 	public function beforeFilter() {
 		parent::beforeFilter();
+		$this->Security->blackHoleCallback = 'blackhole';
 		$user=$this->Auth->user();
 		//will need to be tightened later
 		$this->Auth->allow();
@@ -32,6 +34,15 @@ class AppController extends Controller {
 		$this->set('totals',$this->Scorecard->scoreTotals(null,$user['id']));
 
 	}
+	
+
+	public function blackhole($type) {
+		//debug($type);
+		//this logic needs to be changed, this is just for testing
+		$this->Session->setFlash('blackhole '.$type,'flash_custom');
+	}
+	
+	
 	
 
 }

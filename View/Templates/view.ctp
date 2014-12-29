@@ -10,7 +10,6 @@ this entire view assumes vgal template, make separate element for each template
 //debug($totals);
 //debug($template);
 if ($template['Template']['name']=='vgal') echo $this->element('vgal',array($template));
-
 ?>
 <!-- div data-role="popup" id="comments" -->
 <?
