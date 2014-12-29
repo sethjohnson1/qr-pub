@@ -42,7 +42,8 @@ class User extends UsersAppModel {
 				'rule' => array('notEmpty'),
 				'required' => true, 'allowEmpty' => false,
 				'message' => 'Please enter a username.'
-			),
+			)
+			/*,
 			'alpha' => array(
 				'rule' => array('alphaNumeric'),
 				'message' => 'The username must be alphanumeric.'
@@ -54,7 +55,7 @@ class User extends UsersAppModel {
 			'username_min' => array(
 				'rule' => array('minLength', '3'),
 				'message' => 'The username must have at least 3 characters.'
-			)
+			) */
 		),
 		'email' => array(
 			'isValid' => array(
