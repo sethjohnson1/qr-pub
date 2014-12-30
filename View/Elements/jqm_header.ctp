@@ -4,8 +4,10 @@ echo $this->element('CodePopUp');
 echo $this->element('userPopup'); 
 echo $this->element('global_menu');
 ?>
+<?
+echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-theme="a">';
 
-<div data-role="page" id="qrpage" data-theme="a">
+?>
 	<div data-role="header" data-position="fixed" style="border-bottom:9px solid #6E3219;background-color:#fff;">
 		<div class="ui-block-a"><h1 style="margin:0px 0px 0px 10px;padding: 0px;z-index: 100;position: relative;top: 19px; float:left"><? echo $this->Html->image('mobile-logo.png', array('url' => array('controller'=>'internships','action'=>'index')));?></h1></div>
 		<div class="ui-block-b">&nbsp;</div>

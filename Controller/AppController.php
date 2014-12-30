@@ -5,12 +5,12 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
 	public $components = array('Users.RememberMe','Scorecard','DebugKit.Toolbar','Session','Cookie','Auth'=>array(),
-	'Security'=>array('csrfUseOnce' => false,'allowedControllers'=>array('templates','commentsusers'))
+	//'Security'=>array('csrfUseOnce' => false,'validatePost' => false,'allowedControllers'=>array('templates','commentsusers','users'))
 	);
 	
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Security->blackHoleCallback = 'blackhole';
+		//$this->Security->blackHoleCallback = 'blackhole';
 		$user=$this->Auth->user();
 		//will need to be tightened later
 		$this->Auth->allow();

@@ -1,4 +1,5 @@
 <?
+debug($_POST);
 foreach ($comments as $comment){
 	$flagged=false;
 	$mine=0;
@@ -93,7 +94,7 @@ foreach ($comments as $comment){
 		//echo $this->Form->submit('Submit');
 		echo $this->Form->end(); 
 	
-		$data = $this->Js->get('#'.$comment['Comment']['id'].'CommentAddForm')->serializeForm(array('isForm' => true, 'inline' => true));
+		/*$data = $this->Js->get('#'.$comment['Comment']['id'].'CommentAddForm')->serializeForm(array('isForm' => true, 'inline' => true));
 		$this->Js->get('#comment_up'.$comment['Comment']['id'])->event(
 			'click', $this->Js->request(
 				array('controller' => 'commentsUsers', 'action' => 'comment_up',$comment['Comment']['id'],$comment['Comment']['template_id'],1), array(
@@ -147,7 +148,7 @@ foreach ($comments as $comment){
 		
 		echo $this->Js->writeBuffer();
 		//debug($comment);
-		
+		*/
 		
 		//.$comment['Comment']['id'].'     '.$total.'<br />';
 		

@@ -89,12 +89,15 @@ class CommentsUsersController extends AppController {
 				if ($this->CommentsUser->Comment->save($comment)){
 					//Comment component..
 					$comments=$this->Comment->getComments($id,$user['id']);
-					$this->set(compact('comments','user'));
+					$this->set(compact('comments','user','id'));
 					$this->render('comment_add','ajax');
+					//$this->redirect( $this->referer().'#comments_container' );
 				}
 			}
 			else {
-				echo 'you must be logged in to do this';
+				//not very friendly, should be a session Flash
+				$this->Session->setFlash('You must be logged in to do this');
+				//$this->redirect( $this->referer().'#commentBox' );
 				$this->render(false,'ajax');
 			}
 		//}

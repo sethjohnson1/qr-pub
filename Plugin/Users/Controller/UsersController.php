@@ -583,10 +583,11 @@ class UsersController extends UsersAppController {
  */
 	public function logout() {
 		$user = $this->Auth->user();
+		$location=$this->Session->read('location');
 		$this->Session->destroy();
 		$this->RememberMe->destroyCookie();
 		//$this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged out'), $user[$this->{$this->modelClass}->displayField]));
-		if ($this->Session->read('location')) $this->redirect($this->Session->read('location'));
+		if (isset($location)) $this->redirect($location);
 		else $this->redirect($this->Auth->logout());
 	}
 

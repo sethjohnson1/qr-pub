@@ -1,13 +1,6 @@
 <?
-echo $this->element('jqm_header');
-/*
-this entire view assumes vgal template, make separate element for each template
+echo $this->element('jqm_header',$template);
 
-
-*/
-
-
-//debug($totals);
 //debug($template);
 if ($template['Template']['name']=='vgal') echo $this->element('vgal',array($template));
 ?>
@@ -19,58 +12,43 @@ basic styling here needs work
 */
 ?>
 <div id="comments_container" style="clear:both;">
-<h3>Comments</h3>
-
-<?
-if (isset($user)){
-	echo $this->Form->create('sComment');
-	//echo $this->Form->input('vgalid');
-	if (isset($usercomment['Comment']['thoughts'])) {
-		$thoughts=$usercomment['Comment']['thoughts'];
-		$rating=$usercomment['Comment']['rating'];
-		$labelcomment='Edit your comment and rating';
-	}
-	else { 
-		$thoughts='';
-		$rating=3;
-		$labelcomment='Add a comment and rating';
-	}
-	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'label'=>$labelcomment));		
-	echo $this->Form->input('rating',
-		array('type'=>'range','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>$rating,'label'=>false));		
-	echo $this->Form->input('Add',array('type'=>'button','id'=>'comment_add','label'=>false));	
-	
-	//echo $this->Form->submit('Submit');
-	echo $this->Form->end(); 
-
-	$data = $this->Js->get('#sCommentViewForm')->serializeForm(array('isForm' => true, 'inline' => true));
-	$this->Js->get('#comment_add')->event(
-        'click', $this->Js->request(
-            array('controller' => 'commentsUsers', 'action' => 'comment_add',$id), array(
-				'update' => '#comments',
-				'async' => true,
-				'data'=>$data,
-				'dataExpression'=>true,
-				'method'=>'POST'
-                )
-            )
-    );
-    
-	echo $this->Js->writeBuffer();
- }
- else {
-	$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window'));
-	echo 'Join in! '.$loginlink.'<br />';
-	}
-?>
-
-
+<? debug($this->element('commentsbox',array($user,$comments,$usercomment)));?>
+<div id="comments_box">
+<? echo $this->element('commentsbox',array($user,$comments,$usercomment)); ?>
+</div>
 	<div id="comments" style="border: solid black; padding: 12px 12px 12px 12px">
+
 		<? 
+		//debug($template);
 		if(empty($user))$user='';
 		echo $this->element('commentswidget',array($comments,$user));?>
+
 	</div>
 </div>
+<script type="text/javascript">
+//<![CDATA[
+$(document).on('pagebeforeshow', function(){       
+    $(document).off('click', '#comment_add').on('click', '#comment_add',function(e) {
+		$.ajax({
+		async:true,
+		data:$("#sCommentViewForm").serialize(),
+		dataType:"html",
+		success:function (data, textStatus) {
+			//$('#comments').remove();
+			//$('<div id="comments"></div>').appendTo('#comments_container');
+			$("#comments").html(data).trigger('create');
+			//$('#comments_box').remove();
+			//$('<div id="comments_box"></div>').appendTo('#comments_container');
+			$('#sCommentViewForm')[0].reset(); 
+			console.log(data);
+		},
+		type:"POST",
+		url:"http://zsj.bbhclan.org/qr-pub/commentsUsers/comment_add/<? echo $template['Template']['id']; ?>"});
+		return false;
+    }); 
+});
+//]]>
+</script>
 <?
 echo $this->element('jqm_footer');
 ?>

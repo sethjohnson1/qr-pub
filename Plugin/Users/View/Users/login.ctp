@@ -9,7 +9,7 @@
 			echo $this->Form->create($model, array(
 				'action' => 'login',
 				'id' => 'LoginForm',
-				//'data-ajax'=>'false'
+				'data-ajax'=>'false'
 				));
 		//echo $this->Form->input('provider', array('value' => 'Google'));
 			echo $this->Form->input('email', array('label' => __d('users', 'Email')));

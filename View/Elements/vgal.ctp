@@ -1,8 +1,3 @@
-<?
-//need to use TITLE here!
-?>
-<h3 class="ui-bar ui-bar-a">From the Vaults...</h3>
-<div class="ui-body ui-body-a">
 <? 
 
 foreach ($template['Asset'] as $asset)
@@ -16,11 +11,14 @@ foreach ($template['Asset'] as $asset)
 	}
 	if ($asset['name']=='description'){
 		$description=$asset['asset_text'];
+		$title=$asset['filename'];
 	}
 	
 } //this part draws the images that link to the lightboxes above and makes desc
-?>
 
+?>
+<h3 class="ui-bar ui-bar-a"><? echo $title; ?></h3>
+<div class="ui-body ui-body-a">
 <? echo '<h3>'.$description.'</h3>'; ?>
 
 <?
