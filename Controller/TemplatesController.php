@@ -1,17 +1,44 @@
 <?php
 App::uses('AppController', 'Controller');
-
+App::uses('CakeEmail', 'Network/Email');
 class TemplatesController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$templates=array('splash'=>'Big image','video'=>'AV page','blog'=>'Web article','vgal'=>'Virtual Gallery');
-		$locations=array('BBM'=>'BBM','CFM'=>'CFM','DMNH'=>'DMNH','Garden'=>'Garden','HMRL'=>'HMRL','PIM'=>'PIM','WG'=>'WG');
+		$locations=array('BBM'=>'Buffalo Bill Museum','CFM'=>'Cody Firearms Museum','DMNH'=>'Draper Museum of Natural History','Garden'=>'Garden Areas',
+		'HMRL'=>'McCracken Research Library','PIM'=>'Plains Indian Museum','WG'=>'Whitney Gallery of Western Art');
 		$this->set(compact('templates','locations'));
 	}
 	
 	public $components = array('Paginator','Comment','Scorecard');
-
+	
+	public function browse($location = null) {
+		if(isset($location)){
+			$stops=$this->Template->find('all',array('conditions'=>array('Template.location'=>$location),'recursive'=>-1));
+		}
+		$this->set(compact('locations','location','stops'));
+	}
+	
+	public function about() {
+		//basically a static page but we might need some variables.. who knows.
+	}
+	
+	public function feedback() {
+		if ($this->request->is('post')) {
+			//send an e-mail reads addresses from private config file
+			$Email = new CakeEmail();
+			$Email->from(Configure::read('globalFromEmail'))
+				->to(Configure::read('globalAdminEmail'))
+				->subject('iScout Feedback')
+				->send(
+				"From: ".$this->request->data['Feedback']['email']."\n\n\n".
+				$this->request->data['Feedback']['message']
+				);
+			//$this->render(false);
+			$this->Session->setFlash('Your message was sent! Thank you.','flash_custom');
+		}
+	}
 
 	public function index() {
 		$this->Template->recursive = 0;
@@ -38,6 +65,7 @@ class TemplatesController extends AppController {
 					$template_redir['Template']['id']));
 				}
 			}
+			
 		}
 	}
 
@@ -68,6 +96,7 @@ class TemplatesController extends AppController {
 		else $this->redirect('/');
 	}
 
+	//I don't think this is used any longer
 	public function commentbutton() {
 		//if ($this->request->is('ajax')){
 			//$this->set('content', $thread[0]->id); 
@@ -98,7 +127,7 @@ class TemplatesController extends AppController {
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Template->save($this->request->data)) {
 				$this->Session->setFlash(__('The template has been saved.'));
-				return $this->redirect(array('controller'=>'assets','action' => 'add',$this->request->data['Template']['name'],$id));
+				//return $this->redirect(array('controller'=>'assets','action' => 'add',$this->request->data['Template']['name'],$id));
 			} else {
 				$this->Session->setFlash(__('The template could not be saved. Please, try again. Double-check nextid'));
 			}
@@ -107,7 +136,7 @@ class TemplatesController extends AppController {
 			$this->request->data = $this->Template->find('first', $options);
 		}
 		$this->set('edit',true);
-		$this->render('add');
+		$this->render('add','ajax');
 	}
 	
 

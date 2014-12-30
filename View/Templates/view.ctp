@@ -74,7 +74,7 @@ $(document).on('pagebeforeshow', function(){
 			//console.log(data);
 		},
 		type:"POST",
-		url:"http://ngin/qr-pub/commentsUsers/comment_add/<? echo $template['Template']['id']; ?>"});
+		url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_add/<? echo $template['Template']['id']; ?>"});
 		return false;
     }); 
 });

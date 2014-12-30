@@ -42,17 +42,22 @@ class CommentsUsersController extends AppController {
 					));
 					$commentdata['Comment']['flags']=$commentdata['Comment']['flags']+$flag;
 					if ($this->CommentsUser->Comment->save($commentdata)){
-						//call the component
-						$comments=$this->Comment->getComments($templateid,$user['id']);
-						$this->set(compact('comments','user'));
-						$this->render('comment_add','ajax');
+						//flash message?
 					}
 				}
 			}
 			else {
-				echo 'you must be logged in to do this';
-				$this->render(false,'ajax');
+				$this->Session->setFlash('Create an account to permanently hide flagged comments.','flash_custom',array(),'commentFlash');
+				//makes a cookie for flagged comments, this is read and set from CommentComponent
+				$cookie=$this->Cookie->read('flagged_comments');
+				if ($flag==1) $cookie[$id]=true;
+				if ($flag==-1) unset($cookie[$id]);
+				$this->Cookie->write('flagged_comments',$cookie, false, '1 year');
+				$user['id']=null;
 			}
+			$comments=$this->Comment->getComments($templateid,$user['id']);
+			$this->set(compact('comments','user'));
+			$this->render('comment_add','ajax');
 		//}
 	}
 	
@@ -88,19 +93,18 @@ class CommentsUsersController extends AppController {
 				if (isset($parentid)) $comment['parent_id']=$parentid;
 				$this->CommentsUser->Comment->create();
 				if ($this->CommentsUser->Comment->save($comment)){
-					//Comment component..
-					$comments=$this->Comment->getComments($id,$user['id']);
-					$this->set(compact('comment','comments','user','id'));
-					$this->render('comment_add','ajax');
-					//$this->redirect( $this->referer().'#comments_container' );
+					//maybe start setting flash messages here?
 				}
 			}
 			else {
-				//not very friendly, should be a session Flash
-				$this->Session->setFlash('You must be logged in to do this');
-				//$this->redirect( $this->referer().'#commentBox' );
-				$this->render(false,'ajax');
+				$this->Session->setFlash('You must be logged in to do this','flash_custom',array(),'commentFlash');
+				$user['id']=null;
 			}
+			//Comment component..
+			$comments=$this->Comment->getComments($id,$user['id']);
+			$this->set(compact('comment','comments','user','id'));
+			$this->render('comment_add','ajax');
+			
 		//}
 	}	
 	
@@ -200,30 +204,33 @@ class CommentsUsersController extends AppController {
 					//update the actual comment with the new total
 					$this->CommentsUser->Comment->create();
 					$commentdata['Comment']['id']=$id;
+					//debug($commentdata);
 					if ($this->CommentsUser->Comment->save($commentdata['Comment'])){
-						$comments=$this->Comment->getComments($templateid,$user['id']);
-						$this->set(compact('comments','user'));
-						$this->render('comment_add','ajax');
+						
 						 //would save the counts here
 						if ($this->CommentsUser->User->save($user)){
-							//wow, it all went through... (and component call would be in here)
+							//wow, it all went through
 						}
-						
 					}
-
 				}
 					
 			}
 			else {
-				echo 'you must be logged in to do this';
-				$this->render(false,'ajax');
+				$this->Session->setFlash('You must be logged in to upvote and downvote.','flash_custom',array(),'commentFlash');
+				$user['id']=null;
 			}
+			$comments=$this->Comment->getComments($templateid,$user['id']);
+			
+			//debug($comments);
+			$this->set(compact('comments','user'));
+			$this->render('comment_add','ajax');
 		//}
 	
 	}
 	
 	//$id is the id of the comment
 	public function comment_hide($id = null, $parentid=null) {
+	//debug($id);
 	//technically this should be on the Comment controller as well
 	//be sure to turn this on in production
 		//if ($this->request->is('ajax')){
@@ -234,15 +241,15 @@ class CommentsUsersController extends AppController {
 					'recursive'=>1,
 					'conditions'=>array('Comment.id'=>$id,'Comment.user_id'=>$user['id'])
 				));
+				//debug($commentdata);
 				if (isset($commentdata['Comment']['id'])){
 					$commentdata['Comment']['hidden']=1;
 					$this->CommentsUser->Comment->create();
 					if ($this->CommentsUser->Comment->save($commentdata)){
-						//Comment component this is WYONG!
-						$comments=$this->Comment->getComments($commentdata['Template']['id'],$user['id']);
-						$this->set(compact('comments','user'));
-						$this->render('comment_add','ajax');
-						//debug($comments);
+						$this->Session->setFlash('Comment hidden. Feel free to update and resubmit.','flash_custom',array(),'commentFlash');
+					}
+					else {
+						//debug('went badly');
 					}
 				}
 				else {
@@ -251,72 +258,13 @@ class CommentsUsersController extends AppController {
 				
 			}
 			else {
-				echo 'you must be logged in to do this';
-				$this->render(false,'ajax');
+				$this->Session->setFlash('account mismatch','flash_custom',array(),'commentFlash');
+				$user['id']=null;
 			}
+			$comments=$this->Comment->getComments($commentdata['Template']['id'],$user['id']);
+			$this->set(compact('comments','user'));
+			$this->render('comment_add','ajax');
 		//}
 	}	
-	
 
-	public function index() {
-		$this->CommentsUser->recursive = 0;
-		$this->set('commentsUsers', $this->Paginator->paginate());
-	}
-
-	public function view($id = null) {
-		if (!$this->CommentsUser->exists($id)) {
-			throw new NotFoundException(__('Invalid comments user'));
-		}
-		$options = array('conditions' => array('CommentsUser.' . $this->CommentsUser->primaryKey => $id));
-		$this->set('commentsUser', $this->CommentsUser->find('first', $options));
-	}
-
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->CommentsUser->create();
-			if ($this->CommentsUser->save($this->request->data)) {
-				$this->Session->setFlash(__('The comments user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The comments user could not be saved. Please, try again.'));
-			}
-		}
-		$users = $this->CommentsUser->User->find('list');
-		$comments = $this->CommentsUser->Comment->find('list');
-		$this->set(compact('users', 'comments'));
-	}
-
-	public function edit($id = null) {
-		if (!$this->CommentsUser->exists($id)) {
-			throw new NotFoundException(__('Invalid comments user'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->CommentsUser->save($this->request->data)) {
-				$this->Session->setFlash(__('The comments user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The comments user could not be saved. Please, try again.'));
-			}
-		} else {
-			$options = array('conditions' => array('CommentsUser.' . $this->CommentsUser->primaryKey => $id));
-			$this->request->data = $this->CommentsUser->find('first', $options);
-		}
-		$users = $this->CommentsUser->User->find('list');
-		$comments = $this->CommentsUser->Comment->find('list');
-		$this->set(compact('users', 'comments'));
-	}
-
-	public function delete($id = null) {
-		$this->CommentsUser->id = $id;
-		if (!$this->CommentsUser->exists()) {
-			throw new NotFoundException(__('Invalid comments user'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->CommentsUser->delete()) {
-			$this->Session->setFlash(__('The comments user has been deleted.'));
-		} else {
-			$this->Session->setFlash(__('The comments user could not be deleted. Please, try again.'));
-		}
-		return $this->redirect(array('action' => 'index'));
-	}
 }

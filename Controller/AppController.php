@@ -32,6 +32,7 @@ class AppController extends Controller {
 				$this->Session->write('location',$current);
 			}
 		$this->set('totals',$this->Scorecard->scoreTotals(null,$user['id']));
+		
 
 	}
 	

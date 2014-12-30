@@ -4,7 +4,11 @@ Returns all comments for a given template, and includes user interaction data wh
 */
 App::uses('Component', 'Controller');
 class CommentComponent extends Component {	
+	public $components = array('Cookie');
+	function startup(Controller $controller) { $this->Controller = $controller; }
+	
 	public function getComments ($templateid, $userid){
+	$this->Controller->set('cookie_flags',$this->Cookie->read('flagged_comments'));
 	//first find all comments that the logged in user has interacted with 
 		$model=ClassRegistry::init('CommentsUser');
 		$options['joins']= array(
@@ -14,11 +18,11 @@ class CommentComponent extends Component {
 				'type' => 'LEFT OUTER',
 				'conditions'=>array('CommentsUser.comment_id = Comment1.id','Comment1.template_id'=>$templateid)
 			));
-		$options['recursive']=1;
+		$options['recursive']=2;
 		$options['limit']=200;
 		//this is where you could do pagination manually (pass the variable from the controller)
 		//$options['offset']=0;
-		$options['fields']=array('CommentsUser.*','Comment.*','User.username');
+		$options['fields']=array('CommentsUser.*','Comment.*');
 		$options['conditions']=array('CommentsUser.user_id'=>$userid,'Comment.template_id'=>$templateid,'Comment.hidden != 1');
 
 		$comment=$model->find('all',$options);
@@ -32,10 +36,15 @@ class CommentComponent extends Component {
 		$comment2=$model->find('all',array(
 			'conditions'=>array('Comment.hidden != 1','Comment.template_id'=>$templateid,'AND'=>array($exclusions)),
 			'recursive'=>1,
-			'fields'=>array('Comment.*','User.username'),
+			'fields'=>array('Comment.*','User.*'),
 			'limit'=>200
 		));
-		$result=array_merge($comment,$comment2);
+		$comment3=array();
+		foreach ($comment2 as $key=>$value){
+			$comment3[$key]['Comment']=$value['Comment'];
+			$comment3[$key]['Comment']['User']=$value['User'];
+		}
+		$result=array_merge($comment,$comment3);
 		return $result;
 	}
 	

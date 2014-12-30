@@ -1,11 +1,11 @@
 <?
 $menu=array();
 $menu[0]['name']='Browse stops';
-$menu[0]['url']=array('plugin'=>'users','controller'=>'users','action'=>'login');
+$menu[0]['url']=array('plugin'=>'','controller'=>'templates','action'=>'browse');
 $menu[1]['name']='Give Feedback';
-$menu[1]['url']=array('plugin'=>'users','controller'=>'users','action'=>'login');
+$menu[1]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback');
 $menu[2]['name']='About';
-$menu[2]['url']=array('plugin'=>'users','controller'=>'users','action'=>'login');
+$menu[2]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about');
 //debug($menu);
 ?>
 
@@ -18,8 +18,8 @@ foreach ($menu as $val){
 //debug($menu);
 	?>
 	
-	<li><a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete 
-	ui-btn-icon-left ui-btn-inline">Close panel</a>
+	<li><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete 
+	ui-btn-icon-right ui-btn-inline">Close panel</a>
 	</li>
 	</ul>
 </div>

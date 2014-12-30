@@ -13,8 +13,9 @@ class Template extends AppModel {
 				//this is how to save from the Model
 				$template=new Template();
 				$template->create();
-				$template->set($savedata);
-				if ($template->save()) return true;
+				//$template->set($savedata,array('callbacks'=>'qwh'));
+				//beware the double beforeSave by turning callbacks off
+				if ($template->save($savedata,array('callbacks'=>false))) return true;
 				else return false;
 			}
 			//lazy no error checking, but moving on

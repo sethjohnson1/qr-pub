@@ -1,7 +1,8 @@
-<div id="CodePopUp" data-theme="a">
+<div id="CodePopUp" class="CodePopUp" data-theme="a">
 <? echo $this->Form->create('Code',array(
 'data-ajax'=>'false',
 'id'=>'CodeForm',
+'class'=>'CodeForm',
 'url'=>array('action'=>'code_button','controller'=>'templates','plugin'=>'')
 ));
 
@@ -16,8 +17,8 @@
 
 			));		
 			echo $this->Form->input('Go',array(
-				'type'=>'submit','id'=>'code_button',
-				'class'=>'ui-btn ui-btn-icon-left ui-icon-check','label'=>false
+				'type'=>'button','id'=>'code_button',
+				'class'=>'ui-btn ui-btn-icon-left ui-icon-check code_button','label'=>false
 			
 			));
 ?>
