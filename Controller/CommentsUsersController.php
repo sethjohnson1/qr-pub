@@ -70,7 +70,7 @@ class CommentsUsersController extends AppController {
 				//first see if this is an existing comment
 				$commentdata=$this->CommentsUser->Comment->find('first',array(
 					'recursive'=>-1,
-					'conditions'=>array('Comment.template_id'=>$id,'Comment.user_id'=>$user['id'])
+					'conditions'=>array('Comment.template_id'=>$this->request->data['sComment']['id'],'Comment.user_id'=>$user['id'])
 				));
 				if (isset($commentdata['Comment']['id'])){
 					$comment['id']=$commentdata['Comment']['id'];
@@ -82,14 +82,15 @@ class CommentsUsersController extends AppController {
 				$comment['thoughts']=$this->request->data['sComment']['comment'];
 				$comment['rating']=$this->request->data['sComment']['rating'];
 				$comment['user_id']=$this->Auth->user('id');
-				$comment['template_id']=$id;
+				//this would be better passed in hidden field!
+				$comment['template_id']=$this->request->data['sComment']['id'];
 				$comment['hidden']=0;
 				if (isset($parentid)) $comment['parent_id']=$parentid;
 				$this->CommentsUser->Comment->create();
 				if ($this->CommentsUser->Comment->save($comment)){
 					//Comment component..
 					$comments=$this->Comment->getComments($id,$user['id']);
-					$this->set(compact('comments','user','id'));
+					$this->set(compact('comment','comments','user','id'));
 					$this->render('comment_add','ajax');
 					//$this->redirect( $this->referer().'#comments_container' );
 				}

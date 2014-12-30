@@ -1,5 +1,6 @@
 <?
-debug($_POST);
+//debug($comment);
+//debug($this->request->data);
 foreach ($comments as $comment){
 	$flagged=false;
 	$mine=0;
@@ -150,12 +151,32 @@ foreach ($comments as $comment){
 		//debug($comment);
 		*/
 		
-		//.$comment['Comment']['id'].'     '.$total.'<br />';
 		
 		echo '<div>&nbsp;</div>';
 	echo '</div>';
-		
-		
-	
-	
-}
+	?>
+<script type="text/javascript">
+//<![CDATA[
+$(document).on('pagebeforeshow', function(){       
+    $(document).off('click', '#comment_hide<? echo $comment['Comment']['id']; ?>').on('click', '#comment_hide<? echo $comment['Comment']['id']; ?>',function(e) {
+		$.ajax({
+		async:true,
+		data:$("#<? echo $comment['Comment']['id']; ?>CommentAddForm").serialize(),
+		dataType:"html",
+		success:function (data, textStatus) {
+			//$('#comments').remove();
+			//$('<div id="comments"></div>').appendTo('#comments_container');
+			$(".comments<? echo $id ?>").html(data).trigger('create');
+			//$('#comments_box').remove();
+			//$('<div id="comments_box"></div>').appendTo('#comments_container');
+			//$('#sCommentViewForm')[0].reset(); 
+			console.log(data);
+		},
+		type:"POST",
+		url:"http://ngin/qr-pub/commentsUsers/comment_hide/<? echo $comment['Comment']['id']; ?>"});
+		return false;
+    }); 
+});
+//]]>
+</script>
+<? } //end the awesome foreach loop?>
