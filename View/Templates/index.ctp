@@ -1,7 +1,3 @@
-<? 
-echo $this->element('Scorecard',array($totals)); 
-echo $this->element('jqm_header');
-?>
 
 <div class="templates index">
 	<h2><?php echo __('Templates'); ?></h2>
@@ -67,7 +63,3 @@ echo $this->element('jqm_header');
 		<li><?php echo $this->Html->link(__('New Beacon'), array('controller' => 'beacons', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
-<?
-echo $this->Js->writeBuffer();
-echo $this->element('jqm_basic_footer');
-?>

@@ -27,10 +27,10 @@ Configure::write('Security.salt', 'qwewrtyuiop123');
 Configure::write('Security.cipherSeed', '987654321');
 //no trailing slash!
 Configure::write('globalSiteURL','http://example.com');
-//not used anywhere yet, because I'll make a new o365 account for this (that someone else monitors!)
+//this account receives e-mail
 Configure::write('globalAdminEmail','admin@example.com');
 
-//the address that messages send from, forms will be fine for all testing
+//the address that messages send from, necessary for o365
 Configure::write('globalFromEmail','curator@example.com');
 
 //for ExtAuth plugin

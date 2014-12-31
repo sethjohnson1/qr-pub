@@ -7,7 +7,10 @@ else $ae='Add';
 <?php 
 
 //debug($edit);
-echo $this->Form->create('Template'); ?>
+echo $this->Form->create('Template',
+	array('data-ajax'=>'false')
+
+); ?>
 	<fieldset>
 		<legend><?php echo __($ae.' Template'); ?></legend>
 	<?php

@@ -12,6 +12,9 @@ foreach ($template['Asset'] as $asset)
 	if ($asset['name']=='description'){
 		$description=$asset['asset_text'];
 		$title=$asset['filename'];
+		//override with vGal info
+		$this->set('meta_description', $description);
+		$this->set('title_for_layout', $asset['filename']);
 	}
 	
 } //this part draws the images that link to the lightboxes above and makes desc

@@ -9,6 +9,7 @@ class TemplatesController extends AppController {
 		$locations=array('BBM'=>'Buffalo Bill Museum','CFM'=>'Cody Firearms Museum','DMNH'=>'Draper Museum of Natural History','Garden'=>'Garden Areas',
 		'HMRL'=>'McCracken Research Library','PIM'=>'Plains Indian Museum','WG'=>'Whitney Gallery of Western Art');
 		$this->set(compact('templates','locations'));
+		$this->set('meta_description', 'Digital and Virtual tour of the Buffalo Bill Center of the West.');
 	}
 	
 	public $components = array('Paginator','Comment','Scorecard');
@@ -18,10 +19,12 @@ class TemplatesController extends AppController {
 			$stops=$this->Template->find('all',array('conditions'=>array('Template.location'=>$location),'recursive'=>-1));
 		}
 		$this->set(compact('locations','location','stops'));
+		$this->set('title_for_layout', 'Browse');
 	}
 	
 	public function about() {
 		//basically a static page but we might need some variables.. who knows.
+		$this->set('title_for_layout','About');
 	}
 	
 	public function feedback() {
@@ -38,15 +41,9 @@ class TemplatesController extends AppController {
 			//$this->render(false);
 			$this->Session->setFlash('Your message was sent! Thank you.','flash_custom');
 		}
+		$this->set('title_for_layout','Offer Feedback');
 	}
 
-	public function index() {
-		$this->Template->recursive = 0;
-		$templates=$this->Paginator->paginate();
-		$user=$this->Auth->user();
-		$totals=$this->Scorecard->scoreTotals(null,$user['id']);
-		$this->set(compact('templates','totals'));
-	}
 	public function code_button() {
 		if ($this->request->is('post')) {
 			if (isset($this->request->data['Code']['3digitcode'])){
@@ -75,7 +72,6 @@ class TemplatesController extends AppController {
 		}
 		$options = array('conditions' => array('Template.' . $this->Template->primaryKey => $id));
 		$template=$this->Template->find('first', $options);
-		//$this->set('id',$id);
 		$user=$this->Auth->user();
 		if (isset($user)) $this->set('user',$user);
 		//user Comments component to load up view variables
@@ -84,6 +80,10 @@ class TemplatesController extends AppController {
 		//override AppController value
 		$totals=$this->Scorecard->scoreTotals($template,$user['id']);
 		$this->set(compact('comments','template','usercomment','template_redir','totals','id'));
+		
+		$this->set('title_for_layout', $template['Template']['meta_title']);
+		//the description does not need to be set here, but in the individual templates (see vgal)
+		
 	}
 	public function clear_card() {
 		$user=$this->Auth->user();
@@ -117,6 +117,7 @@ class TemplatesController extends AppController {
 			}
 			
 		}
+		$this->render('add','default');
 	}
 
 
@@ -127,7 +128,7 @@ class TemplatesController extends AppController {
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Template->save($this->request->data)) {
 				$this->Session->setFlash(__('The template has been saved.'));
-				//return $this->redirect(array('controller'=>'assets','action' => 'add',$this->request->data['Template']['name'],$id));
+				return $this->redirect(array('controller'=>'assets','action' => 'add',$this->request->data['Template']['name'],$id));
 			} else {
 				$this->Session->setFlash(__('The template could not be saved. Please, try again. Double-check nextid'));
 			}
@@ -136,9 +137,19 @@ class TemplatesController extends AppController {
 			$this->request->data = $this->Template->find('first', $options);
 		}
 		$this->set('edit',true);
-		$this->render('add','ajax');
+		
+		//add 'ajax' here to help with debugging
+		$this->render('add','default');
 	}
 	
+	public function index() {
+		$this->Template->recursive = 0;
+		$templates=$this->Paginator->paginate();
+		$user=$this->Auth->user();
+		$totals=$this->Scorecard->scoreTotals(null,$user['id']);
+		$this->set(compact('templates','totals'));
+		$this->render('index','default');
+	}
 
 
 	public function delete($id = null) {

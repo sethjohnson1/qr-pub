@@ -9,6 +9,7 @@ class Template extends AppModel {
 			//check that creator names match (which covers also whether or not the record exists)
 			if($prev['Template']['creator']==$this->data['Template']['creator']){		
 				$savedata['id']=$prev['Template']['id'];
+				//
 				$savedata['previd']=$this->data['Template']['id'];
 				//this is how to save from the Model
 				$template=new Template();

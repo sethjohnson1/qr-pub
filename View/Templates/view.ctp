@@ -1,8 +1,9 @@
 <?
 echo $this->element('jqm_header',$template);
 
-//debug($id);
+//debug($template);
 if ($template['Template']['name']=='vgal') echo $this->element('vgal',array($template));
+if ($template['Template']['name']=='blog') echo $this->element('blog',array($template));
 ?>
 <!-- div data-role="popup" id="comments" -->
 <?

@@ -186,7 +186,7 @@ class CommentsUsersController extends AppController {
 						$data['upvoted']=true;
 						$data['already_upvoted']=true;
 						$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
-						$user['upvotes']=$user['upvotes']+1;
+						//$user['upvotes']=$user['upvotes']+1;
 						//unset($user['downvotes']);
 						unset($commentdata['Comment']['downvotes']);
 					}

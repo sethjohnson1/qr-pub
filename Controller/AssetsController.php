@@ -172,6 +172,8 @@ class AssetsController extends AppController {
 		}
 		$template = $this->Asset->Template->find('first',array('conditions'=>array('Template.id'=>$id)));
 		$this->set(compact('type','template','id'));
+		//sj - added this, should be other way around maybe
+		$this->render('add','default');
 	}
 	
 
