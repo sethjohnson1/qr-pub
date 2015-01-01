@@ -17,7 +17,7 @@ class AppController extends Controller {
 		$this->Auth->allow();
 		$this -> layout='mobile'; //added by LJ to use the jqm layout
 		//users plugin blackhole fix, started somewhere in CakePHP 2.5.3
-		if (isset($this->Security) && ( $this->action == 'login' || $this->action == 'reset_password')) {
+		if (isset($this->Security) && ( $this->action == 'login' || $this->action == 'reset_password' || $this->action == 'resend_verification')) {
 			$this->Security->validatePost = false;
 		}
 			

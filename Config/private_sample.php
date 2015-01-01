@@ -1,4 +1,6 @@
 <?php
+//specify the FROM mail
+$from_email=array('me@example.com'=>'My Name');
 
 $config = array(
   'database' => array(
@@ -18,7 +20,27 @@ $config = array(
       'password' => '',
       'database' => 'oc_dl',
     ),
-  )
+  ),
+	'email'=>array(
+		'default'=>array(
+			'transport' => 'Mail',
+			'from' => 'admin@example.com',
+			//'charset' => 'utf-8',
+			//'headerCharset' => 'utf-8',
+		),
+		//this is read as the 'default' and can be changed in Config/email.php
+		'office365'=>array(
+			'from' => $from_email,
+			'transport' => 'Smtp',
+			'host' => 'smtp.office365.com',
+			'port' => 587,
+			'username' => '****',
+			'password' => '****',
+			'client' => null,
+			'log' => true,
+			'tls' => true
+		),
+	)
 );
 
 
@@ -29,9 +51,7 @@ Configure::write('Security.cipherSeed', '987654321');
 Configure::write('globalSiteURL','http://example.com');
 //this account receives e-mail
 Configure::write('globalAdminEmail','admin@example.com');
-
-//the address that messages send from, necessary for o365
-Configure::write('globalFromEmail','curator@example.com');
+Configure::write('globalFromEmail',$from_email);
 
 //for Bit.Ly shortening
 Configure::write('bitlyAPIkey','');

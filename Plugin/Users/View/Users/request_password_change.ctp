@@ -17,7 +17,9 @@
 	echo $this->Form->create($model, array(
 		'url' => array(
 			'admin' => false,
-			'action' => 'reset_password')));
+			'action' => 'reset_password'),
+			'data-ajax'=>'false'
+			));
 	echo $this->Form->input('email', array(
 		'label' => __d('users', 'Your Email')));
 	echo $this->Form->submit(__d('users', 'Submit'));

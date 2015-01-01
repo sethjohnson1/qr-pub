@@ -4,14 +4,9 @@ echo $this->element('jqm_header',$template);
 //debug($template);
 if ($template['Template']['name']=='vgal') echo $this->element('vgal',array($template));
 if ($template['Template']['name']=='blog') echo $this->element('blog',array($template));
-?>
-<!-- div data-role="popup" id="comments" -->
-<?
-/* the popup is probably a bad idea, best to just add the comments at the end
-basic styling here needs work
-
+/*
+comments need some basic styling now. Not using popup, just list at end.
 */
-debug($demourl);
 ?>
 <div class="comments_container" style="clear:both;">
 <div class="comments_box">

@@ -166,7 +166,7 @@ class UsersController extends UsersAppController {
  */
 	protected function _setDefaultEmail() {
 		if (!Configure::read('App.defaultEmail')) {
-			$config = $this->_getMailInstance()->config();
+			$config = $this->_getMailInstance()->config('from');
 			if (!empty($config['from'])) {
 				Configure::write('App.defaultEmail', $config['from']);
 			} else {
@@ -766,13 +766,14 @@ class UsersController extends UsersAppController {
 	protected function _sendVerificationEmail($userData, $options = array()) {
 		$defaults = array(
 			'from' => Configure::read('App.defaultEmail'),
-			'subject' => __d('users', 'Account verification'),
+			'subject' => __d('users', Configure::read('bitlyCampaign').' Account verification'),
 			'template' => $this->_pluginDot() . 'account_verification',
 			'layout' => 'default',
 			'emailFormat' => CakeEmail::MESSAGE_TEXT
 		);
 
 		$options = array_merge($defaults, $options);
+				//debug();
 
 		$Email = $this->_getMailInstance();
 		$Email->to($userData[$this->modelClass]['email'])
@@ -808,9 +809,9 @@ class UsersController extends UsersAppController {
 
 		if (!empty($this->request->data)) {
 			$user = $this->{$this->modelClass}->passwordReset($this->request->data);
-
+			
 			if (!empty($user)) {
-
+				if ($user[$this->modelClass]['email_verified'] == 1){
 				$Email = $this->_getMailInstance();
 				$Email->to($user[$this->modelClass]['email'])
 					->from($options['from'])
@@ -830,7 +831,15 @@ class UsersController extends UsersAppController {
 					$this->Session->setFlash('You should receive an email with further instructions shortly','flash_custom');
 					$this->redirect(array('action' => 'login'));
 				}
-			} else {
+				}
+				else {
+					$this->Session->setFlash('Your e-mail has not been verified.','flash_custom');
+					$this->redirect(array('action'=>'resend_verification'));
+				}
+			}
+			
+			else {
+
 				$this->Session->setFlash('No user was found with that email.','flash_custom');
 				$this->redirect($this->referer('/'));
 			}

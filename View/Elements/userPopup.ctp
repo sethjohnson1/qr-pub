@@ -25,7 +25,7 @@
 		?>
 		<h3 align=center>- OR -</h3>
 		<?
-		echo $this->Html->link('Create an Account',array('plugin'=>'users','controller'=>'users','action'=>'add'),array(
+		echo $this->Html->link('Create an Account with e-mail',array('plugin'=>'users','controller'=>'users','action'=>'add'),array(
 			'data-role'=>'button'
 			));
 		?>

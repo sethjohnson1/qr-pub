@@ -242,7 +242,9 @@ class User extends UsersAppModel {
 			$this->data = $user;
 			return $user;
 		} elseif (!empty($user) && $user[$this->alias]['email_verified'] == 0) {
-			$this->invalidate('email', __d('users', 'This Email Address exists but was never validated.'));
+			//$this->invalidate('email', __d('users', 'This Email Address exists but was never validated.'));
+			$this->data = $user;
+			return $user;
 		} else {
 			$this->invalidate('email', __d('users', 'This Email Address does not exist in the system.'));
 		}
