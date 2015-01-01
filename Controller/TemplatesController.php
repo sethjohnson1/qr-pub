@@ -74,13 +74,16 @@ class TemplatesController extends AppController {
 		$template=$this->Template->find('first', $options);
 		$user=$this->Auth->user();
 		if (isset($user)) $this->set('user',$user);
+		else $user['id']=null;
 		//user Comments component to load up view variables
 		$comments=$this->Comment->getComments($id,$user['id']);
 		$usercomment=$this->Comment->userComment($id,$user['id']);
 		//override AppController value
 		$totals=$this->Scorecard->scoreTotals($template,$user['id']);
-		$this->set(compact('comments','template','usercomment','template_redir','totals','id'));
+		$this->set(compact('user','comments','template','usercomment','template_redir','totals','id'));
 		
+		//an example of how to shorten URL, doesn't work until live on server
+		$this->set('shorturlexample',$this->UrlShortener->get_bitly_short_url($this->here,'social','facebook'));									
 		$this->set('title_for_layout', $template['Template']['meta_title']);
 		//the description does not need to be set here, but in the individual templates (see vgal)
 		

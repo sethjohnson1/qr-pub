@@ -22,7 +22,8 @@ echo $this->Form->create('Template',
 		echo $this->Form->input('creator',array('label'=>'Creator. Name must match to link templates'));
 		echo $this->Form->input('meta_title');
 		echo $this->Form->input('meta_desc');
-		echo $this->Form->input('nextid',array('label'=>'Next ID. Be sure that creator name matches!'));
+		//currently, forms must be saved, then edited to link together
+		if (isset($edit)) echo $this->Form->input('nextid',array('label'=>'Next ID. Be sure that creator name matches!'));
 		//echo $this->Form->input('previd',array('label'=>'you do not need to fill this in, here for testing'));
 		echo $this->Form->input('code');
 	?>

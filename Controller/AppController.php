@@ -5,6 +5,7 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
 	public $components = array('Users.RememberMe','Scorecard','DebugKit.Toolbar','Session','Cookie','Auth'=>array(),
+	'UrlShortener'
 	//'Security'=>array('csrfUseOnce' => false,'validatePost' => false,'allowedControllers'=>array('templates','commentsusers','users'))
 	);
 	

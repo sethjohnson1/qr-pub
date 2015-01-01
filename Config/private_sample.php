@@ -33,6 +33,12 @@ Configure::write('globalAdminEmail','admin@example.com');
 //the address that messages send from, necessary for o365
 Configure::write('globalFromEmail','curator@example.com');
 
+//for Bit.Ly shortening
+Configure::write('bitlyAPIkey','');
+Configure::write('bitlyLogin','');
+//to add to UTM tracking codes
+Configure::write('bitlyCampaign','iScout');
+
 //for ExtAuth plugin
 Configure::write('ExtAuth.Provider.Google.key', '');
 Configure::write('ExtAuth.Provider.Google.secret', '');

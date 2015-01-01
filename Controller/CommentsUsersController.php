@@ -53,9 +53,11 @@ class CommentsUsersController extends AppController {
 				if ($flag==1) $cookie[$id]=true;
 				if ($flag==-1) unset($cookie[$id]);
 				$this->Cookie->write('flagged_comments',$cookie, false, '1 year');
+				$user['username']='test';
 				$user['id']=null;
 			}
 			$comments=$this->Comment->getComments($templateid,$user['id']);
+			//$comment=$this->Comment->getComment($id);
 			$this->set(compact('comments','user'));
 			$this->render('comment_add','ajax');
 		//}
@@ -113,10 +115,7 @@ class CommentsUsersController extends AppController {
 	public function comment_up($id = null, $templateid=null, $vote=null) {
 		//if ($this->request->is('ajax')){
 			if ($this->Auth->user()){
-				//eventually want to add counts to user, moving on for now
-				// (i left everything in place, but it doesn't work right)
 				$user=$this->Auth->user();
-				//debug($user);
 				$data['user_id']=$this->Auth->user('id');
 				$data['comment_id']=$id;
 				$commentuser=$this->CommentsUser->find('first',array(
@@ -129,20 +128,15 @@ class CommentsUsersController extends AppController {
 				
 				));
 				$this->CommentsUser->create();
-				//THIS IS WHERE I LEFT OFF for Issue #5
-				// the problem is that Auth does not refresh on these Ajax calls, so it keeps getting set to null
 				if(!empty($commentuser)){
 					if ($vote==1 && $commentuser['CommentsUser']['upvoted']!=true){
 						$data['id']=$commentuser['CommentsUser']['id'];
 						//means we're reversing direction
 						if ($commentuser['CommentsUser']['downvoted']==true){
-							//debug('subtract one');
 							$data['upvoted']=false;
 							$data['downvoted']=false;
 							$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']-1;
-							//debug($user['downvotes']);
-							$user['downvotes']=$user['downvotes']-1;
-							//debug($user['downvotes']);
+
 						}
 						else {
 							$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
@@ -159,41 +153,28 @@ class CommentsUsersController extends AppController {
 								$data['upvoted']=false;
 								$data['downvoted']=false;
 								$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']-1;
-								//$user['upvotes']=$user['upvotes']-1;
-								//debug($user);
 							}
 							else {
 								$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']+1;
-								//$user['downvotes']=$user['downvotes']+1;
 								unset($commentdata['Comment']['upvotes']);
-								unset($user['upvotes']);
 								$data['downvoted']=true;
 							}
 					}
 					else {
 						//they have already voted this way or something else is wrong
 						return false;
-						//just for testing
-					//	debug('throw out!');
-						//$data['id']=$commentuser['CommentsUser']['id'];
 					}
 				}
 				//comment is empty
 				else {
 					if ($vote==1){ 
 						$data['upvoted']=true;
-						//$data['already_upvoted']=true;
 						$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
-						//$user['upvotes']=$user['upvotes']+1;
-						//unset($user['downvotes']);
 						unset($commentdata['Comment']['downvotes']);
 					}
 					if ($vote==-1){
 						$data['downvoted']=1;
-						//$data['already_downvoted']=1;
 						$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']+1;
-						//$user['downvotes']=$user['downvotes']+1;
-						//unset($user['upvotes']);
 						unset($commentdata['Comment']['upvotes']);
 					}
 				}
@@ -207,11 +188,6 @@ class CommentsUsersController extends AppController {
 						//run a quick query to update the difference
 						$db = ConnectionManager::getDataSource('default');
 						$db->rawQuery('update comments set diff=ifnull(upvotes,0)-ifnull(downvotes,0);');
-						//$this->CommentUser->query('update comments set diff=ifnull(upvotes,0)-ifnull(downvotes,0)');
-						 //would save the counts here
-						if ($this->CommentsUser->User->save($user)){
-							//wow, it all went through
-						}
 					}
 				}
 					
@@ -220,11 +196,10 @@ class CommentsUsersController extends AppController {
 				$this->Session->setFlash('You must be logged in to upvote and downvote.','flash_custom',array(),'commentFlash');
 				$user['id']=null;
 			}
-			$comments=$this->Comment->getComments($templateid,$user['id']);
-			
-			//debug($comments);
-			$this->set(compact('comments','user'));
-			$this->render('comment_add','ajax');
+			//return only the single comment
+			$comment=$this->Comment->getComment($id);
+			$this->set(compact('comment','user'));
+			$this->render('comment_single','ajax');
 		//}
 	
 	}

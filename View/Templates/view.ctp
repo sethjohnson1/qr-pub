@@ -11,6 +11,7 @@ if ($template['Template']['name']=='blog') echo $this->element('blog',array($tem
 basic styling here needs work
 
 */
+debug($demourl);
 ?>
 <div class="comments_container" style="clear:both;">
 <div class="comments_box">
