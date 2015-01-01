@@ -166,7 +166,7 @@ class UsersController extends UsersAppController {
  */
 	protected function _setDefaultEmail() {
 		if (!Configure::read('App.defaultEmail')) {
-			$config = $this->_getMailInstance()->config('from');
+			$config = $this->_getMailInstance()->config();
 			if (!empty($config['from'])) {
 				Configure::write('App.defaultEmail', $config['from']);
 			} else {
@@ -529,6 +529,7 @@ class UsersController extends UsersAppController {
 		}
 		$allowRegistration = Configure::read('Users.allowRegistration');
 		$this->set('allowRegistration', (is_null($allowRegistration) ? true : $allowRegistration));
+		//$this->render('login','ajax');
 	}
 
 /**
