@@ -61,13 +61,12 @@ foreach ($comments as $comment){
 		$toggle='enabled';
 		if ($downvoted==true) 
 			$toggle='disabled';
-		$total=$comment['Comment']['upvotes']-$comment['Comment']['downvotes'];
 
 		if(!$hidden){
 			//set height and overflow "scroll" here to prevent long-winded comments taking up more than their fair share
 			$formattedname=explode('^',$comment['Comment']['User']['username']);
 			$formattedname[0]=str_replace('_',' ',$formattedname[0]);
-			echo '<div style="width:200px;clear:both"><div class="total" style="float:left">'.$total .'</div>';
+			echo '<div style="width:200px;clear:both"><div class="total" style="float:left">'.$comment['Comment']['diff'] .'</div>';
 			echo '<div style="float:right;"><strong>'.$formattedname[0].'</strong> rated '.$comment['Comment']['rating'].'/5 '
 			.'<br/> '.$comment['Comment']['thoughts'].'</div></div>';
 			echo '<div style="clear:both">&nbsp;</div>';
@@ -110,7 +109,7 @@ foreach ($comments as $comment){
 //<![CDATA[
 //$(document).on('pagebeforeshow', function(){ don't need this here, because the page is not reloading when this happen       
     $(document).off('click', '.comment_hide<? echo $comment['Comment']['id']; ?>').on('click', '.comment_hide<? echo $comment['Comment']['id']; ?>',function(e) {
-		console.log('click');
+		//console.log('click');
 		$.ajax({
 		async:true,
 		data:$(".<? echo $comment['Comment']['id']; ?>CommentAddForm").serialize(),

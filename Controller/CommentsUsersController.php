@@ -119,8 +119,6 @@ class CommentsUsersController extends AppController {
 				//debug($user);
 				$data['user_id']=$this->Auth->user('id');
 				$data['comment_id']=$id;
-				//this button should be disabled if they already upvoted, but we'll check the count here anyway
-				//this is flawed because what if.. yeah
 				$commentuser=$this->CommentsUser->find('first',array(
 					'conditions'=>array('CommentsUser.comment_id'=>$id,'CommentsUser.user_id'=>$this->Auth->user('id')),
 					'recursive'=>-1
@@ -148,7 +146,7 @@ class CommentsUsersController extends AppController {
 						}
 						else {
 							$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
-							$user['upvotes']=$user['upvotes']+1;
+							//$user['upvotes']=$user['upvotes']+1;
 							unset($commentdata['Comment']['downvotes']);
 							unset($user['downvotes']);
 							$data['upvoted']=true;
@@ -161,7 +159,7 @@ class CommentsUsersController extends AppController {
 								$data['upvoted']=false;
 								$data['downvoted']=false;
 								$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']-1;
-								$user['upvotes']=$user['upvotes']-1;
+								//$user['upvotes']=$user['upvotes']-1;
 								//debug($user);
 							}
 							else {
@@ -184,7 +182,7 @@ class CommentsUsersController extends AppController {
 				else {
 					if ($vote==1){ 
 						$data['upvoted']=true;
-						$data['already_upvoted']=true;
+						//$data['already_upvoted']=true;
 						$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
 						//$user['upvotes']=$user['upvotes']+1;
 						//unset($user['downvotes']);
@@ -192,9 +190,9 @@ class CommentsUsersController extends AppController {
 					}
 					if ($vote==-1){
 						$data['downvoted']=1;
-						$data['already_downvoted']=1;
+						//$data['already_downvoted']=1;
 						$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']+1;
-						$user['downvotes']=$user['downvotes']+1;
+						//$user['downvotes']=$user['downvotes']+1;
 						//unset($user['upvotes']);
 						unset($commentdata['Comment']['upvotes']);
 					}
@@ -206,7 +204,10 @@ class CommentsUsersController extends AppController {
 					$commentdata['Comment']['id']=$id;
 					//debug($commentdata);
 					if ($this->CommentsUser->Comment->save($commentdata['Comment'])){
-						
+						//run a quick query to update the difference
+						$db = ConnectionManager::getDataSource('default');
+						$db->rawQuery('update comments set diff=ifnull(upvotes,0)-ifnull(downvotes,0);');
+						//$this->CommentUser->query('update comments set diff=ifnull(upvotes,0)-ifnull(downvotes,0)');
 						 //would save the counts here
 						if ($this->CommentsUser->User->save($user)){
 							//wow, it all went through

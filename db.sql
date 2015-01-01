@@ -83,7 +83,8 @@ create table comments(
 	hidden tinyint(1),
 	flags int, -- this is a number so we can count number of flags, maybe shut it down after so many
 	upvotes int,
-	downvotes int
+	downvotes int,
+	diff int
 );
 
 drop table if exists templates;

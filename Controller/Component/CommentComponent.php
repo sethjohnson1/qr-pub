@@ -23,6 +23,8 @@ class CommentComponent extends Component {
 		//this is where you could do pagination manually (pass the variable from the controller)
 		//$options['offset']=0;
 		$options['fields']=array('CommentsUser.*','Comment.*');
+		//no, better to sort the array, this is meaningless
+		$options['order']=array('Comment.diff desc');
 		$options['conditions']=array('CommentsUser.user_id'=>$userid,'Comment.template_id'=>$templateid,'Comment.hidden != 1');
 
 		$comment=$model->find('all',$options);
@@ -37,7 +39,8 @@ class CommentComponent extends Component {
 			'conditions'=>array('Comment.hidden != 1','Comment.template_id'=>$templateid,'AND'=>array($exclusions)),
 			'recursive'=>1,
 			'fields'=>array('Comment.*','User.*'),
-			'limit'=>200
+			'limit'=>200,
+			'order'=>'Comment.diff desc'
 		));
 		$comment3=array();
 		foreach ($comment2 as $key=>$value){
