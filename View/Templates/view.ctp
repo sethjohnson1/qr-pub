@@ -10,7 +10,7 @@ comments need some basic styling now. Not using popup, just list at end.
 ?>
 
 <div class="comments_container" style="clear:both;">
-<div class="ui-corner-all custom-corners comments_box">
+<div class="ui-shadow ui-corner-all custom-corners comments_box">
 	<div class="ui-bar ui-bar-a">
 		<h2>Comment and Rate</h2>
 	</div>
@@ -43,7 +43,7 @@ comments need some basic styling now. Not using popup, just list at end.
 	echo $this->Form->end();
  }
  else {
-	$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'turn'));
+	$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
 	echo 'To ensure the fidelity of information supplied, we request you login. <br />'
 	.$loginlink.'<br />';
 	}
@@ -51,7 +51,7 @@ comments need some basic styling now. Not using popup, just list at end.
 	</div>
 </div>
 <br />
-<div class="ui-corner-all custom-corners">
+<div class="ui-shadow ui-corner-all custom-corners">
 	<div class="ui-bar ui-bar-a">
 		<h2>Comments</h2>
 	</div>
@@ -91,5 +91,5 @@ $(document).on('pagebeforeshow', function(){
 //]]>
 </script>
 <?
-echo $this->element('jqm_basic_footer');
+echo $this->element('jqm_footer');
 ?>

@@ -4,17 +4,49 @@
 		<div class="ui-grid-d" style="text-align:center;position: relative;top: 7px;">
 			<? 
 			//debug($template['Template']);
-			if (isset($template['Template']['previd']))
-				echo $this->Html->link('Previous',array('controller'=>'templates','action'=>'view',$template['Template']['previd']),array('style'=>'width: 100px;',
-				'class'=>'ui-btn ui-icon-arrow-l ui-btn-icon-top','data-transition'=>'slide','data-direction'=>'reverse'
+			if (isset($template['Template']['previd'])):
+				echo $this->Html->link('Previous',array('controller'=>'templates','action'=>'view',$template['Template']['previd']),
+				array('style'=>'width: 100px;',
+				'data-role'=>'button',
+				'data-icon'=>'arrow-l',
+				'data-iconpos'=>'left',
+				'data-transition'=>'slide',
+				'data-theme'=>'e',
+				'data-direction'=>'reverse'
 				));
+			/*
+				I am abandoning swiping for now. It doesn't work at all on iPad and sort of sucks
+				on Android anyway I am leaving the code here in case we want to revisit it sometime
+			*/
+			?>
+			<!-- script>
+			//<![CDATA[
+			$(function(){
+			  $( "div.ui-content" ).on( "swiperight", swiperightHandler );
+				function swiperightHandler( event ){ 
+					//this is how to easily go back, but it doesn't always work well
+					//$.mobile.back();
+					$.mobile.changePage( "#qrpage<? echo $template['Template']['previd']?>", { reverse: true, transition: "slide"} );
+				}
+			});
+			//]]>
+			</script -->
+			<?
+			endif;
+	
 			//echo $this->Html->link('Score Card','#Scorecard',array('class'=>'ui-btn ui-icon-carat-u ui-btn-icon-top','data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'slideup'));
 			if (isset($template['Template']['nextid'])):
-				echo $this->Html->link('Next',array('controller'=>'templates','action'=>'view',$template['Template']['nextid']),array('style'=>'width: 100px;','class'=>'ui-btn ui-icon-arrow-r ui-btn-icon-top',
-						'data-prefetch'=>true,'data-transition'=>'slide'
+				echo $this->Html->link('Next',array('controller'=>'templates','action'=>'view',$template['Template']['nextid']),
+				array('style'=>'width: 100px;',
+				'data-role'=>'button',
+				'data-icon'=>'arrow-r',
+				'data-iconpos'=>'right',
+				'data-prefetch'=>true,
+				'data-transition'=>'slide',
+				'data-theme'=>'e'
 				));
 			?>
-			<script>
+			<!-- script>
 			//<![CDATA[
 			$(function(){
 			  $( "div.ui-content" ).on( "swipeleft", swipeleftHandler );
@@ -26,20 +58,12 @@
 			  }
 			});
 			//]]>
-			</script>
+			</script -->
 			<?
 			endif;
+			//allow the following script is not perfect, it works for most situations (
 			?>
-			<script>
-			//<![CDATA[
-			$(function(){
-			  $( "div.ui-content" ).on( "swiperight", swiperightHandler );
-				function swiperightHandler( event ){ 
-					$.mobile.back();
-				}
-			});
-			//]]>
-			</script>
+
 		</div><!-- /ui-grid -->
 	</div><!-- /footer -->
 </div><!-- /page -->

@@ -18,8 +18,13 @@
 			));		
 			echo $this->Form->input('Go',array(
 				'type'=>'button','id'=>'code_button',
-				'class'=>'ui-btn ui-btn-icon-left ui-icon-check code_button','label'=>false
-			
+				'data-role'=>'button',
+					'data-icon'=>'check',
+					'data-iconshadow'=>'true',
+					'data-iconpos'=>'left',
+					'data-corners'=>'false',
+					'class'=>'code_button',
+					'label'=>false
 			));
 ?>
 		</div>

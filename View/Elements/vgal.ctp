@@ -20,8 +20,8 @@ foreach ($template['Asset'] as $asset)
 } //this part draws the images that link to the lightboxes above and makes desc
 
 ?>
-<h3 class="ui-bar ui-bar-a"><? echo $title; ?></h3>
-<div class="ui-body ui-body-a">
+<h3 class="ui-shadow ui-bar ui-bar-a"><? echo $title; ?></h3>
+<div class="ui-shadow ui-body ui-body-a">
 <? echo '<h3>'.$description.'</h3>'; ?>
 
 <?
@@ -44,3 +44,4 @@ foreach ($template['Asset'] as $asset)
 
 ?>
 </div>
+<br />

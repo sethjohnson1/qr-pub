@@ -27,7 +27,9 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 					'data-iconshadow'=>'true',
 					'data-iconpos'=>'notext',
 					'data-corners'=>'false',
-					'data-transition'=>'turn',
+					'data-transition'=>'pop',
+					//doesn't work on iPad
+					//'data-transition'=>'turn',
 					'data-position-to'=>'window',
 					'style'=>$btnstyle
 					
@@ -40,7 +42,7 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 					'data-iconshadow'=>'true',
 					'data-iconpos'=>'notext',
 					'data-corners'=>'false',
-					'data-transition'=>'turn',
+					'data-transition'=>'pop',
 					'data-position-to'=>'window',
 					'style'=>$btnstyle
 					
@@ -53,7 +55,7 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 				<?
 				echo $this->Html->link('Enter Code','#CodePopUp',array(
 				'data-role'=>'button','data-rel'=>'popup','data-position-to'=>'window',
-				'data-transition'=>'turn','style'=>'width:90px;padding:10px 10px 10px 10px;'
+				'data-transition'=>'pop','style'=>'width:90px;padding:10px 10px 10px 10px;'
 				));?>
 				</div>
 				

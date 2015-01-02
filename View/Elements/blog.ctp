@@ -15,8 +15,9 @@ foreach ($template['Asset'] as $asset){
 }
 ?>
 
+<h3 class="ui-shadow ui-bar ui-bar-a"><? echo $wp_title['asset_text']; ?></h3>
+<div class="ui-shadow ui-body ui-body-a blog_container">
 <? // example of how CSS could be applied ?>
-<div class="blog_container">
  <style type="text/css" scoped>
     div[id^="attachment_"]{
 		border: solid green 4px;
@@ -31,9 +32,10 @@ foreach ($template['Asset'] as $asset){
 	$this->set('meta_description', $wp_title['asset_text'] );
 	$this->set('title_for_layout', $wp_title['asset_text']); 
 	foreach($wp_img as $img){
-		debug($img);
+		//debug($img);
 	}
 	echo $wp_content['asset_text'];
 
 ?>
 </div><!-- blog_container -->
+<br />
