@@ -1,5 +1,5 @@
 <?
-echo $this->element('Scorecard',array($totals)); 
+//echo $this->element('Scorecard',array($totals)); 
 echo $this->element('CodePopUp'); 
 echo $this->element('userPopup'); 
 echo $this->element('global_menu');

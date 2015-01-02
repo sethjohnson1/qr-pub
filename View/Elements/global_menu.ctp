@@ -2,10 +2,14 @@
 $menu=array();
 $menu[0]['name']='Browse stops';
 $menu[0]['url']=array('plugin'=>'','controller'=>'templates','action'=>'browse');
-$menu[1]['name']='Give Feedback';
+/*
+$menu[1]['name']='ScoreCard';
 $menu[1]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback');
-$menu[2]['name']='About';
-$menu[2]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about');
+*/
+$menu[2]['name']='Give Feedback';
+$menu[2]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback');
+$menu[3]['name']='About';
+$menu[3]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about');
 //debug($menu);
 ?>
 

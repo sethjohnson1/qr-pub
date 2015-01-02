@@ -8,9 +8,13 @@ if ($template['Template']['name']=='blog') echo $this->element('blog',array($tem
 comments need some basic styling now. Not using popup, just list at end.
 */
 ?>
+
 <div class="comments_container" style="clear:both;">
-<div class="comments_box">
-<h3>Comments</h3>
+<div class="ui-corner-all custom-corners comments_box">
+	<div class="ui-bar ui-bar-a">
+		<h2>Speak your piece</h2>
+	</div>
+	<div class="ui-body ui-body-a">
 <? if (isset($user)){
 	echo $this->Form->create('sComment',array(
 		//'url'=>array('controller'=>'commentsUsers','action' => 'comment_add',$id),
@@ -28,8 +32,9 @@ comments need some basic styling now. Not using popup, just list at end.
 		$rating=3;
 		$labelcomment='Add a comment and rating';
 	}
+	//echo heading here
 	echo $this->Form->input('id',array('type'=>'hidden','value'=>$template['Template']['id']));		
-	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'label'=>$labelcomment));		
+	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'label'=>false));		
 	echo $this->Form->input('rating',
 		array('type'=>'range','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>$rating,'label'=>false));		
 	echo $this->Form->input('Add',array('type'=>'button','class'=>'comment_add'.$id,'id'=>'comment_add','label'=>false));	
@@ -42,8 +47,14 @@ comments need some basic styling now. Not using popup, just list at end.
 	echo 'Join in! '.$loginlink.'<br />';
 	}
 	?>
+	</div>
 </div>
-	<div id="comments" class="comments<? echo $id; ?>" style="border: solid black; padding: 12px 12px 12px 12px">
+<br />
+<div class="ui-corner-all custom-corners">
+	<div class="ui-bar ui-bar-a">
+		<h2>Comments</h2>
+	</div>
+	<div id="comments" class="ui-body ui-body-a comments<? echo $id; ?>">
 
 		<? 
 		//debug($template);
@@ -51,6 +62,7 @@ comments need some basic styling now. Not using popup, just list at end.
 		echo $this->element('commentswidget',array($comments,$user));?>
 
 	</div>
+</div>
 </div>
 <? //echo $this->element('ajax_scripts',array($id)); ?>
 <script type="text/javascript">
