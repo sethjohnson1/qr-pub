@@ -91,11 +91,11 @@ class AssetsController extends AppController {
 					foreach (glob('img/uploads/'.$this->request->data['Asset']['template_id'].'_*') as $filename) unlink($filename);
 			
 					$this->Asset->create();
-					$asset['name']='id';
-					$asset['asset_text']=$blog['ID'];
+					$asset['name']='author';
+					$asset['asset_text']=$blog['author']['name'];
 					$asset['template_id']=$this->request->data['Asset']['template_id'];
 					if ($this->Asset->save($asset)) $this->Session->setFlash(__('The asset has been saved.'));
-					else $this->Session->setFlash(__('ID could not be saved'));
+					else $this->Session->setFlash(__('Author could not be saved'));
 					
 					$this->Asset->create();
 					$asset['name']='title';

@@ -1,7 +1,7 @@
 <?
 //debug($template);
 foreach ($template['Asset'] as $asset){
-	if ($asset['name']=='id') $wpid=$asset['asset_text'];
+	if ($asset['name']=='author') $author=$asset['asset_text'];
 	if ($asset['name']=='content') $wp_content=$asset;
 	if ($asset['name']=='title') $wp_title=$asset;
 
@@ -13,19 +13,30 @@ foreach ($template['Asset'] as $asset){
 	}
 
 }
+//debug($wp_content);
 ?>
 
-<h3 class="ui-shadow ui-bar ui-bar-a"><? echo $wp_title['asset_text']; ?></h3>
-<div class="ui-shadow ui-body ui-body-a blog_container">
-<? // example of how CSS could be applied ?>
+<? // magical CSS ?>
+
  <style type="text/css" scoped>
-    div[id^="attachment_"]{
-		border: solid green 4px;
+   div[id^="attachment_"]{
 		float: left;
 		padding: 5px;
+		margin: 10px 10px;
+		
+	}
+
+	.blog_container div:nth-child(odd) {
+		margin-left:10px;
+		float:right;
 	}
 	
   </style>
+<h3 class="ui-shadow ui-bar ui-bar-a"><? echo $wp_title['asset_text']; ?><br/>
+<span class="ui-mini">By <?echo $author?></span>
+</h3>
+<div class="ui-shadow ui-body ui-body-a blog_container">
+
   
 <? 
 	//the desc might be somewhere in the API call not saved, moving on for now..
@@ -35,7 +46,13 @@ foreach ($template['Asset'] as $asset){
 		//debug($img);
 	}
 	echo $wp_content['asset_text'];
-
 ?>
+<script type="text/javascript">
+	//<![CDATA[
+	//enhance the images with JQM classes
+	$( 'div[id^="attachment_"]' ).addClass( "ui-shadow ui-body ui-body-a ui-mini" );
+	//]]>
+</script>
+
 </div><!-- blog_container -->
 <br />
