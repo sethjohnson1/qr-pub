@@ -29,7 +29,6 @@ foreach ($template['Asset'] as $asset)
 {
 	if ($asset['name']=='treasure')
 	{
-	//if this can't be a conventional call the URL should be a global variable in private.php
 		$imageSrc = Configure::read('globalSiteURL').'/img/uploads/'.$template['Template']['id'].'_'.$asset['id'].'.jpg';
 		$caption = '';
 		if(!empty($asset['asset_text']))

@@ -85,7 +85,18 @@ class AssetsController extends AppController {
 				}
 				else{
 				//this is the basic idea of a blog save, still need to decide whether to strip HTML tags or leave them...
+				//no, just style the divs
+				
 					$this->Asset->deleteAll(array('Asset.template_id'=>$id));
+					foreach (glob('img/uploads/'.$this->request->data['Asset']['template_id'].'_*') as $filename) unlink($filename);
+			
+					$this->Asset->create();
+					$asset['name']='id';
+					$asset['asset_text']=$blog['ID'];
+					$asset['template_id']=$this->request->data['Asset']['template_id'];
+					if ($this->Asset->save($asset)) $this->Session->setFlash(__('The asset has been saved.'));
+					else $this->Session->setFlash(__('ID could not be saved'));
+					
 					$this->Asset->create();
 					$asset['name']='title';
 					$asset['asset_text']=$blog['title'];
@@ -105,15 +116,25 @@ class AssetsController extends AppController {
 					$doc = new DOMDocument();
 					@$doc->loadHTML($blog['content']);
 					$tags = $doc->getElementsByTagName('img');
+					//debug($xml);
 					foreach ($tags as $key=>$tag) {
-						//debug( $tag->getAttribute('src'));
+						//foreach
 						$this->Asset->create();
+						$uuid=String::uuid();
+						$asset['id']=$uuid;
 						$asset['name']='image';
 						$asset['sortorder']=$key;
-						$asset['asset_text']=$tag->getAttribute('src');
+						$asset['filename']=$tag->getAttribute('src');
+						$asset['asset_text']=$tag->getAttribute('alt');
 						$asset['template_id']=$this->request->data['Asset']['template_id'];
-						if ($this->Asset->save($asset)) $this->Session->setFlash(__('The asset has been saved.'));
+						if ($this->Asset->save($asset)){
+							//now upload, keep in mind this is just the source img not the big (linked) version
+							//currently these are not used
+							copy($tag->getAttribute('src'), 'img/uploads/'.$this->request->data['Asset']['template_id'].'_'.$uuid.'.jpg');
+							$this->Session->setFlash(__('The asset has been saved.'));
+						}
 						else $this->Session->setFlash(__('Image '.$key.' could not be saved'));
+						
 					}
 						
 					//debug($img);
