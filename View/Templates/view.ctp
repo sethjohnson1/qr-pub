@@ -12,16 +12,16 @@ comments need some basic styling now. Not using popup, just list at end.
 <div class="comments_container" style="clear:both;">
 <div class="ui-corner-all custom-corners comments_box">
 	<div class="ui-bar ui-bar-a">
-		<h2>Speak your piece</h2>
+		<h2>Comment and Rate</h2>
 	</div>
 	<div class="ui-body ui-body-a">
-<? if (isset($user)){
+<? if (isset($user['id'])){
+	$allow=1;
 	echo $this->Form->create('sComment',array(
 		//'url'=>array('controller'=>'commentsUsers','action' => 'comment_add',$id),
 		//'data-ajax'=>'false',
 		'class'=>'sCommentViewForm'.$id
 	));
-	//echo $this->Form->input('vgalid');
 	if (isset($usercomment['Comment']['thoughts'])) {
 		$thoughts=$usercomment['Comment']['thoughts'];
 		$rating=$usercomment['Comment']['rating'];
@@ -43,8 +43,9 @@ comments need some basic styling now. Not using popup, just list at end.
 	echo $this->Form->end();
  }
  else {
-	$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window'));
-	echo 'Join in! '.$loginlink.'<br />';
+	$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'turn'));
+	echo 'To ensure the fidelity of information supplied, we request you login. <br />'
+	.$loginlink.'<br />';
 	}
 	?>
 	</div>
@@ -90,5 +91,5 @@ $(document).on('pagebeforeshow', function(){
 //]]>
 </script>
 <?
-echo $this->element('jqm_footer');
+echo $this->element('jqm_basic_footer');
 ?>

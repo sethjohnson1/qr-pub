@@ -41,5 +41,5 @@
 </div>
 <?php 
 //echo $this->element('Users.Users/sidebar'); 
-echo $this->element('jqm_user_footer');
+echo $this->element('jqm_basic_footer');
 ?>

@@ -7,5 +7,15 @@
 			//echo $this->Html->link('Comments','#comments',array('class'=>'ui-btn ui-icon-carat-u ui-btn-icon-top','data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'slideup'));
 			?>
 		</div>
+			<script>
+			//<![CDATA[
+			$(function(){
+			  $( "div.ui-content" ).on( "swiperight", swiperightHandler );
+				function swiperightHandler( event ){ 
+					$.mobile.back();
+				}
+			});
+			//]]>
+			</script>
 	</div><!-- /footer -->
 </div><!-- /page -->

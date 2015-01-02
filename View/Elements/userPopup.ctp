@@ -8,15 +8,17 @@
 	echo '	<h3 align=center>Super-Easy Login:</h3>';
 		echo $this->Html->link('Facebook',array('plugin'=>'users','controller'=>'users','action'=>'auth_login','Facebook'),array(
 			'data-role'=>'button',
-			'rel'=>'external',
-			'style'=>'width: '.$width,
+			'data-theme'=>'b',
+			'rel'=>'external'
 			));
 		echo $this->Html->link('Google',array('plugin'=>'users','controller'=>'users','action'=>'auth_login','Google'),array(
 			'data-role'=>'button',
+			'data-theme'=>'c',
 			'rel'=>'external'
 			));
 		echo $this->Html->link('Twitter',array('plugin'=>'users','controller'=>'users','action'=>'auth_login','Twitter'),array(
 			'data-role'=>'button',
+			'data-theme'=>'d',
 			'rel'=>'external'
 			));
 			

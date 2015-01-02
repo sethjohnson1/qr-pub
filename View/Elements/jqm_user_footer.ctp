@@ -29,5 +29,15 @@
 		<?php endif; ?>
 			</ul>
 		 </div><!-- navbar -->
+		 <script>
+			//<![CDATA[
+			$(function(){
+			  $( "div.ui-content" ).on( "swiperight", swiperightHandler );
+				function swiperightHandler( event ){ 
+					$.mobile.back();
+				}
+			});
+			//]]>
+			</script>
 	</div><!-- /footer -->
 </div><!-- /page -->

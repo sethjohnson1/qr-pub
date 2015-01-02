@@ -16,17 +16,45 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 		<div class="ui-block-e">
 			<div class="ui-btn-right ui-grid-a">
 				<div align="center">
-				<a href="#userPopup" style="margin:0px;border-left:none;" data-position-to="window" 
-				data-rel="popup" class="ui-link ui-btn ui-icon-user ui-btn-icon-notext ui-shadow" 
-				role="button" data-transition="turn">Login</a>
-				<a href="#menu" data-icon="bars" data-iconpos="notext" data-corners="false" data-role="button" style="margin:0px;border-left:none;" data-position-to="window" data-rel="pop" class="ui-link ui-btn ui-icon-bars ui-btn-icon-notext ui-shadow" role="button">Menu</a>
+				<? 
+				$btnstyle='margin:0px;border-left:none;padding:0 27px 0 0;';
+				echo $this->Html->link('Login','#userPopup',array(
+					'data-role'=>'button',
+					'data-rel'=>'popup',
+					//change this based on provider 
+					'data-theme'=>'a',
+					'data-icon'=>'user',
+					'data-iconshadow'=>'true',
+					'data-iconpos'=>'notext',
+					'data-corners'=>'false',
+					'data-transition'=>'turn',
+					'data-position-to'=>'window',
+					'style'=>$btnstyle
+					
+				));
+				
+				echo $this->Html->link('Menu','#menu',array(
+					'data-role'=>'button',
+					'data-rel'=>'popup',
+					'data-icon'=>'bars',
+					'data-iconshadow'=>'true',
+					'data-iconpos'=>'notext',
+					'data-corners'=>'false',
+					'data-transition'=>'turn',
+					'data-position-to'=>'window',
+					'style'=>$btnstyle
+					
+				));
+				?>
+				
 				</div>
 				
 				<div class="ui-block-solo">
 				<?
-				echo $this->Html->link('Enter Code','#CodePopUp',
-				array('class'=>'ui-btn','data-rel'=>'popup','data-position-to'=>'window',
-				'data-transition'=>'turn'));?>
+				echo $this->Html->link('Enter Code','#CodePopUp',array(
+				'data-role'=>'button','data-rel'=>'popup','data-position-to'=>'window',
+				'data-transition'=>'turn','style'=>'width:90px;padding:10px 10px 10px 10px;'
+				));?>
 				</div>
 				
 			</div>
