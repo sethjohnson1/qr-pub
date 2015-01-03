@@ -4,12 +4,21 @@ $( document ).on( "pageinit", function( event ) {
 	$( "#userPopup" ).enhanceWithin().popup();  
 	$( "#menu" ).enhanceWithin().panel();  
 	//$( "#Scorecard" ).popup( "open" );
-	//$("[data-role=panel]").panel().enhanceWithin();
+
+	//formats the Lightbox (and makes it work on iPad!)
+	$( ".poppedimg" ).on({
+        popupbeforeposition: function() {
+            var maxHeight = $( window ).height() - 100 + "px";
+            $( ".poppedimg img" ).css( "max-height", maxHeight );
+        }
+    });
+		//$("[data-role=panel]").panel().enhanceWithin();
 	
 /*	$('.x').live('change', function() {
         $( "#comments" ).enhanceWithin().popup();  
     });*/
 	//$("#comment_add").bind("click", function (event) {});
+	
 });
 
 

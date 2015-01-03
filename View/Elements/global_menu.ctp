@@ -22,7 +22,7 @@ foreach ($menu as $val){
 //debug($menu);
 	?>
 	
-	<li><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete 
+	<li><a href="#" data-rel="close" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete 
 	ui-btn-icon-right ui-btn-inline">Close panel</a>
 	</li>
 	</ul>

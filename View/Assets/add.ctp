@@ -4,9 +4,9 @@
 	echo $this->Form->create('Asset',array('enctype'=>'multipart/form-data'));
 	if ($type=='splash'){
 		$asset_text='';
-		echo $this->Form->input('file', array('type' => 'file','label'=>'upload 640x480(orwhatever) image'));
+		echo $this->Form->input('file', array('type' => 'file','label'=>'upload jpg image, 1000x1000 works nice'));
 		if (isset($template['Asset'][0]['asset_text'])) $asset_text=$template['Asset'][0]['asset_text'];
-		echo $this->Form->input('Attribute.asset_text',array('value'=>$asset_text));
+		echo $this->Form->input('Attribute.asset_text',array('value'=>$asset_text,'type'=>'textarea'));
 	}
 	else if ($type=='vgal'){
 		echo $this->Form->input('vgalid');

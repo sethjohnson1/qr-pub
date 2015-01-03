@@ -42,14 +42,12 @@ padding-top:2.5%;
 #Scorecard h3{text-align:center;}
 
 .the-objects {
-  float: left;
   margin: 2px;
-  /*width: 300px;*/
   overflow: hidden;
 }
 .the-objects .img-block {
+  margin: 0 auto;
   background-color: #ede9e7;
-  float:left;
   width: 150px;
   overflow: hidden;
   height: 150px;
@@ -58,8 +56,8 @@ padding-top:2.5%;
   background-size: contain;
 }
 
-#popedimg{
-max-height:85%;
+.poppedimg{
+/* does not do anything max-height:85%;*/
 }
 #comments-popup{
     height: 100% !important;
@@ -100,4 +98,14 @@ float:left;
   border-bottom-left-radius: inherit;
   -webkit-border-bottom-right-radius: inherit;
   border-bottom-right-radius: inherit;
+}
+
+/* set max-width for desktop devices */
+@media only screen and (min-width: 1100px){
+	.ui-content {
+		width: 1100px !important;
+		margin: 0 auto !important;
+		position: relative !important;
+	}
+
 }

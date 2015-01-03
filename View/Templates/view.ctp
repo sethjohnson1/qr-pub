@@ -4,6 +4,7 @@ echo $this->element('jqm_header',$template);
 //debug($template);
 if ($template['Template']['name']=='vgal') echo $this->element('vgal',array($template));
 if ($template['Template']['name']=='blog') echo $this->element('blog',array($template));
+if ($template['Template']['name']=='splash') echo $this->element('splash',array($template));
 /*
 comments need some basic styling now. Not using popup, just list at end.
 */
@@ -15,7 +16,7 @@ comments need some basic styling now. Not using popup, just list at end.
 		<h2>Comment and Rate</h2>
 	</div>
 	<div class="ui-body ui-body-a">
-<? if (isset($user['id'])){
+<? 
 	$allow=1;
 	echo $this->Form->create('sComment',array(
 		//'url'=>array('controller'=>'commentsUsers','action' => 'comment_add',$id),
@@ -34,19 +35,20 @@ comments need some basic styling now. Not using popup, just list at end.
 	}
 	//echo heading here
 	echo $this->Form->input('id',array('type'=>'hidden','value'=>$template['Template']['id']));		
-	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'label'=>false));		
-	echo $this->Form->input('rating',
-		array('type'=>'range','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>$rating,'label'=>false));		
-	echo $this->Form->input('Add',array('type'=>'button','class'=>'comment_add'.$id,'id'=>'comment_add','label'=>false));	
 	
-	//echo $this->Form->submit('Submit',array('id'=>'submit_button'));
-	echo $this->Form->end();
- }
- else {
-	$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
-	echo 'To ensure the fidelity of information supplied, we request you login. <br />'
-	.$loginlink.'<br />';
+	echo $this->Form->input('rating',
+		array('type'=>'range','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>$rating,'label'=>'Your Approval rating'));		
+	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'label'=>'Your thoughts'));		
+	if (isset($user['id'])){
+		echo $this->Form->input('Add',array('type'=>'button','class'=>'comment_add'.$id,'id'=>'comment_add','label'=>false));	
 	}
+	else {
+		$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
+		echo 'To ensure the fidelity of information supplied, you must login first.<br />'
+		.$loginlink.'<br />';
+	}
+		//echo $this->Form->submit('Submit',array('id'=>'submit_button'));
+	echo $this->Form->end();
 	?>
 	</div>
 </div>

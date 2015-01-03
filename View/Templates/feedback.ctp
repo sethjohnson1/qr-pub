@@ -6,7 +6,7 @@ echo $this->Form->create('Feedback',array(
 );
 
  ?>
-		<div class="ui-body ui-body-a ui-corner-all">
+		<div class="ui-body ui-body-a ui-corner-all ui-shadow">
 			<h3>Provide Feedback</h3>
 			<p>You can use this form to send feedback regarding this application or anything about your visit to the Buffalo Bill Center of the West. We'd
 			love to hear from you!</p>

@@ -6,12 +6,12 @@ echo $this->Form->create('Feedback',array(
 );
 
  ?>
-		<div class="ui-body ui-body-a ui-corner-all">
+		<div class="ui-body ui-body-a ui-corner-all ui-shadow">
 			<h3>About iScout</h3>
 			<p>Mention Frameworks with link to blog post, blah blah</p>
 		</div>
 		<br />
-		<div class="ui-body ui-body-a ui-corner-all">
+		<div class="ui-body ui-body-a ui-corner-all ui-shadow">
 		<h3>Terms of Use and Privacy Policy</h3>
 		<p>etc, can this be grabbed from somewhere</p>
 		</div>

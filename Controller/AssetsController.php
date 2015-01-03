@@ -143,7 +143,7 @@ class AssetsController extends AppController {
 				}
 			}
 			
-			if ($type=='splash'){	
+			if ($type=='splash'){
 				$asset=array();
 				if ($this->request->data['Asset']['file']['error']!=0){
 					$this->Session->setFlash(__('File upload returned an error'));
@@ -161,8 +161,8 @@ class AssetsController extends AppController {
 				//need to set some logic for delete and unlink
 				
 				//remove all previously linked files
-				foreach (glob(APP.'uploads'.DS.$this->request->data['Asset']['template_id'].'_*') as $filename) unlink($filename);
-				if (move_uploaded_file($this->request->data['Asset']['file']['tmp_name'], APP.'uploads'.DS.$this->request->data['Asset']['template_id'].'_'.$uuid)){
+				foreach (glob('img/uploads/'.$this->request->data['Asset']['template_id'].'_*') as $filename) unlink($filename);
+				if (move_uploaded_file($this->request->data['Asset']['file']['tmp_name'], 'img/uploads/'.$this->request->data['Asset']['template_id'].'_'.$uuid.'.jpg')){
 					$this->Asset->deleteAll(array('Asset.template_id'=>$id));
 					if ($this->Asset->save($asset)) {
 						$this->Session->setFlash(__('The asset has been saved!'));
