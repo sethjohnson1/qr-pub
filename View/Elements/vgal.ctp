@@ -61,17 +61,18 @@ foreach ($template['Asset'] as $asset)
 		//debug($asset['asset_text']);
 		$imageSrc = Configure::read('globalSiteURL').'/img/uploads/'.$template['Template']['id'].'_'.$asset['id'].'.jpg';
 		$caption = '';
-		if(!empty($asset['asset_text'])){
-			$caption= '<div class="caption ui-mini">'.$asset['asset_text'].'</div>';
-		}
 
 		echo $this->Html->link(
 		'<div class="the-objects">
 			<div class="img-block" style="background-image: url(\''.$imageSrc.'\');"></div>
-		</div>'.$caption,'#'.$template['Template']['id'].'_'.$asset['id']
+		</div>','#'.$template['Template']['id'].'_'.$asset['id']
 		,array('escape'=>false,'data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'fade'));
-
-
+		
+		//currently I like the caption not a link
+		if(!empty($asset['asset_text'])){
+			echo '<div class="caption ui-mini">'.$asset['asset_text'].'</div>';
+		}
+		
 		
 
 ?>
@@ -84,7 +85,7 @@ endforeach;
 </div><!-- /blogcontainer -->
 <script type="text/javascript">
 	//<![CDATA[
-	//assign the JQM classes
+	//assign the JQM classes, these might need to be updated if the divs are reordered
 	$( '.blog_container div.vgalchild:nth-child(5n-3)' ).addClass( "ui-block-a" );
 	$( '.blog_container div.vgalchild:nth-child(5n-2)' ).addClass( "ui-block-b" );
 	$( '.blog_container div.vgalchild:nth-child(5n-1)' ).addClass( "ui-block-c" );

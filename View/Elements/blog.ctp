@@ -16,19 +16,25 @@ foreach ($template['Asset'] as $asset){
 //debug($wp_content);
 ?>
 
-<? // magical CSS ?>
+<? // HTML5 scoped CSS makes life good ?>
 
  <style type="text/css" scoped>
    div[id^="attachment_"]{
 		float: left;
 		padding: 5px;
 		margin: 10px 10px;
+		max-width: 90%;
 		
 	}
 
 	.blog_container div:nth-child(odd) {
 		margin-left:10px;
 		float:right;
+	}
+	
+	img{
+		width:100%;
+		height: 100%;
 	}
 	
   </style>
