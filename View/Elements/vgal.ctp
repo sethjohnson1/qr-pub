@@ -2,37 +2,14 @@
 $treasures=array();
 foreach ($template['Asset'] as $key=>$asset)
 {
-	if ($asset['name']=='treasure'):
-		?>
-		<div data-role="popup" class="poppedimg" id="<? echo $template['Template']['id'].'_'.$asset['id']?>" 
-		data-overlay-theme="b" 
-		data-theme="b" data-corners="false">
-		
-		<a href="#" data-rel="back" data-theme="e" class="ui-btn ui-corner-all ui-shadow ui-btn-e ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-		<?
-		echo $this->Html->image('uploads/'.$template['Template']['id'].'_'.$asset['filename'].'.jpg', array('alt'=>$asset['asset_text'],'id'=>'poppedimg'));
-		?>
-		<br />
-		<p class="ui-shadow ui-bar ui-bar-a">
-		<? echo $asset['asset_text']; ?>
-		</p>
-		<?
-		//
-		echo $this->Html->link('Open Full Size Image','/img/uploads/'.$template['Template']['id'].'_'.$asset['filename'].'.jpg',
-		//after some testing, the iPad requires both target blank (back button doesn't work otherwise
-		//and also rel external - otherwise neither would be required....
-		array('rel'=>'external','target'=>'_blank','class'=>'ui-mini'));
-		?>
-		</div>
-		<?
-		//also build array here
+	//all of the lightbox has been completely redone and can be seen at vgal_lightbox element
+	//it is echoed in the footer, otherwise all those big images had to load FIRST
+	if ($asset['name']=='treasure'){
 		if (isset($asset['sortorder']))
 			$treasures[$asset['sortorder']]=array('id'=>$asset['id'],'asset_text'=>$asset['asset_text'],'filename'=>$asset['filename']);
 		else
 		$treasures[$key]=array('id'=>$asset['id'],'asset_text'=>$asset['asset_text'],'filename'=>$asset['filename']);
-		
-		//debug($asset['sortorder']);
-	endif;
+	}
 	if ($asset['name']=='description'){
 		$description=$asset['asset_text'];
 		$title=$asset['filename'];
