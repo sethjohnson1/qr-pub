@@ -70,8 +70,9 @@ class AssetsController extends AppController {
 				$asset['template_id']=$this->request->data['Asset']['template_id'];
 				$asset['name']='description';
 				$asset['asset_text']=$vgal['apivar']['Usergal']['Usergal']['gloss'];
-				//Q&D use filename for title
+				//Q&D use filename for title and Author
 				$asset['filename']=$vgal['apivar']['Usergal']['Usergal']['name'];
+				$asset['filemime']=$vgal['apivar']['Usergal']['Usergal']['creator'];
 				
 				if ($this->Asset->save($asset)) $this->Session->setFlash(__('Saved the vgal'));
 				else $this->Session->setFlash(__('Something went horribly wrong.'));	
