@@ -105,6 +105,7 @@ create table templates(
 	ip varchar(20)
 );
 
+-- a bunch of treasure stuff here, was easier than a new table
 drop table if exists assets;
 create table assets(
 	id char(36) not null,
@@ -116,6 +117,19 @@ create table assets(
 	filemime varchar(45),
 	template_id int, -- maybe this could be a HABTM, but I think this will make it simpler and is fine
 	sortorder int,
+	accnum varchar(255),
+	daterange text,
+	dimensions text,
+	synopsis text,
+	objtitle text,
+	creditline text,
+	gloss text,
+	inscription text,
+	remarks text,
+	commonname text,
+	genus text,
+	taxonomic text,
+	collection varchar(40),
 	created datetime,
 	modified datetime
 );

@@ -48,6 +48,7 @@ always set our own width instead of the generic "ui-responsive"
 		//float:right;
 	}
   </style>
+
 <h3 class="ui-shadow ui-bar ui-bar-a"><? echo $title ?><br/>
 <span class="ui-mini">By <?echo $author?></span>
 </h3>

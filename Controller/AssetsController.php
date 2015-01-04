@@ -34,10 +34,14 @@ class AssetsController extends AppController {
 				//again, need to do this Delete after save somehow but this is Q&D
 				$this->Asset->deleteAll(array('Asset.template_id'=>$id));
 				foreach (glob('img/uploads/'.$this->request->data['Asset']['template_id'].'_*') as $filename) unlink($filename);
-				//loop through treasures to save and copy image
+				//loop through treasures to save and copy image and all treasure data
 				foreach ($vgal['apivar']['Items'] as $key=>$value){
 					if (isset($value['TreasuresUsergal']['comments'])) $comment=$value['TreasuresUsergal']['comments'];
-					else $comment=$value['Treasure']['synopsis'];
+					//else $comment=$value['Treasure']['synopsis'];
+					//get all treasure data, loop all, ones without fields won't be saved
+					foreach ($value['Treasure'] as $field=>$trdata){
+						$asset[$field]=$trdata;
+					}
 					$this->Asset->create();
 					$asset['name']='treasure';
 					$asset['asset_text']=$comment;
@@ -176,7 +180,7 @@ class AssetsController extends AppController {
 			}
 			
 			if ($type=='video'){
-				debug($this->request->data);
+				
 				//still would like better clean-up...
 				$this->Asset->deleteAll(array('Asset.template_id'=>$id));
 				$uuid=String::uuid();

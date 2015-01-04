@@ -8,10 +8,12 @@ $( document ).on( "pageinit", function( event ) {
 	//formats the Lightbox (and makes it work on iPad!)
 	$( ".poppedimg" ).on({
         popupbeforeposition: function() {
-            var maxHeight = $( window ).height() - 100 + "px";
-            $( ".poppedimg img" ).css( "max-height", maxHeight );
+           var maxHeight = $( window ).height() - 200 + "px";
+            $( 'div[id^="popupcontainer_"]' ).css( "max-height", maxHeight );
+			
         }
     });
+
 		//$("[data-role=panel]").panel().enhanceWithin();
 	
 /*	$('.x').live('change', function() {

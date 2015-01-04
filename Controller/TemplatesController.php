@@ -22,6 +22,7 @@ class TemplatesController extends AppController {
 		$this->set('title_for_layout', 'Browse');
 	}
 	
+	
 	public function about() {
 		//basically a static page but we might need some variables.. who knows.
 		$this->set('title_for_layout','About');

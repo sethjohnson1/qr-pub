@@ -5,6 +5,7 @@ echo $this->element('jqm_header',$template);
 if ($template['Template']['name']=='vgal') echo $this->element('vgal',array($template));
 if ($template['Template']['name']=='blog') echo $this->element('blog',array($template));
 if ($template['Template']['name']=='splash') echo $this->element('splash',array($template));
+if ($template['Template']['name']=='video') echo $this->element('youtube',array($template));
 /*
 comments need some basic styling now. Not using popup, just list at end.
 */
