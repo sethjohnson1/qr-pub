@@ -16,7 +16,7 @@ foreach ($template['Asset'] as $asset){
 //debug($wp_content);
 ?>
 
-<? // HTML5 scoped CSS makes life good ?>
+<? // HTML5 scoped CSS all over ?>
 
  <style type="text/css" scoped>
    div[id^="attachment_"]{

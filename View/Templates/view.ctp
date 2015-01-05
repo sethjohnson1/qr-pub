@@ -54,18 +54,29 @@ comments need some basic styling now. Not using popup, just list at end.
 	</div>
 </div>
 <br />
-<div class="ui-shadow ui-corner-all custom-corners">
+	<style type="text/css" scoped>
+		.big_comment_container{
+			border: 1px solid red;
+		//	width:50px;
+		}
+
+		div[class^="commentsbox_"]{
+			border: 10px solid black;
+	}
+		
+	</style>
+<div class="big_comment_container ui-shadow ui-corner-all custom-corners">
 	<div class="ui-bar ui-bar-a">
 		<h2>Comments</h2>
 	</div>
-	<div id="comments" class="ui-body ui-body-a comments<? echo $id; ?>">
+	<!-- div class="ui-body ui-body-a commentsbox_<? echo $id; ?>" -->
 
 		<? 
 		//debug($template);
 		if(empty($user))$user='';
 		echo $this->element('commentswidget',array($comments,$user));?>
 
-	</div>
+	<!-- /div -->
 </div>
 </div>
 <? //echo $this->element('ajax_scripts',array($id)); ?>

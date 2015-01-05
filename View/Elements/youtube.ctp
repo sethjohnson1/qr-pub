@@ -1,9 +1,6 @@
 <div class="blog_container ui-shadow ui-body ui-body-a">
  <style type="text/css" scoped>
-   .youtube_frame{
-	//border:1px solid green;
-   }
-   
+
    .video-container {
     position: relative;
     padding-bottom: 56.25%;

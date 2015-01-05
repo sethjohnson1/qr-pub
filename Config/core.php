@@ -215,6 +215,7 @@
  * the cake shell command: cake schema create Sessions
  *
  */
+ //sj- changed this to cake so the sessions last
 	Configure::write('Session', array(
 		'defaults' => 'php'
 	));
