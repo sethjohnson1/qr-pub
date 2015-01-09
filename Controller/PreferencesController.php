@@ -1,37 +1,18 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Preferences Controller
- *
- * @property Preference $Preference
- * @property PaginatorComponent $Paginator
- */
+
 class PreferencesController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
+
 	public $components = array('Paginator');
 
-/**
- * index method
- *
- * @return void
- */
+/*
 	public function index() {
 		$this->Preference->recursive = 0;
 		$this->set('preferences', $this->Paginator->paginate());
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+
 	public function view($id = null) {
 		if (!$this->Preference->exists($id)) {
 			throw new NotFoundException(__('Invalid preference'));
@@ -40,11 +21,7 @@ class PreferencesController extends AppController {
 		$this->set('preference', $this->Preference->find('first', $options));
 	}
 
-/**
- * add method
- *
- * @return void
- */
+
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Preference->create();
@@ -57,13 +34,7 @@ class PreferencesController extends AppController {
 		}
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+
 	public function edit($id = null) {
 		if (!$this->Preference->exists($id)) {
 			throw new NotFoundException(__('Invalid preference'));
@@ -81,13 +52,7 @@ class PreferencesController extends AppController {
 		}
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+
 	public function delete($id = null) {
 		$this->Preference->id = $id;
 		if (!$this->Preference->exists()) {
@@ -101,4 +66,5 @@ class PreferencesController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
-}
+*/
+	}

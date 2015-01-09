@@ -221,7 +221,7 @@ class UsersController extends UsersAppController {
 		}
 
 		//$this->Auth->allow('add', 'reset', 'verify', 'logout', 'view', 'reset_password', 'login', 'resend_verification');
-		//sj - commented this out for extra-stingy user restriction
+		//sj - commented this out as we're handling it all in prefixes
 		$this->Auth->allow('login','logout');
 
 		if (!is_null(Configure::read('Users.allowRegistration')) && !Configure::read('Users.allowRegistration')) {

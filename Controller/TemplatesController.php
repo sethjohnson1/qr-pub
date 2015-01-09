@@ -110,29 +110,29 @@ class TemplatesController extends AppController {
     }
 
 
-	public function add($id = null) {
+	public function admin_add($id = null) {
 		if ($this->request->is('post')) {
 			$this->Template->create();
 			if ($this->Template->save($this->request->data)) {
 				$this->Session->setFlash(__('The template has been saved.'));
-				return $this->redirect(array('controller'=>'assets','action' => 'add',$this->request->data['Template']['name'],$this->Template->getLastInsertID()));
+				return $this->redirect(array('controller'=>'assets','admin'=>true,'action' => 'add',$this->request->data['Template']['name'],$this->Template->getLastInsertID()));
 			} else {
 				$this->Session->setFlash(__('The template could not be saved. Please, try again.'));
 			}
 			
 		}
-		$this->render('add','default');
+		//$this->render('admin_add','default');
 	}
 
 
-	public function edit($id = null) {
+	public function admin_edit($id = null) {
 		if (!$this->Template->exists($id)) {
 			throw new NotFoundException(__('Invalid template'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Template->save($this->request->data)) {
 				$this->Session->setFlash(__('The template has been saved.'));
-				return $this->redirect(array('controller'=>'assets','action' => 'add',$this->request->data['Template']['name'],$id));
+				return $this->redirect(array('controller'=>'assets','admin'=>true,'action' => 'add',$this->request->data['Template']['name'],$id));
 			} else {
 				$this->Session->setFlash(__('The template could not be saved. Please, try again. Double-check nextid'));
 			}
@@ -143,20 +143,20 @@ class TemplatesController extends AppController {
 		$this->set('edit',true);
 		
 		//add 'ajax' here to help with debugging
-		$this->render('add','default');
+		$this->render('admin_add','default');
 	}
 	
-	public function index() {
+	public function admin_index() {
 		$this->Template->recursive = 0;
 		$templates=$this->Paginator->paginate();
 		$user=$this->Auth->user();
 		$totals=$this->Scorecard->scoreTotals(null,$user['id']);
 		$this->set(compact('templates','totals'));
-		$this->render('index','default');
+		//$this->render('admin_index','default');
 	}
 
 
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		$this->Template->id = $id;
 		if (!$this->Template->exists()) {
 			throw new NotFoundException(__('Invalid template'));

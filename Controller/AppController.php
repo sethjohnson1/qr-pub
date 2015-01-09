@@ -13,9 +13,16 @@ class AppController extends Controller {
 		parent::beforeFilter();
 		//$this->Security->blackHoleCallback = 'blackhole';
 		$user=$this->Auth->user();
-		//will need to be tightened later
-		$this->Auth->allow();
-		$this -> layout='mobile'; //added by LJ to use the jqm layout
+		
+		//simple prefix check
+		if( !isset($this->params['prefix'])){
+			$this->Auth->allow();
+			$this -> layout='mobile';
+		}
+		else if (Configure::read('enableAdminFunctions')==1) $this->Auth->allow();
+		else throw new NotFoundException(__('Admin routing is disabled'));
+		
+		
 		//users plugin blackhole fix, started somewhere in CakePHP 2.5.3
 		if (isset($this->Security) && ( $this->action == 'login' || $this->action == 'reset_password' || $this->action == 'resend_verification')) {
 			$this->Security->validatePost = false;

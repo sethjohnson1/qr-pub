@@ -45,10 +45,17 @@ $config = array(
 
 
 Configure::write('debug', 2);
+
 Configure::write('Security.salt', 'qwewrtyuiop123');
 Configure::write('Security.cipherSeed', '987654321');
+
 //no trailing slash!
 Configure::write('globalSiteURL','http://example.com');
+// set this to 1 to enable backend interface, so in production it should NOT be 1
+Configure::write('enableAdminFunctions',1);
+
+//put the id of the template you want to be the default "home" page
+Configure::write('defaultTemplate',1);
 //this account receives e-mail
 Configure::write('globalAdminEmail','admin@example.com');
 Configure::write('globalFromEmail',$from_email);

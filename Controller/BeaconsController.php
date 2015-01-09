@@ -1,38 +1,19 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Beacons Controller
- *
- * @property Beacon $Beacon
- * @property PaginatorComponent $Paginator
- */
+
 class BeaconsController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
+
 	public $components = array('Paginator');
 
-/**
- * index method
- *
- * @return void
- */
-	public function index() {
+
+	public function admin_index() {
 		$this->Beacon->recursive = 0;
 		$this->set('beacons', $this->Paginator->paginate());
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
+
+	public function admin_view($id = null) {
 		if (!$this->Beacon->exists($id)) {
 			throw new NotFoundException(__('Invalid beacon'));
 		}
@@ -40,12 +21,8 @@ class BeaconsController extends AppController {
 		$this->set('beacon', $this->Beacon->find('first', $options));
 	}
 
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
+
+	public function admin_add() {
 		if ($this->request->is('post')) {
 			$this->Beacon->create();
 			if ($this->Beacon->save($this->request->data)) {
@@ -59,14 +36,8 @@ class BeaconsController extends AppController {
 		$this->set(compact('templates'));
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
+
+	public function admin_edit($id = null) {
 		if (!$this->Beacon->exists($id)) {
 			throw new NotFoundException(__('Invalid beacon'));
 		}
@@ -85,14 +56,8 @@ class BeaconsController extends AppController {
 		$this->set(compact('templates'));
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
+
+	public function admin_delete($id = null) {
 		$this->Beacon->id = $id;
 		if (!$this->Beacon->exists()) {
 			throw new NotFoundException(__('Invalid beacon'));

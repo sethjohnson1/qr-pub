@@ -5,19 +5,13 @@ class AssetsController extends AppController {
 
 	public $components = array('Paginator','Clean');
 
-	public function index() {
+	public function admin_index() {
 		$this->Asset->recursive = 0;
 		$this->set('assets', $this->Paginator->paginate());
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
+
+	public function admin_view($id = null) {
 		if (!$this->Asset->exists($id)) {
 			throw new NotFoundException(__('Invalid asset'));
 		}
@@ -26,7 +20,7 @@ class AssetsController extends AppController {
 	}
 
 
-	public function add($type=null,$id = null) {
+	public function admin_add($type=null,$id = null) {
 
 		if ($this->request->is('post')) {
 			if (isset($this->request->data['Asset']['vgaljson'])){
@@ -199,12 +193,12 @@ class AssetsController extends AppController {
 		$template = $this->Asset->Template->find('first',array('conditions'=>array('Template.id'=>$id)));
 		$this->set(compact('type','template','id'));
 		//sj - added this, should be other way around maybe
-		$this->render('add','default');
+		//$this->render('admin_add','default');
 	}
 	
 
 
-	public function ajaxblog() {
+	public function admin_ajaxblog() {
 
 		//disabled for testing
 		//if ($this->request->is('ajax')) {
@@ -224,7 +218,7 @@ class AssetsController extends AppController {
 		//}
     }
 	
-	public function ajaxvgal() {
+	public function admin_ajaxvgal() {
 		//disabled for testing
 		//if ($this->request->is('ajax')) {
 		
