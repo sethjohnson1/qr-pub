@@ -56,7 +56,7 @@ comments need some basic styling now. Not using popup, just list at end.
 <br />
 	<style type="text/css" scoped>
 		.big_comment_container{
-			border: 1px solid red;
+		//	border: 1px solid red;
 		//	width:50px;
 		}
 
@@ -84,6 +84,7 @@ comments need some basic styling now. Not using popup, just list at end.
 //<![CDATA[
 $(document).on('pagebeforeshow', function(){       
     $(document).off('click', '.comment_add<? echo $id; ?>').on('click', '.comment_add<? echo $id; ?>',function(e) {
+	//console.log('click');
 		$.ajax({
 		async:true,
 		data:$(".sCommentViewForm<? echo $id; ?>").serialize(),

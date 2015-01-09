@@ -38,14 +38,14 @@ else {
 ?>
 	<style type="text/css" scoped>
 		.single_comment_container{
-			border: 2px solid green;
+		//	border: 2px solid green;
 			width:95%;
-			height: 1000px;
+			max-height: 300px;
 		}
 		.comment_buttons{
-			border: 1px solid blue;
-			width: 15%;
-			min-width:50px;
+		//	border: 1px solid blue;
+		//	width: 15%;
+		//	min-width:50px;
 			height: 100px;
 			float: left;
 		}
@@ -54,16 +54,81 @@ else {
 			height: 100px;
 			width:82%;
 			//overflow: scroll-y;
-			border: 1px solid yellow;
+		//	border: 1px solid yellow;
 		}
 	
 	</style>
 	<div class="single_comment_container" >
 	<div class="comment_buttons">
+			<? echo $this->Form->input('UpVote',array(
+			'div'=>false,
+			'label'=>false,
+			'type'=>'button',
+			'data-role'=>'button',
+			'data-icon'=>'arrow-u',
+			'data-iconshadow'=>'true',
+			'data-iconpos'=>'notext',
+			'data-corners'=>'false',
+			'class'=>'comment_up'.$comment['Comment']['id'],
+			$utoggle
+		));
+		
+		echo $this->Form->input('DownVote',array(
+			'div'=>false,
+			'label'=>false,
+			'type'=>'button',
+			'data-role'=>'button',
+			'data-icon'=>'arrow-d',
+			'data-iconshadow'=>'true',
+			'data-iconpos'=>'notext',
+			'data-corners'=>'false',
+			'class'=>'comment_down'.$comment['Comment']['id'],
+			$dtoggle
+		));
+		
+		echo $this->Form->input($flaglabel,array(
+			'div'=>false,
+			'label'=>false,
+			'type'=>'button',
+			'data-role'=>'button',
+			'data-icon'=>'alert',
+			'data-iconshadow'=>'true',
+			'data-iconpos'=>'notext',
+			'data-corners'=>'false',
+			'class'=>'comment_flag'.$comment['Comment']['id']
+		));
+		
+		if ($mine=='mine'){
+			echo $this->Form->input('Delete my Comment',array(
+				'div'=>false,'label'=>false,
+				'type'=>'button',
+				'data-role'=>'button',
+				'data-icon'=>'delete',
+				'data-iconshadow'=>'true',
+				'data-iconpos'=>'notext',
+				'data-corners'=>'false',
+				'class'=>'comment_hide'.$comment['Comment']['id'],
+				'rel'=>'external',
+				'data-ajax'=>'false'
+			));	
+		}?>
+		
+		
 	</div>
 	<div class="the_comment">
+			<ul>
+		<li>content</li>
+		<li>content</li>
+		<li>content</li>
+		<li>content</li>
+		<li>content</li>
+		</ul>
 	</div>
 	</div>
+	<div style="clear:both;">
+	</div>
+
+
 	
 <div class="single_comment_container">
 
@@ -155,8 +220,8 @@ else {
 	</div><!-- comment buttons -->
 			<div class="the_comment">
 <?
-		echo '<h1>placeholder</h1>';
-		/*
+	//	echo '<h1>placeholder</h1>';
+		
 		echo $comment['Comment']['diff'].$comment['Comment']['rating'].'/5 '
 		.'<br />'.$comment['Comment']['thoughts'];
 		
@@ -166,7 +231,7 @@ else {
 		echo '<div style="float:right;"><strong>'.$formattedname[0].'</strong> 
 		rated '.$comment['Comment']['rating'].'/5 '
 		.'<br/> '.$comment['Comment']['thoughts'].'</div></div>';
-		*/
+		
 
 		
 
