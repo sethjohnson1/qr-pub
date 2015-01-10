@@ -75,7 +75,10 @@ class TemplatesController extends AppController {
 		$template=$this->Template->find('first', $options);
 		$user=$this->Auth->user();
 		if (isset($user)) $this->set('user',$user);
-		else $user['id']=null;
+		else {
+			$user['id']=null;
+			$user['provider']=null;
+		}
 		//user Comments component to load up view variables
 		$comments=$this->Comment->getComments($id,$user['id']);
 		$usercomment=$this->Comment->userComment($id,$user['id']);
@@ -83,8 +86,8 @@ class TemplatesController extends AppController {
 		$totals=$this->Scorecard->scoreTotals($template,$user['id']);
 		$this->set(compact('user','comments','template','usercomment','template_redir','totals','id'));
 		
-		//an example of how to shorten URL, doesn't work until live on server
-		$this->set('shorturlexample',$this->UrlShortener->get_bitly_short_url($this->here,'social','facebook'));									
+		//URL shortener - will return BAD_REQUEST unless on live domain
+		$this->set('shorturl',$this->UrlShortener->get_bitly_short_url($this->here,'social',$user['provider']));									
 		$this->set('title_for_layout', $template['Template']['meta_title']);
 		//the description does not need to be set here, but in the individual templates (see vgal)
 		
@@ -98,6 +101,16 @@ class TemplatesController extends AppController {
 		$this->Session->delete('counts');
 		if ($this->Session->read('location')) $this->redirect($this->Session->read('location'));
 		else $this->redirect('/');
+	}
+	
+	/*
+	sends an e-mail via userPopup
+	*/
+	public function email($id=null,$url=null){
+		$options = array('conditions' => array('Template.' . $this->Template->primaryKey => $id));
+		$template=$this->Template->find('first', $options);
+		debug($template);
+		$this->render('ajax_response', 'ajax');
 	}
 
 	//I don't think this is used any longer

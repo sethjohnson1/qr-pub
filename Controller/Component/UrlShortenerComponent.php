@@ -7,9 +7,10 @@ class UrlShortenerComponent extends Component {
 		$source and $medium are for UTM codes (respectively)
 	*/
 	public function get_bitly_short_url($here,$medium,$source) {
-		$url='http://'.$_SERVER['HTTP_HOST'].$here.'?utm_campaign='.Configure::read('bitlyCampaign').'&utm_medium='.$medium.'&utm_source='.$source;
+		$url='http://'.$_SERVER['HTTP_HOST'].$here.'?utm_campaign='.Configure::read('bitlyCampaign').
+		'&utm_medium='.$medium.'&utm_source='.$source;
 		$connectURL = 'http://api.bit.ly/v3/shorten?login='.Configure::read('bitlyLogin').'&apiKey='
-		.Configure::read('bitlyAPIkey').'&uri='.$url.'&format=txt';
+		.Configure::read('bitlyAPIkey').'&uri='.urlencode($url).'&format=txt';
 		
 		return $this->curl_get_contents($connectURL);
 		//return 	$connectURL;

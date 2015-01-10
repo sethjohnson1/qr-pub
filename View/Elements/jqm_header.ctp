@@ -18,12 +18,35 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 				<div align="center">
 				<? 
 				$btnstyle='margin:0px;border-left:none;padding:0 27px 0 0;';
+				if (isset($user['provider'])){
+				
+					if ($user['provider']=='email'){
+						$datatheme='e';
+						$dataicon='mail';
+					}
+					if ($user['provider']=='Facebook'){
+						$datatheme='b';
+						$dataicon='heart';
+					}
+					if ($user['provider']=='Google'){
+						$datatheme='c';
+						$dataicon='plus';
+					}
+					if ($user['provider']=='Twitter'){
+						$datatheme='d';
+						$dataicon='comment';
+					}
+				}
+				else {
+					$datatheme='a';
+					$dataicon='user';
+				}
 				echo $this->Html->link('Login','#userPopup',array(
 					'data-role'=>'button',
 					'data-rel'=>'popup',
 					//change this based on provider 
-					'data-theme'=>'a',
-					'data-icon'=>'user',
+					'data-theme'=>$datatheme,
+					'data-icon'=>$dataicon,
 					'data-iconshadow'=>'true',
 					'data-iconpos'=>'notext',
 					'data-corners'=>'false',

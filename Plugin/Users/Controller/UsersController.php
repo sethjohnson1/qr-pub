@@ -628,8 +628,6 @@ class UsersController extends UsersAppController {
 
 		try {
 			/*sj - added Auth-login here to save the trouble of having to log in again
-			a more secure way to deal with this would be to remove the email token now so this only works once.
-			However we'll see if it becomes a problem first
 			*/
 			$user=$this->User->findByEmail_token($token);
 			//debug($user);
@@ -639,6 +637,7 @@ class UsersController extends UsersAppController {
 			unset($user['User']['email_verified']);
 			unset($user['User']['email_token']);
 			unset($user['User']['email_token_expires']);
+			$user['User']['provider']='email';
 			$this->__doAuthLogin($user);
 			//$this->Session->setFlash('Your e-mail has been validated!','flash_custom');
 			//return $this->redirect(array('action' => 'login'));
