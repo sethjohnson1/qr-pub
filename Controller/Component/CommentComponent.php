@@ -52,10 +52,12 @@ class CommentComponent extends Component {
 	}
 	
 	//$id is the id of the comment
-	public function getComment ($id){
+	public function getComment ($id, $userid){
 		$model=ClassRegistry::init('CommentsUser');
+		$conditions=array('CommentsUser.comment_id'=>$id);
+		if (isset($userid)) $conditions['CommentsUser.user_id']=$userid;
 		$comment=$model->find('first',array(
-			'conditions'=>array('CommentsUser.comment_id'=>$id),
+			'conditions'=>$conditions,
 			'recursive'=>2,
 			'fields'=>array('Comment.*','CommentsUser.*'),
 			'limit'=>200,
@@ -64,6 +66,7 @@ class CommentComponent extends Component {
 		//$result=array_merge($comment,$comment3);
 		$comment['Comment']['User']=$comment['Comment']['Comment']['User'];
 		unset($comment['Comment']['Comment']);
+		if (!isset($userid)) unset($comment['CommentsUser']);
 		return $comment;
 	}
 	

@@ -69,14 +69,14 @@ comments need some basic styling now. Not using popup, just list at end.
 	<div class="ui-bar ui-bar-a">
 		<h2>Comments</h2>
 	</div>
-	<!-- div class="ui-body ui-body-a commentsbox_<? echo $id; ?>" -->
+	<div class="ui-body ui-body-a comments<? echo $id; ?>">
 
 		<? 
 		//debug($template);
 		if(empty($user))$user='';
 		echo $this->element('commentswidget',array($comments,$user));?>
 
-	<!-- /div -->
+	</div>
 </div>
 </div>
 <? //echo $this->element('ajax_scripts',array($id)); ?>

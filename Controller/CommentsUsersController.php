@@ -40,6 +40,7 @@ class CommentsUsersController extends AppController {
 						'conditions'=>array('Comment.id'=>$id),
 						'recursive'=>-1
 					));
+
 					$commentdata['Comment']['flags']=$commentdata['Comment']['flags']+$flag;
 					if ($this->CommentsUser->Comment->save($commentdata)){
 						//flash message?
@@ -197,7 +198,7 @@ class CommentsUsersController extends AppController {
 				$user['id']=null;
 			}
 			//return only the single comment
-			$comment=$this->Comment->getComment($id);
+			$comment=$this->Comment->getComment($id,$user['id']);
 			$this->set(compact('comment','user'));
 			$this->render('comment_single','ajax');
 		//}

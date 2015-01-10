@@ -1,5 +1,6 @@
+<div class="container<? echo $comment['Comment']['id'] ?>" >
 <?
-//debug($comment);
+
 $flagged=false;
 $mine='notmine';
 $utoggle='enabled';
@@ -10,6 +11,7 @@ if (isset($comment['Comment']['User']['username'])){
 	$formattedname=explode('^',$comment['Comment']['User']['username']);
 	$formattedname[0]=str_replace('_',' ',$formattedname[0]);
 }
+else $formattedname[0]='SethTest';
 
 echo $this->Form->create($comment['Comment']['id']);
 
@@ -22,6 +24,8 @@ if (isset($comment['CommentsUser']['id'])){
 	$flagged=$comment['CommentsUser']['flagged'];
 	$upvoted=$comment['CommentsUser']['upvoted'];
 	$downvoted=$comment['CommentsUser']['downvoted'];
+
+	//debug($downvoted);
 }
 
 if ($upvoted==true) $utoggle='disabled';
@@ -34,31 +38,75 @@ else {
 	$flagvalue=1;
 	$flaglabel='Flag';
 	}
-	
-?>
+//someday this could be combined a little
+if($flagged==true || $comment['Comment']['flags']>=4 || isset($cookie_flags[$comment['Comment']['id']])) $cheight=100;
+else $cheight=160;
+
+
+?>	
 	<style type="text/css" scoped>
-		.single_comment_container{
-		//	border: 2px solid green;
-			width:95%;
-			max-height: 300px;
+		.container<? echo $comment['Comment']['id'] ?>{
+			//border: 2px solid green;
+			//width:95%;
+			height: <? echo $cheight ?>px;
+
 		}
 		.comment_buttons{
 		//	border: 1px solid blue;
-		//	width: 15%;
+			width: 9%;
+			max-width: 10px;
 		//	min-width:50px;
-			height: 100px;
+			height: 150px;
 			float: left;
 		}
 		.the_comment{
 			float:left;
-			height: 100px;
-			width:82%;
-			//overflow: scroll-y;
+			height: 140px;
+			width:90%;
+			padding-top: 1px;
+			overflow-y:auto;
 		//	border: 1px solid yellow;
 		}
-	
+		.comment_text{
+			float:left;
+			padding: 0 0 0 30px;
+		}
+		.starred:after{
+			background-color: #bd4f19 !important;
+		}
+		.staricon{
+			position: relative;
+			padding: 12px;
+		}
+
+
 	</style>
-	<div class="single_comment_container" >
+		
+	<?
+	//debug($comment['CommentsUser']);
+	if($flagged==true || $comment['Comment']['flags']>=4 || isset($cookie_flags[$comment['Comment']['id']])){
+		$hidden=true;
+		$flagvalue=-1; //used later down in link
+		$flaglabel='Unflag';
+		echo $this->Form->input($flaglabel,array(
+			'div'=>false,
+			'type'=>'button',
+			'label'=>false,
+			'class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-alert fsign'.' comment_flag'.$comment['Comment']['id'],
+			'style'=>'float:left'
+			));
+		
+		if($flagged==true || isset($cookie_flags[$comment['Comment']['id']]))
+			echo '<p><strong>You flagged this message as inappropriate.</strong> If you simply did not like the comment,
+			please unflag using the icon and vote it down instead.</p>';
+		else if ($comment['Comment']['flags']>=4)
+			echo '<p>This comment has been flagged as inappropriate '.$comment['Comment']['flags'].' times.
+			Tap the warning icon if you want to live dangerously and read it.</p>';
+	
+	}
+	else{
+		//giant block to draw the comment and buttons
+		?>
 	<div class="comment_buttons">
 			<? echo $this->Form->input('UpVote',array(
 			'div'=>false,
@@ -110,137 +158,49 @@ else {
 				'class'=>'comment_hide'.$comment['Comment']['id'],
 				'rel'=>'external',
 				'data-ajax'=>'false'
-			));	
-		}?>
-		
-		
-	</div>
-	<div class="the_comment">
-			<ul>
-		<li>content</li>
-		<li>content</li>
-		<li>content</li>
-		<li>content</li>
-		<li>content</li>
-		</ul>
-	</div>
-	</div>
-	<div style="clear:both;">
-	</div>
-
-
-	
-<div class="single_comment_container">
-
-
-	
-	<?
-	
-	//ugh.... fix this later....
-	if($flagged==true || $comment['Comment']['flags']>4 || isset($cookie_flags[$comment['Comment']['id']])){
-		$hidden=true;
-		$flagvalue=-1; //used later down in link
-		$flaglabel='Unflag';
-		echo $this->Form->input($flaglabel,array(
-			'div'=>false,
-			'type'=>'button',
-			'label'=>false,
-			'class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-alert fsign'.' comment_flag'.$comment['Comment']['id'],
-			'style'=>'float:left'
 			));
-		
-		if($flagged==true || isset($cookie_flags[$comment['Comment']['id']]))
-			echo '<p><strong>You flagged this message as inappropriate.</strong> If you simply did not like the comment,
-			please unflag using the icon and vote it down instead.</p>';
-		else if ($comment['Comment']['flags']>4)
-			echo '<p>This message has been flagged as inappropriate '.$comment['Comment']['flags'].' times</p>';
-	}
-
-	else{ 
-	?>
-
-
-	<div class="comment_buttons ui-body"><?
-		echo $this->Form->input('UpVote',array(
-			'div'=>false,
-			'label'=>false,
-			'type'=>'button',
-			'data-role'=>'button',
-			'data-icon'=>'arrow-u',
-			'data-iconshadow'=>'true',
-			'data-iconpos'=>'notext',
-			'data-corners'=>'false',
-			'class'=>'comment_up'.$comment['Comment']['id'],
-			$utoggle
-		));
-		
-		echo $this->Form->input('DownVote',array(
-			'div'=>false,
-			'label'=>false,
-			'type'=>'button',
-			'data-role'=>'button',
-			'data-icon'=>'arrow-d',
-			'data-iconshadow'=>'true',
-			'data-iconpos'=>'notext',
-			'data-corners'=>'false',
-			'class'=>'comment_down'.$comment['Comment']['id'],
-			$dtoggle
-		));
-		
-		echo $this->Form->input($flaglabel,array(
-			'div'=>false,
-			'label'=>false,
-			'type'=>'button',
-			'data-role'=>'button',
-			'data-icon'=>'alert',
-			'data-iconshadow'=>'true',
-			'data-iconpos'=>'notext',
-			'data-corners'=>'false',
-			'class'=>'comment_flag'.$comment['Comment']['id']
-		));
-		
-		if ($mine=='mine'){
-			echo $this->Form->input('Delete my Comment',array(
-				'div'=>false,'label'=>false,
-				'type'=>'button',
-				'data-role'=>'button',
-				'data-icon'=>'delete',
-				'data-iconshadow'=>'true',
-				'data-iconpos'=>'notext',
-				'data-corners'=>'false',
-				'class'=>'comment_hide'.$comment['Comment']['id'],
-				'rel'=>'external',
-				'data-ajax'=>'false'
-			));	
 		}
-				
-	}
-
-?>
-	</div><!-- comment buttons -->
-			<div class="the_comment">
-<?
-	//	echo '<h1>placeholder</h1>';
+		?>
 		
-		echo $comment['Comment']['diff'].$comment['Comment']['rating'].'/5 '
-		.'<br />'.$comment['Comment']['thoughts'];
 		
+	</div><!-- /comment_buttons -->
+		<?
 		//set height and overflow "scroll" here to prevent long-winded comments taking up more than their fair share
-		echo '<div style="width:200px;clear:both"><div class="total" style="float:left">'.
-		$comment['Comment']['diff'] .'</div>';
-		echo '<div style="float:right;"><strong>'.$formattedname[0].'</strong> 
-		rated '.$comment['Comment']['rating'].'/5 '
-		.'<br/> '.$comment['Comment']['thoughts'].'</div></div>';
+		?>
+		<div class="the_comment">
+		<!-- div style="width:200px;clear:both" -->
+		<div class="total" style="float:left"><? echo $comment['Comment']['diff'] ?></div>
 		
-
+		<div class="comment_text"><strong><? echo $formattedname[0] ?></strong>
 		
+		<?
+		for ($x=0;$x<=4; $x++):
+			if ($comment['Comment']['rating'] > $x) $starred='starred';
+			else $starred='';
+			
+		?>
+		<span class="ui-icon-star ui-btn-icon-notext staricon <? echo $starred ?>"/></span>
 
-?>		
-	</div><!-- /the_comment -->
+		<?
+		endfor;
+		?>
+		<br />
+		<? echo $comment['Comment']['thoughts'] ?>
+		</div>
+		<!-- /div -->
+		</div><!-- /the_comment -->
 
+	<?	} //end of the else. The colon method doesn't work as well with nested IF above ?>
 
-<? 	echo $this->Form->end();  ?>
-</div>
+	
+
+	<!-- div style="clear:both;">
+	</div -->
+
+<? 
+		echo $this->Form->end(); 
+ ?>
+
 <? //in theory not all are needed if comment is flagged, but too much to worry about now ?>
 <script type="text/javascript">
 //<![CDATA[
@@ -252,13 +212,7 @@ $(document).off('click', '.comment_hide<? echo $comment['Comment']['id']; ?>').o
 	data:$(".<? echo $comment['Comment']['id']; ?>CommentAddForm").serialize(),
 	dataType:"html",
 	success:function (data, textStatus) {
-		//$('#comments').remove();
-		//$('<div id="comments"></div>').appendTo('#comments_container');
 		$(".comments<? echo $comment['Comment']['template_id']; ?>").fadeOut(0).html(data).trigger('create').fadeIn(500);
-		//$('#comments_box').remove();
-		//$('<div id="comments_box"></div>').appendTo('#comments_container');
-		//$('#sCommentViewForm')[0].reset(); 
-		//console.log(data);
 	},
 	type:"POST",
 	url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_hide/<? echo $comment['Comment']['id']; ?>"});
@@ -271,7 +225,7 @@ $(document).off('click', '.comment_up<? echo $comment['Comment']['id']; ?>').on(
 	data:$(".<? echo $comment['Comment']['id']; ?>CommentAddForm").serialize(),
 	dataType:"html",
 	success:function (data, textStatus) {
-		$(".container<? echo $comment['Comment']['id']; ?>").fadeOut(0).html(data).trigger('create').fadeIn(500);
+		$(".container<? echo $comment['Comment']['id']  ?>").fadeOut(0).html(data).trigger('create').fadeIn(500);
 	},
 	type:"POST",
 	url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_up/<? echo $comment['Comment']['id']; ?>/<? echo $comment['Comment']['template_id']; ?>/1"});
@@ -284,7 +238,7 @@ $(document).off('click', '.comment_down<? echo $comment['Comment']['id']; ?>').o
 	data:$(".<? echo $comment['Comment']['id']; ?>CommentAddForm").serialize(),
 	dataType:"html",
 	success:function (data, textStatus) {
-		$(".container<? echo $comment['Comment']['id']; ?>").fadeOut(0).html(data).trigger('create').fadeIn(500);
+		$(".container<? echo $comment['Comment']['id'] ?>").fadeOut(0).html(data).trigger('create').fadeIn(500);
 	},
 	type:"POST",
 	url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_up/<? echo $comment['Comment']['id']; ?>/<? echo $comment['Comment']['template_id']; ?>/-1"});
@@ -293,6 +247,7 @@ $(document).off('click', '.comment_down<? echo $comment['Comment']['id']; ?>').o
 
 <?
 //redraw the entire comment box if flagged and there is no logged in user, otherwise just the comment itself
+//no nevermind just redrawing no matter what, this could be revisited later but is not very important
 $flagclass='.comments'.$comment['Comment']['template_id'];
 ?>
 
@@ -314,3 +269,5 @@ $(document).off('click', '.comment_flag<? echo $comment['Comment']['id']; ?>').o
 //});
 //]]>
 </script>
+</div><!-- /comment_container -->
+<div style="clear:both;"></div>
