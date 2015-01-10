@@ -13,7 +13,7 @@ if (isset($comment['Comment']['User']['username'])){
 }
 else $formattedname[0]='SethTest';
 
-echo $this->Form->create($comment['Comment']['id']);
+echo $this->Form->create($comment['Comment']['id'],array('class'=>'comment'.$comment['Comment']['id']));
 
 //see if its their own comment
 if (!empty($user['id']) && $comment['Comment']['user_id']==$user['id']) $mine='mine';
@@ -24,8 +24,6 @@ if (isset($comment['CommentsUser']['id'])){
 	$flagged=$comment['CommentsUser']['flagged'];
 	$upvoted=$comment['CommentsUser']['upvoted'];
 	$downvoted=$comment['CommentsUser']['downvoted'];
-
-	//debug($downvoted);
 }
 
 if ($upvoted==true) $utoggle='disabled';
@@ -78,25 +76,12 @@ else $cheight=160;
 			position: relative;
 			padding: 12px;
 		}
-
-
 	</style>
 		
 	<?
-	//debug($reveal);
-	if(
-		$flagged==true 
-		|| ($comment['Comment']['flags']>=4 && empty($reveal))
-		|| (isset($cookie_flags[$comment['Comment']['id']]) && empty($user['id']))
-	){
-		//$hidden=true;
+
+	if($flagged==true ||  (isset($cookie_flags[$comment['Comment']['id']]) && empty($user['id']))){
 		
-	/*
-	right here is where glitch starts, $flagvalue is the problem
-	*/
-		if($flagged==true ||  (isset($cookie_flags[$comment['Comment']['id']]) && empty($user['id']))){
-			
-			$flagvalue=-1; //used later down in link
 			$flaglabel='Unflag';
 			echo $this->Form->input($flaglabel,array(
 				'div'=>false,
@@ -106,29 +91,23 @@ else $cheight=160;
 				'style'=>'float:left'
 				));
 			
+			echo $this->Form->input('pflag',array('type'=>'hidden','value'=>'unflag'));
 			echo '<p><strong>You flagged this message as inappropriate.</strong> If you simply did not like the comment,
 			please unflag using the icon and vote it down instead.</p>';
-			}
-		/*
-			the obvious flaw here is that it reveals all the flagged comments. I am sick of 
-			working on it right now and will revisit after thinking about it some more.
-		*/
-		else if ($comment['Comment']['flags']>=4){
-			//just not so easy, commented out for now
-			$flagvalue='reveal';
-			//$flagvalue=-1;
-			echo $this->Form->input('Reveal',array(
-				'div'=>false,
-				'type'=>'button',
-				'label'=>false,
-				'class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-alert fsign'.' comment_flag'.$comment['Comment']['id'],
-				'style'=>'float:left'
-			));
-			echo '<p>This comment has been flagged as inappropriate '.$comment['Comment']['flags'].' times.
-			Tap the warning icon if you want to live dangerously and read it.</p>';
-			
-			}
+	}
+	else if ($comment['Comment']['flags']>=4 && !isset($reveal)){
 	
+		echo $this->Form->input('Reveal',array(
+			'div'=>false,
+			'type'=>'button',
+			'label'=>false,
+			'class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-alert fsign'.' comment_flag'.$comment['Comment']['id'],
+			'style'=>'float:left'
+			));
+		echo $this->Form->input('pflag',array('type'=>'hidden','value'=>'reveal'));
+		echo '<p>This comment has been flagged as inappropriate '.$comment['Comment']['flags'].' times.
+			Tap the warning icon if you want to live dangerously and read it.</p>';
+		
 	}
 	
 	else{
@@ -172,6 +151,7 @@ else $cheight=160;
 			'data-corners'=>'false',
 			'class'=>'comment_flag'.$comment['Comment']['id']
 		));
+		echo $this->Form->input('pflag',array('type'=>'hidden','value'=>'flag'));
 		
 		if ($mine=='mine'){
 			echo $this->Form->input('Delete my Comment',array(
@@ -224,8 +204,9 @@ else $cheight=160;
 	<!-- div style="clear:both;">
 	</div -->
 
-<? 
+<? 		echo $this->Form->input('flagvalue',array('type'=>'hidden','value'=>$flagvalue));
 		echo $this->Form->end(); 
+		//debug($comment);
  ?>
 
 <? //in theory not all are needed if comment is flagged, but too much to worry about now ?>
@@ -284,13 +265,13 @@ $flagclass='.container'.$comment['Comment']['id'];
 $(document).off('click', '.comment_flag<? echo $comment['Comment']['id']; ?>').on('click', '.comment_flag<? echo $comment['Comment']['id']; ?>',function(e) {
 	$.ajax({
 	async:true,
-	data:$(".<? echo $comment['Comment']['id']; ?>CommentAddForm").serialize(),
+	data:$(".comment<? echo $comment['Comment']['id']; ?>").serialize(),
 	dataType:"html",
 	success:function (data, textStatus) {
 		$("<? echo $flagclass; ?>").fadeOut(0).html(data).trigger('create').fadeIn(500);
 	},
 	type:"POST",
-	url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_flag/<? echo $comment['Comment']['id'].'/'.$comment['Comment']['template_id'].'/'.$flagvalue?>"});
+	url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_flag/<?=$comment['Comment']['id']?>"});
 	return false;
 });
 //});

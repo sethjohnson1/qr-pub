@@ -34,10 +34,11 @@
 		
 		<?
 		else :
+		if ($this->request['action']=='view'){
 		?>
 		<h3>Tell everyone how awesome your vacation is by sharing a link to this page.</h3>
 		<?
-		//debug($this->here); 
+	
 			if ($user['provider']=='Twitter'){
 				echo $this->Html->link('Tweet','https://twitter.com/share?via=centerofthewest&hastags=iscout&text='.'formdat!'.'&url='.$shorturl, array(
 					'data-role'=>'button',
@@ -69,6 +70,10 @@
 					'data-ajax'=>'false'
 				));
 			}
+		}
+		else{
+			?> <h3>You are currently logged in. When this button is illuminated you can use it to share parts of the tour.</h3> <?
+		}
 		
 		echo $this->Html->link('Log out',array('plugin'=>'users','controller'=>'users','action'=>'logout'),array(
 			//'data-role'=>'button',

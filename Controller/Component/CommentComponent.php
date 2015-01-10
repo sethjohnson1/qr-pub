@@ -53,6 +53,7 @@ class CommentComponent extends Component {
 	
 	//$id is the id of the comment
 	public function getComment ($id, $userid){
+		$this->Controller->set('cookie_flags',$this->Cookie->read('flagged_comments'));
 		$model=ClassRegistry::init('CommentsUser');
 		$conditions=array('CommentsUser.comment_id'=>$id);
 		if (isset($userid)) $conditions['CommentsUser.user_id']=$userid;

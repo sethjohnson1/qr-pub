@@ -28,4 +28,4 @@ $( document ).on( "pageinit", function( event ) {
 //http://dev4theweb.blogspot.com/2012/07/anchor-links-and-jquery-mobile.html
 $(document).ready(function () {
 
-});
+}); 

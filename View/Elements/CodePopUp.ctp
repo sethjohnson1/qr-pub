@@ -12,8 +12,9 @@
 			<label for="un" class="ui-hidden-accessible">Code:</label>
 <? 
 			echo $this->Form->input('3digitcode',array(
-				'id'=>'code','type'=>'number','placeholder'=>'3-digit Code',
-				'data-theme'=>'a','label'=>false
+				'id'=>'code','type'=>'text','placeholder'=>'3-digit Code',
+				'data-theme'=>'a','label'=>false,
+				'autofocus'=>'autofocus'
 
 			));		
 			echo $this->Form->input('Go',array(
@@ -33,3 +34,16 @@
 	echo $this->Form->end();
 	?>
 </div>
+<!-- This would auto-focus, but makes the form completely unusable in iOS due to lack of support 
+	some say you can bind to click, or touchup, or mouseup, not worth it in this case.
+	iOS is like the new Internet Explorer, requiring special treatment all along the way.
+-->
+<!-- script type="text/javascript">
+$(document).on('pagebeforeshow', function(){ 
+    $( "#CodePopUp" ).popup({
+        afteropen: function( event, ui ) {
+            $('#code').focus();
+        }
+    });
+}); 
+</script -->

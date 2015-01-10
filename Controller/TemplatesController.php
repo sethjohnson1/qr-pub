@@ -104,13 +104,26 @@ class TemplatesController extends AppController {
 	}
 	
 	/*
-	sends an e-mail via userPopup
+	sends an e-mail via userPopup, at this point it is very basic, I think I'll wait until
+	someone else wants to help with this, as I doubt it will get used much
 	*/
 	public function email($id=null,$url=null){
-		$options = array('conditions' => array('Template.' . $this->Template->primaryKey => $id));
-		$template=$this->Template->find('first', $options);
-		debug($template);
-		$this->render('ajax_response', 'ajax');
+		//currently these look so much like SPAM I can't get Google not to filter them.
+		//possibly because they are coming from an IP though, it might be fine in production
+		$Email = new CakeEmail();
+		$Email->from(Configure::read('globalFromEmail'))
+		//assuming this is set, it should be or something weird is happening
+			->to($this->Auth->user('email'))
+			->subject('iScout Virtual Tour')
+			->send(
+				"
+I thought you might enjoy this Virtual Exhibit from the Buffalo Bill Center of the West. Here is a 
+shortened link to it:\n\n".urldecode($url)."\n\nYou can complete the entire tour online at ".
+Configure::read('globalSiteURL')." although it's much more awesome in person."
+			);
+		//$this->render(false);
+		$this->Session->setFlash('Your message was sent! Thank you.','flash_custom');
+		$this->redirect($this->referer());
 	}
 
 	//I don't think this is used any longer

@@ -15,13 +15,13 @@ class CommentsUsersController extends AppController {
 	
 	//$id is the id of the Comment
 	//$flag is whether to flag or unflag (1, -1, reveal)
-	public function comment_flag($id = null,$templateid=null,$flag=null) {
-		//if ($this->request->is('ajax')){
-		//wrapped in larger IF for reveal
-		if ($flag=='reveal'){
-			$this->set('reveal','reveal');
-		}
+	public function comment_flag($id = null) {
+		if ($this->request->is('post')){
+
 			if ($this->Auth->user()){
+				$flag=0;
+				if ($this->request->data[$id]['pflag']=='flag') $flag=1;
+				if ($this->request->data[$id]['pflag']=='unflag') $flag=-1;
 				$user=$this->Auth->user();
 				$commentsuser=$this->CommentsUser->find('first',array(
 					'recursive'=>-1,
@@ -36,8 +36,8 @@ class CommentsUsersController extends AppController {
 				}
 				$data['user_id']=$user['id'];
 				$data['comment_id']=$id;
-				if ($flag==1) $data['flagged']=true;
-				if ($flag==-1) $data['flagged']=false;
+				if ($this->request->data[$id]['pflag']=='flag') $data['flagged']=true;
+				if ($this->request->data[$id]['pflag']=='unflag') $data['flagged']=false;
 				if ($this->CommentsUser->save($data)){
 				
 					$this->CommentsUser->Comment->create();
@@ -55,21 +55,22 @@ class CommentsUsersController extends AppController {
 				}
 			}
 			else {
-				$this->Session->setFlash('Create an account to permanently hide flagged comments.','flash_custom',array(),'commentFlash');
+				$this->Session->setFlash('Create an account to permanently flag and unflag comments.','flash_custom',array(),'commentFlash');
 				//makes a cookie for flagged comments, this is read and set from CommentComponent
 				$cookie=$this->Cookie->read('flagged_comments');
-				if ($flag==1) $cookie[$id]=true;
-				if ($flag==-1) unset($cookie[$id]);
+				if ($this->request->data[$id]['pflag']=='flag') $cookie[$id]=true;
+				if ($this->request->data[$id]['pflag']=='unflag') unset($cookie[$id]);
+			//	debug($this->request->data);
 				$this->Cookie->write('flagged_comments',$cookie, false, '1 year');
-				$user['username']='test';
+				//$user['username']='test';
 				$user['id']=null;
 			}
 		
-			//$comments=$this->Comment->getComments($templateid,$user['id']);
 			$comment=$this->Comment->getComment($id,$user['id']);
+			if ($this->request->data[$id]['pflag']=='reveal') $this->set('reveal',true);
 			$this->set(compact('comment','user'));
 			$this->render('comment_single','ajax');
-		//}
+		}
 	}
 	
 	//$id is the id of the Template

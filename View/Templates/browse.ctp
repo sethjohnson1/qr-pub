@@ -3,6 +3,9 @@ echo $this->element('Scorecard',array($totals));
 echo $this->element('jqm_header');
 
 if(!isset($location)){
+	echo $this->Html->link('Intro Page','/',array(
+			'data-role'=>'button'
+	));
 	foreach ($locations as $link=>$name){
 		echo $this->Html->link($name,array('action'=>'browse',$link),array(
 			'data-role'=>'button'
