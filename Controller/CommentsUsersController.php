@@ -14,9 +14,13 @@ class CommentsUsersController extends AppController {
 	}
 	
 	//$id is the id of the Comment
-	//$flag is whether to flag or unflag (1, -1)
+	//$flag is whether to flag or unflag (1, -1, reveal)
 	public function comment_flag($id = null,$templateid=null,$flag=null) {
 		//if ($this->request->is('ajax')){
+		//wrapped in larger IF for reveal
+		if ($flag=='reveal'){
+			$this->set('reveal','reveal');
+		}
 			if ($this->Auth->user()){
 				$user=$this->Auth->user();
 				$commentsuser=$this->CommentsUser->find('first',array(
@@ -35,13 +39,16 @@ class CommentsUsersController extends AppController {
 				if ($flag==1) $data['flagged']=true;
 				if ($flag==-1) $data['flagged']=false;
 				if ($this->CommentsUser->save($data)){
+				
 					$this->CommentsUser->Comment->create();
 					$commentdata=$this->CommentsUser->Comment->find('first',array(
 						'conditions'=>array('Comment.id'=>$id),
 						'recursive'=>-1
 					));
-
-					$commentdata['Comment']['flags']=$commentdata['Comment']['flags']+$flag;
+					//only do math on COmment if its a NEW flag or the same user unflagging
+					if ((isset($commentsuser['CommentsUser']['id']) && $flag==-1) || ($flag==1)){
+						$commentdata['Comment']['flags']=$commentdata['Comment']['flags']+$flag;
+					}
 					if ($this->CommentsUser->Comment->save($commentdata)){
 						//flash message?
 					}
@@ -57,10 +64,11 @@ class CommentsUsersController extends AppController {
 				$user['username']='test';
 				$user['id']=null;
 			}
-			$comments=$this->Comment->getComments($templateid,$user['id']);
-			//$comment=$this->Comment->getComment($id);
-			$this->set(compact('comments','user'));
-			$this->render('comment_add','ajax');
+		
+			//$comments=$this->Comment->getComments($templateid,$user['id']);
+			$comment=$this->Comment->getComment($id,$user['id']);
+			$this->set(compact('comment','user'));
+			$this->render('comment_single','ajax');
 		//}
 	}
 	

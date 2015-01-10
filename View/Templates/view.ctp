@@ -62,7 +62,7 @@ comments need some basic styling now. Not using popup, just list at end.
 
 		div[class^="commentsbox_"]{
 			border: 10px solid black;
-	}
+		}
 		
 	</style>
 <div class="big_comment_container ui-shadow ui-corner-all custom-corners">

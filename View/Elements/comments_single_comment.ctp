@@ -38,8 +38,9 @@ else {
 	$flagvalue=1;
 	$flaglabel='Flag';
 	}
-//someday this could be combined a little
-if($flagged==true || $comment['Comment']['flags']>=4 || isset($cookie_flags[$comment['Comment']['id']])) $cheight=100;
+//someday this could be combined a little, this is one Meal of an IF statement and is used Twice!
+if(($flagged==true || $comment['Comment']['flags']>=4) ||
+ (isset($cookie_flags[$comment['Comment']['id']]) && empty($user['id']) )) $cheight=100;
 else $cheight=160;
 
 
@@ -49,7 +50,6 @@ else $cheight=160;
 			//border: 2px solid green;
 			//width:95%;
 			height: <? echo $cheight ?>px;
-
 		}
 		.comment_buttons{
 		//	border: 1px solid blue;
@@ -83,27 +83,54 @@ else $cheight=160;
 	</style>
 		
 	<?
-	//debug($comment['CommentsUser']);
-	if($flagged==true || $comment['Comment']['flags']>=4 || isset($cookie_flags[$comment['Comment']['id']])){
-		$hidden=true;
-		$flagvalue=-1; //used later down in link
-		$flaglabel='Unflag';
-		echo $this->Form->input($flaglabel,array(
-			'div'=>false,
-			'type'=>'button',
-			'label'=>false,
-			'class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-alert fsign'.' comment_flag'.$comment['Comment']['id'],
-			'style'=>'float:left'
-			));
+	//debug($reveal);
+	if(
+		$flagged==true 
+		|| ($comment['Comment']['flags']>=4 && empty($reveal))
+		|| (isset($cookie_flags[$comment['Comment']['id']]) && empty($user['id']))
+	){
+		//$hidden=true;
 		
-		if($flagged==true || isset($cookie_flags[$comment['Comment']['id']]))
+	/*
+	right here is where glitch starts, $flagvalue is the problem
+	*/
+		if($flagged==true ||  (isset($cookie_flags[$comment['Comment']['id']]) && empty($user['id']))){
+			
+			$flagvalue=-1; //used later down in link
+			$flaglabel='Unflag';
+			echo $this->Form->input($flaglabel,array(
+				'div'=>false,
+				'type'=>'button',
+				'label'=>false,
+				'class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-alert fsign'.' comment_flag'.$comment['Comment']['id'],
+				'style'=>'float:left'
+				));
+			
 			echo '<p><strong>You flagged this message as inappropriate.</strong> If you simply did not like the comment,
 			please unflag using the icon and vote it down instead.</p>';
-		else if ($comment['Comment']['flags']>=4)
+			}
+		/*
+			the obvious flaw here is that it reveals all the flagged comments. I am sick of 
+			working on it right now and will revisit after thinking about it some more.
+		*/
+		else if ($comment['Comment']['flags']>=4){
+			//just not so easy, commented out for now
+			$flagvalue='reveal';
+			//$flagvalue=-1;
+			echo $this->Form->input('Reveal',array(
+				'div'=>false,
+				'type'=>'button',
+				'label'=>false,
+				'class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-alert fsign'.' comment_flag'.$comment['Comment']['id'],
+				'style'=>'float:left'
+			));
 			echo '<p>This comment has been flagged as inappropriate '.$comment['Comment']['flags'].' times.
 			Tap the warning icon if you want to live dangerously and read it.</p>';
+			
+			}
 	
 	}
+	
 	else{
 		//giant block to draw the comment and buttons
 		?>
@@ -247,8 +274,10 @@ $(document).off('click', '.comment_down<? echo $comment['Comment']['id']; ?>').o
 
 <?
 //redraw the entire comment box if flagged and there is no logged in user, otherwise just the comment itself
-//no nevermind just redrawing no matter what, this could be revisited later but is not very important
-$flagclass='.comments'.$comment['Comment']['template_id'];
+//if (isset($user['id'])) 
+$flagclass='.container'.$comment['Comment']['id'];
+//else 
+//$flagclass='.comments'.$comment['Comment']['template_id'];
 ?>
 
 //$(document).on('updatelayout', function(){
