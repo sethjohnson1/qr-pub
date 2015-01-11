@@ -16,7 +16,9 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 			'url'=>'/',
 			'height'=>'78',
 			'width'=>'150',
-			'alt'=>'Center of the West logo'
+			//'style'=>'height: 100px;',
+			'alt'=>'Center of the West logo',
+			'class'=>'goaway'
 			
 			));
 		?>
