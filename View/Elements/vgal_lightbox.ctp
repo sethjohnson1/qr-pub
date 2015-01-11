@@ -40,7 +40,8 @@ div.iscroll-scroller {
 }
  
 .ui-popup .ui-content {
-    height: 150px !important;
+    //this is only necessary for iscroll
+	//height: 250px !important;
 }
 
 .popup_quasi_header_bar {
@@ -76,7 +77,7 @@ foreach ($template['Asset'] as $key=>$asset):
 			<? //just add 'data-iscroll' attr to iscrolltest to frustrate yourself madly  (and enable the scripts on layout)
 				//something about using multiple iscolls on one page, I think ... maybe if it wasn't in the footer?
 			?>
-			<div style="height:1000px" class="iscrolltest" data-role="content"<? //echo ' data-iscroll'?>>
+			<div class="iscrolltest" data-role="content"<? //echo ' data-iscroll'?>>
 			<div class="ui-shadow vgal_details">
 			
 			<? 
