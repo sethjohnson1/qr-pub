@@ -81,6 +81,7 @@ create table comments(
 	parent_id int, -- maybe not threaded but just in case, should probably max at 3
 	template_id int,
 	hidden tinyint(1),
+	responded tinyint(1),
 	flags int, -- this is a number so we can count number of flags, maybe shut it down after so many
 	upvotes int,
 	downvotes int,

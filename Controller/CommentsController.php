@@ -5,13 +5,31 @@ class CommentsController extends AppController {
 
 	public $components = array('Paginator');
 
-/* generic baked
-	public function index() {
+
+	public function admin_index() {
 		$this->Comment->recursive = 0;
 		$this->set('comments', $this->Paginator->paginate());
 	}
 
-
+	public function admin_edit($id = null) {
+		if (!$this->Comment->exists($id)) {
+			throw new NotFoundException(__('Invalid comment'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Comment->save($this->request->data)) {
+				$this->Session->setFlash(__('The comment has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The comment could not be saved. Please, try again.'));
+			}
+		} else {
+			$options = array('conditions' => array('Comment.' . $this->Comment->primaryKey => $id));
+			$this->request->data = $this->Comment->find('first', $options);
+		}
+		//$users = $this->Comment->User->find('list');
+		//$this->set(compact('users'));
+	}
+/* generic baked
 	public function view($id = null) {
 		if (!$this->Comment->exists($id)) {
 			throw new NotFoundException(__('Invalid comment'));

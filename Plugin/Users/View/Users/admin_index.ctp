@@ -67,4 +67,4 @@
 	</table>
 	<?php echo $this->element('Users.pagination'); ?>
 </div>
-<?php echo $this->element('Users.Users/admin_sidebar'); ?>
+<?=$this->element('admin_actions')?>

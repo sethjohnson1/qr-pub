@@ -256,31 +256,15 @@ class UsersController extends UsersAppController {
 	
 
 
-/**
- * Simple listing of all users
- *
- * @return void
- */
+/* useful but not needed now
 	public function index() {
 		$this->set('users', $this->Paginator->paginate($this->modelClass));
 	}
+*/
 
-/**
- * The homepage of a users giving him an overview about everything
- *
- * @return void
- */
-	public function dashboard() {
-		$user = $this->{$this->modelClass}->read(null, $this->Auth->user('id'));
-		$this->set('user', $user);
-	}
 
-/**
- * Shows a users profile
- *
- * @param string $slug User Slug
- * @return void
- */
+
+ /*
 	public function view($slug = null) {
 		try {
 			$this->set('user', $this->{$this->modelClass}->view($slug));
@@ -289,25 +273,13 @@ class UsersController extends UsersAppController {
 			$this->redirect('/');
 		}
 	}
+	*/
 
-/**
- * Edit the current logged in user
- *
- * Extend the plugin and implement your custom logic here, mostly thought to be
- * used as a dashboard or profile page like method.
- *
- * See the plugins documentation for how to extend the plugin.
- *
- * @return void
- */
+
 	public function edit() {
 	}
 
-/**
- * Admin Index
- *
- * @return void
- */
+
 	public function admin_index() {
 		if ($this->{$this->modelClass}->Behaviors->loaded('Searchable')) {
 			$this->Prg->commonProcess();
@@ -327,12 +299,7 @@ class UsersController extends UsersAppController {
 		$this->set('users', $this->Paginator->paginate());
 	}
 
-/**
- * Admin view
- *
- * @param string $id User ID
- * @return void
- */
+
 	public function admin_view($id = null) {
 		try {
 			$user = $this->{$this->modelClass}->view($id, 'id');
@@ -344,11 +311,7 @@ class UsersController extends UsersAppController {
 		$this->set('user', $user);
 	}
 
-/**
- * Admin add
- *
- * @return void
- */
+
 	public function admin_add() {
 		if (!empty($this->request->data)) {
 			$this->request->data[$this->modelClass]['tos'] = true;

@@ -9,10 +9,7 @@
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
 			<th><?php echo $this->Paginator->sort('modified'); ?></th>
 			<th><?php echo $this->Paginator->sort('active'); ?></th>
-			<th><?php echo $this->Paginator->sort('meta_title'); ?></th>
-			<th><?php echo $this->Paginator->sort('meta_desc'); ?></th>
-			<th><?php echo $this->Paginator->sort('nextid'); ?></th>
-			<th><?php echo $this->Paginator->sort('previd'); ?></th>
+
 			<th><?php echo $this->Paginator->sort('code'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -25,15 +22,12 @@
 		<td><?php echo h($template['Template']['created']); ?>&nbsp;</td>
 		<td><?php echo h($template['Template']['modified']); ?>&nbsp;</td>
 		<td><?php echo h($template['Template']['active']); ?>&nbsp;</td>
-		<td><?php echo h($template['Template']['meta_title']); ?>&nbsp;</td>
-		<td><?php echo h($template['Template']['meta_desc']); ?>&nbsp;</td>
-		<td><?php echo h($template['Template']['nextid']); ?>&nbsp;</td>
-		<td><?php echo h($template['Template']['previd']); ?>&nbsp;</td>
 		<td><?php echo h($template['Template']['code']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('admin'=>false,'action' => 'view', $template['Template']['id'])); ?>
+			<?php echo $this->Html->link(__('Stats'), array('action' => 'view', $template['Template']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $template['Template']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $template['Template']['id']), array(), __('Are you sure you want to delete # %s?', $template['Template']['id'])); ?>
+			<?php //echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $template['Template']['id']), array(), __('Are you sure you want to delete # %s?', $template['Template']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -54,12 +48,5 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Template'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Assets'), array('controller' => 'assets', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Asset'), array('controller' => 'assets', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Beacons'), array('controller' => 'beacons', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Beacon'), array('controller' => 'beacons', 'action' => 'add')); ?> </li>
-	</ul>
+ <?=$this->element('admin_actions')?>
 </div>

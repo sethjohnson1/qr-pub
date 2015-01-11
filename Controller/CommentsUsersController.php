@@ -105,7 +105,7 @@ class CommentsUsersController extends AppController {
 				if (isset($parentid)) $comment['parent_id']=$parentid;
 				$this->CommentsUser->Comment->create();
 				if ($this->CommentsUser->Comment->save($comment)){
-					//maybe start setting flash messages here?
+						$this->Session->setFlash('Your comment was noted.','flash_custom',array(),'commentFlash');
 				}
 			}
 			else {
