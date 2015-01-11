@@ -13,6 +13,9 @@ $( document ).on( "pageinit", function( event ) {
 			
         }
     });
+	
+	//$('[data-role="content"]').trigger('create');
+    //$(".iscrolltest").iscrollview("refresh");
 
 		//$("[data-role=panel]").panel().enhanceWithin();
 	

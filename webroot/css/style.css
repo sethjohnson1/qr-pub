@@ -11,6 +11,25 @@ font-weight: normal;
 font-style: normal;
 
 }
+.ui-content {
+    padding: 0 !important;
+}
+ 
+.ui-listview {
+    margin: 0 !important;
+}
+ 
+div.iscroll-scroller {
+    width: 100% !important;
+}
+ 
+.ui-popup .ui-content {
+    height: 150px !important;
+}
+
+.popup_quasi_header_bar {
+	min-width: 700px;
+}
 
 #myicons{  font-family: "cotw" !important;
 content: attr(data-icon);

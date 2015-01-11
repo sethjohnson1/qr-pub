@@ -1,10 +1,10 @@
 <style type="text/css" scoped>
 
 	div.imgpopup_container{
-		max-width: 180px ;
-		//without height, iScroll stops at the bottom of this div rather than the container
-		//height:180px;
+		//float:left;
+		width: 180px ;
 		margin: 0 auto;
+		//border: 1px solid green;
 	}
 	img.vgal_poppedimg{
 		max-width: 100%;
@@ -22,25 +22,31 @@
 	div[id^="popupcontainer_"]{
 		//border: 1px solid green;
 		overflow-y: auto;
+		
 	}
 <? //this came from http://www.gajotres.net/using-iscroll-with-jquery-mobile/
 	//unfortunately I had to abandon the idea because it was too buggy
  ?>
-	.ui-content {
-		padding: 0 !important;
-	}
-	 
-	div.iscroll-scroller {
-		width: 100% !important;
-	}
-	
-	div.iscroll-wrapper {
-		height: 1000px !important;
-	}
-	 
-	.ui-popup .ui-content {
-		height: 150px !important;
-	}
+.ui-content {
+    padding: 0 !important;
+}
+ 
+.ui-listview {
+    margin: 0 !important;
+}
+ 
+div.iscroll-scroller {
+    width: 100% !important;
+}
+ 
+.ui-popup .ui-content {
+    height: 150px !important;
+}
+
+.popup_quasi_header_bar {
+	//this is only necessary when trying to get iscroll to work
+	//min-width: 700px;
+}
 		
 	
 </style>
@@ -48,6 +54,7 @@
 //this is done similar elsewhere and should be consolidated later
 foreach ($template['Asset'] as $key=>$asset):
 	if ($asset['name']=='treasure'):
+
 	//straight out of JQM docs for prerendered popups
 ?>
 	<div id="pre-rendered-screen_<? echo $key ?>" class="ui-popup-screen ui-overlay-a ui-screen-hidden"></div>
@@ -59,14 +66,17 @@ foreach ($template['Asset'] as $key=>$asset):
 			
 			<a href="#" data-rel="back" data-theme="e" class="ui-btn ui-corner-all ui-shadow ui-btn-e ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 			
-		<div id="popupcontainer_<? echo $key ?>" class="vgalpopup_container ui-shadow ui-body ui-body-a ui-corner-all">
+		<div  id="popupcontainer_<? echo $key ?>" class="vgalpopup_container ui-shadow ui-body ui-body-a ui-corner-all">
+			<div class="popup_quasi_header_bar">
+			
 			<p class="ui-shadow ui-bar ui-bar-a">
 				<? echo $asset['asset_text']; ?>
 			</p>
+			</div>
 			<? //just add 'data-iscroll' attr to iscrolltest to frustrate yourself madly  (and enable the scripts on layout)
 				//something about using multiple iscolls on one page, I think ... maybe if it wasn't in the footer?
 			?>
-			<div class="iscrolltest" data-role="content">
+			<div style="height:1000px" class="iscrolltest" data-role="content"<? //echo ' data-iscroll'?>>
 			<div class="ui-shadow vgal_details">
 			
 			<? 
@@ -115,7 +125,6 @@ foreach ($template['Asset'] as $key=>$asset):
 			<div class="ui-shadow vgal_details">
 			
 			<? 
-
 			if (isset($asset['insrciption'])){
 				echo '<p><strong>Inscription: </strong>'
 					.$asset['insciption'].'</p>';
