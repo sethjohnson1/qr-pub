@@ -37,9 +37,12 @@ else {
 	$flaglabel='Flag';
 	}
 //someday this could be combined a little, this is one Meal of an IF statement and is used Twice!
-if(($flagged==true || $comment['Comment']['flags']>=4) ||
+/*if(($flagged==true || $comment['Comment']['flags']>=4) ||
  (isset($cookie_flags[$comment['Comment']['id']]) && empty($user['id']) )) $cheight=100;
-else $cheight=160;
+else 
+*/
+
+$cheight=160;
 
 
 ?>	

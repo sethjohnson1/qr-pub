@@ -12,7 +12,7 @@
 			<label for="un" class="ui-hidden-accessible">Code:</label>
 <? 
 			echo $this->Form->input('3digitcode',array(
-				'id'=>'code','type'=>'text','placeholder'=>'3-digit Code',
+				'id'=>'code','type'=>'number','placeholder'=>'3-digit Code',
 				'data-theme'=>'a','label'=>false,
 				'autofocus'=>'autofocus'
 

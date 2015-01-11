@@ -5,9 +5,10 @@
 		<div class="ui-grid-d" style="text-align:center;position: relative;top: 7px;">
 			<? 
 			//debug($template['Template']);
+			$buttonstyle='width: 100px; opacity: .92;';
 			if (isset($template['Template']['previd'])):
 				echo $this->Html->link('Previous',array('controller'=>'templates','action'=>'view',$template['Template']['previd']),
-				array('style'=>'width: 100px;',
+				array('style'=>$buttonstyle,
 				'data-role'=>'button',
 				'data-icon'=>'arrow-l',
 				'data-iconpos'=>'left',
@@ -38,7 +39,7 @@
 			//echo $this->Html->link('Score Card','#Scorecard',array('class'=>'ui-btn ui-icon-carat-u ui-btn-icon-top','data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'slideup'));
 			if (isset($template['Template']['nextid'])):
 				echo $this->Html->link('Next',array('controller'=>'templates','action'=>'view',$template['Template']['nextid']),
-				array('style'=>'width: 100px;',
+				array('style'=>$buttonstyle,
 				'data-role'=>'button',
 				'data-icon'=>'arrow-r',
 				'data-iconpos'=>'right',

@@ -90,7 +90,7 @@ class TemplatesController extends AppController {
 		$this->set('shorturl',$this->UrlShortener->get_bitly_short_url($this->here,'social',$user['provider']));									
 		$this->set('title_for_layout', $template['Template']['meta_title']);
 		//the description does not need to be set here, but in the individual templates (see vgal)
-		
+		//$this->render('view','default');
 	}
 	public function clear_card() {
 		$user=$this->Auth->user();
