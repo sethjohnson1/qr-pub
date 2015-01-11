@@ -1,5 +1,7 @@
 	</div><!-- /content main -->
-	<? if ($template['Template']['name']=='vgal') echo $this->element('vgal_lightbox');   ?>
+	<? 
+	if ($template['Template']['name']=='vgal') echo $this->element('vgal_lightbox');   
+	?>
 	<div data-role="footer" data-position="fixed" data-id="myfooter" style="background-color:transparent;border:none;">
 	<!--right here we need 2 pull out Qs that 1 for score card and 1 for comments, then also design those panels-->
 		<div class="ui-grid-d" style="text-align:center;position: relative;top: 7px;">

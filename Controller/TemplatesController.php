@@ -16,7 +16,9 @@ class TemplatesController extends AppController {
 	
 	public function browse($location = null) {
 		if(isset($location)){
-			$stops=$this->Template->find('all',array('conditions'=>array('Template.location'=>$location),'recursive'=>-1));
+			$stops=$this->Template->find('all',array(
+			'conditions'=>array('Template.location'=>$location,'Template.active'=>1),
+			'recursive'=>-1));
 		}
 		$this->set(compact('locations','location','stops'));
 		$this->set('title_for_layout', 'Browse');
@@ -59,6 +61,7 @@ class TemplatesController extends AppController {
 				}
 				
 				else {
+					$this->Session->setFlash('Viewing Code '.$this->request->data['Code']['3digitcode'],'flash_custom');
 					return $this->redirect(array('controller'=>'templates','action'=>'view',
 					$template_redir['Template']['id']));
 				}

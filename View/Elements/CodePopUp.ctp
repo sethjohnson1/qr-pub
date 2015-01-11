@@ -1,4 +1,4 @@
-<div id="CodePopUp" class="CodePopUp" data-theme="a">
+<div id="CodePopUp" class="CodePopUp" data-theme="a" data-overlay-theme="a">
 <? echo $this->Form->create('Code',array(
 'data-ajax'=>'false',
 'id'=>'CodeForm',

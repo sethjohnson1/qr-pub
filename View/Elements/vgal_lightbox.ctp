@@ -1,10 +1,10 @@
 <style type="text/css" scoped>
 
 	div.imgpopup_container{
-		//float:left;
-		width: 180px ;
+		max-width: 180px ;
+		//without height, iScroll stops at the bottom of this div rather than the container
+		//height:180px;
 		margin: 0 auto;
-		//border: 1px solid green;
 	}
 	img.vgal_poppedimg{
 		max-width: 100%;
@@ -22,8 +22,27 @@
 	div[id^="popupcontainer_"]{
 		//border: 1px solid green;
 		overflow-y: auto;
-		
 	}
+<? //this came from http://www.gajotres.net/using-iscroll-with-jquery-mobile/
+	//unfortunately I had to abandon the idea because it was too buggy
+ ?>
+	.ui-content {
+		padding: 0 !important;
+	}
+	 
+	div.iscroll-scroller {
+		width: 100% !important;
+	}
+	
+	div.iscroll-wrapper {
+		height: 1000px !important;
+	}
+	 
+	.ui-popup .ui-content {
+		height: 150px !important;
+	}
+		
+	
 </style>
 <?
 //this is done similar elsewhere and should be consolidated later
@@ -31,11 +50,12 @@ foreach ($template['Asset'] as $key=>$asset):
 	if ($asset['name']=='treasure'):
 	//straight out of JQM docs for prerendered popups
 ?>
-	<div id="pre-rendered-screen_<? echo $key ?>" class="ui-popup-screen ui-screen-hidden"></div>
-		<div id="pre-rendered-popup_<? echo $key ?>" class="ui-popup-container fade ui-popup-hidden ui-body-inherit ui-overlay-shadow ui-corner-all">
+	<div id="pre-rendered-screen_<? echo $key ?>" class="ui-popup-screen ui-overlay-a ui-screen-hidden"></div>
+		<div id="pre-rendered-popup_<? echo $key ?>" 
+		class="ui-popup-container pop ui-popup-hidden ui-body-inherit  ui-corner-all">
 
-			<div data-role="popup" class="poppedimg ui-popup" id="<? echo $template['Template']['id'].'_'.$asset['id']?>" 
-			data-overlay-theme="b" data-theme="b" data-corners="false" data-enhanced="true" data-transition="fade">
+			<div data-role="popup" class="poppedimg ui-popup ui-overlay-shadow " id="<? echo $template['Template']['id'].'_'.$asset['id']?>" 
+			data-enhanced="true" data-overlay-theme="a">
 			
 			<a href="#" data-rel="back" data-theme="e" class="ui-btn ui-corner-all ui-shadow ui-btn-e ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 			
@@ -43,7 +63,10 @@ foreach ($template['Asset'] as $key=>$asset):
 			<p class="ui-shadow ui-bar ui-bar-a">
 				<? echo $asset['asset_text']; ?>
 			</p>
-		
+			<? //just add 'data-iscroll' attr to iscrolltest to frustrate yourself madly  (and enable the scripts on layout)
+				//something about using multiple iscolls on one page, I think ... maybe if it wasn't in the footer?
+			?>
+			<div class="iscrolltest" data-role="content">
 			<div class="ui-shadow vgal_details">
 			
 			<? 
@@ -79,7 +102,7 @@ foreach ($template['Asset'] as $key=>$asset):
 			<?
 				echo $this->Html->image('uploads/'.$template['Template']['id'].'_'.$asset['id'].'.jpg', array(
 				'alt'=>$asset['asset_text'],
-				'class'=>'vgal_poppedimg'));
+				));
 				?>
 			<br />
 
@@ -106,7 +129,7 @@ foreach ($template['Asset'] as $key=>$asset):
 					.$asset['accnum'].'</p>';
 			}
 			if (isset($asset['synopsis'])){
-				echo '<p><strong>Synopsis: </strong>'
+				echo '<p style="padding-bottom:20px"><strong>Synopsis: </strong>'
 					.$asset['synopsis'].'</p>';
 			}
 			
@@ -114,13 +137,14 @@ foreach ($template['Asset'] as $key=>$asset):
 
 			</div>
 			
-			
+		</div><!-- /iscroll -->
 		</div><!-- /vgal popcontainer -->
 		</div><!-- /popup -->
 		<!-- div data-role="footer" data-position="fixed" >
 			<h1>I am a footer that does not work right on iOS</h1>
 		</div -->
 		</div><!-- pre-rendered -->
+
 <?
 	endif;
 endforeach;

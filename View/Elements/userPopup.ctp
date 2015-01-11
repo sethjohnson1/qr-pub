@@ -1,4 +1,4 @@
-<div id="userPopup" data-theme="a">
+<div id="userPopup" data-theme="a" data-overlay-theme="a">
 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div style="padding:10px 20px;">
 	<?

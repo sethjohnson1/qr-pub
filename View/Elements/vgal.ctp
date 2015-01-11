@@ -59,8 +59,12 @@ always set our own width instead of the generic "ui-responsive"
 <div class="vgal_container ui-shadow ui-body ui-body-a ui-grid-c">
 <h2 class="ui-mini"><? echo $description ?></h2>
 
-<? foreach ($treasures as $asset):
+<? foreach ($treasures as $key=>$asset):
+
 	//if ($asset['name']=='treasure') : ?>
+
+	
+	
 <div class="vgalchild ui-shadow ui-body-a" >
 <?
 
