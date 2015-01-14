@@ -1,5 +1,14 @@
-<style type="text/css" scoped>
+<script>
+$(document).on('popupafteropen', '[data-role="popup"]', function(event, ui) {
+    $( 'html' ).addClass( "lloyd" );
+}).on('popupafterclose', '[data-role="popup"]', function(event, ui) {
+    $( 'html' ).removeClass( "lloyd" );
+});
 
+
+</script>
+<style type="text/css" scoped>
+.lloyd{overflow:hidden;}
 	div.imgpopup_container{
 		//float:left;
 		width: 180px ;
@@ -24,6 +33,7 @@
 		overflow-y: auto;
 		
 	}
+body{		overflow-x: hidden;}
 <? //this came from http://www.gajotres.net/using-iscroll-with-jquery-mobile/
 	//unfortunately I had to abandon the idea because it was too buggy
  ?>
@@ -48,8 +58,6 @@ div.iscroll-scroller {
 	//this is only necessary when trying to get iscroll to work
 	//min-width: 700px;
 }
-		
-	
 </style>
 <?
 //this is done similar elsewhere and should be consolidated later

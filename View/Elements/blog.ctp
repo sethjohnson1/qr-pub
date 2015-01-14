@@ -19,7 +19,7 @@ foreach ($template['Asset'] as $asset){
 <? // HTML5 scoped CSS all over ?>
 
  <style type="text/css" scoped>
-   div[id^="attachment_"]{
+   /*div[id^="attachment_"]{
 		float: left;
 		padding: 5px;
 		margin: 10px 10px;
@@ -35,7 +35,87 @@ foreach ($template['Asset'] as $asset){
 	img{
 		width:100%;
 		height: 100%;
-	}
+	}*/
+	/* =WordPress Core
+-------------------------------------------------------------- */
+.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+.aligncenter,
+div.aligncenter {
+    display: block;
+    margin: 5px auto 5px auto;
+}
+
+.alignright {
+    float:right;
+    margin: 5px 0 20px 20px;
+}
+
+.alignleft {
+    float: left;
+    margin: 5px 20px 20px 0;
+}
+
+.aligncenter {
+    display: block;
+    margin: 5px auto 5px auto;
+}
+
+a img.alignright {
+    float: right;
+    margin: 5px 0 20px 20px;
+}
+
+a img.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+a img.alignleft {
+    float: left;
+    margin: 5px 20px 20px 0;
+}
+
+a img.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.wp-caption {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    max-width: 96%; /* Image does not overflow the content area */
+    padding: 5px 3px 10px;
+    text-align: center;
+}
+
+.wp-caption.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignleft {
+    margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignright {
+    margin: 5px 0 20px 20px;
+}
+
+.wp-caption img {
+    border: 0 none;
+    height: auto;
+    margin: 0;
+    max-width: 98.5%;
+    padding: 0;
+    width: auto;
+}
+
+.wp-caption p.wp-caption-text {
+	font-style: italic;
+	margin-bottom: 1em;
+}
 	
   </style>
 <h3 class="ui-shadow ui-bar ui-bar-a"><? echo $wp_title['asset_text']; ?><br/>

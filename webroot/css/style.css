@@ -128,3 +128,27 @@ float:left;
 	}
 
 }
+.ui-icon-iscout-whitefbicon:after {
+	background-image: url("../img/white-facebook.svg") !important;
+	background-color: transparent;
+}
+.ui-icon-iscout-fbicon:after {
+	background-image: url("../img/facebook.svg") !important;
+	background-color: transparent;
+}
+.ui-icon-iscout-whitetwittericon:after {
+	background-image: url("../img/white-twitter.svg") !important;
+	background-color: transparent;
+}
+.ui-icon-iscout-twittericon:after {
+	background-image: url("../img/twitter.svg") !important;
+	background-color: transparent;
+}
+.ui-icon-iscout-whitegoogleplusicon:after {
+	background-image: url("../img/white-googleplus.svg") !important;
+	background-color: transparent;
+}
+.ui-icon-iscout-googleplusicon:after {
+	background-image: url("../img/googleplus.svg") !important;
+	background-color: transparent;
+}

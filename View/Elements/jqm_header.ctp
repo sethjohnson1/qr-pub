@@ -38,16 +38,18 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 						$dataicon='mail';
 					}
 					if ($user['provider']=='Facebook'){
-						$datatheme='b';
-						$dataicon='heart';
+						$datatheme='';
+						$dataicon='iscout-fbicon';
+						
 					}
 					if ($user['provider']=='Google'){
-						$datatheme='c';
-						$dataicon='plus';
+						$datatheme='';
+						$dataicon='iscout-googleplusicon';
+						
 					}
 					if ($user['provider']=='Twitter'){
-						$datatheme='d';
-						$dataicon='comment';
+						$datatheme='';
+						$dataicon='iscout-twittericon';
 					}
 				}
 				else {

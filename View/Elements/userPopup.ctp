@@ -8,17 +8,20 @@
 		echo $this->Html->link('Facebook',array('plugin'=>'users','controller'=>'users','action'=>'auth_login','Facebook'),array(
 			'data-role'=>'button',
 			'data-theme'=>'b',
-			'rel'=>'external'
+			'rel'=>'external',
+			'data-icon'=>'iscout-whitefbicon'
 			));
 		echo $this->Html->link('Google',array('plugin'=>'users','controller'=>'users','action'=>'auth_login','Google'),array(
 			'data-role'=>'button',
 			'data-theme'=>'c',
-			'rel'=>'external'
+			'rel'=>'external',
+			'data-icon'=>'iscout-whitegoogleplusicon'
 			));
 		echo $this->Html->link('Twitter',array('plugin'=>'users','controller'=>'users','action'=>'auth_login','Twitter'),array(
 			'data-role'=>'button',
 			'data-theme'=>'d',
-			'rel'=>'external'
+			'rel'=>'external',
+			'data-icon'=>'iscout-whitetwittericon'
 			));
 			
 	
@@ -42,13 +45,17 @@
 			if ($user['provider']=='Twitter'){
 				echo $this->Html->link('Tweet','https://twitter.com/share?via=centerofthewest&hastags=iscout&text='.'formdat!'.'&url='.$shorturl, array(
 					'data-role'=>'button',
+					'data-icon'=>'iscout-whitetwittericon',
 					'data-theme'=>'d'
+					
+					
 				));
 			}
 			if ($user['provider']=='Facebook'){
 				echo $this->Html->link('Post to Facebook','http://www.facebook.com/share.php?u='.$shorturl, array(
 					'data-role'=>'button',
 					'data-theme'=>'b',
+					'data-icon'=>'iscout-whitefbicon',
 					'target'=>'_blank'
 				));
 			}
@@ -56,6 +63,7 @@
 				echo $this->Html->link('Google+','https://plus.google.com/share?url='.$shorturl, array(
 					'data-role'=>'button',
 					'data-theme'=>'c',
+					'data-icon'=>'iscout-whitegoogleplusicon',
 					'target'=>'_blank'
 				));
 			}

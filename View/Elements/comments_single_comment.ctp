@@ -47,10 +47,10 @@ $cheight=160;
 
 ?>	
 	<style type="text/css" scoped>
-		.container<? echo $comment['Comment']['id'] ?>{
+		.container<?=$comment['Comment']['id'] ?>{
 			//border: 2px solid green;
 			//width:95%;
-			height: <? echo $cheight ?>px;
+			height: <?=$cheight ?>px;
 		}
 		.comment_buttons{
 		//	border: 1px solid blue;
@@ -62,15 +62,16 @@ $cheight=160;
 		}
 		.the_comment{
 			float:left;
-			height: 140px;
+			height: 100%;
 			width:90%;
 			padding-top: 1px;
 			overflow-y:auto;
-		//	border: 1px solid yellow;
+			border: 1px dashed #ede9e7;
+			border-right:none;
 		}
 		.comment_text{
 			float:left;
-			padding: 0 0 0 30px;
+			padding: 10px 0px 0px 28px;
 		}
 		.starred:after{
 			background-color: #bd4f19 !important;
@@ -78,6 +79,32 @@ $cheight=160;
 		.staricon{
 			position: relative;
 			padding: 12px;
+		}
+		.comment_destructive{
+			width:60px;
+			padding-top:2px;	
+			float:right;
+		}		
+		.comment_header{
+		width:100%;	
+		}
+		.comment_thoughts{
+			width:85%;
+		}
+		div.total span{
+			background-color: rgb(246, 246, 246);
+			border-color: rgb(221, 221, 221);
+			border-style: solid;
+			border-width: 1px;		
+			box-sizing: content-box;
+			position: relative;
+			display: block;
+			width: 22px;
+			height: 22px;
+			top: 0px;
+			box-shadow: 0 1px 0 rgba(255,255,255,.4);
+			font-weight: bold;
+			left:-12px;	
 		}
 	</style>
 		
@@ -90,7 +117,7 @@ $cheight=160;
 				'div'=>false,
 				'type'=>'button',
 				'label'=>false,
-				'class'=>'ui-btn-icon-notext ui-mini ui-btn ui-icon-alert fsign'.' comment_flag'.$comment['Comment']['id'],
+				'class'=>'ui-btn-icon-notext ui-mini ui-icon-alert fsign'.' comment_flag'.$comment['Comment']['id'],
 				'style'=>'float:left'
 				));
 			
@@ -128,9 +155,9 @@ $cheight=160;
 			'data-corners'=>'false',
 			'class'=>'comment_up'.$comment['Comment']['id'],
 			$utoggle
-		));
-		
-		echo $this->Form->input('DownVote',array(
+		));?>
+		<div class="total"><span><? echo $comment['Comment']['diff'] ?></span></div>
+		<? echo $this->Form->input('DownVote',array(
 			'div'=>false,
 			'label'=>false,
 			'type'=>'button',
@@ -143,6 +170,38 @@ $cheight=160;
 			$dtoggle
 		));
 		
+		
+		?>
+		
+		
+	</div><!-- /comment_buttons -->
+		<?
+		//set height and overflow "scroll" here to prevent long-winded comments taking up more than their fair share
+		?>
+		<div class="the_comment">
+		<!-- div style="width:200px;clear:both" -->
+		
+		
+		<div class="comment_text">
+		<div class="comment_header">
+			<div class="comment_rate">
+				<strong><? echo $formattedname[0] ?></strong>
+		
+	
+		<?
+		for ($x=0;$x<=4; $x++):
+			if ($comment['Comment']['rating'] > $x) $starred='starred';
+			else $starred='';
+			
+		?>
+		<span class="ui-icon-star ui-btn-icon-notext staricon <? echo $starred ?>"/></span>
+
+		<?
+		endfor;
+		?>
+		</div>
+		<div class="comment_destructive"><?
+
 		echo $this->Form->input($flaglabel,array(
 			'div'=>false,
 			'label'=>false,
@@ -152,7 +211,7 @@ $cheight=160;
 			'data-iconshadow'=>'true',
 			'data-iconpos'=>'notext',
 			'data-corners'=>'false',
-			'class'=>'comment_flag'.$comment['Comment']['id']
+			'class'=>'delbtn comment_flag'.$comment['Comment']['id']
 		));
 		echo $this->Form->input('pflag',array('type'=>'hidden','value'=>'flag'));
 		
@@ -167,35 +226,17 @@ $cheight=160;
 				'data-corners'=>'false',
 				'class'=>'comment_hide'.$comment['Comment']['id'],
 				'rel'=>'external',
-				'data-ajax'=>'false'
+				'data-ajax'=>'false',
+				'style'=>''
+				
 			));
 		}
-		?>
+		?> </div>
+		</div>
 		
 		
-	</div><!-- /comment_buttons -->
-		<?
-		//set height and overflow "scroll" here to prevent long-winded comments taking up more than their fair share
-		?>
-		<div class="the_comment">
-		<!-- div style="width:200px;clear:both" -->
-		<div class="total" style="float:left"><? echo $comment['Comment']['diff'] ?></div>
-		
-		<div class="comment_text"><strong><? echo $formattedname[0] ?></strong>
-		
-		<?
-		for ($x=0;$x<=4; $x++):
-			if ($comment['Comment']['rating'] > $x) $starred='starred';
-			else $starred='';
-			
-		?>
-		<span class="ui-icon-star ui-btn-icon-notext staricon <? echo $starred ?>"/></span>
 
-		<?
-		endfor;
-		?>
-		<br />
-		<? echo $comment['Comment']['thoughts'] ?>
+		<div class="comment_thoughts"><? echo $comment['Comment']['thoughts'] ?></div>
 		</div>
 		<!-- /div -->
 		</div><!-- /the_comment -->
@@ -283,4 +324,3 @@ $(document).off('click', '.comment_flag<? echo $comment['Comment']['id']; ?>').o
 //]]>
 </script>
 </div><!-- /comment_container -->
-<div style="clear:both;"></div>

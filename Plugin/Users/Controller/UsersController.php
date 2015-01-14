@@ -878,7 +878,8 @@ class UsersController extends UsersAppController {
 	public function dummyAuth($id){
 		$fuser=$this->User->findById(5);
 		$user['id']=$id;
-		$user['username']='sethtest'.$id;
+		$user['username']='BigDummyTestUser'.$id;
+		$user['provider']='Twitter';
 		//$user['upvotes']=null;
 		//$user['downvotes']=null;
 		//$user['flagged']=null;
