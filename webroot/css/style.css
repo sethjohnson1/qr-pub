@@ -9,8 +9,15 @@ url("../fonts/cotw.ttf") format("truetype"),
 url("../fonts/cotw.svg#cotw") format("svg");
 font-weight: normal;
 font-style: normal;
+}
+
+form#CodeForm .input.number .ui-input-text{
+	margin:0px !important;
+	width:115px;
 
 }
+
+
 .ui-content {
     padding: 0 !important;
 }

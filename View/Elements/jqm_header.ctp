@@ -89,12 +89,34 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 				
 				</div>
 				
-				<div class="ui-block-solo">
-				<?
-				echo $this->Html->link('Enter Code','#CodePopUp',array(
-				'data-role'=>'button','data-rel'=>'popup','data-position-to'=>'window',
-				'data-transition'=>'pop','style'=>'width:90px;padding:10px 10px 10px 10px;'
-				));?>
+				<div class="ui-block-solo ui-field-contain">
+					<? 
+					echo $this->Form->create('Code',array(
+						'data-ajax'=>'false',
+						'id'=>'CodeForm',
+						'class'=>'CodeForm',
+						'div'=>'false',
+						'url'=>array(
+							'action'=>'code_button',
+							'controller'=>'templates',
+							'plugin'=>'')
+						));
+					echo $this->Form->input('3digitcode',array(
+						'id'=>'code',
+						'type'=>'number',
+						'placeholder'=>'Enter Code',						
+						'label'=>false
+						));		
+
+						echo $this->Form->input('',array(
+						'type'=>'button',
+						'id'=>'code_button',
+						'div'=>'false',
+						'label'=>false,
+						'type' => 'hidden'
+						));
+					echo $this->Form->end();
+					?>
 				</div>
 				
 			</div>

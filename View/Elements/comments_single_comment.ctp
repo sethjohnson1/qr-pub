@@ -143,6 +143,7 @@ $cheight=160;
 	else{
 		//giant block to draw the comment and buttons
 		?>
+		<div style="clear:both">&nbsp;</div>
 	<div class="comment_buttons">
 			<? echo $this->Form->input('UpVote',array(
 			'div'=>false,
