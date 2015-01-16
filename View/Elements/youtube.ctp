@@ -22,7 +22,7 @@
 </style>
 <? $asset=$template['Asset'][0]; ?>
 	<div class="video-container">
-  <iframe class="youtube_frame" src="http://www.youtube.com/embed/<? echo $asset['name'] ?>"
+  <iframe class="youtube_frame" src="http://www.youtube.com/embed/<? echo $asset['name'].'?rel=0&modestbranding=1' ?>"
    width="560" height="315" frameborder="0" allowfullscreen></iframe>
    </div>
 </div><!-- /blogcontainer -->

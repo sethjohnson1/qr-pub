@@ -27,13 +27,15 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 		<div class="ui-block-c">&nbsp;</div>
 		<div class="ui-block-d">&nbsp;</div>
 		<div class="ui-block-e">
+			<? if (Configure::read('enableKioskMode')!=1):?>
 			<div class="ui-btn-right ui-grid-a">
 				<div align="center">
 				<? 
+			
 				$btnstyle='margin:0px;border-left:none;padding:0 27px 0 0;';
 				if (isset($user['provider'])){
 				
-					if ($user['provider']=='email'){
+					if ($user['provider']=='email' || $user['provider']=='kiosk'){
 						$datatheme='e';
 						$dataicon='mail';
 					}
@@ -50,6 +52,10 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 					if ($user['provider']=='Twitter'){
 						$datatheme='';
 						$dataicon='iscout-twittericon';
+					}
+					else {
+						$datatheme='a';
+						$dataicon='user';
 					}
 				}
 				else {
@@ -85,6 +91,7 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 					'style'=>$btnstyle
 					
 				));
+			
 				?>
 				
 				</div>
@@ -119,8 +126,9 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 					?>
 				</div>
 				
-			</div>
-		</div>
+			</div><!-- /button block -->
+			<?endif?>
+		</div><!-- /ui-block-e -->
 	</div>
 	<div role="main" class="ui-content">
 	<?

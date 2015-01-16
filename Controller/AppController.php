@@ -41,6 +41,13 @@ class AppController extends Controller {
 			}
 		$this->set('totals',$this->Scorecard->scoreTotals(null,$user['id']));
 		
+		//Authenticate a kiosk user 
+		if (Configure::read('enableKioskMode')==1){
+			$user['id']='kioskUser';
+			$user['username']='KioskUser';
+			$user['provider']='kiosk';
+			$this->Auth->login($user);
+		}
 
 	}
 	
