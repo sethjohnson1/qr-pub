@@ -1,9 +1,9 @@
 <div class="blog_container ui-shadow ui-body ui-body-a">
  <style type="text/css" scoped>
    .splashimg{
-
+	max-width: 100%;
    }
-   .splash_container{
+   .blog_container{
 		max-height:1100px;
 		max-width:1100px;
 		margin: 0 auto;
