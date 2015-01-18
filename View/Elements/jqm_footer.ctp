@@ -15,7 +15,8 @@
 				'data-icon'=>'arrow-l',
 				'data-iconpos'=>'left',
 				'data-transition'=>'slide',
-				'data-theme'=>'e',
+				//this can be changed back to 'e' for brown buttons
+				'data-theme'=>'f',
 				'data-direction'=>'reverse'
 				));
 			/*
@@ -47,7 +48,8 @@
 				'data-iconpos'=>'right',
 				'data-prefetch'=>true,
 				'data-transition'=>'slide',
-				'data-theme'=>'e'
+				//this can be changed back to 'e' for brown buttons
+				'data-theme'=>'f'
 				));
 			?>
 			<!-- script>

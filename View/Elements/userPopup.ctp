@@ -30,7 +30,7 @@
 		<h3 align=center>- OR -</h3>
 		<?
 		echo $this->Html->link('Create an Account with e-mail',array('plugin'=>'users','controller'=>'users','action'=>'add'),array(
-			'data-role'=>'button'
+			'data-role'=>'button','data-theme'=>'f'
 			));
 		?>
 
@@ -43,12 +43,11 @@
 		<?
 	
 			if ($user['provider']=='Twitter'){
-				echo $this->Html->link('Tweet','https://twitter.com/share?via=centerofthewest&hastags=iscout&text='.'formdat!'.'&url='.$shorturl, array(
+				echo $this->Html->link('Tweet','https://twitter.com/share?via=centerofthewest&hastags=iscout&text='.'Check out this cool exhibit'.'&url='.$shorturl, array(
 					'data-role'=>'button',
 					'data-icon'=>'iscout-whitetwittericon',
-					'data-theme'=>'d'
-					
-					
+					'data-theme'=>'d',
+					'target'=>'_blank'
 				));
 			}
 			if ($user['provider']=='Facebook'){

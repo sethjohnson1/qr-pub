@@ -4,10 +4,7 @@ echo $this->element('CodePopUp');
 echo $this->element('userPopup'); 
 echo $this->element('global_menu');
 ?>
-<?
-echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-theme="a">';
-
-?>
+<div data-role="page" id="qrpage<?=$template['Template']['id']?>" data-theme="a">
 	<div data-role="header" data-position="fixed" style="border-bottom:9px solid #aa9c8f;background-color:#fff;">
 		<div class="ui-block-a"><h1 style="margin:0px 0px 0px 10px;padding: 0px;z-index: 100;position:relative;
 		top: 19px; float:left">
@@ -36,22 +33,24 @@ echo '<div data-role="page" id="qrpage'.$template['Template']['id'].'" data-them
 				if (isset($user['provider'])){
 				
 					if ($user['provider']=='email' || $user['provider']=='kiosk'){
-						$datatheme='e';
+						$datatheme='f';
 						$dataicon='mail';
 					}
-					if ($user['provider']=='Facebook'){
-						$datatheme='';
-						$dataicon='iscout-fbicon';
+					//sj- changed this to white icons, not sure which one I like better
+					//but this stands out more
+					else if ($user['provider']=='Facebook'){
+						$datatheme='b';
+						$dataicon='iscout-whitefbicon';
 						
 					}
-					if ($user['provider']=='Google'){
-						$datatheme='';
-						$dataicon='iscout-googleplusicon';
+					else if ($user['provider']=='Google'){
+						$datatheme='c';
+						$dataicon='iscout-whitegoogleplusicon';
 						
 					}
-					if ($user['provider']=='Twitter'){
-						$datatheme='';
-						$dataicon='iscout-twittericon';
+					else if ($user['provider']=='Twitter'){
+						$datatheme='d';
+						$dataicon='iscout-whitetwittericon';
 					}
 					else {
 						$datatheme='a';
