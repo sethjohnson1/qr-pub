@@ -8,5 +8,5 @@ div#sessionFlash {
 	margin: 4px 1px;
 }
 </style>
-<? echo $message; ?>
+<?=$message?>
 </div>

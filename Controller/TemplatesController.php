@@ -43,30 +43,43 @@ class TemplatesController extends AppController {
 				);
 			//$this->render(false);
 			$this->Session->setFlash('Your message was sent! Thank you.','flash_custom');
+			
+			if ($this->Session->read('location')) $this->redirect($this->Session->read('location'));
+			else $this->redirect('/');
 		}
 		$this->set('title_for_layout','Offer Feedback');
 	}
 
-	public function code_button() {
-		if ($this->request->is('post')) {
+	//$id is the template id
+	public function code_button($id=null,$code=null) {
+		//got here from ajax
+		if (!empty($code)){
+			if ($id !=0){
+				$this->Session->setFlash('Viewing Code '.$code,'flash_custom');
+				return $this->redirect(array('controller'=>'templates','action'=>'view',$id));
+			}
+			else {
+				$this->Session->setFlash('Sorry, code '.$code.' did not work','flash_custom');
+				return $this->redirect($this->referer());
+			}
+		}
+		if ($this->request->is('post') || $this->request->is('ajax')) {
 			if (isset($this->request->data['Code']['3digitcode'])){
+			//debug($this->request->data);
 				$template_redir=$this->Template->find('first',array(
 					'conditions'=>array('Template.code'=>$this->request->data['Code']['3digitcode']),
 					'recursive'=>-1
 				));
 				
 				if (!isset($template_redir['Template']['id'])) {
-					$this->Session->setFlash('Sorry, that code did not work','flash_custom');
-					return $this->redirect($this->referer());
+					$template_redir['Template']['id']=0;
 				}
-				
-				else {
-					$this->Session->setFlash('Viewing Code '.$this->request->data['Code']['3digitcode'],'flash_custom');
-					return $this->redirect(array('controller'=>'templates','action'=>'view',
-					$template_redir['Template']['id']));
-				}
+
+				//just build URL here, as it redirects back here anyway
+				$this->set('content',$template_redir['Template']['id'].'/'.$this->request->data['Code']['3digitcode']);
+				$this->render('ajax_response', 'ajax');	
+
 			}
-			
 		}
 	}
 

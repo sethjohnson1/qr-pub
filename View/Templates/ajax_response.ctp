@@ -1,5 +1,4 @@
 <?php
 echo $content; 
-debug($content);
-
+//debug($content);
 ?>

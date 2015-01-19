@@ -11,10 +11,9 @@ font-weight: normal;
 font-style: normal;
 }
 
-form#CodeForm .input.number .ui-input-text{
+form.CodeForm .input.number .ui-input-text{
 	margin:0px !important;
 	width:115px;
-
 }
 
 

@@ -1,8 +1,10 @@
 <?
 //echo $this->element('Scorecard',array($totals)); 
-echo $this->element('CodePopUp'); 
+//if this isn't disabled then the form below won't work.......
+//echo $this->element('CodePopUp'); 
 echo $this->element('userPopup'); 
 echo $this->element('global_menu');
+if (!isset($template['Template']['id'])) $template['Template']['id']=$this->params['action'];
 ?>
 <div data-role="page" id="qrpage<?=$template['Template']['id']?>" data-theme="a">
 	<div data-role="header" data-position="fixed" style="border-bottom:9px solid #aa9c8f;background-color:#fff;">
@@ -98,8 +100,10 @@ echo $this->element('global_menu');
 				<div class="ui-block-solo ui-field-contain">
 					<? 
 					echo $this->Form->create('Code',array(
+						//necessary since manually ajaxing, otherwise Enter submit using defaults
 						'data-ajax'=>'false',
-						'id'=>'CodeForm',
+						'id'=>'CodeForm'.$template['Template']['id'],
+						//'id'=>'CodeForm',
 						'class'=>'CodeForm',
 						'div'=>'false',
 						'url'=>array(
@@ -108,19 +112,13 @@ echo $this->element('global_menu');
 							'plugin'=>'')
 						));
 					echo $this->Form->input('3digitcode',array(
-						'id'=>'code',
 						'type'=>'number',
-						'placeholder'=>'Enter Code',						
+						'placeholder'=>'Enter Code',	
+						'id'=>'Code3digitcode'.$template['Template']['id'],
+						//'class'=>'Code3digitcode',
 						'label'=>false
 						));		
-
-						echo $this->Form->input('',array(
-						'type'=>'button',
-						'id'=>'code_button',
-						'div'=>'false',
-						'label'=>false,
-						'type' => 'hidden'
-						));
+	
 					echo $this->Form->end();
 					?>
 				</div>
@@ -128,6 +126,68 @@ echo $this->element('global_menu');
 			</div><!-- /button block -->
 			<?endif?>
 		</div><!-- /ui-block-e -->
+		<script type="text/javascript">
+//just know that without unique IDs (and class names don't work) everything falls apart
+//auto-submit form after 3 characters
+	$('input#Code3digitcode<?=$template['Template']['id']?>').keyup(function() {
+		if (this.value.length ==3){
+		//same ajax call as below, could probably be combined
+			$.mobile.loading( 'show', {
+				text: 'Finding '+this.value+'...',
+				textVisible: true,
+				theme: 'a',
+				html: ""
+			});    
+		
+			$.ajax({
+				async:true,
+				data:$("#CodeForm<?=$template['Template']['id']?>").serialize(),
+				dataType:"html",
+				success:function (data, textStatus) {
+					//console.log(data);
+					window.location="<? echo Configure::read('globalSiteURL'); ?>/templates/code_button/"+data;
+				},
+				type:"POST",
+				url:"<? echo Configure::read('globalSiteURL'); ?>/templates/code_button"
+			});
+			return false;
+		}
+	});
+	
+	
+	//listens for 'tab' or 'enter' - tab is necessary for Android (although this all may be moot considering count above)
+	$('input#Code3digitcode<?=$template['Template']['id']?>').on('keydown', function(e){
+	 //e.preventDefault();
+	console.log('down');
+		if(e.which === 9 || e.which===13) {
+			$.mobile.loading( 'show', {
+				text: 'Finding '+this.value+'...',
+				textVisible: true,
+				theme: 'a',
+				html: ""
+			});
+		
+			$.ajax({
+					async:true,
+					data:$("#CodeForm<?=$template['Template']['id']?>").serialize(),
+					dataType:"html",
+					success:function (data, textStatus) {
+						$('#CodeForm<?=$template['Template']['id']?>').attr('id','bogus_id');
+						
+						//console.log(data);
+						//return false;
+						window.location="<? echo Configure::read('globalSiteURL'); ?>/templates/code_button/"+data;
+					},
+					type:"POST",
+					url:"<? echo Configure::read('globalSiteURL'); ?>/templates/code_button"
+				});
+		//without this, iOS (and maybe others) will submit without Ajax!
+		return false;
+		}
+		
+	});
+
+	</script>
 	</div>
 	<div role="main" class="ui-content">
 	<?
