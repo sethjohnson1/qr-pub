@@ -15,13 +15,22 @@ class TemplatesController extends AppController {
 	public $components = array('Paginator','Comment','Scorecard');
 	
 	public function browse($location = null) {
-		if(isset($location)){
-			$stops=$this->Template->find('all',array(
-			'conditions'=>array('Template.location'=>$location,'Template.active'=>1),
+		//if(isset($location)){
+		/*	$stops=$this->Template->find('all',array(
+			'conditions'=>array('Template.active'=>1),
+			'recursive'=>-1));
+		*/
+		//}
+		$stops=array();
+		foreach ($this->viewVars['locations'] as $key=>$location){
+			$stops[$key]=$this->Template->find('all',array(
+			'conditions'=>array('Template.active'=>1,'Template.location'=>$key),
 			'recursive'=>-1));
 		}
 		$this->set(compact('locations','location','stops'));
 		$this->set('title_for_layout', 'Browse');
+		
+		//$this->render('browse','default');
 	}
 	
 	
