@@ -15,7 +15,6 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 			'url'=>'/',
 			'height'=>'78',
 			'width'=>'150',
-			//'style'=>'height: 100px;',
 			'alt'=>'Center of the West logo',
 			'class'=>'goaway'
 			
@@ -113,7 +112,7 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 						));
 					echo $this->Form->input('3digitcode',array(
 						'type'=>'number',
-						'placeholder'=>'Enter Code',	
+						'placeholder'=>' Code # ',	
 						'id'=>'Code3digitcode'.$template['Template']['id'],
 						//'class'=>'Code3digitcode',
 						'label'=>false
@@ -127,7 +126,7 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 			<?endif?>
 		</div><!-- /ui-block-e -->
 		<script type="text/javascript">
-//just know that without unique IDs (and class names don't work) everything falls apart
+//just know that without unique IDs (and class names don't work) everything falls apart  
 //auto-submit form after 3 characters
 	$('input#Code3digitcode<?=$template['Template']['id']?>').keyup(function() {
 		if (this.value.length ==3){
@@ -181,7 +180,7 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 					type:"POST",
 					url:"<? echo Configure::read('globalSiteURL'); ?>/templates/code_button"
 				});
-		//without this, iOS (and maybe others) will submit without Ajax!
+		//without this, iOS (and maybe others) will submit without Ajax (sometimes)
 		return false;
 		}
 		

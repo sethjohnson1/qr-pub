@@ -14,6 +14,7 @@ font-style: normal;
 form.CodeForm .input.number .ui-input-text{
 	margin:0px !important;
 	width:115px;
+	font-size:20px !important;
 }
 
 
@@ -25,18 +26,9 @@ form.CodeForm .input.number .ui-input-text{
     margin: 0 !important;
 }
  
-div.iscroll-scroller {
-    width: 100% !important;
-}
- 
-.ui-popup .ui-content {
-    height: 150px !important;
-}
-
-.popup_quasi_header_bar {
-	min-width: 700px;
-}
-
+/*
+sj - I have no idea why !important is being declared for ID selectors
+*/
 #myicons{  font-family: "cotw" !important;
 content: attr(data-icon);
 font-style: normal !important;
@@ -84,26 +76,8 @@ padding-top:2.5%;
 .poppedimg{
 /* does not do anything max-height:85%;*/
 }
-#comments-popup{
-    height: 100% !important;
-    width: 100% !important;
-	max-width: 90% !important;
-	max-height: 90% !important;	
-	top:0 !important;
-}
-#comments{
-	height:100% !important;
-}
-/*.mine{border: 1px double blue}
 
-.notmine{border: 1px double green}
-*/
 
-.commentbutton{
-}
-#comments div form label{
-float:left;
-}
 .fsign:after{
 	background-color: rgb(187, 187, 94) !important;
 }
