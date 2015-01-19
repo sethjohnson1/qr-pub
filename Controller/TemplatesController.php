@@ -7,7 +7,7 @@ class TemplatesController extends AppController {
 		parent::beforeFilter();
 		$templates=array('splash'=>'Big image','video'=>'AV page','blog'=>'Web article','vgal'=>'Virtual Gallery');
 		$locations=array('BBM'=>'Buffalo Bill Museum','CFM'=>'Cody Firearms Museum','DMNH'=>'Draper Natural History Museum','Garden'=>'Garden Areas',
-		'HMRL'=>'McCracken Research Library','PIM'=>'Plains Indian Museum','WG'=>'Whitney Western Art Museum');
+		'HMRL'=>'McCracken Research Library','PIM'=>'Plains Indian Museum','WG'=>'Whitney Western Art Museum','NW'=>'Nowhere');
 		$this->set(compact('templates','locations'));
 		$this->set('meta_description', 'Digital and Virtual tour of the Buffalo Bill Center of the West.');
 	}
@@ -19,6 +19,7 @@ class TemplatesController extends AppController {
 		//may want to add another condition such as "prev id is null" if there are lots of chained templates
 		//for now just get all of them!
 		foreach ($this->viewVars['locations'] as $key=>$location){
+		if ($key=='NW') continue;
 			$stops[$key]=$this->Template->find('all',array(
 			'conditions'=>array('Template.active'=>1,'Template.location'=>$key,'Template.previd is null'),
 			'recursive'=>-1));

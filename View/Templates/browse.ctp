@@ -25,6 +25,7 @@ else {
 	));
 //and now begins a nice nested loop
 foreach ($locations as $key=>$location):
+if ($key=='NW') break;
 ?>
 
 				<div data-role="collapsible-set" data-theme="a">
