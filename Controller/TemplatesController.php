@@ -6,8 +6,8 @@ class TemplatesController extends AppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$templates=array('splash'=>'Big image','video'=>'AV page','blog'=>'Web article','vgal'=>'Virtual Gallery');
-		$locations=array('BBM'=>'Buffalo Bill Museum','CFM'=>'Cody Firearms Museum','DMNH'=>'Draper Museum of Natural History','Garden'=>'Garden Areas',
-		'HMRL'=>'McCracken Research Library','PIM'=>'Plains Indian Museum','WG'=>'Whitney Gallery of Western Art');
+		$locations=array('BBM'=>'Buffalo Bill Museum','CFM'=>'Cody Firearms Museum','DMNH'=>'Draper Natural History Museum','Garden'=>'Garden Areas',
+		'HMRL'=>'McCracken Research Library','PIM'=>'Plains Indian Museum','WG'=>'Whitney Western Art Museum');
 		$this->set(compact('templates','locations'));
 		$this->set('meta_description', 'Digital and Virtual tour of the Buffalo Bill Center of the West.');
 	}

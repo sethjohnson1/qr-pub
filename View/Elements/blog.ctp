@@ -37,7 +37,7 @@ foreach ($template['Asset'] as $asset){
 		height: 100%;
 	}*/
 	/* =WordPress Core
--------------------------------------------------------------- */
+-------------------------------------------------------------- 
 .alignnone {
     margin: 5px 20px 20px 0;
 }
@@ -116,6 +116,7 @@ a img.aligncenter {
 	font-style: italic;
 	margin-bottom: 1em;
 }
+*/
 	
   </style>
 <h3 class="ui-shadow ui-bar ui-bar-a"><? echo $wp_title['asset_text']; ?><br/>
