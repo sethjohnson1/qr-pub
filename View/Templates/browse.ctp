@@ -19,7 +19,9 @@ else {
 		));
 	}
 }*/
-
+?>
+<div class="ui-shadow ui-body ui-body-a">
+<?
 	echo $this->Html->link('Welcome Page','/',array(
 			'data-role'=>'button'
 	));
@@ -44,6 +46,7 @@ if ($key=='NW') break;
 					</div>
 				</div>
 <? endforeach ?>
+</div>
 <?
 echo $this->element('jqm_basic_footer');
 ?>
