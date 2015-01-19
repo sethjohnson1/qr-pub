@@ -8,7 +8,7 @@ $menu[1]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback
 */
 $menu[2]['name']='Give Feedback';
 $menu[2]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback');
-$menu[3]['name']='About / Help';
+$menu[3]['name']='About iScout';
 $menu[3]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about');
 //debug($menu);
 ?>
