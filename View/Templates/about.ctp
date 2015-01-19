@@ -12,7 +12,7 @@ $feedbacklink=$this->Html->link('feedback',array('action'=>'feedback'));
 			<p>Buffalo Bill was a scout in his early career. You can be too with iScout!</p>
 			<p>
 			As you tour the Center of the West's museums, scout out each
-			stop with a 3-digit code (like this? Maybe have a picture). If your not at the Center of the West at the moment,
+			stop with a 3-digit code (like this? Maybe have a picture). If you're not at the Center of the West at the moment,
 			you can browse all of the stops <?=$browselink?>.
 			</p>
 			<p>
