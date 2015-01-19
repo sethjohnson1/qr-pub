@@ -185,10 +185,11 @@ class UsersController extends UsersAppController {
  */
 	protected function _setupPagination() {
 		$this->Paginator->settings = array(
-			'limit' => 12,
+			'limit' => 100,
 			'conditions' => array(
-				$this->modelClass . '.active' => 1,
-				$this->modelClass . '.email_verified' => 1
+				//sj commented out
+				//$this->modelClass . '.active' => 1,
+				//$this->modelClass . '.email_verified' => 1
 			)
 		);
 	}
@@ -203,7 +204,7 @@ class UsersController extends UsersAppController {
  */
 	protected function _setupAdminPagination() {
 		$this->Paginator->settings[$this->modelClass] = array(
-			'limit' => 20,
+			'limit' => 100,
 			'order' => array(
 				$this->modelClass . '.created' => 'desc'
 			),
@@ -295,22 +296,32 @@ class UsersController extends UsersAppController {
 		}
 
 		$this->_setupAdminPagination();
+		
 		$this->Paginator->settings[$this->modelClass]['conditions'] = $parsedConditions;
+		//sj - added this
+		$this->Paginator->settings[$this->modelClass]['recursive']=1;
+		$users=$this->Paginator->paginate();
 		$this->set('users', $this->Paginator->paginate());
 	}
 
 
 	public function admin_view($id = null) {
+		if ($this->request->is('post')){
+			//ready to save, left off here
+			debug($this->request->data);
+		}
+	
 		try {
 			$user = $this->{$this->modelClass}->view($id, 'id');
 		} catch (NotFoundException $e) {
 			$this->Session->setFlash('Invalid User.','flash_custom');
 			$this->redirect(array('action' => 'index'));
 		}
-
-		$this->set('user', $user);
+		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
+		$options['recursive']=1;
+		$this->set('user', $this->User->find('first', $options));
+		//$this->set('user', $user);
 	}
-
 
 	public function admin_add() {
 		if (!empty($this->request->data)) {
@@ -525,7 +536,7 @@ class UsersController extends UsersAppController {
 
 		$this->Paginator->settings = array(
 			'search',
-			'limit' => 12,
+			'limit' => 100,
 			'by' => $by,
 			'search' => $searchTerm,
 			'conditions' => array(

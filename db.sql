@@ -27,6 +27,7 @@ create table users(
 	upvotes int,
 	downvotes int,
 	avgrating int, -- long way off, but calculate their average rating of stuff
+	engaged tinyint(1),
 	-- now for the Users plugin
 	slug varchar(255),
 	password varchar(128),
