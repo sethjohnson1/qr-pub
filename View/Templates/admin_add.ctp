@@ -24,7 +24,8 @@ echo $this->Form->create('Template',
 		echo $this->Form->input('meta_desc');
 		//currently, forms must be saved, then edited to link together
 		if (isset($edit)) echo $this->Form->input('nextid',array('label'=>'Next ID. Be sure that creator name matches!'));
-		//echo $this->Form->input('previd',array('label'=>'you do not need to fill this in, here for testing'));
+		//previd gets filled in automatically
+		//echo $this->Form->input('previd',array('type'=>'hidden','value'=>''));
 		echo $this->Form->input('code',array('label'=>'Navigation Code. This is only here for the Whitney and will be hidden soon'));
 	?>
 	</fieldset>

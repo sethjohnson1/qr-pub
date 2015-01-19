@@ -20,6 +20,9 @@ else {
 	}
 }*/
 
+	echo $this->Html->link('Welcome Page','/',array(
+			'data-role'=>'button'
+	));
 //and now begins a nice nested loop
 foreach ($locations as $key=>$location):
 ?>
