@@ -1,6 +1,6 @@
 <?php
-	//Router::redirect('/templates/', array('controller' => 'templates', 'action' => 'index'));
-	//Router::redirect('/templates', array('controller' => 'templates', 'action' => 'index'));
+	//Router::redirect('/admin/templates/', array('admin'=>true,'controller' => 'templates', 'action' => 'index'));
+	//Router::redirect('/admin/templates', array('admin'=>true,'controller' => 'templates', 'action' => 'index'));
 	Router::connect('/', array('controller' => 'templates', 'action' => 'view',Configure::read('defaultTemplate')));
 	Router::connect('/admin', array('admin'=>true,'controller' => 'templates', 'action' => 'index'));
 	Router::connect('/auth_login/*', array( 'plugin'=>'users','controller' => 'users', 'action' => 'auth_login'));

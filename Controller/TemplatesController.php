@@ -211,17 +211,9 @@ Configure::read('globalSiteURL')." although it's much more awesome in person."
 		}
 		else {
 			$this->paginate = array('conditions' => array($this->Template->parseCriteria($this->Prg->parsedParams()),
-			'AND'=>array(
-				'Template.creator'=>$creator
-				
-			)
-			
-			));
+			'AND'=>array('Template.creator'=>$creator)));
 		}
-		//$this->set('artworks', $this->paginate());
-		/*if (!$this->Template->exists($id)) {
-			throw new NotFoundException(__('Invalid template'));
-		}*/
+		//no error handling needed, the paginator will just be empty
 		$templates=$this->Paginator->paginate();
 		$user=$this->Auth->user();
 		$totals=$this->Scorecard->scoreTotals(null,$user['id']);
