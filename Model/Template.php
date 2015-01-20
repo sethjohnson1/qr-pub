@@ -3,6 +3,13 @@ App::uses('AppModel', 'Model');
 
 class Template extends AppModel {
 
+	public $actsAs = array('Search.Searchable'); //makes searchable
+	public $filterArgs = array(
+		'searchdata'=>array('type' => 'like','field'=>array(
+			'Template.name','Template.meta_title'
+			))
+	);
+
 	public function beforeSave($options=array()){
 		if(!empty($this->data['Template']['nextid'])){
 			$prev=$this->find('first',array('conditions'=>array('Template.id'=>$this->data['Template']['nextid'])));

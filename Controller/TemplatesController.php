@@ -12,7 +12,7 @@ class TemplatesController extends AppController {
 		$this->set('meta_description', 'Digital and Virtual tour of the Buffalo Bill Center of the West.');
 	}
 	
-	public $components = array('Paginator','Comment','Scorecard');
+	public $components = array('Paginator','Comment','Scorecard','Search.Prg');
 	
 	public function browse() {
 		$stops=array();
@@ -202,8 +202,26 @@ Configure::read('globalSiteURL')." although it's much more awesome in person."
 		$this->render('admin_add','default');
 	}
 	
-	public function admin_index() {
+	public function admin_index($creator=null) {
+		$this->Prg->commonProcess();
 		$this->Template->recursive = 0;
+		//superuser sees all!
+		if ($creator==Configure::read('globalSuperUser')){
+			$this->paginate = array('conditions' => $this->Template->parseCriteria($this->Prg->parsedParams()));
+		}
+		else {
+			$this->paginate = array('conditions' => array($this->Template->parseCriteria($this->Prg->parsedParams()),
+			'AND'=>array(
+				'Template.creator'=>$creator
+				
+			)
+			
+			));
+		}
+		//$this->set('artworks', $this->paginate());
+		/*if (!$this->Template->exists($id)) {
+			throw new NotFoundException(__('Invalid template'));
+		}*/
 		$templates=$this->Paginator->paginate();
 		$user=$this->Auth->user();
 		$totals=$this->Scorecard->scoreTotals(null,$user['id']);

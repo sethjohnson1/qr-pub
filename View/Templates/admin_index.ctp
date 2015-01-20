@@ -1,6 +1,13 @@
 
 <div class="templates index">
 	<h2><?php echo __('Templates'); ?></h2>
+	<?php
+		echo $this->Form->create('Template',
+			array('url' => array_merge(array('action' => 'index'), $this->params['pass'])));
+        echo $this->Form->input('searchdata', array('div' => false,'empty'=>true,'label'=>''));
+        echo $this->Form->submit(__('Search', true), array('div' => false));
+        echo $this->Form->end();
+	?>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>

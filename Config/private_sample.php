@@ -59,6 +59,11 @@ Configure::write('enableKioskMode',1);
 
 //put the id of the template you want to be the default "home" page, index route uses it
 Configure::write('defaultTemplate',1);
+
+//the name of the user allowed to see all templates. This is part of basic security for templates
+//this user can see all templates
+Configure::write('globalSuperUser','superuser');
+
 //this account receives e-mail
 Configure::write('globalAdminEmail','admin@example.com');
 Configure::write('globalFromEmail',$from_email);
