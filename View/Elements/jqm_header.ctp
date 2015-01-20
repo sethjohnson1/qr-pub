@@ -11,10 +11,9 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 		<div class="ui-block-a"><h1 style="margin:0px 0px 0px 10px;padding: 0px;z-index: 100;position:relative;
 		top: 19px; float:left">
 		<? 
-		echo $this->Html->image('mobile-logo.png',array(
+		echo $this->Html->image('1-mobile-logo.png',array(
 			'url'=>'/',
-			'height'=>'78',
-			'width'=>'150',
+			'height'=>'80',
 			'alt'=>'Center of the West logo',
 			'class'=>'goaway'
 			
