@@ -53,11 +53,11 @@ $cheight=160;
 			height: <?=$cheight ?>px;
 		}
 		.comment_buttons{
-		//	border: 1px solid blue;
+
 			width: 9%;
 			max-width: 10px;
-		//	min-width:50px;
-			height: 150px;
+
+			height: 140px;
 			float: left;
 		}
 		.the_comment{
@@ -70,8 +70,8 @@ $cheight=160;
 			border-right:none;
 		}
 		.comment_text{
-			float:left;
-			padding: 10px 0px 0px 28px;
+			
+			padding: 16px 0px 0px 42px;
 		}
 		.starred:after{
 			background-color: #bd4f19 !important;
@@ -91,8 +91,8 @@ $cheight=160;
 		.comment_thoughts{
 			width:85%;
 		}
-		div.total span{
-			background-color: rgb(246, 246, 246);
+		div.total span,div.downvotes div{
+			background-color: rgba(246, 246, 246, .5);
 			border-color: rgb(221, 221, 221);
 			border-style: solid;
 			border-width: 1px;		
@@ -106,6 +106,11 @@ $cheight=160;
 			font-weight: bold;
 			left:-12px;	
 		}
+		div.upvotes div{
+		;left: 28px;top: 22px;z-index:99 !important;color:red
+		}
+		div.downvotes div{position: relative;left: 28px;top: -42px;z-index:99 !important;color:red;}
+		
 	</style>
 		
 	<?
@@ -144,7 +149,15 @@ $cheight=160;
 		//giant block to draw the comment and buttons
 		?>
 		<div style="clear:both">&nbsp;</div>
-	<div class="comment_buttons">
+		<?
+		//set height and overflow "scroll" here to prevent long-winded comments taking up more than their fair share
+		?>
+		<div class="the_comment">
+		<!-- div style="width:200px;clear:both" -->
+		
+			<div class="comment_buttons">
+		<div class="upvotes">
+			<div><?=$comment['Comment']['upvotes'] ?></div>
 			<? echo $this->Form->input('UpVote',array(
 			'div'=>false,
 			'label'=>false,
@@ -157,7 +170,10 @@ $cheight=160;
 			'class'=>'comment_up'.$comment['Comment']['id'],
 			$utoggle
 		));?>
+		</div>
 		<div class="total"><span><? echo $comment['Comment']['diff'] ?></span></div>
+		<div class="downvotes" style="height:22px">
+		
 		<? echo $this->Form->input('DownVote',array(
 			'div'=>false,
 			'label'=>false,
@@ -169,26 +185,20 @@ $cheight=160;
 			'data-corners'=>'false',
 			'class'=>'comment_down'.$comment['Comment']['id'],
 			$dtoggle
-		));
-		
-		
+		));			
 		?>
+		<div style=""><?=$comment['Comment']['downvotes'] ?></div>
+		</div>
 		
 		
 	</div><!-- /comment_buttons -->
-		<?
-		//set height and overflow "scroll" here to prevent long-winded comments taking up more than their fair share
-		?>
-		<div class="the_comment">
-		<!-- div style="width:200px;clear:both" -->
-		
-		
+
 		<div class="comment_text">
 		<div class="comment_header">
 			<div class="comment_rate">
 				<strong><? echo $formattedname[0] ?></strong>
 		
-	
+		<nobr>
 		<?
 		for ($x=0;$x<=4; $x++):
 			if ($comment['Comment']['rating'] > $x) $starred='starred';
@@ -200,6 +210,7 @@ $cheight=160;
 		<?
 		endfor;
 		?>
+		</nobr>
 		</div>
 		<div class="comment_destructive"><?
 
