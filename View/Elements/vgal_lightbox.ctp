@@ -1,63 +1,20 @@
-<script>
-$(document).on('popupafteropen', '[data-role="popup"]', function(event, ui) {
-    $( 'html' ).addClass( "lloyd" );
-}).on('popupafterclose', '[data-role="popup"]', function(event, ui) {
-    $( 'html' ).removeClass( "lloyd" );
-});
-
-
-</script>
 <style type="text/css" scoped>
-.lloyd{overflow:hidden;}
 	div.imgpopup_container{
-		//float:left;
 		width: 180px ;
 		margin: 0 auto;
-		//border: 1px solid green;
 	}
 	img.vgal_poppedimg{
 		max-width: 100%;
 		margin: 0 auto;
 	}
 	div.vgal_details{
-		//float:left;
 		padding: 0 0 0 10px;
-		//max-width: 50%;
-		//border: 1px solid red;
 	}
-	div.vgal_details p:nth-child(even) {
-		//border: 1px solid blue;
-	}
-	div[id^="popupcontainer_"]{
-		//border: 1px solid green;
-		overflow-y: auto;
-		
-	}
-body{		overflow-x: hidden;}
-<? //this came from http://www.gajotres.net/using-iscroll-with-jquery-mobile/
-	//unfortunately I had to abandon the idea because it was too buggy
- ?>
-.ui-content {
-    padding: 0 !important;
-}
- 
-.ui-listview {
-    margin: 0 !important;
-}
- 
-div.iscroll-scroller {
-    width: 100% !important;
-}
- 
-.ui-popup .ui-content {
-    //this is only necessary for iscroll
-	//height: 250px !important;
-}
 
-.popup_quasi_header_bar {
-	//this is only necessary when trying to get iscroll to work
-	//min-width: 700px;
-}
+	div[id^="popupcontainer_"]{
+		overflow-y: auto;	
+	}
+
 </style>
 <?
 //this is done similar elsewhere and should be consolidated later
@@ -82,14 +39,10 @@ foreach ($template['Asset'] as $key=>$asset):
 				<? echo $asset['asset_text']; ?>
 			</p>
 			</div>
-			<? //just add 'data-iscroll' attr to iscrolltest to frustrate yourself madly  (and enable the scripts on layout)
-				//something about using multiple iscolls on one page, I think ... maybe if it wasn't in the footer?
-			?>
-			<div class="iscrolltest" data-role="content"<? //echo ' data-iscroll'?>>
 			<div class="ui-shadow vgal_details">
 			
 			<? 
-			//this is crude for now, fir some fields, then the picture, then the rest
+			//this is crude for now, for some fields, then the picture, then the rest
 			
 			if (isset($asset['objtitle'])){
 				echo '<p><strong>Title: </strong>'
@@ -120,7 +73,7 @@ foreach ($template['Asset'] as $key=>$asset):
 			<div class="imgpopup_container ui-shadow ui-body ui-body-a">
 			<?
 				echo $this->Html->image('uploads/'.$template['Template']['id'].'_'.$asset['id'].'.jpg', array(
-				'alt'=>$asset['asset_text'],
+				'alt'=>$asset['asset_text'],'class'=>'vgal_poppedimg'
 				));
 				?>
 			<br />
@@ -154,8 +107,6 @@ foreach ($template['Asset'] as $key=>$asset):
 			?>
 
 			</div>
-			
-		</div><!-- /iscroll -->
 		</div><!-- /vgal popcontainer -->
 		</div><!-- /popup -->
 		<!-- div data-role="footer" data-position="fixed" >
