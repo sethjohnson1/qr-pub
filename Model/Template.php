@@ -6,7 +6,10 @@ class Template extends AppModel {
 	public $actsAs = array('Search.Searchable'); //makes searchable
 	public $filterArgs = array(
 		'searchdata'=>array('type' => 'like','field'=>array(
-			'Template.name','Template.meta_title'
+			'Template.name'
+			,'Template.meta_title'
+			,'Template.location'
+			,'Template.creator'
 			))
 	);
 

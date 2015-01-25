@@ -45,13 +45,7 @@
 		?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Assets'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Templates'), array('controller' => 'templates', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Template'), array('controller' => 'templates', 'action' => 'add')); ?> </li>
-	</ul>
+	<?=$this->element('admin_actions')?>
 </div>
 
 <?php

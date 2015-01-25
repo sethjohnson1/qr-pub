@@ -1,6 +1,6 @@
 
 <div class="templates index">
-	<h2><?php echo __('Templates'); ?></h2>
+	<h2><?php echo __($creator.'\'s Templates'); ?></h2>
 	<?php
 		echo $this->Form->create('Template',
 			array('url' => array_merge(array('action' => 'index'), $this->params['pass'])));
@@ -12,12 +12,15 @@
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('modified'); ?></th>
-			<th><?php echo $this->Paginator->sort('active'); ?></th>
-
+			<th><?php echo $this->Paginator->sort('location','Loc'); ?></th>
+			<th><?php echo $this->Paginator->sort('meta_title','Title'); ?></th>
+			<?if ($creator==Configure::read('globalSuperUser'))
+			echo '<th>'. $this->Paginator->sort('creator').'</th>';?>
+			<th><?php echo $this->Paginator->sort('name','Type'); ?></th>
 			<th><?php echo $this->Paginator->sort('code'); ?></th>
+			<th><?php echo $this->Paginator->sort('nextid'); ?></th>
+			<th><?php echo $this->Paginator->sort('active'); ?></th>
+			<th><?php echo $this->Paginator->sort('modified'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
@@ -25,15 +28,18 @@
 	<?php foreach ($templates as $template): ?>
 	<tr>
 		<td><?php echo h($template['Template']['id']); ?>&nbsp;</td>
+		<td><?php echo h($template['Template']['location']); ?>&nbsp;</td>
+		<td><?php echo h($template['Template']['meta_title']); ?>&nbsp;</td>
+		<? if ($creator==Configure::read('globalSuperUser')) echo '<td>'.h($template['Template']['creator']).'&nbsp;</td>';?>
 		<td><?php echo h($template['Template']['name']); ?>&nbsp;</td>
-		<td><?php echo h($template['Template']['created']); ?>&nbsp;</td>
-		<td><?php echo h($template['Template']['modified']); ?>&nbsp;</td>
-		<td><?php echo h($template['Template']['active']); ?>&nbsp;</td>
 		<td><?php echo h($template['Template']['code']); ?>&nbsp;</td>
+		<td><?php echo h($template['Template']['nextid']); ?>&nbsp;</td>
+		<td><?php echo h($template['Template']['active']); ?>&nbsp;</td>
+		<td><?php echo h($template['Template']['modified']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('admin'=>false,'action' => 'view', $template['Template']['id'])); ?>
 			<?php echo $this->Html->link(__('Stats'), array('action' => 'view', $template['Template']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $template['Template']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $template['Template']['id'],$creator)); ?>
 			<?php //echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $template['Template']['id']), array(), __('Are you sure you want to delete # %s?', $template['Template']['id'])); ?>
 		</td>
 	</tr>

@@ -20,7 +20,7 @@ class AssetsController extends AppController {
 	}
 
 
-	public function admin_add($type=null,$id = null) {
+	public function admin_add($type=null,$id = null,$creator=null) {
 
 		if ($this->request->is('post')) {
 			if (isset($this->request->data['Asset']['vgaljson'])){
@@ -207,7 +207,7 @@ class AssetsController extends AppController {
 			
 		}
 		$template = $this->Asset->Template->find('first',array('conditions'=>array('Template.id'=>$id)));
-		$this->set(compact('type','template','id'));
+		$this->set(compact('type','template','id','creator'));
 		//sj - added this, should be other way around maybe
 		//$this->render('admin_add','default');
 	}

@@ -19,7 +19,10 @@ echo $this->Form->create('Template',
 		//else echo $this->Form->input('name',array('type'=>'hidden'));
 		echo $this->Form->input('location',array('type'=>'select','options'=>$locations));
 		echo $this->Form->input('active',array('checked'=>'checked'));
+		if ($creator==Configure::read('globalSuperUser'))
 		echo $this->Form->input('creator',array('label'=>'Creator. Name must match to link templates'));
+		else
+		echo $this->Form->input('creator',array('disabled'=>'disabled','value'=>$creator,'label'=>'Creator. Name must match to link templates'));
 		echo $this->Form->input('meta_title');
 		echo $this->Form->input('meta_desc');
 		//currently, forms must be saved, then edited to link together

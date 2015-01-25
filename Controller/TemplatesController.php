@@ -167,37 +167,44 @@ Configure::read('globalSiteURL')." although it's much more awesome in person."
 		$this->set('template', $this->Template->find('first', $options));
 	}
 	
-	public function admin_add($id = null) {
+	public function admin_add($creator=null) {
 		if ($this->request->is('post')) {
 			$this->Template->create();
 			if ($this->Template->save($this->request->data)) {
 				$this->Session->setFlash(__('The template has been saved.'));
-				return $this->redirect(array('controller'=>'assets','admin'=>true,'action' => 'add',$this->request->data['Template']['name'],$this->Template->getLastInsertID()));
+				return $this->redirect(array('controller'=>'assets','admin'=>true,'action' => 'add',$this->request->data['Template']['name'],$this->Template->getLastInsertID(),$creator));
 			} else {
 				$this->Session->setFlash(__('The template could not be saved. Please, try again.'));
 			}
 			
 		}
+		$this->set(compact('creator'));
 		//$this->render('admin_add','default');
 	}
 
 
-	public function admin_edit($id = null) {
+	public function admin_edit($id = null,$creator=null) {
 		if (!$this->Template->exists($id)) {
 			throw new NotFoundException(__('Invalid template'));
 		}
+		if ($creator != Configure::read('globalSuperUser')&& !$this->Template->find('first',array(
+			'conditions'=>array('Template.creator'=>$creator,'Template.id'=>$id)
+		))){
+			throw new NotFoundException(__('Invalid creator. Check your URL and try again.'));
+		};
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Template->save($this->request->data)) {
 				$this->Session->setFlash(__('The template has been saved.'));
-				return $this->redirect(array('controller'=>'assets','admin'=>true,'action' => 'add',$this->request->data['Template']['name'],$id));
+				return $this->redirect(array('controller'=>'assets','admin'=>true,'action' => 'add',$this->request->data['Template']['name'],$id,$creator));
 			} else {
-				$this->Session->setFlash(__('The template could not be saved. Please, try again. Double-check nextid'));
+				$this->Session->setFlash(__('The template could not be saved. Please, try again. Double-check Creator and nextid'));
 			}
 		} else {
 			$options = array('conditions' => array('Template.' . $this->Template->primaryKey => $id));
 			$this->request->data = $this->Template->find('first', $options);
 		}
 		$this->set('edit',true);
+		$this->set(compact('edit','creator'));
 		
 		//add 'ajax' here to help with debugging
 		$this->render('admin_add','default');
@@ -218,7 +225,7 @@ Configure::read('globalSiteURL')." although it's much more awesome in person."
 		$templates=$this->Paginator->paginate();
 		$user=$this->Auth->user();
 		$totals=$this->Scorecard->scoreTotals(null,$user['id']);
-		$this->set(compact('templates','totals'));
+		$this->set(compact('templates','totals','creator'));
 		//$this->render('admin_index','default');
 	}
 
