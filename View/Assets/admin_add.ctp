@@ -27,6 +27,12 @@
 		echo $this->Form->input('Attribute.asset_text',array('value'=>$asset_text));
 		
 	}
+	else if ($type=='ag'){
+		echo $this->Form->input('name'); 
+		echo $this->Form->input('daterange'); 
+		echo $this->Form->input('synopsis'); 
+		echo $this->Form->input('filename'); 
+	}
 	else {
 		echo ' Template type not found. Something has gone wrong. Go back to the beginning or ask for help if you keep getting here.';	
 	}

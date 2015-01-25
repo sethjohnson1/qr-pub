@@ -1,14 +1,12 @@
 <?
-echo $this->element('jqm_header',$template);
+echo $this->element('jqm_header');
 
 //debug($template);
-if ($template['Template']['name']=='vgal') echo $this->element('vgal',array($template));
-if ($template['Template']['name']=='blog') echo $this->element('blog',array($template));
-if ($template['Template']['name']=='splash') echo $this->element('splash',array($template));
-if ($template['Template']['name']=='video') echo $this->element('youtube',array($template));
-/*
-comments need some basic styling now. Not using popup, just list at end.
-*/
+if ($template['Template']['name']=='vgal') echo $this->element('vgal');
+if ($template['Template']['name']=='blog') echo $this->element('blog');
+if ($template['Template']['name']=='splash') echo $this->element('splash');
+if ($template['Template']['name']=='video') echo $this->element('youtube');
+if ($template['Template']['name']=='ag') echo $this->element('ag');
 ?>
 
 <div class="comments_container" style="clear:both;">

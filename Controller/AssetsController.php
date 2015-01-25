@@ -189,6 +189,22 @@ class AssetsController extends AppController {
 
 			}
 			
+			if ($type=='ag'){
+				//did this one all on a single row using field names from OC
+				$this->Asset->deleteAll(array('Asset.template_id'=>$id));
+				$asset=$this->request->data['Asset'];
+				$uuid=String::uuid();
+				$asset['id']=$uuid;
+				$asset=$this->request->data['Asset'];
+				//$asset['template_id']=$this->request->data['Asset']['template_id'];
+				$this->Asset->create();
+				//$asset['name']='text';
+				//$asset['asset_text']=$this->request->data['Asset']['text'];
+				if ($this->Asset->save($asset)) $this->Session->setFlash(__('The asset has been saved.'));
+				else $this->Session->setFlash(__('Text could not be saved'));
+
+			}
+			
 		}
 		$template = $this->Asset->Template->find('first',array('conditions'=>array('Template.id'=>$id)));
 		$this->set(compact('type','template','id'));
