@@ -1,4 +1,4 @@
-<div class="blog_container ui-shadow ui-body ui-body-a">
+<div class="splash_container ui-shadow ui-body ui-body-a">
  <style type="text/css" scoped>
    .splashimg_container{
 	max-width: 600px;
@@ -7,7 +7,7 @@
    .splashimg{
 		max-width: 100%;
    }
-   .blog_container{
+   .splash_container{
 		max-height:1100px;
 		max-width:1100px;
 		margin: 0 auto;

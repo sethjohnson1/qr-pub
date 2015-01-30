@@ -36,17 +36,7 @@ always set our own width instead of the generic "ui-responsive"
 		min-width: 165px;
 		margin: 0 auto;
 	}
-	/*.caption{
-		background-color:#fff;
-		max-width:150px;
-		float:left;
-		padding: 5px 0 0 0;
-	}*/
-	.blog_container div.vgalchild:nth-child(5n) {
-		//border: solid green 2px;
-		//margin-left:10px;
-		//float:right;
-	}
+
   </style>
 
 <h3 class="ui-shadow ui-bar ui-bar-a"><? echo $title ?><br/>
@@ -94,7 +84,7 @@ always set our own width instead of the generic "ui-responsive"
 	//endif;
 endforeach;
 ?>
-</div><!-- /blogcontainer -->
+</div><!-- /vgal_container -->
 <script type="text/javascript">
 	//<![CDATA[
 	//assign the JQM classes, these might need to be updated if the divs are reordered

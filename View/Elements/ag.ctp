@@ -7,7 +7,7 @@ daterange
 synopsis
 */
 ?>
-<div class="blog_container ui-shadow ui-body ui-body-a">
+<div class="ag_container ui-shadow ui-body ui-body-a">
  <style type="text/css" scoped>
 
 	.video-container {
@@ -48,13 +48,13 @@ synopsis
   <iframe class="youtube_frame" src="http://www.youtube.com/embed/<? echo $asset['filename'].'?rel=0&modestbranding=1' ?>"
    frameborder="0" allowfullscreen></iframe>
    </div>
-</div><!-- /ag_container -->
+</div><!-- /youtube_container -->
 <div class="text_container">
 <p><strong>Title:</strong> <?=$asset['name']?></p>
 <p><strong>Date:</strong> <?=$asset['daterange']?></p>
 <p><strong>Synopsis:</strong> <?=$asset['synopsis']?></p>
 </div>
-</div><!-- /blogcontainer -->
+</div><!-- /ag_container -->
 <div class="ui-body ui-body-a ui-shadow">
 <h3>
 <?
