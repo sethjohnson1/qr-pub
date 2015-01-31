@@ -40,13 +40,14 @@
 			endif;
 	
 			//echo $this->Html->link('Score Card','#Scorecard',array('class'=>'ui-btn ui-icon-carat-u ui-btn-icon-top','data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'slideup'));
+			//query string is used so AppController doesn't write the location as Session variable (see issue #59)
 			if (isset($template['Template']['nextid'])):
-				echo $this->Html->link('Next',array('controller'=>'templates','action'=>'view',$template['Template']['nextid']),
+				echo $this->Html->link('Next',array('controller'=>'templates','action'=>'view',$template['Template']['nextid'],'?'=>array('next'=>1)),
 				array('style'=>$buttonstyle,
 				'data-role'=>'button',
 				'data-icon'=>'arrow-r',
 				'data-iconpos'=>'right',
-				//'data-prefetch'=>true,
+				'data-prefetch'=>true,
 				'data-transition'=>'slide',
 				//this can be changed back to 'e' for brown buttons
 				'data-theme'=>'f'
