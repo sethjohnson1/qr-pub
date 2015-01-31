@@ -227,6 +227,7 @@ Configure::read('globalSiteURL')." although it's much more awesome in person."
 		$totals=$this->Scorecard->scoreTotals(null,$user['id']);
 		$this->set(compact('templates','totals','creator'));
 		//$this->render('admin_index','default');
+
 	}
 
 

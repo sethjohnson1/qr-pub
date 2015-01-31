@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 App::uses('Controller', 'Controller');
 
@@ -32,11 +32,16 @@ class AppController extends Controller {
 			if ($this->request->params['action']=='index'||$this->request->params['action']=='view'){
 				//this is dirty, but for some reason it writes /qr/qr whenever redirecting, and I don't know how it will behave on its own domain (probably fine), 
 				//so for now this little bit of dickery
-				$current=explode('/',$this->here);
+				/*$current=explode('/',$this->here);
 				unset($current[0]);
 				unset($current[1]);
 				$current=implode('/',$current);
 				$current='/'.$current;
+				*/
+				//see how this works now that we use URL variable
+				if (isset($this->params['url']['url'])) $current=Configure::read('globalSiteURL').$this->params['url']['url'];
+				else $current=Configure::read('globalSiteURL');
+				
 				$this->Session->write('location',$current);
 			}
 		$this->set('totals',$this->Scorecard->scoreTotals(null,$user['id']));
