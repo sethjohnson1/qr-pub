@@ -25,7 +25,7 @@
 		<td><?php echo h($comment['Comment']['rating']); ?>&nbsp;</td>
 		<td><?php echo h($comment['Comment']['modified']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($comment['User']['username'], array('controller' => 'users', 'action' => 'view', $comment['User']['id'])); ?>
+			<?php echo $this->Html->link($comment['User']['username'], array('plugin'=>'users','controller' => 'users', 'action' => 'view', $comment['User']['id'])); ?>
 		</td>
 		<td><?php echo h($comment['Comment']['hidden']); ?>&nbsp;</td>
 		<td><?php echo h($comment['Comment']['responded']); ?>&nbsp;</td>
