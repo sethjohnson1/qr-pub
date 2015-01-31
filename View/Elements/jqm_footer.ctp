@@ -46,7 +46,7 @@
 				'data-role'=>'button',
 				'data-icon'=>'arrow-r',
 				'data-iconpos'=>'right',
-				'data-prefetch'=>true,
+				//'data-prefetch'=>true,
 				'data-transition'=>'slide',
 				//this can be changed back to 'e' for brown buttons
 				'data-theme'=>'f'
