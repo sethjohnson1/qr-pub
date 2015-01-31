@@ -90,6 +90,8 @@ $cheight=160;
 		}
 		.comment_thoughts{
 			width:85%;
+			overflow-y:auto;
+			max-height:150px;
 		}
 		div.total span,div.downvotes div{
 			background-color: rgba(246, 246, 246, .5);
