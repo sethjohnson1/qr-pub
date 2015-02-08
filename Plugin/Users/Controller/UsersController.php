@@ -308,14 +308,12 @@ class UsersController extends UsersAppController {
 	public function admin_view($id = null) {
 		if ($this->request->is('post')){
 			//ready to save, left off here
+			debug('check this line, this is where you left off');
 			debug($this->request->data);
 		}
-	
-		try {
-			$user = $this->{$this->modelClass}->view($id, 'id');
-		} catch (NotFoundException $e) {
-			$this->Session->setFlash('Invalid User.','flash_custom');
-			$this->redirect(array('action' => 'index'));
+		//sj - removed old try / catch for this because it didn't work with social logins
+		if (!$this->{$this->modelClass}->exists($id)) {
+			throw new NotFoundException(__('Invalid user'));
 		}
 		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
 		$options['recursive']=1;
