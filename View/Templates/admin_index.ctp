@@ -1,6 +1,27 @@
 
 <div class="templates index">
-	<h2><?php echo __($creator.'\'s Templates'); ?></h2>
+<?
+
+	if (empty($templates)){
+		echo '
+		<div style="border:3px solid green; padding:10px;">
+			<h2>'.$creator.' has no templates. '.
+			$this->Html->link('Click here to create one.', array(
+			'plugin'=>'','controller'=>'templates','action' => 'add',$creator
+			))
+			.'<br /><br /><br /> To return to login '.
+			$this->Html->link('click here', array(
+			'plugin'=>'','controller'=>'templates','action' => 'login'
+			))
+			.'</h2>
+		</div>
+		
+		';
+	}
+	else
+	 echo '<h2>'.$creator.'\'s Templates </h2>';
+?>
+	
 	<?php
 		echo $this->Form->create('Template',
 			array('url' => array_merge(array('action' => 'index'), $this->params['pass'])));
@@ -59,6 +80,8 @@
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
+
+	
 </div>
 <div class="actions">
  <?=$this->element('admin_actions')?>
