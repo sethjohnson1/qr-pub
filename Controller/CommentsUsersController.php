@@ -125,8 +125,17 @@ class CommentsUsersController extends AppController {
 	public function comment_up($id = null, $templateid=null, $vote=null) {
 		//if ($this->request->is('ajax')){
 			if ($this->Auth->user()){
+	/*
+			The important thing to note here is that there are THREE saves, in this order:
+			$data is the CommentsUser data
+			$commentdata is the Comment data ( just upvote and downvote tally right now)
+			$votedata is the User vote tally, here we just track their grand total (it never subtracts)
+			(hopefully all this painful counting will be worth it someday)
+	
+	*/
 				$user=$this->Auth->user();
 				$data['user_id']=$this->Auth->user('id');
+				//$votedata['flags']=$this->Auth->user('id');
 				$data['comment_id']=$id;
 				$commentuser=$this->CommentsUser->find('first',array(
 					'conditions'=>array('CommentsUser.comment_id'=>$id,'CommentsUser.user_id'=>$this->Auth->user('id')),
@@ -137,6 +146,22 @@ class CommentsUsersController extends AppController {
 				'conditions'=>array('Comment.id'=>$id)
 				
 				));
+				//first save user totals, they are simply cumulative
+				$this->CommentsUser->User->create();
+				$votedata['id']=$this->Auth->user('id');
+				if ($vote==1){
+					$votedata['upvotes']=$user['upvotes'];
+					$votedata['upvotes']++;
+				}
+				if ($vote==-1){
+					$votedata['downvotes']=$user['downvotes'];
+					$votedata['downvotes']++;
+				}
+					if ($this->CommentsUser->User->save($votedata,array('validate' => false))){
+							//the long journey is over!
+					}
+					else debug('failed');
+					
 				$this->CommentsUser->create();
 				if(!empty($commentuser)){
 					if ($vote==1 && $commentuser['CommentsUser']['upvoted']!=true){
@@ -146,16 +171,15 @@ class CommentsUsersController extends AppController {
 							$data['upvoted']=false;
 							$data['downvoted']=false;
 							$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']-1;
-
+							//$votedata['downvotes']=$votedata['downvotes']+1;
 						}
 						else {
 							$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
-							//$user['upvotes']=$user['upvotes']+1;
+							$votedata['upvotes']=$votedata['upvotes']+1;
 							unset($commentdata['Comment']['downvotes']);
-							unset($user['downvotes']);
+							//unset($votedata['downvotes']);
 							$data['upvoted']=true;
 						}
-						//$data['vote']=1;
 					}
 					else if ($vote==-1 && $commentuser['CommentsUser']['downvoted']!=true){
 						$data['id']=$commentuser['CommentsUser']['id'];
@@ -163,10 +187,13 @@ class CommentsUsersController extends AppController {
 								$data['upvoted']=false;
 								$data['downvoted']=false;
 								$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']-1;
+								//$votedata['upvotes']=$votedata['upvotes']+1;
 							}
 							else {
 								$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']+1;
+								//$votedata['downvotes']=$votedata['downvotes']+1;
 								unset($commentdata['Comment']['upvotes']);
+								//unset($votedata['upvotes']);
 								$data['downvoted']=true;
 							}
 					}
@@ -180,12 +207,16 @@ class CommentsUsersController extends AppController {
 					if ($vote==1){ 
 						$data['upvoted']=true;
 						$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
+						//$votedata['upvotes']=$votedata['upvotes']+1;
 						unset($commentdata['Comment']['downvotes']);
+						//unset($votedata['downvotes']);
 					}
 					if ($vote==-1){
 						$data['downvoted']=1;
 						$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']+1;
+						//$votedata['downvotes']=$votedata['downvotes']+1;
 						unset($commentdata['Comment']['upvotes']);
+						//unset($votedata['upvotes']);
 					}
 				}
 
@@ -198,6 +229,7 @@ class CommentsUsersController extends AppController {
 						//run a quick query to update the difference
 						$db = ConnectionManager::getDataSource('default');
 						$db->rawQuery('update comments set diff=ifnull(upvotes,0)-ifnull(downvotes,0);');
+
 					}
 				}
 					

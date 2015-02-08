@@ -1,11 +1,20 @@
 <?
-//first loop through to make averages, just the rating for now but eventually votes
+debug($user['User']['upvotes']);
+debug($user['User']['downvotes']);
+//first loop through and make some stats someday this could be on the DB itself 
 $avgrating=0;
+$upvotes=0;
+$downvotes=0;
+$flags=0;
 foreach($user['Comment'] as $comment){
 	$avgrating=$comment['rating']+$avgrating;
 }
 $avgrating=$avgrating/count($user['Comment']);
-//debug($avgrating);
+foreach ($user['CommentsUser'] as $vote){
+	if ($vote['upvoted']==true) $upvotes++;
+	if ($vote['downvoted']==true) $downvotes++;
+	if ($vote['flagged']==true) $flags++;
+}
 ?>
 <div class="users form">
 <?
@@ -26,6 +35,9 @@ $avgrating=$avgrating/count($user['Comment']);
 		<li>Gender: <?=$user[$model]['gender']?></li>
 		<li>Email: <?=$user[$model]['email']?></li>
 		<li>Avg. Rating: <?=$avgrating?></li>
+		<li>Upvotes: <?=$upvotes?></li>
+		<li>Downvotes: <?=$downvotes?></li>
+		<li>Flags: <?=$flags?></li>
 	</ul>
 	<br />
 	<h3>Comments</h3>

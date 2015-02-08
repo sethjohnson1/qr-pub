@@ -323,6 +323,7 @@ class UsersController extends UsersAppController {
 		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
 		//using recursive 2 to get Template
 		$options['recursive']=2;
+		$options['contain']=array('CommentsUser','Comment'=>array('Template'));
 		$user=$this->User->find('first', $options);
 		$this->set(compact('user'));
 		//$this->request->data = $user;
