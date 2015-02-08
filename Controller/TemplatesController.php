@@ -229,6 +229,13 @@ Configure::read('globalSiteURL')." although it's much more awesome in person."
 		//$this->render('admin_index','default');
 
 	}
+	
+	public function admin_login(){
+		if ($this->request->is(array('post'))) {
+			return $this->redirect(array('admin'=>true,'controller'=>'templates',
+				'action' => 'index',$this->request->data['Login']['username']));
+		}	
+	}
 
 
 	public function admin_delete($id = null) {
