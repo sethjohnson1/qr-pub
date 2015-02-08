@@ -49,7 +49,7 @@ div.aligncenter {
 }
 
 .alignright {
-    float:right;
+    float: right;
     margin: 5px 0 20px 20px;
 }
 
@@ -94,13 +94,15 @@ a img.aligncenter {
 .wp-caption.alignnone {
     margin: 5px 20px 20px 0;
 }
-
+/*
+sj - modified these from WordPress CSS to always center
+*/
 .wp-caption.alignleft {
-    margin: 5px 20px 20px 0;
+    margin: 0 auto;
 }
 
 .wp-caption.alignright {
-    margin: 5px 0 20px 20px;
+    margin: 0 auto;
 }
 
 .wp-caption img {

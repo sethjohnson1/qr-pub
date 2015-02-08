@@ -72,7 +72,10 @@ class AssetsController extends AppController {
 				$asset['filename']=$vgal['apivar']['Usergal']['Usergal']['name'];
 				$asset['filemime']=$vgal['apivar']['Usergal']['Usergal']['creator'];
 				
-				if ($this->Asset->save($asset)) $this->Session->setFlash(__('Saved the vgal'));
+				if ($this->Asset->save($asset)){
+					$this->Session->setFlash(__('Saved the vgal'));
+					return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
+				}
 				else $this->Session->setFlash(__('Something went horribly wrong.'));	
 			}
 			if (isset($this->request->data['Asset']['blogjson'])){
@@ -131,6 +134,7 @@ class AssetsController extends AppController {
 							//currently these are not used
 							copy($tag->getAttribute('src'), 'img/uploads/'.$this->request->data['Asset']['template_id'].'_'.$uuid.'.jpg');
 							$this->Session->setFlash(__('The asset has been saved.'));
+							return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
 						}
 						else $this->Session->setFlash(__('Image '.$key.' could not be saved'));
 						
@@ -164,7 +168,7 @@ class AssetsController extends AppController {
 					$this->Asset->deleteAll(array('Asset.template_id'=>$id));
 					if ($this->Asset->save($asset)) {
 						$this->Session->setFlash(__('The asset has been saved!'));
-						//return $this->redirect(array('action' => 'index'));
+						return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
 					}
 					else {
 						$this->Session->setFlash(__('Something went horribly wrong.'));
@@ -184,7 +188,10 @@ class AssetsController extends AppController {
 				$asset['name']=$this->request->data['Asset']['youtubeid'];
 				//stash the text here as well - no need for another row at the moment
 				$asset['asset_text']=$this->request->data['Attribute']['asset_text'];
-				if ($this->Asset->save($asset)) $this->Session->setFlash(__('The asset has been saved.'));
+				if ($this->Asset->save($asset)){ 
+					$this->Session->setFlash(__('The asset has been saved.'));
+					return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
+				}
 				else $this->Session->setFlash(__('Audio file data could not be saved'));
 
 			}
@@ -200,7 +207,10 @@ class AssetsController extends AppController {
 				$this->Asset->create();
 				//$asset['name']='text';
 				//$asset['asset_text']=$this->request->data['Asset']['text'];
-				if ($this->Asset->save($asset)) $this->Session->setFlash(__('The asset has been saved.'));
+				if ($this->Asset->save($asset)){
+					$this->Session->setFlash(__('The asset has been saved.'));
+					return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
+				}
 				else $this->Session->setFlash(__('Text could not be saved'));
 
 			}
