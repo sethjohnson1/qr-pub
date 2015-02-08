@@ -11,7 +11,7 @@
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			<th><?php echo $this->Paginator->sort('id','ID'); ?></th>
 			<th><?php echo $this->Paginator->sort('location','Loc'); ?></th>
 			<th><?php echo $this->Paginator->sort('meta_title','Title'); ?></th>
 			<?if ($creator==Configure::read('globalSuperUser'))

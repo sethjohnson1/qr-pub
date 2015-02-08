@@ -9,19 +9,17 @@
 		echo $this->Form->input('Attribute.asset_text',array('value'=>$asset_text,'type'=>'textarea'));
 	}
 	else if ($type=='vgal'){
-		echo $this->Form->input('vgalid');
+		echo $this->Form->input('vgalid',array('label'=>'VgalID'));
 		echo $this->Form->input('Get info',array('type'=>'button','id'=>'vgalbutton'));
-		echo $this->Form->input('vgaljson',array('id'=>'vgaljson','type'=>'textarea'));			
+		echo $this->Form->input('vgaljson',array('label'=>'Result','disabled'=>'disabled','id'=>'vgaljson','type'=>'textarea'));			
 	}
 	else if ($type=='blog'){
-		echo $this->Form->input('blogid');
+		echo $this->Form->input('blogid',array('label'=>'BlogID'));
 		echo $this->Form->input('Get info',array('type'=>'button','id'=>'blogbutton'));
-		echo $this->Form->input('blogjson',array('id'=>'blogjson','type'=>'textarea','accept-charset'=>'UTF-8'));
+		echo $this->Form->input('blogjson',array('label'=>'Result','disabled'=>'disabled','id'=>'blogjson','type'=>'textarea','accept-charset'=>'UTF-8'));
 	}
 	else if ($type=='video'){
-		//echo $this->Form->input('Attribute.audio_file', array('type' => 'file','label'=>'audio in mp3(?)'));
-		//echo $this->Form->input('Attribute.image_file', array('type' => 'file','label'=>'image (list exact dimensions)'));
-		echo $this->Form->input('youtubeid');
+		echo $this->Form->input('youtubeid',array('label'=>'YouTubeID'));
 		$asset_text='';
 		if (isset($template['Asset'][0]['asset_text'])) $asset_text=$template['Asset'][0]['asset_text'];
 		echo $this->Form->input('Attribute.asset_text',array('value'=>$asset_text));
@@ -31,7 +29,7 @@
 		echo $this->Form->input('name'); 
 		echo $this->Form->input('daterange'); 
 		echo $this->Form->input('synopsis'); 
-		echo $this->Form->input('filename'); 
+		echo $this->Form->input('filename',array('label'=>'YouTubeID')); 
 	}
 	else {
 		echo ' Template type not found. Something has gone wrong. Go back to the beginning or ask for help if you keep getting here.';	

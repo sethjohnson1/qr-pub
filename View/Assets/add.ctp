@@ -1,27 +1,28 @@
 <div class="assets form">
 <?php 
+/*
+disabled and old and can be removed soon...
+*/
 
 	echo $this->Form->create('Asset',array('enctype'=>'multipart/form-data'));
 	if ($type=='splash'){
 		$asset_text='';
-		echo $this->Form->input('file', array('type' => 'file','label'=>'upload jpg image, 1000x1000 works nice'));
+		echo $this->Form->input('file', array('type' => 'file','label'=>'Upload jpg image, 1000px wide or less works best'));
 		if (isset($template['Asset'][0]['asset_text'])) $asset_text=$template['Asset'][0]['asset_text'];
 		echo $this->Form->input('Attribute.asset_text',array('value'=>$asset_text,'type'=>'textarea'));
 	}
 	else if ($type=='vgal'){
-		echo $this->Form->input('vgalid');
+		echo $this->Form->input('vgalid',array('label'=>'VgalID'));
 		echo $this->Form->input('Get info',array('type'=>'button','id'=>'vgalbutton'));
 		echo $this->Form->input('vgaljson',array('id'=>'vgaljson','type'=>'textarea'));			
 	}
 	else if ($type=='blog'){
-		echo $this->Form->input('blogid');
+		echo $this->Form->input('blogid',array('label'=>'BlogID'));
 		echo $this->Form->input('Get info',array('type'=>'button','id'=>'blogbutton'));
 		echo $this->Form->input('blogjson',array('id'=>'blogjson','type'=>'textarea','accept-charset'=>'UTF-8'));
 	}
 	else if ($type=='video'){
-		//echo $this->Form->input('Attribute.audio_file', array('type' => 'file','label'=>'audio in mp3(?)'));
-		//echo $this->Form->input('Attribute.image_file', array('type' => 'file','label'=>'image (list exact dimensions)'));
-		echo $this->Form->input('youtubeid');
+		echo $this->Form->input('youtubeid',array('label'=>'YouTubeID'));
 		$asset_text='';
 		if (isset($template['Asset'][0]['asset_text'])) $asset_text=$template['Asset'][0]['asset_text'];
 		echo $this->Form->input('Attribute.asset_text',array('value'=>$asset_text));
