@@ -1,5 +1,8 @@
 <div class="assets form">
 <?php 
+/*
+disabled and old and can be removed soon...
+*/
 
 	echo $this->Form->create('Asset',array('enctype'=>'multipart/form-data'));
 	if ($type=='splash'){
@@ -11,12 +14,12 @@
 	else if ($type=='vgal'){
 		echo $this->Form->input('vgalid',array('label'=>'VgalID'));
 		echo $this->Form->input('Get info',array('type'=>'button','id'=>'vgalbutton'));
-		echo $this->Form->input('vgaljson',array('label'=>'Result','readonly' => 'readonly','id'=>'vgaljson','type'=>'textarea'));			
+		echo $this->Form->input('vgaljson',array('id'=>'vgaljson','type'=>'textarea'));			
 	}
 	else if ($type=='blog'){
 		echo $this->Form->input('blogid',array('label'=>'BlogID'));
 		echo $this->Form->input('Get info',array('type'=>'button','id'=>'blogbutton'));
-		echo $this->Form->input('blogjson',array('label'=>'Result','readonly' => 'readonly','id'=>'blogjson','type'=>'textarea','accept-charset'=>'UTF-8'));
+		echo $this->Form->input('blogjson',array('id'=>'blogjson','type'=>'textarea','accept-charset'=>'UTF-8'));
 	}
 	else if ($type=='video'){
 		echo $this->Form->input('youtubeid',array('label'=>'YouTubeID'));
@@ -25,35 +28,35 @@
 		echo $this->Form->input('Attribute.asset_text',array('value'=>$asset_text));
 		
 	}
-	else if ($type=='ag'){
-		echo $this->Form->input('name'); 
-		echo $this->Form->input('daterange'); 
-		echo $this->Form->input('synopsis'); 
-		echo $this->Form->input('filename',array('label'=>'YouTubeID')); 
-	}
 	else {
 		echo ' Template type not found. Something has gone wrong. Go back to the beginning or ask for help if you keep getting here.';	
 	}
 	
 	echo $this->Form->input('template_id',array('value'=>$id,'type'=>'hidden'));
-	echo $this->Form->submit('Submit',array('class'=>'assetSubmit'));
+	echo $this->Form->submit('Submit');
 	echo $this->Form->end(); 
 	//debug($template);
 
 		?>
 </div>
 <div class="actions">
-	<?=$this->element('admin_actions')?>
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+
+		<li><?php echo $this->Html->link(__('List Assets'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Templates'), array('controller' => 'templates', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Template'), array('controller' => 'templates', 'action' => 'add')); ?> </li>
+	</ul>
 </div>
 
 <?php
 	
-	$data = $this->Js->get('#AssetAdminAddForm')->serializeForm(array('isForm' => true, 'inline' => true));
+	$data = $this->Js->get('#AssetAddForm')->serializeForm(array('isForm' => true, 'inline' => true));
     //on button click send request to controller and displays response data in chosen field
 
 	$this->Js->get('#vgalbutton')->event(
             'click', $this->Js->request(
-                array('controller' => 'assets', 'action' => 'ajaxvgal','admin'=>true), array(
+                array('controller' => 'assets', 'action' => 'ajaxvgal'), array(
 					'update' => '#vgaljson',
 					'async' => true,
 					'data'=>$data,
@@ -65,7 +68,7 @@
 	
 	$this->Js->get('#blogbutton')->event(
             'click', $this->Js->request(
-                array('controller' => 'assets', 'action' => 'ajaxblog','admin'=>true), array(
+                array('controller' => 'assets', 'action' => 'ajaxblog'), array(
 					'update' => '#blogjson',
 					'async' => true,
 					'data'=>$data,
@@ -77,8 +80,3 @@
     
 	echo $this->Js->writeBuffer();
 	?>
-<script type="text/javascript">
-$(document).on('click', '.assetSubmit',function(e) {
-	console.log('clicked');
-});
-</script>
