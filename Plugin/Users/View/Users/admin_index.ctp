@@ -9,7 +9,7 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<!-- div class="users index" -->
+<div class="users index">
 	<h2><?php echo __d('users', 'Users'); ?></h2>
 
 	<?php
@@ -60,7 +60,7 @@
 		<?php endforeach; ?>
 	</table>
 	<?php echo $this->element('Users.pagination'); ?>
-<!-- /div -->
-<!-- div class="actions">
+</div>
+<div class="actions">
 <?=$this->element('admin_actions')?>
-</div -->
+</div>

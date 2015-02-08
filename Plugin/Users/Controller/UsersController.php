@@ -307,17 +307,25 @@ class UsersController extends UsersAppController {
 
 	public function admin_view($id = null) {
 		if ($this->request->is('post')){
-			//ready to save, left off here
-			debug('check this line, this is where you left off');
-			debug($this->request->data);
+		//sj - remember validate false or it won't work!
+			$this->User->create();
+			if ($this->User->save($this->request->data,array('validate' => false))) {
+				$this->Session->setFlash(__('Updated user info'));
+			}
+			else $this->Session->setFlash(__('Update failed!'));
+
 		}
+		
 		//sj - removed old try / catch for this because it didn't work with social logins
 		if (!$this->{$this->modelClass}->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
-		$options['recursive']=1;
-		$this->set('user', $this->User->find('first', $options));
+		//using recursive 2 to get Template
+		$options['recursive']=2;
+		$user=$this->User->find('first', $options);
+		$this->set(compact('user'));
+		//$this->request->data = $user;
 		//$this->set('user', $user);
 	}
 
