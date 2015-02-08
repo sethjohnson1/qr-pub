@@ -41,6 +41,9 @@
 	//debug($template);
 
 		?>
+	<h2 class="statusMessage" >
+	
+	</h2>
 </div>
 <div class="actions">
 	<?=$this->element('admin_actions')?>
@@ -78,7 +81,16 @@
 	echo $this->Js->writeBuffer();
 	?>
 <script type="text/javascript">
-$(document).on('click', '.assetSubmit',function(e) {
-	console.log('clicked');
+$('input:submit').click(function(){
+	$('h2.statusMessage').text("Submitting the magic. Please wait...");
+	$('input:submit').attr("style","display: none;" );	
 });
+
+/*
+$('.assetSubmit').toggle(function(){
+    $(this).text('Pending Request');
+}, function(){
+    $(this).text('Invite');
+});
+*/
 </script>
