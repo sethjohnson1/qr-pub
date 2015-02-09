@@ -1,8 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
-
 class CommentsUsersController extends AppController {
-
 	public $components = array('Paginator','Comment');
 	public function beforeFilter() {
 		parent::beforeFilter();
@@ -17,12 +15,25 @@ class CommentsUsersController extends AppController {
 	//$flag is whether to flag or unflag (1, -1, reveal)
 	public function comment_flag($id = null) {
 		if ($this->request->is('post')){
-
 			if ($this->Auth->user()){
 				$flag=0;
 				if ($this->request->data[$id]['pflag']=='flag') $flag=1;
 				if ($this->request->data[$id]['pflag']=='unflag') $flag=-1;
-				$user=$this->Auth->user();
+				//find the user rather than first method for proper flag totals
+				//$user=$this->Auth->user();
+				$user=$this->CommentsUser->User->find('first',array(
+					'conditions'=>array('User.id'=>$this->Auth->user('id')),
+					'recursive'=>-1	
+				));
+				$user=$user['User'];
+				//first do the flag totals, no need for IF statement as its just a tally for the user
+				if ($flag==1){
+					$userdata['id']=$user['id'];
+					$userdata['flags']=$user['flags'];
+					$userdata['flags']++;
+					$this->CommentsUser->User->create();
+					if ($this->CommentsUser->User->save($userdata));
+				}
 				$commentsuser=$this->CommentsUser->find('first',array(
 					'recursive'=>-1,
 					'conditions'=>array('CommentsUser.comment_id'=>$id,'CommentsUser.user_id'=>$user['id'])
@@ -45,7 +56,7 @@ class CommentsUsersController extends AppController {
 						'conditions'=>array('Comment.id'=>$id),
 						'recursive'=>-1
 					));
-					//only do math on COmment if its a NEW flag or the same user unflagging
+					//only do math on Comment if its a NEW flag or the same user unflagging
 					if ((isset($commentsuser['CommentsUser']['id']) && $flag==-1) || ($flag==1)){
 						$commentdata['Comment']['flags']=$commentdata['Comment']['flags']+$flag;
 					}
@@ -133,9 +144,14 @@ class CommentsUsersController extends AppController {
 			(hopefully all this painful counting will be worth it someday)
 	
 	*/
-				$user=$this->Auth->user();
+				//find the user rather than first method for proper vote totals
+				//$user=$this->Auth->user();
+				$user=$this->CommentsUser->User->find('first',array(
+					'conditions'=>array('User.id'=>$this->Auth->user('id')),
+					'recursive'=>-1	
+				));
+				$user=$user['User'];
 				$data['user_id']=$this->Auth->user('id');
-				//$votedata['flags']=$this->Auth->user('id');
 				$data['comment_id']=$id;
 				$commentuser=$this->CommentsUser->find('first',array(
 					'conditions'=>array('CommentsUser.comment_id'=>$id,'CommentsUser.user_id'=>$this->Auth->user('id')),
@@ -157,10 +173,7 @@ class CommentsUsersController extends AppController {
 					$votedata['downvotes']=$user['downvotes'];
 					$votedata['downvotes']++;
 				}
-					if ($this->CommentsUser->User->save($votedata,array('validate' => false))){
-							//the long journey is over!
-					}
-					else debug('failed');
+					if ($this->CommentsUser->User->save($votedata,array('validate' => false)));
 					
 				$this->CommentsUser->create();
 				if(!empty($commentuser)){
@@ -177,7 +190,6 @@ class CommentsUsersController extends AppController {
 							$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
 							$votedata['upvotes']=$votedata['upvotes']+1;
 							unset($commentdata['Comment']['downvotes']);
-							//unset($votedata['downvotes']);
 							$data['upvoted']=true;
 						}
 					}
@@ -207,19 +219,14 @@ class CommentsUsersController extends AppController {
 					if ($vote==1){ 
 						$data['upvoted']=true;
 						$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
-						//$votedata['upvotes']=$votedata['upvotes']+1;
 						unset($commentdata['Comment']['downvotes']);
-						//unset($votedata['downvotes']);
 					}
 					if ($vote==-1){
 						$data['downvoted']=1;
 						$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']+1;
-						//$votedata['downvotes']=$votedata['downvotes']+1;
 						unset($commentdata['Comment']['upvotes']);
-						//unset($votedata['upvotes']);
 					}
 				}
-
 				if($this->CommentsUser->save($data)){
 					//update the actual comment with the new total
 					$this->CommentsUser->Comment->create();
@@ -229,7 +236,6 @@ class CommentsUsersController extends AppController {
 						//run a quick query to update the difference
 						$db = ConnectionManager::getDataSource('default');
 						$db->rawQuery('update comments set diff=ifnull(upvotes,0)-ifnull(downvotes,0);');
-
 					}
 				}
 					
@@ -284,5 +290,5 @@ class CommentsUsersController extends AppController {
 			$this->render('comment_add','ajax');
 		//}
 	}	
-
 }
+
