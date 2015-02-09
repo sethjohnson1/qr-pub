@@ -29,10 +29,13 @@
 	<?php echo $this->element('Users.pagination'); ?>
 	<table cellpadding="0" cellspacing="0">
 		<tr>
-			<th><?php echo $this->Paginator->sort('username'); ?></th>
+			<th><?php echo $this->Paginator->sort('given_name','name'); ?></th>
 			<th><?php echo $this->Paginator->sort('provider'); ?></th>
 			<th><?php echo $this->Paginator->sort('engaged'); ?></th>
-			<th><?php echo 'Comments' ?></th>
+			<th><?php echo $this->Paginator->sort('comment_count','Comments'); ?></th>
+			<th><?php echo $this->Paginator->sort('upvotes'); ?></th>
+			<th><?php echo $this->Paginator->sort('downvotes'); ?></th>
+			<th><?php echo $this->Paginator->sort('flags'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
 		</tr>
 			<?php
@@ -45,14 +48,14 @@
 			?>
 			<tr<?php echo $class;?>>
 				<td>
-					<?= $this->Html->link($user[$model]['username'],array('action'=>'view',$user[$model]['id'])) ?>
+					<?= $this->Html->link($user[$model]['given_name'].' '.$user[$model]['family_name'],array('action'=>'view',$user[$model]['id'])) ?>
 				</td>
 				<td><?=$user[$model]['provider']?></td>
 				<td><?=$user[$model]['engaged']?></td>
-				<td>
-					<? if (isset($user['Comment'])) echo count($user['Comment']); ?>
-				</td>
-	
+				<td><?=$user[$model]['comment_count']?></td>
+				<td><?=$user[$model]['upvotes']?></td>
+				<td><?=$user[$model]['downvotes']?></td>
+				<td><?=$user[$model]['flags']?></td>
 				<td>
 					<?php echo $user[$model]['created']; ?>
 				</td>

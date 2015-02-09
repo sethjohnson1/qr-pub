@@ -158,13 +158,14 @@ Configure::read('globalSiteURL')." although it's much more awesome in person."
 		//}
     }
 
-	public function admin_view($id = null) {
+	public function admin_view($id = null,$creator=null) {
 		if (!$this->Template->exists($id)) {
 			throw new NotFoundException(__('Invalid template'));
 		}
 		$options['conditions'] = array('Template.' . $this->Template->primaryKey => $id);
-		//$options['recursive']= 0;
-		$this->set('template', $this->Template->find('first', $options));
+		$options['recursive']= 2;
+		$template=$this->Template->find('first', $options);
+		$this->set(compact('template', 'creator'));
 	}
 	
 	public function admin_add($creator=null) {

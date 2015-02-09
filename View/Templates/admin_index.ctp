@@ -59,7 +59,7 @@
 		<td><?php echo h($template['Template']['modified']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('admin'=>false,'action' => 'view', $template['Template']['id'])); ?>
-			<?php echo $this->Html->link(__('Stats'), array('action' => 'view', $template['Template']['id'])); ?>
+			<?php echo $this->Html->link(__('Stats'), array('action' => 'view', $template['Template']['id'],$creator)); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $template['Template']['id'],$creator)); ?>
 			<?php //echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $template['Template']['id']), array(), __('Are you sure you want to delete # %s?', $template['Template']['id'])); ?>
 		</td>

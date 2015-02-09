@@ -48,15 +48,12 @@ $cheight=160;
 ?>	
 	<style type="text/css" scoped>
 		.container<?=$comment['Comment']['id'] ?>{
-			//border: 2px solid green;
-			//width:95%;
 			height: <?=$cheight ?>px;
 		}
 		.comment_buttons{
-
 			width: 9%;
 			max-width: 10px;
-
+			padding: 0 0 0 4px;
 			height: 140px;
 			float: left;
 		}
@@ -93,25 +90,46 @@ $cheight=160;
 			overflow-y:auto;
 			max-height:150px;
 		}
-		div.total span,div.downvotes div{
+		div.total{
 			background-color: rgba(246, 246, 246, .5);
-			border-color: rgb(221, 221, 221);
-			border-style: solid;
-			border-width: 1px;		
-			box-sizing: content-box;
+			border: 1px solid rgb(221, 221, 221);
 			position: relative;
 			display: block;
-			width: 22px;
-			height: 22px;
+			width: 11px;
+			height: 15px;
 			top: 0px;
 			box-shadow: 0 1px 0 rgba(255,255,255,.4);
-			font-weight: bold;
-			left:-12px;	
+			font-size:.75em;
+			left:0px;
+			font-weight:bold;			
+			
+			
 		}
-		div.upvotes div{
-		;left: 28px;top: 22px;z-index:99 !important;color:red
+		div.votes div{
+			background-color: rgba(246, 246, 246, .75);
+			border: 1px solid rgb(221, 221, 221);
+			box-shadow: 0 1px 0 rgba(255,255,255,.4);
+			position: relative;
+			left: 20px;
+			top: -20px;
+			z-index:99 !important;
+			font-size: .75em;
+			border-radius: 25px;	
+			padding: 3px 12px 0px 6px;
 		}
-		div.downvotes div{position: relative;left: 28px;top: -42px;z-index:99 !important;color:red;}
+		div.votes{
+			height:42px;
+		}
+		div.upvote{
+			color:#035642;
+		}
+		div.downvote{
+			color:#981e32;
+		}
+		span.diff{
+			margin-left:-9px;
+		}
+		
 		
 	</style>
 		
@@ -151,15 +169,11 @@ $cheight=160;
 		//giant block to draw the comment and buttons
 		?>
 		<div style="clear:both">&nbsp;</div>
-		<?
-		//set height and overflow "scroll" here to prevent long-winded comments taking up more than their fair share
-		?>
+
 		<div class="the_comment">
-		<!-- div style="width:200px;clear:both" -->
 		
 			<div class="comment_buttons">
-		<div class="upvotes">
-			<div><?=$comment['Comment']['upvotes'] ?></div>
+		<div class="votes">
 			<? echo $this->Form->input('UpVote',array(
 			'div'=>false,
 			'label'=>false,
@@ -172,9 +186,16 @@ $cheight=160;
 			'class'=>'comment_up'.$comment['Comment']['id'],
 			$utoggle
 		));?>
+		<div class="upvote"><?=$comment['Comment']['upvotes']?></div>
 		</div>
-		<div class="total"><span><? echo $comment['Comment']['diff'] ?></span></div>
-		<div class="downvotes" style="height:22px">
+		<?
+		//color the total..
+		$voteclass='';
+		if ($comment['Comment']['diff'] > 0) $voteclass='upvote';
+		if ($comment['Comment']['diff'] < 0) $voteclass='downvote';
+		?>
+		<div class="total <?=$voteclass?>"><span class="diff"><?=$comment['Comment']['diff'] ?></span></div>
+		<div class="votes" >
 		
 		<? echo $this->Form->input('DownVote',array(
 			'div'=>false,
@@ -189,7 +210,8 @@ $cheight=160;
 			$dtoggle
 		));			
 		?>
-		<div style=""><?=$comment['Comment']['downvotes'] ?></div>
+		
+		<div class="downvote"><?=$comment['Comment']['downvotes'] ?></div>
 		</div>
 		
 		
@@ -198,9 +220,9 @@ $cheight=160;
 		<div class="comment_text">
 		<div class="comment_header">
 			<div class="comment_rate">
-				<strong><? echo $formattedname[0] ?></strong>
+				<strong><?=$formattedname[0] ?></strong>
 		
-		<nobr>
+		
 		<?
 		for ($x=0;$x<=4; $x++):
 			if ($comment['Comment']['rating'] > $x) $starred='starred';
@@ -212,7 +234,7 @@ $cheight=160;
 		<?
 		endfor;
 		?>
-		</nobr>
+		
 		</div>
 		<div class="comment_destructive"><?
 

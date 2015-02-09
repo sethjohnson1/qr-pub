@@ -18,6 +18,10 @@ App::uses('SluggableBehavior', 'Utils.Model/Behavior');
 class User extends UsersAppModel {
 
 	public $name = 'User';
+	
+	public $virtualFields = array(
+		'comment_count' => 'SELECT COUNT(*) FROM comments as Comment where Comment.user_id = User.id'
+	);
 
 
 	public $findMethods = array(
