@@ -59,7 +59,7 @@ $cheight=160;
 		}
 		.the_comment{
 			float:left;
-			height: 100%;
+			height: 173px;
 			width:90%;
 			padding-top: 1px;
 			overflow-y:auto;
@@ -68,7 +68,7 @@ $cheight=160;
 		}
 		.comment_text{
 			
-			padding: 16px 0px 0px 42px;
+			padding: 16px 0px 0px 53px;
 		}
 		.starred:after{
 			background-color: #bd4f19 !important;
@@ -148,7 +148,7 @@ $cheight=160;
 			
 			echo $this->Form->input('pflag',array('type'=>'hidden','value'=>'unflag'));
 			echo '<p><strong>You flagged this message as inappropriate.</strong> If you simply did not like the comment,
-			please unflag using the icon and vote it down instead.</p>';
+			please unflag and vote it down instead.</p>';
 	}
 	else if ($comment['Comment']['flags']>=4 && !isset($reveal)){
 	
@@ -213,7 +213,21 @@ $cheight=160;
 		
 		<div class="downvote"><?=$comment['Comment']['downvotes'] ?></div>
 		</div>
-		
+		<div class="votes">
+		<?	echo $this->Form->input($flaglabel,array(
+			'div'=>false,
+			'label'=>false,
+			'type'=>'button',
+			'data-role'=>'button',
+			'data-icon'=>'alert',
+			'data-iconshadow'=>'true',
+			'data-iconpos'=>'notext',
+			'data-corners'=>'false',
+			'class'=>'delbtn comment_flag'.$comment['Comment']['id']
+		));
+		echo $this->Form->input('pflag',array('type'=>'hidden','value'=>'flag'));
+		?>
+		</div>
 		
 	</div><!-- /comment_buttons -->
 
@@ -238,18 +252,7 @@ $cheight=160;
 		</div>
 		<div class="comment_destructive"><?
 
-		echo $this->Form->input($flaglabel,array(
-			'div'=>false,
-			'label'=>false,
-			'type'=>'button',
-			'data-role'=>'button',
-			'data-icon'=>'alert',
-			'data-iconshadow'=>'true',
-			'data-iconpos'=>'notext',
-			'data-corners'=>'false',
-			'class'=>'delbtn comment_flag'.$comment['Comment']['id']
-		));
-		echo $this->Form->input('pflag',array('type'=>'hidden','value'=>'flag'));
+
 		
 		if ($mine=='mine'){
 			echo $this->Form->input('Delete my Comment',array(
