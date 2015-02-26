@@ -9,7 +9,6 @@ foreach ($template['Asset'] as $key=>$asset)
 ?> 
 <style type="text/css" scoped>
 	div.vgalchild{
-	//	border: 1px solid red;
 		height: 160px;
 		min-width: 165px;
 		margin: 0 auto;
@@ -62,6 +61,7 @@ endforeach;
 <script type="text/javascript">
 	//<![CDATA[
 	//assign the JQM classes, these might need to be updated if the divs are reordered
+	//these DO need to be updated for this one...
 	$( '.vgal_container div.vgalchild:nth-child(4n-2)' ).addClass( "ui-block-a" );
 	$( '.vgal_container div.vgalchild:nth-child(4n-1)' ).addClass( "ui-block-b" );
 	$( '.vgal_container div.vgalchild:nth-child(4n)' ).addClass( "ui-block-c" );
