@@ -26,37 +26,9 @@ form.CodeForm .input.number .ui-input-text{
     margin: 0 !important;
 }
  
-/*
-sj - I have no idea why !important is being declared for ID selectors
-*/
-#myicons{  font-family: "cotw" !important;
-content: attr(data-icon);
-font-style: normal !important;
-font-weight: normal !important;
-font-variant: normal !important;
-text-transform: none !important;
-speak: none;
-line-height: 1;
--webkit-font-smoothing: antialiased;
-height:1em !important;
-font-size:7em
-}
-#mycounters{
-padding-top:2.5%;
-}
-.ui-popup{background-color:white;}
-#Scorecard-popup{
-    height: 100% !important;
-    width: 100% !important;
-	max-width: 90% !important;
-	max-height: 90% !important;	
 
-	top:10% !important;
-}
-#Scorecard{
-	height:100% !important;
-}
-#Scorecard h3{text-align:center;}
+.ui-popup{background-color:white;}
+
 
 .the-objects {
   margin: 2px;

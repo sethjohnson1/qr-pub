@@ -53,14 +53,9 @@ class AppController extends Controller {
 
 	}
 	
-
 	public function blackhole($type) {
 		//debug($type);
 		//this logic needs to be changed, this is just for testing
 		$this->Session->setFlash('blackhole '.$type,'flash_custom');
 	}
-	
-	
-	
-
 }

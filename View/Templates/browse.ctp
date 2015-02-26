@@ -1,24 +1,5 @@
 <? 
-echo $this->element('Scorecard',array($totals)); 
 echo $this->element('jqm_header');
-/* the original way, I like the listview better
-if(!isset($location)){
-	echo $this->Html->link('Welcome Page','/',array(
-			'data-role'=>'button'
-	));
-	foreach ($locations as $link=>$name){
-		echo $this->Html->link($name,array('action'=>'browse',$link),array(
-			'data-role'=>'button'
-		));
-	}
-}
-else {
-	foreach ($stops as $stop){
-		echo $this->Html->link($stop['Template']['meta_title'],array('action'=>'view',$stop['Template']['id']),array(
-			'data-role'=>'button'
-		));
-	}
-}*/
 ?>
 <div class="ui-shadow ui-body ui-body-a">
 <?

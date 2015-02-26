@@ -49,7 +49,6 @@ public $components = array('Session');
 			$totals['counts']['WG']=count($this->Session->read('counts.WG'));
 			$totals['counts']['HMRL']=count($this->Session->read('counts.HMRL'));
 			$totals['counts']['Garden']=count($this->Session->read('counts.Garden'));
-	
 		}
 		return $totals;
 	}

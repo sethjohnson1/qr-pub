@@ -41,6 +41,10 @@ class TemplatesController extends AppController {
 		$this->set('title_for_layout','About');
 	}
 	
+	public function scorecard() {
+		$this->set('title_for_layout','Score Card');
+	}
+	
 	public function feedback() {
 		if ($this->request->is('post')) {
 			//send an e-mail reads addresses from private config file
@@ -126,8 +130,7 @@ class TemplatesController extends AppController {
 			$this->Scorecard->deleteAll(array("Scorecard.id LIKE '".$user['id']."_%'"), false);
 		}
 		$this->Session->delete('counts');
-		if ($this->Session->read('location')) $this->redirect($this->Session->read('location'));
-		else $this->redirect('/');
+		$this->redirect(array('controller'=>'templates','plugin'=>'','action'=>'scorecard'));
 	}
 	
 	/*

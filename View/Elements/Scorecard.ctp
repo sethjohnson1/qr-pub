@@ -3,7 +3,7 @@
 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 		<h3>Score Card</h3>
 		<div class="ui-grid-a">
-			<div class="ui-block-a" id="myicons" style="color:#6E3219;">a</div>		
+			<div class="ui-block-a myicons" style="color:#6E3219;">a</div>		
 			<div class="ui-block-b" id="myicons" style="color:#054552">b</div>						
 		</div>
 		<div class="ui-grid-a">

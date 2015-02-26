@@ -1,5 +1,4 @@
 <? 
-echo $this->element('Scorecard',array($totals)); 
 echo $this->element('jqm_header');
 echo $this->Form->create('Feedback',array(
 'data-ajax'=>'false')
