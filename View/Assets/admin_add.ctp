@@ -26,9 +26,13 @@
 		
 	}
 	else if ($type=='ag'){
-		echo $this->Form->input('name'); 
-		echo $this->Form->input('daterange'); 
-		echo $this->Form->input('synopsis'); 
+		echo $this->Form->input('name',array('label'=>'Title'));  
+		echo $this->Form->input('commonname',array('label'=>'Maker','type'=>'text')); 
+		echo $this->Form->input('daterange',array('type'=>'text')); 
+		echo $this->Form->input('asset_text',array('label'=>'Medium','type'=>'text'));
+		echo $this->Form->input('dimensions',array('type'=>'text'));
+		echo $this->Form->input('creditline',array('type'=>'text')); 
+		echo $this->Form->input('synopsis',array('label'=>'Transcript')); 
 		echo $this->Form->input('filename',array('label'=>'YouTubeID')); 
 	}
 	else if ($type=='tn'){
@@ -36,13 +40,10 @@
 	}
 	else {
 		echo ' Template type not found. Something has gone wrong. Go back to the beginning or ask for help if you keep getting here.';	
-	}
-	
+	}	
 	echo $this->Form->input('template_id',array('value'=>$id,'type'=>'hidden'));
 	echo $this->Form->submit('Submit',array('class'=>'assetSubmit'));
 	echo $this->Form->end(); 
-	//debug($template);
-
 		?>
 	<h2 class="statusMessage" >
 	

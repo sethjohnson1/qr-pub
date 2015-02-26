@@ -50,16 +50,16 @@ synopsis
    </div>
 </div><!-- /youtube_container -->
 <div class="text_container">
-<p><strong>Title:</strong> <?=$asset['name']?></p>
-<p><strong>Date:</strong> <?=$asset['daterange']?></p>
-<p><strong>Synopsis:</strong> <?=$asset['synopsis']?></p>
+<p><strong><?=$asset['commonname'].'. <em>'. $asset['name'].'.</em> '.$asset['daterange']?></strong><br />
+<?=$asset['asset_text'].', '.$asset['dimensions'].'. '.$asset['creditline']?></p>
+<p><strong>Transcript:</strong> <?=$asset['synopsis']?></p>
 </div>
 </div><!-- /ag_container -->
-<div class="ui-body ui-body-a ui-shadow">
+<!-- div class="ui-body ui-body-a ui-shadow">
 <h3>
 <?
 	echo $asset['asset_text'];
 ?>
 </h3>
-</div>
+</div -->
 <br />
