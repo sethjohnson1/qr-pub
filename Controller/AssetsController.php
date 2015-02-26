@@ -151,7 +151,6 @@ class AssetsController extends AppController {
 					$this->Session->setFlash(__('File upload returned an error'));
 					break;
 				}
-				//debug($this->request->data['Asset']['file']);
 				$uuid=String::uuid();
 				$this->Asset->create();
 				$asset=$this->request->data['Attribute'];
@@ -215,24 +214,53 @@ class AssetsController extends AppController {
 
 			}
 			
+			if ($type=='tn'){
+				//first redirect back with the proper quantity
+				if (isset($this->request->data['Asset']['num'])){
+					return $this->redirect(array('admin'=>true,'controller'=>'assets','action' => 'add',
+					'tn',$id,$creator,'?'=>array('num'=>$this->request->data['Asset']['num'])));
+				}
+				else{
+					//these deletes are still rugged but moving on for now
+					$this->Asset->deleteAll(array('Asset.template_id'=>$id));
+					foreach (glob('img/uploads/'.$this->request->data['Asset']['template_id'].'_*') as $filename) unlink($filename);
+		
+					for ($x=1;$x<=$this->request->query['num'];$x++){
+						$uuid=String::uuid();
+						$asset['id']=$uuid;
+						$asset['sortorder']=$this->request->data['Asset']['sortorder'.$x];
+						$asset['synopsis']=$this->request->data['Asset']['synopsis'.$x];
+						$asset['template_id']=$this->request->data['Asset']['template_id'];
+						$asset['name']=$this->request->data['Asset']['file'.$x]['name'];
+						$asset['filesize']=$this->request->data['Asset']['file'.$x]['size'];
+						$asset['filemime']=$this->request->data['Asset']['file'.$x]['type'];
+	
+						//upload file and then save
+						if (move_uploaded_file($this->request->data['Asset']['file'.$x]['tmp_name'], 
+							'img/uploads/'.$this->request->data['Asset']['template_id'].'_'.$uuid.'.jpg')){
+							if ($this->Asset->save($asset)) {
+							}
+						}
+					}
+					$this->Session->setFlash(__('The asset has been saved!'));	
+					return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
+									
+				}
+			}
+			
 		}
 		$template = $this->Asset->Template->find('first',array('conditions'=>array('Template.id'=>$id)));
 		$this->set(compact('type','template','id','creator'));
-		//sj - added this, should be other way around maybe
-		//$this->render('admin_add','default');
 	}
 	
 
 
 	public function admin_ajaxblog() {
-
-		//disabled for testing
+		//technically you'd want this in production but it doesn't really matter here
 		//if ($this->request->is('ajax')) {
-		
 		$ch = curl_init();
 		$timeout = 5;
  		curl_setopt($ch,CURLOPT_URL,'http://centerofthewest.org/wp-json/posts/'.$this->request->data['Asset']['blogid']);
- 		//curl_setopt($ch,CURLOPT_URL,'http://centerofthewest.org/wp-json/posts/23159');
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
 		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
 		$data = curl_exec($ch);
@@ -245,7 +273,6 @@ class AssetsController extends AppController {
     }
 	
 	public function admin_ajaxvgal() {
-		//disabled for testing
 		//if ($this->request->is('ajax')) {
 		
 		$ch = curl_init();

@@ -31,6 +31,21 @@
 		echo $this->Form->input('synopsis'); 
 		echo $this->Form->input('filename',array('label'=>'YouTubeID')); 
 	}
+	else if ($type=='tn'){
+		if (!isset($this->request->query['num'])) echo $this->Form->input('num',array('label'=>'How many?'));
+		else {
+			echo '<h3>Please keep this text in some other safe place as this software currently 
+				does not support returning to edit.</h3>';
+			for ($x=1;$x<=$this->request->query['num'];$x++){ 
+				echo '<div style="border:1px solid green; padding: 5px;"><p>#'.$x.'</p>';
+				echo $this->Form->input('sortorder'.$x,array('value'=>$x,'type'=>'hidden')); 
+				echo $this->Form->input('file'.$x, array('type' => 'file','label'=>'Upload jpg image, 150px square is plenty big'));
+				echo $this->Form->input('synopsis'.$x,array('label'=>'Deep thoughts','type'=>'textarea')); 
+				echo '</div>';
+				//echo $this->Form->input('synopsis');
+			}
+		}		
+	}
 	else {
 		echo ' Template type not found. Something has gone wrong. Go back to the beginning or ask for help if you keep getting here.';	
 	}

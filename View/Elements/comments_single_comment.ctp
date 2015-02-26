@@ -132,7 +132,7 @@ $cheight=160;
 		
 		
 	</style>
-		
+		<div style="clear:both">&nbsp;</div>
 	<?
 
 	if($flagged==true ||  (isset($cookie_flags[$comment['Comment']['id']]) && empty($user['id']))){
@@ -168,11 +168,11 @@ $cheight=160;
 	else{
 		//giant block to draw the comment and buttons
 		?>
-		<div style="clear:both">&nbsp;</div>
+		
 
 		<div class="the_comment">
 		
-			<div class="comment_buttons">
+		<div class="comment_buttons">
 		<div class="votes">
 			<? echo $this->Form->input('UpVote',array(
 			'div'=>false,

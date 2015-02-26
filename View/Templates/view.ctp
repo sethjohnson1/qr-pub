@@ -3,6 +3,7 @@ echo $this->element('jqm_header');
 
 //debug($template);
 if ($template['Template']['name']=='vgal') echo $this->element('vgal');
+if ($template['Template']['name']=='tn') echo $this->element('tn');
 if ($template['Template']['name']=='blog') echo $this->element('blog');
 if ($template['Template']['name']=='splash') echo $this->element('splash');
 if ($template['Template']['name']=='video') echo $this->element('youtube');
