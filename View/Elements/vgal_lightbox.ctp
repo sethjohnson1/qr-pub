@@ -68,7 +68,11 @@ foreach ($template['Asset'] as $key=>$asset):
 				echo '<p><strong>Genus: </strong>'
 					.$asset['genus'].'</p>';
 			}
+			
+			//Only close the div and do the image if its a vgal, otherwise skip it
+			if ($template['Template']['name']=='vgal') :
 			?>
+			
 			</div>
 			<div class="imgpopup_container ui-shadow ui-body ui-body-a">
 			<?
@@ -87,6 +91,7 @@ foreach ($template['Asset'] as $key=>$asset):
 			<div class="ui-shadow vgal_details">
 			
 			<? 
+			endif;
 			if (isset($asset['insrciption'])){
 				echo '<p><strong>Inscription: </strong>'
 					.$asset['insciption'].'</p>';

@@ -31,7 +31,6 @@ always set our own width instead of the generic "ui-responsive"
 ?> 
 <style type="text/css" scoped>
 	div.vgalchild{
-	//	border: 1px solid red;
 		height: 160px;
 		min-width: 165px;
 		margin: 0 auto;
@@ -49,16 +48,12 @@ always set our own width instead of the generic "ui-responsive"
 <div class="vgal_container ui-shadow ui-body ui-body-a ui-grid-c">
 <h2 class="ui-mini"><? echo $description ?></h2>
 
-<? foreach ($treasures as $key=>$asset):
-
-	//if ($asset['name']=='treasure') : ?>
+<? foreach ($treasures as $key=>$asset):?>
 
 	
 	
 <div class="vgalchild ui-shadow ui-body-a" >
 <?
-
-		//debug($asset['asset_text']);
 		$imageSrc = Configure::read('globalSiteURL').'/img/uploads/'.$template['Template']['id'].'_'.$asset['id'].'.jpg';
 		$caption = '';
 
@@ -68,7 +63,7 @@ always set our own width instead of the generic "ui-responsive"
 		</div>','#'.$template['Template']['id'].'_'.$asset['id']
 		,array('escape'=>false,'data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
 		
-		//the old caption
+		//the old caption - Ashley might want this
 		/*
 		if(!empty($asset['asset_text'])){
 			echo '<div class="caption ui-mini">'.$asset['asset_text'].'</div>';
@@ -81,7 +76,6 @@ always set our own width instead of the generic "ui-responsive"
 </div><!-- /vgalchild -->
 
 <?
-	//endif;
 endforeach;
 ?>
 </div><!-- /vgal_container -->

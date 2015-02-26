@@ -118,9 +118,7 @@ class AssetsController extends AppController {
 					$doc = new DOMDocument();
 					@$doc->loadHTML($blog['content']);
 					$tags = $doc->getElementsByTagName('img');
-					//debug($xml);
 					foreach ($tags as $key=>$tag) {
-						//foreach
 						$this->Asset->create();
 						$uuid=String::uuid();
 						$asset['id']=$uuid;
@@ -139,9 +137,6 @@ class AssetsController extends AppController {
 						else $this->Session->setFlash(__('Image '.$key.' could not be saved'));
 						
 					}
-						
-					//debug($img);
-				//	return true;
 				}
 			}
 			
@@ -215,16 +210,54 @@ class AssetsController extends AppController {
 			}
 			
 			if ($type=='tn'){
-				//first redirect back with the proper quantity
-				if (isset($this->request->data['Asset']['num'])){
-					return $this->redirect(array('admin'=>true,'controller'=>'assets','action' => 'add',
-					'tn',$id,$creator,'?'=>array('num'=>$this->request->data['Asset']['num'])));
+				
+				$this->Asset->deleteAll(array('Asset.template_id'=>$id));
+				foreach (glob('img/uploads/'.$this->request->data['Asset']['template_id'].'_*') as $filename) unlink($filename);
+				$xml = simplexml_load_string($this->request->data['Asset']['xml']);
+				$json = json_encode($xml);
+				$vgal = json_decode($json,TRUE);
+				debug($vgal);
+				//loop through treasures to save and copy image and all treasure data
+				foreach ($vgal['treasure'] as $key=>$value){
+					foreach ($value as $field=>$trdata){
+						$asset[$field]=$trdata;
+					}
+					$this->Asset->create();
+					$asset['name']='treasure';
+					//I think this should always work, otherwise we need to add sortorder to XML file
+					$asset['sortorder']=$key;
+					$asset['template_id']=$this->request->data['Asset']['template_id'];
+					//first get the thumbnail, which will use the id
+					$uuid=String::uuid();
+					$asset['id']=$uuid;
+					copy('img/uploads/kiosk/'.$value['img'], 'img/uploads/'.$this->request->data['Asset']['template_id'].'_'.$uuid.'.jpg');
+
+					if ($this->Asset->save($asset)) {
+					}
+					else {
+						$this->Session->setFlash(__('Something went horribly wrong.'));
+					}
 				}
-				else{
-					//these deletes are still rugged but moving on for now
-					$this->Asset->deleteAll(array('Asset.template_id'=>$id));
-					foreach (glob('img/uploads/'.$this->request->data['Asset']['template_id'].'_*') as $filename) unlink($filename);
-		
+				
+				//do the other save
+				$asset=array();
+				$this->Asset->create();
+				$asset['template_id']=$this->request->data['Asset']['template_id'];
+				$asset['name']='description';
+				$asset['asset_text']=$vgal['info']['description'];
+				//use filename for title and filemime for Author
+				$asset['filename']=$vgal['info']['title'];
+				$asset['filemime']=$vgal['info']['creator'];
+				
+				if ($this->Asset->save($asset)){
+					$this->Session->setFlash(__('Saved the vgal'));
+					return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
+				}
+				else $this->Session->setFlash(__('Something went horribly wrong.'));
+					
+					
+					//foreach (glob('img/uploads/'.$this->request->data['Asset']['template_id'].'_*') as $filename) unlink($filename);
+		/*
 					for ($x=1;$x<=$this->request->query['num'];$x++){
 						$uuid=String::uuid();
 						$asset['id']=$uuid;
@@ -244,8 +277,8 @@ class AssetsController extends AppController {
 					}
 					$this->Session->setFlash(__('The asset has been saved!'));	
 					return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
-									
-				}
+						*/			
+				
 			}
 			
 		}

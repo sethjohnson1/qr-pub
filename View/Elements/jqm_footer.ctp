@@ -1,12 +1,14 @@
 	</div><!-- /content main -->
 	<? 
-	if ($template['Template']['name']=='vgal') echo $this->element('vgal_lightbox');   
+	if ($template['Template']['name']=='vgal'|| $template['Template']['name']=='tn') echo $this->element('vgal_lightbox');  
+	
+	//the slide transition doesn't work well on the Samsung tablet. Sigh...
+	if (Configure::read('enableKioskMode')==1) $transition='turn';
+	else $transition='slide';
 	?>
 	<div data-role="footer" data-position="fixed" data-id="myfooter" style="background-color:transparent;border:none;">
-	<!--right here we need 2 pull out Qs that 1 for score card and 1 for comments, then also design those panels-->
 		<div class="ui-grid-d" style="text-align:center;position: relative;top: 7px;">
 			<? 
-			//debug($template['Template']);
 			$buttonstyle='width: 100px; opacity: .92;';
 			if (isset($template['Template']['previd'])):
 				echo $this->Html->link('Previous',array('controller'=>'templates','action'=>'view',$template['Template']['previd']),
@@ -14,7 +16,7 @@
 				'data-role'=>'button',
 				'data-icon'=>'arrow-l',
 				'data-iconpos'=>'left',
-				'data-transition'=>'slide',
+				'data-transition'=>$transition,
 				//this can be changed back to 'e' for brown buttons
 				'data-theme'=>'f',
 				'data-direction'=>'reverse'
@@ -48,7 +50,7 @@
 				'data-icon'=>'arrow-r',
 				'data-iconpos'=>'right',
 				'data-prefetch'=>true,
-				'data-transition'=>'slide',
+				'data-transition'=>$transition,
 				//this can be changed back to 'e' for brown buttons
 				'data-theme'=>'f'
 				));
