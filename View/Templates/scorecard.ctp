@@ -11,7 +11,7 @@ echo $this->element('jqm_header');
 	$hmrl='#532e60';
 	$garden='#c59217';
 
-	//grand totals
+	//grand totals, unset NW (Nowhere) for now
 	$total=0;
 	$score=0;
 	foreach ($totals['totals'] as $val)	$total=$val+$total;

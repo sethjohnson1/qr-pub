@@ -17,6 +17,7 @@ public $components = array('Session');
 		$totals['totals']['WG']=$model->find('count',array('conditions'=>array('Template.location'=>'WG')));
 		$totals['totals']['HMRL']=$model->find('count',array('conditions'=>array('Template.location'=>'HMRL')));
 		$totals['totals']['Garden']=$model->find('count',array('conditions'=>array('Template.location'=>'Garden')));
+		$totals['totals']['NW']=$model->find('count',array('conditions'=>array('Template.location'=>'NW')));
 		if (isset($userid) && isset($template['Template']['id'])) {
 			$model=ClassRegistry::init('Scorecard');
 			//combine user_id and template to make a unique identifier (but also cannot be counted over and over)
@@ -32,6 +33,7 @@ public $components = array('Session');
 				$totals['counts']['WG']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'WG')));
 				$totals['counts']['HMRL']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'HMRL')));
 				$totals['counts']['Garden']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'Garden')));
+				$totals['counts']['NW']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'NW')));
 			
 			}
 		}
@@ -49,7 +51,11 @@ public $components = array('Session');
 			$totals['counts']['WG']=count($this->Session->read('counts.WG'));
 			$totals['counts']['HMRL']=count($this->Session->read('counts.HMRL'));
 			$totals['counts']['Garden']=count($this->Session->read('counts.Garden'));
+			$totals['counts']['NW']=count($this->Session->read('counts.NW'));
 		}
+		//for now we don't want to count "Nowhere"
+		unset($totals['totals']['NW']);
+		unset($totals['counts']['NW']);
 		return $totals;
 	}
 }
