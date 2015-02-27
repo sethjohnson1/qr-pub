@@ -1,7 +1,6 @@
 <? 
 echo $this->element('Scorecard',array($totals)); 
 echo $this->element('jqm_header');
-
 	//set colors, really should be done globally somewhere but onward.
 	$bbm='#6e3219';
 	$cfm='#004250';
@@ -37,7 +36,7 @@ echo $this->element('jqm_header');
 	}
 
 	.mycounters{
-		//padding-top:2.5%;
+		/*padding-top:2.5%;*/
 	}
  </style>
  

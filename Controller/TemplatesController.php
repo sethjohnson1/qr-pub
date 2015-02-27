@@ -114,7 +114,8 @@ class TemplatesController extends AppController {
 		$comments=$this->Comment->getComments($id,$user['id']);
 		$usercomment=$this->Comment->userComment($id,$user['id']);
 		//override AppController value
-		$totals=$this->Scorecard->scoreTotals($template,$user['id']);
+		if (!isset($template['Template']['previd'])) $totals=$this->Scorecard->scoreTotals($template,$user['id']);
+		else $totals='';
 		$this->set(compact('user','comments','template','usercomment','template_redir','totals','id'));
 		
 		//URL shortener - will return BAD_REQUEST unless on live domain
