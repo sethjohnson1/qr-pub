@@ -2,7 +2,22 @@
 echo $this->element('Scorecard',array($totals)); 
 echo $this->element('jqm_header');
 
- ?>
+	//set colors, really should be done globally somewhere but onward.
+	$bbm='#6e3219';
+	$cfm='#004250';
+	$dmnh='#035642';
+	$wg='#981e32';
+	$pim='#bd4f19';
+	$hmrl='#532e60';
+	$garden='#c59217';
+
+	//grand totals
+	$total=0;
+	$score=0;
+	foreach ($totals['totals'] as $val)	$total=$val+$total;
+	foreach ($totals['counts'] as $val)	$score=$val+$score;
+	
+?>
  
  <style type="text/css" scoped>
 	.logos{
@@ -10,11 +25,17 @@ echo $this->element('jqm_header');
 		padding: 0 5px 0 0;
 		float: left;
 	}
-	.myicons{
-		padding: 0 5px 0 0;
-		border: 1px;
-		border-style: none solid none solid;
+	
+	.score{
+		padding: 25px 5px 10px 0;
+		border: 3px;
+		border-style: none  none dotted none;
 	}
+	
+	.right{
+		font-size: 2em;
+	}
+
 	.mycounters{
 		//padding-top:2.5%;
 	}
@@ -22,76 +43,80 @@ echo $this->element('jqm_header');
  
  
 		<div class="ui-body ui-body-a ui-corner-all ui-shadow">
-		<h3>Score Card</h3>
-		<?debug($totals)?>
-		<div class="ui-grid-a">
-			<div class="ui-block-a myicons " style="color:#6E3219;">
+		<div class="ui-shadow ui-bar ui-bar-a">
+			<h3>Overall score: <?=$score.' / '.$total?></h3>
+			<br/>
+			<?
+			$this->set(compact('total','score'));
+			echo $this->element('rank',array($total,$score));
+			?>
+			<span class="ui-mini">
+
+			</span>
+		</div>
+		<?//debug($totals)?>
+		<div class="ui-grid-a score" style="color:<?=$bbm?>;">
+			<div class="ui-block-a left">
 			<?=$this->Html->image('bbm.png',array('alt'=>'Buffalo Bill Museum icon','class'=>'logos'))?>
-			</div>			
-			<div class="ui-block-b myicons" style="color:#054552">
-				<?=$this->Html->image('cfm.png',array('alt'=>'Cody Firearms Museum icon','class'=>'logos'))?>
-			</div>						
-		</div>
-		<div class="ui-grid-a">
-			<div class="ui-block-a mycounters">
-			<? echo $totals['counts']['BBM'].'/'.$totals['totals']['BBM']; ?>
-			</div>			
-			<div class="ui-block-b mycounters">
-			<? echo $totals['counts']['CFM'].'/'.$totals['totals']['CFM']; ?>
-			</div>			
-		</div>
-		<hr />		
-		<div class="ui-grid-a">
-			<div class="ui-block-a myicons" style="color:#035642">
-			<?=$this->Html->image('dmnh.png',array('alt'=>'Draper Natural History Museum icon','class'=>'logos'))?>
 			</div>
-			<div class="ui-block-b myicons" style="color:#532E60">
-			<?=$this->Html->image('gardens.png',array('alt'=>'Outdoor Gardens icon','class'=>'logos'))?>
+			<div class="ui-block-b right ">
+			<?=$totals['counts']['BBM'].' of '.$totals['totals']['BBM']?>
 			</div>
-		</div>
-		<div class="ui-grid-a">
-			<div class="ui-block-a mycounters">
-			<? echo $totals['counts']['DMNH'].'/'.$totals['totals']['DMNH']; ?>
-			</div>			
-			<div class="ui-block-b mycounters">
-			<? echo $totals['counts']['Garden'].'/'.$totals['totals']['Garden']; ?>
-			</div>			
-		</div>
-		<hr />		
-		<div class="ui-grid-a">
-			<div class="ui-block-a myicons" style="color:#C35118">
-			<?=$this->Html->image('mrl.png',array('alt'=>'McCracken Research Library icon','class'=>'logos'))?>
-			</div>
-			<div class="ui-block-b myicons" style="color:#981E32">
-			<?=$this->Html->image('pim.png',array('alt'=>'Plains Indian Museum icon','class'=>'logos'))?>
-			</div>
-		</div>
-		<div class="ui-grid-a">
-			<div class="ui-block-a mycounters">
-			<? echo $totals['counts']['HMRL'].'/'.$totals['totals']['HMRL']; ?>
-			</div>			
-			<div class="ui-block-b mycounters">
-			<? echo $totals['counts']['PIM'].'/'.$totals['totals']['PIM']; ?>
-			</div>			
-		</div>
-		<hr />
-		<div class="ui-grid-a">
-			<div class="ui-block-a myicons" style="color:#C35118">
-			<?=$this->Html->image('wg.png',array('alt'=>'Whitney Western Art Museum icon','class'=>'logos'))?>
-			</div>
-			<div class="ui-block-b myicons" style="color:#981E32">
-				
-			</div>
-		</div>
-		<div class="ui-grid-a">
-			<div class="ui-block-a mycounters">
-			<? echo $totals['counts']['WG'].'/'.$totals['totals']['WG']; ?>
-			</div>			
-			<div class="ui-block-b mycounters">
-			
-			</div>			
 		</div>
 		
+		<div class="ui-grid-a score" style="color:<?=$cfm?>;">
+			<div class="ui-block-a left">
+			<?=$this->Html->image('cfm.png',array('alt'=>'Cody Firearms Museum icon','class'=>'logos'))?>
+			</div>
+			<div class="ui-block-b right">
+			<?=$totals['counts']['CFM'].' of '.$totals['totals']['CFM']?>
+			</div>
+		</div>
+		
+		<div class="ui-grid-a score" style="color:<?=$dmnh?>;">
+			<div class="ui-block-a left">
+			<?=$this->Html->image('dmnh.png',array('alt'=>'Draper Natural History Museum icon','class'=>'logos'))?>
+			</div>
+			<div class="ui-block-b right">
+			<?=$totals['counts']['DMNH'].' of '.$totals['totals']['DMNH']?>
+			</div>
+		</div>
+		
+		<div class="ui-grid-a score" style="color:<?=$pim?>;">
+			<div class="ui-block-a left">
+			<?=$this->Html->image('pim.png',array('alt'=>'Plains Indian Museum icon','class'=>'logos'))?>
+			</div>
+			<div class="ui-block-b right">
+			<?=$totals['counts']['PIM'].' of '.$totals['totals']['PIM']?>
+			</div>
+		</div>
+		
+		<div class="ui-grid-a score" style="color:<?=$wg?>;">
+			<div class="ui-block-a left">
+			<?=$this->Html->image('wg.png',array('alt'=>'Draper Natural History Museum icon','class'=>'logos'))?>
+			</div>
+			<div class="ui-block-b right">
+			<?=$totals['counts']['WG'].' of '.$totals['totals']['WG']?>
+			</div>
+		</div>
+		
+		<div class="ui-grid-a score" style="color:<?=$hmrl?>;">
+			<div class="ui-block-a left">
+			<?=$this->Html->image('hmrl.png',array('alt'=>'McCracken Research Library icon','class'=>'logos'))?>
+			</div>
+			<div class="ui-block-b right">
+			<?=$totals['counts']['HMRL'].' of '.$totals['totals']['HMRL']?>
+			</div>
+		</div>
+		
+		<div class="ui-grid-a score" style="color:<?=$garden?>;">
+			<div class="ui-block-a left">
+			<?=$this->Html->image('garden.png',array('alt'=>'Sculpture Garden icon','class'=>'logos'))?>
+			</div>
+			<div class="ui-block-b right">
+			<?=$totals['counts']['Garden'].' of '.$totals['totals']['Garden']?>
+			</div>
+		</div>
 		
 	<div style="padding:10px 20px;">
 		<div class="ui-grid-solo">
