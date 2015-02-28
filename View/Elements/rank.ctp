@@ -25,23 +25,25 @@ $ranks=array(
 	100=>array(
 		'prefixes'=>array('Reverend','Honorable','Grand Master'),
 		'titles'=>array('Curator','Scout')
-	)
+	),
+	//need an empty array greater than 100 for logic below to work
+	101=>array()
 );
 
 
-$rank='Nothing';
+//$rank='Nothing';
 $prevkey='';
 foreach ($ranks as $key=>$rank){
-	if (($score/$total)*100<$key){
-		$precount=count($ranks[$prevkey]['prefixes']);
-		$titlecount=count($ranks[$prevkey]['titles']);
-		//look carefully, randomize ranking of prevkey
-		$yourrank=$ranks[$prevkey]['prefixes'][rand(0,count($ranks[$prevkey]['prefixes'])-1)].' '.$ranks[$prevkey]['titles'][rand(0,count($ranks[$prevkey]['titles'])-1)];
-		break;
+	if (!empty($prevkey)){
+		if (($score/$total)*100<$key){
+			$yourrank=$ranks[$prevkey]['prefixes'][rand(0,count($ranks[$prevkey]['prefixes'])-1)].' '.$ranks[$prevkey]['titles'][rand(0,count($ranks[$prevkey]['titles'])-1)];
+			break;
+		}
 	}
 	$prevkey=$key;
 }
 
+//so the final thing to do is simply echo the rank, similar to a function returning it
+echo $yourrank;
 
 ?>
-<h1>Your Rank (eventually this is a button): <?=$yourrank?></h1>
