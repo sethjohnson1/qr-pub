@@ -30,6 +30,14 @@ echo $this->element('jqm_header');
 		border: 3px;
 		border-style: none  none dotted none;
 	}
+	.starred:after{
+		background-color: #bd4f19 !important;
+	}
+	.staricon{
+		position: relative;
+		padding: 12px;
+	}
+
 
  </style>
  
@@ -43,17 +51,31 @@ echo $this->element('jqm_header');
 			<div class="ui-block-b">
 			<h1 align="center" class="reveal">Tap for Rank</h1>
 			<div class="hidden_rank" style="display: none">
-			<h1>
+			<h1 align="center">
 			<?
 				$this->set(compact('total','score'));
 				echo $this->element('rank',array($total,$score));
 			?>
+			<br />
+			<?
+			//now make the stars
+			for ($x=0;$x<=4; $x++):
+				if (($score/$total)/.2 > $x) $starred='starred';
+				else $starred='';
+				
+			?>
+			<span class="ui-icon-star ui-btn-icon-notext staricon <?=$starred ?>"/></span>
+
+			<?
+			endfor;
+			?>
+			
 			</h1>
-			<p class="ui-mini">
+			<!-- p class="ui-mini">
 			<em>
-			Keep searching to discover your true self. Eventually these should be random quotes.
+			Keep searching to discover your true self. Eventually these should be random quotes (or nothing! :-)
 			</em>
-			<p>
+			<p -->
 			</div>
 			<script>
 				$( "h1.reveal" ).click(function() {

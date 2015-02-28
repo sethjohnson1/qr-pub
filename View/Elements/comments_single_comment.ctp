@@ -233,7 +233,7 @@ $cheight=160;
 
 		<div class="comment_text">
 		<div class="comment_header">
-			<div class="comment_rate">
+		<div class="comment_rate">
 				<strong><?=$formattedname[0] ?></strong>
 		
 		
