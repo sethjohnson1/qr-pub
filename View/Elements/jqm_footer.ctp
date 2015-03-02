@@ -3,8 +3,7 @@
 	if ($template['Template']['name']=='vgal'|| $template['Template']['name']=='tn') echo $this->element('vgal_lightbox');  
 	
 	//the slide transition doesn't work well on the Samsung tablet. Sigh...
-	if (Configure::read('enableKioskMode')==1) $transition='turn';
-	else $transition='slide';
+	$transition="slide";
 	?>
 	<div data-role="footer" data-position="fixed" data-id="myfooter" style="background-color:transparent;border:none;">
 		<div class="ui-grid-d" style="text-align:center;position: relative;top: 7px;">
