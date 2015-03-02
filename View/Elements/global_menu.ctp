@@ -18,7 +18,7 @@ $menu[3]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about');
 //quickfix for Scorecard
 $external=array();
 foreach ($menu as $val){
-	if ($val['name']=='Score Card') $external['data-rel']='external';
+	if ($val['name']=='Score Card') $external['rel']='external';
 	
 	echo '<li>'.$this->Html->link($val['name'],$val['url'],$external).'</li>';
 }

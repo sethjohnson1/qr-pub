@@ -42,6 +42,9 @@ class TemplatesController extends AppController {
 	}
 	
 	public function scorecard() {
+		$this->loadModel('Rank');
+		$dbranks=$this->Rank->find('all');
+		$this->set(compact('dbranks'));
 		$this->set('title_for_layout','Score Card');
 	}
 	

@@ -37,6 +37,9 @@ echo $this->element('jqm_header');
 		position: relative;
 		padding: 12px;
 	}
+	.reveal{
+		cursor: pointer;
+	}
 
 
  </style>
@@ -48,41 +51,18 @@ echo $this->element('jqm_header');
 			<h3 class="ui-mini"><em>OVERALL</em></h3>
 			<h1><?=$score.' / '.$total?></h1>
 			</div>
-			<div class="ui-block-b">
+		<div class="ui-block-b">
 			<h1 align="center" class="reveal">Tap for Rank</h1>
-			<div class="hidden_rank" style="display: none">
-			<h1 align="center">
-			<?
+			<div class="hidden_rank" style="display: none" >
+			<?	
+				//set these values for testing
+				//$total=50;
+				//$score=40;
 				$this->set(compact('total','score'));
+				
 				echo $this->element('rank',array($total,$score));
 			?>
-			<br />
-			<?
-			//now make the stars
-			for ($x=0;$x<=4; $x++):
-				if (($score/$total)/.2 > $x) $starred='starred';
-				else $starred='';
-				
-			?>
-			<span class="ui-icon-star ui-btn-icon-notext staricon <?=$starred ?>"/></span>
-
-			<?
-			endfor;
-			?>
-			
-			</h1>
-			<!-- p class="ui-mini">
-			<em>
-			Keep searching to discover your true self. Eventually these should be random quotes (or nothing! :-)
-			</em>
-			<p -->
-			</div>
-			<script>
-				$( "h1.reveal" ).click(function() {
-				  $( this ).slideUp("slow");
-				  $( "div.hidden_rank" ).slideDown("slow");
-				});
-			</script>
+		</div>
 			</div>
 		</div>
 		<div class="ui-grid-a score" style="color:<?=$bbm?>;">
