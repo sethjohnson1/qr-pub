@@ -1,7 +1,5 @@
 <?
-//echo $this->element('Scorecard',array($totals)); 
-//if this isn't disabled then the form below won't work.......
-//echo $this->element('CodePopUp'); 
+
 echo $this->element('userPopup'); 
 echo $this->element('global_menu');
 if (!isset($template['Template']['id'])) $template['Template']['id']=$this->params['action'];

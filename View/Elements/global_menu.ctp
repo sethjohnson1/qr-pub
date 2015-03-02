@@ -18,7 +18,7 @@ $menu[3]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about');
 //quickfix for Scorecard
 $external=array();
 foreach ($menu as $val){
-	if ($val['name']=='Score Card') $external['rel']='external';
+	if ($val['name']=='Score Card') $external=array('rel'=>'external','class'=>'scorecard');
 	
 	echo '<li>'.$this->Html->link($val['name'],$val['url'],$external).'</li>';
 }
@@ -30,3 +30,14 @@ foreach ($menu as $val){
 	</li>
 	</ul>
 </div>
+<?//script below is quickfix to make Scorecard nicer ?>
+<script>
+$( ".scorecard" ).click(function() {
+			$.mobile.loading( 'show', {
+				text: 'Tallying ...',
+				textVisible: true,
+				theme: 'a',
+				html: ""
+			}); 
+			});
+</script>
