@@ -197,10 +197,7 @@ class AssetsController extends AppController {
 				$uuid=String::uuid();
 				$asset['id']=$uuid;
 				$asset=$this->request->data['Asset'];
-				//$asset['template_id']=$this->request->data['Asset']['template_id'];
 				$this->Asset->create();
-				//$asset['name']='text';
-				//$asset['asset_text']=$this->request->data['Asset']['text'];
 				if ($this->Asset->save($asset)){
 					$this->Session->setFlash(__('The asset has been saved.'));
 					return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
@@ -253,32 +250,7 @@ class AssetsController extends AppController {
 					$this->Session->setFlash(__('Saved the vgal'));
 					return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
 				}
-				else $this->Session->setFlash(__('Something went horribly wrong.'));
-					
-					
-					//foreach (glob('img/uploads/'.$this->request->data['Asset']['template_id'].'_*') as $filename) unlink($filename);
-		/*
-					for ($x=1;$x<=$this->request->query['num'];$x++){
-						$uuid=String::uuid();
-						$asset['id']=$uuid;
-						$asset['sortorder']=$this->request->data['Asset']['sortorder'.$x];
-						$asset['synopsis']=$this->request->data['Asset']['synopsis'.$x];
-						$asset['template_id']=$this->request->data['Asset']['template_id'];
-						$asset['name']=$this->request->data['Asset']['file'.$x]['name'];
-						$asset['filesize']=$this->request->data['Asset']['file'.$x]['size'];
-						$asset['filemime']=$this->request->data['Asset']['file'.$x]['type'];
-	
-						//upload file and then save
-						if (move_uploaded_file($this->request->data['Asset']['file'.$x]['tmp_name'], 
-							'img/uploads/'.$this->request->data['Asset']['template_id'].'_'.$uuid.'.jpg')){
-							if ($this->Asset->save($asset)) {
-							}
-						}
-					}
-					$this->Session->setFlash(__('The asset has been saved!'));	
-					return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
-						*/			
-				
+				else $this->Session->setFlash(__('Something went horribly wrong.'));			
 			}
 			
 		}

@@ -40,6 +40,10 @@ echo $this->element('jqm_header');
 	.reveal{
 		cursor: pointer;
 	}
+	
+	.icon_container{
+		width:65%;
+	}
 
 
  </style>
@@ -67,16 +71,17 @@ echo $this->element('jqm_header');
 		</div>
 		<div class="ui-grid-a score" style="color:<?=$bbm?>;">
 			<div class="ui-block-a">
-			<?=$this->Html->image('bbm.png',array('alt'=>'Buffalo Bill Museum icon','class'=>'logos'))?>
+			<? // the width for each one is calculated by widest image (draper at 282px) divided by width (if less than 53% just use that). There is probably a better way, moving on for now  ?>
+				<div style="width:65%"><?=$this->Html->image('bbm.png',array('alt'=>'Buffalo Bill Museum icon','class'=>'logos'))?></div>
 			</div>
 			<div class="ui-block-b">
-			<h2 align="center"><?=$totals['counts']['BBM'].' of '.$totals['totals']['BBM']?></h2>
+				<h2 align="center"><?=$totals['counts']['BBM'].' of '.$totals['totals']['BBM']?></h2>
 			</div>
 		</div>
 		
 		<div class="ui-grid-a score" style="color:<?=$cfm?>;">
 			<div class="ui-block-a">
-			<?=$this->Html->image('cfm.png',array('alt'=>'Cody Firearms Museum icon','class'=>'logos'))?>
+			<div style="width:81%"><?=$this->Html->image('cfm.png',array('alt'=>'Cody Firearms Museum icon','class'=>'logos'))?></div>
 			</div>
 			<div class="ui-block-b">
 			<h2 align="center"><?=$totals['counts']['CFM'].' of '.$totals['totals']['CFM']?></h2>
@@ -85,7 +90,7 @@ echo $this->element('jqm_header');
 		
 		<div class="ui-grid-a score" style="color:<?=$dmnh?>;">
 			<div class="ui-block-a">
-			<?=$this->Html->image('dmnh.png',array('alt'=>'Draper Natural History Museum icon','class'=>'logos'))?>
+			<div style="width:100%"><?=$this->Html->image('dmnh.png',array('alt'=>'Draper Natural History Museum icon','class'=>'logos'))?></div>
 			</div>
 			<div class="ui-block-b">
 			<h2 align="center"><?=$totals['counts']['DMNH'].' of '.$totals['totals']['DMNH']?></h2>
@@ -94,7 +99,7 @@ echo $this->element('jqm_header');
 		
 		<div class="ui-grid-a score" style="color:<?=$pim?>;">
 			<div class="ui-block-a">
-			<?=$this->Html->image('pim.png',array('alt'=>'Plains Indian Museum icon','class'=>'logos'))?>
+			<div style="width:63%"><?=$this->Html->image('pim.png',array('alt'=>'Plains Indian Museum icon','class'=>'logos'))?></div>
 			</div>
 			<div class="ui-block-b">
 			<h2 align="center"><?=$totals['counts']['PIM'].' of '.$totals['totals']['PIM']?></h2>
@@ -103,7 +108,7 @@ echo $this->element('jqm_header');
 		
 		<div class="ui-grid-a score" style="color:<?=$wg?>;">
 			<div class="ui-block-a">
-			<?=$this->Html->image('wg.png',array('alt'=>'Draper Natural History Museum icon','class'=>'logos'))?>
+			<div style="width:87%"><?=$this->Html->image('wg.png',array('alt'=>'Whitney Western Art Museum icon','class'=>'logos'))?></div>
 			</div>
 			<div class="ui-block-b">
 			<h2 align="center"><?=$totals['counts']['WG'].' of '.$totals['totals']['WG']?></h2>
@@ -112,7 +117,7 @@ echo $this->element('jqm_header');
 		
 		<div class="ui-grid-a score" style="color:<?=$hmrl?>;">
 			<div class="ui-block-a">
-			<?=$this->Html->image('hmrl.png',array('alt'=>'McCracken Research Library icon','class'=>'logos'))?>
+			<div style="width:83%"><?=$this->Html->image('hmrl.png',array('alt'=>'McCracken Research Library icon','class'=>'logos'))?></div>
 			</div>
 			<div class="ui-block-b">
 			<h2 align="center"><?=$totals['counts']['HMRL'].' of '.$totals['totals']['HMRL']?></h2>
@@ -121,7 +126,7 @@ echo $this->element('jqm_header');
 		
 		<div class="ui-grid-a score" style="color:<?=$garden?>;">
 			<div class="ui-block-a">
-			<?=$this->Html->image('garden.png',array('alt'=>'Sculpture Garden icon','class'=>'logos'))?>
+			<div style="width:53%"><?=$this->Html->image('garden.png',array('alt'=>'Sculpture Garden icon','class'=>'logos'))?></div>
 			</div>
 			<div class="ui-block-b">
 			<h2 align="center"><?=$totals['counts']['Garden'].' of '.$totals['totals']['Garden']?></h2>
