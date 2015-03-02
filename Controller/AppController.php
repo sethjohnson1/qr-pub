@@ -20,7 +20,8 @@ class AppController extends Controller {
 			$this -> layout='mobile';
 		}
 		else if (Configure::read('enableAdminFunctions')==1) $this->Auth->allow();
-		else throw new NotFoundException(__('Admin routing is disabled'));
+		//don't give any hints
+		else $this->redirect('/');
 		
 		
 		//users plugin blackhole fix, started somewhere in CakePHP 2.5.3
