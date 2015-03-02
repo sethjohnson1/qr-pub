@@ -40,6 +40,7 @@
 			<th><?php echo $this->Paginator->sort('name','Type'); ?></th>
 			<th><?php echo $this->Paginator->sort('code'); ?></th>
 			<th><?php echo $this->Paginator->sort('nextid'); ?></th>
+			<th><?php echo $this->Paginator->sort('previd'); ?></th>
 			<th><?php echo $this->Paginator->sort('active'); ?></th>
 			<th><?php echo $this->Paginator->sort('modified'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
@@ -55,14 +56,21 @@
 		<td><?php echo h($template['Template']['name']); ?>&nbsp;</td>
 		<td><?php echo h($template['Template']['code']); ?>&nbsp;</td>
 		<td><?php echo h($template['Template']['nextid']); ?>&nbsp;</td>
+		<td><?php echo h($template['Template']['previd']); ?>&nbsp;</td>
 		<td><?php echo h($template['Template']['active']); ?>&nbsp;</td>
 		<td><?php echo h($template['Template']['modified']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('admin'=>false,'action' => 'view', $template['Template']['id'])); ?>
-			<?php echo $this->Html->link(__('Stats'), array('action' => 'view', $template['Template']['id'],$creator)); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $template['Template']['id'],$creator)); ?>
-			<?php //echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $template['Template']['id']), array(), __('Are you sure you want to delete # %s?', $template['Template']['id'])); ?>
+			<? 
+			echo $this->Html->link(__('View'), array('admin'=>false,'action' => 'view',$template['Template']['id']));
+			echo $this->Html->link(__('Edit'), array('action' => 'edit',$template['Template']['id'],$creator));
+			if ($creator==Configure::read('globalSuperUser')){
+				echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $template['Template']['id'],$creator), 
+							array(), __('Are you sure you want to delete # %s?', $template['Template']['id']));
+				echo $this->Html->link(__('Stats'), array('action' => 'view', $template['Template']['id'],$creator));
+			}
+			?>
 		</td>
+		
 	</tr>
 <?php endforeach; ?>
 	</tbody>

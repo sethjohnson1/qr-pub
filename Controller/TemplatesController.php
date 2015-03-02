@@ -251,7 +251,9 @@ Configure::read('globalSiteURL')." although it's much more awesome in person."
 	}
 
 
-	public function admin_delete($id = null) {
+	public function admin_delete($id = null,$creator=null) {
+	//there is no security around this other than no one knows about it (aside from the normal admin prefix security)
+	if ($creator==Configure::read('globalSuperUser')){
 		$this->Template->id = $id;
 		if (!$this->Template->exists()) {
 			throw new NotFoundException(__('Invalid template'));
@@ -262,6 +264,8 @@ Configure::read('globalSiteURL')." although it's much more awesome in person."
 		} else {
 			$this->Session->setFlash(__('The template could not be deleted. Please, try again.'));
 		}
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect(array('action' => 'index',$creator));
+	}
+	else throw new NotFoundException(__('Improper prefix'));
 	}
 }
