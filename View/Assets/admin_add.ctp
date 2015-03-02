@@ -26,14 +26,16 @@
 		
 	}
 	else if ($type=='ag'){
+		echo '<h3>Please be careful, once submitted you cannot edit (but rather have to re-enter everything)</h3>';
 		echo $this->Form->input('name',array('label'=>'Title'));  
 		echo $this->Form->input('commonname',array('label'=>'Maker','type'=>'text')); 
 		echo $this->Form->input('daterange',array('type'=>'text')); 
 		echo $this->Form->input('asset_text',array('label'=>'Medium','type'=>'text'));
 		echo $this->Form->input('dimensions',array('type'=>'text'));
-		echo $this->Form->input('creditline',array('type'=>'text')); 
+		echo $this->Form->input('creditline',array('type'=>'text'));
 		echo $this->Form->input('synopsis',array('label'=>'Transcript')); 
 		echo $this->Form->input('filename',array('label'=>'YouTubeID')); 
+		echo $this->Form->input('inscription',array('type'=>'text','value'=>'Audio courtesy of Acoustiguide'));
 	}
 	else if ($type=='tn'){
 		echo $this->Form->input('xml',array('label'=>'Paste XML here','type'=>'textarea','accept-charset'=>'UTF-8'));	

@@ -53,12 +53,13 @@ synopsis
 <p><strong><?=$asset['commonname'].'. <em>'. $asset['name'].'.</em> '.$asset['daterange']?></strong><br />
 <?=$asset['asset_text'].', '.$asset['dimensions'].'. '.$asset['creditline']?></p>
 <p><strong>Transcript:</strong> <?=$asset['synopsis']?></p>
+<p class="ui-mini" align="center"><em><?=$asset['inscription']?></em></p>
 </div>
 </div><!-- /ag_container -->
 <!-- div class="ui-body ui-body-a ui-shadow">
 <h3>
 <?
-	echo $asset['asset_text'];
+	//echo $asset['asset_text'];
 ?>
 </h3>
 </div -->
