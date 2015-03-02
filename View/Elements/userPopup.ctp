@@ -9,18 +9,21 @@
 			'data-role'=>'button',
 			'data-theme'=>'b',
 			'rel'=>'external',
+			'class'=>'socialbutton',
 			'data-icon'=>'iscout-whitefbicon'
 			));
 		echo $this->Html->link('Google',array('plugin'=>'users','controller'=>'users','action'=>'auth_login','Google'),array(
 			'data-role'=>'button',
 			'data-theme'=>'c',
 			'rel'=>'external',
+			'class'=>'socialbutton',
 			'data-icon'=>'iscout-whitegoogleplusicon'
 			));
 		echo $this->Html->link('Twitter',array('plugin'=>'users','controller'=>'users','action'=>'auth_login','Twitter'),array(
 			'data-role'=>'button',
 			'data-theme'=>'d',
 			'rel'=>'external',
+			'class'=>'socialbutton',
 			'data-icon'=>'iscout-whitetwittericon'
 			));
 			
@@ -33,6 +36,17 @@
 			'data-role'=>'button','data-theme'=>'f'
 			));
 		?>
+		
+		<script>
+		$( ".socialbutton" ).click(function() {
+			$.mobile.loading( 'show', {
+				text: 'Logging in...',
+				textVisible: true,
+				theme: 'a',
+				html: ""
+			}); 
+			});
+		</script>
 
 		
 		<?

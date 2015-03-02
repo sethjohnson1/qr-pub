@@ -30,7 +30,7 @@ foreach ($menu as $val){
 	</li>
 	</ul>
 </div>
-<?//script below is quickfix to make Scorecard nicer ?>
+<?//script below adss loader for score card click ?>
 <script>
 $( ".scorecard" ).click(function() {
 			$.mobile.loading( 'show', {
