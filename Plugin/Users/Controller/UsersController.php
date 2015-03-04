@@ -66,7 +66,8 @@ class UsersController extends UsersAppController {
 		'Paginator',
 		'Security',
 		'Users.RememberMe',
-		'ExtAuth.ExtAuth'
+		'ExtAuth.ExtAuth',
+		'Scorecard'
 	);
 
 /**
@@ -325,9 +326,8 @@ class UsersController extends UsersAppController {
 		$options['recursive']=2;
 		$options['contain']=array('CommentsUser','Comment'=>array('Template'));
 		$user=$this->User->find('first', $options);
+		$this->set('totals',$this->Scorecard->scoreTotals(null,$user['User']['id']));
 		$this->set(compact('user'));
-		//$this->request->data = $user;
-		//$this->set('user', $user);
 	}
 
 	public function admin_add() {

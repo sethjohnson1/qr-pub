@@ -18,24 +18,26 @@ public $components = array('Session');
 		$totals['totals']['HMRL']=$model->find('count',array('conditions'=>array('Template.location'=>'HMRL')));
 		$totals['totals']['Garden']=$model->find('count',array('conditions'=>array('Template.location'=>'Garden')));
 		$totals['totals']['NW']=$model->find('count',array('conditions'=>array('Template.location'=>'NW')));
-		if (isset($userid) && isset($template['Template']['id'])) {
+		if (isset($userid)) {
 			$model=ClassRegistry::init('Scorecard');
-			//combine user_id and template to make a unique identifier (but also cannot be counted over and over)
-			$scoreid=$userid.'_'.$template['Template']['id'];
-			$scoredata['id']=$scoreid;
-			$scoredata['location']=$template['Template']['location'];
-			//$scoredata['user_id']=$user['id'];
-			if ($model->save($scoredata)){
-				$totals['counts']['BBM']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'BBM')));
-				$totals['counts']['CFM']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'CFM')));
-				$totals['counts']['DMNH']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'DMNH')));
-				$totals['counts']['PIM']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'PIM')));
-				$totals['counts']['WG']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'WG')));
-				$totals['counts']['HMRL']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'HMRL')));
-				$totals['counts']['Garden']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'Garden')));
-				$totals['counts']['NW']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'NW')));
-			
+			if (isset($template['Template']['id'])){
+				//combine user_id and template to make a unique identifier (but also cannot be counted over and over)
+				$scoreid=$userid.'_'.$template['Template']['id'];
+				$scoredata['id']=$scoreid;
+				$scoredata['location']=$template['Template']['location'];
+				if ($model->save($scoredata)){
+					//yay it worked
+				}
 			}
+			//now count the totals (even if no Template id)
+			$totals['counts']['BBM']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'BBM')));
+			$totals['counts']['CFM']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'CFM')));
+			$totals['counts']['DMNH']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'DMNH')));
+			$totals['counts']['PIM']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'PIM')));
+			$totals['counts']['WG']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'WG')));
+			$totals['counts']['HMRL']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'HMRL')));
+			$totals['counts']['Garden']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'Garden')));
+			$totals['counts']['NW']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'NW')));
 		}
 		else {
 		//use Session variables if no logged on user
