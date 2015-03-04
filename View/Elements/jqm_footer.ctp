@@ -53,7 +53,8 @@
 				//this can be changed back to 'e' for brown buttons
 				'data-theme'=>'f'
 				));
-			//the swiping scripts are about as good as they can be for now
+			//the swiping scripts are about as good as they can be for now, only used for kiosk
+			if (Configure::read('enableKioskMode')==1):
 			?>
 			<script>
 			//<![CDATA[
@@ -69,6 +70,7 @@
 			//]]>
 			</script>
 			<?
+			endif;
 			endif;
 			//allow the following script is not perfect, it works for most situations (
 			?>
