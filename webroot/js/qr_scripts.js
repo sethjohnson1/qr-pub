@@ -14,8 +14,8 @@ $( document ).on( "pageinit", function( event ) {
 
 $(document).bind("mobileinit", function () {
 	$.event.special.swipe.scrollSupressionThreshold=100;
-	$.event.special.swipe.durationThreshold = 5000ms;
-	$.event.special.swipe.horizontalDistanceThreshold = 2px;
-	$.event.special.swipe.horizontalDistanceThreshold = 1000px;
+	$.event.special.swipe.durationThreshold = 5000;
+	$.event.special.swipe.horizontalDistanceThreshold = 2;
+	$.event.special.swipe.horizontalDistanceThreshold = 1000;
 });
 
