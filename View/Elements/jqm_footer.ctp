@@ -1,8 +1,6 @@
 	</div><!-- /content main -->
 	<? 
 	if ($template['Template']['name']=='vgal'|| $template['Template']['name']=='tn') echo $this->element('vgal_lightbox');  
-	
-	//the slide transition doesn't work well on the Samsung tablet. Sigh...
 	$transition="slide";
 	?>
 	<div data-role="footer" data-position="fixed" data-id="myfooter" style="background-color:transparent;border:none;">
@@ -21,11 +19,12 @@
 				'data-direction'=>'reverse'
 				));
 			/*
-				I am abandoning swiping for now. It doesn't work at all on iPad and sort of sucks
-				on Android anyway I am leaving the code here in case we want to revisit it sometime
+				swiping is only for Kiosk mode. it Doesn't work at all on iOS and isn't perfect anyway
+				if I get complaints I will just remove it
 			*/
+			if (Configure::read('enableKioskMode')==1):
 			?>
-			<!-- script>
+			<script>
 			//<![CDATA[
 			$(function(){
 			  $( "div.ui-content" ).on( "swiperight", swiperightHandler );
@@ -36,8 +35,9 @@
 				}
 			});
 			//]]>
-			</script -->
+			</script>
 			<?
+			endif;
 			endif;
 	
 			//echo $this->Html->link('Score Card','#Scorecard',array('class'=>'ui-btn ui-icon-carat-u ui-btn-icon-top','data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'slideup'));
@@ -53,11 +53,12 @@
 				//this can be changed back to 'e' for brown buttons
 				'data-theme'=>'f'
 				));
+			//the swiping scripts are about as good as they can be for now
 			?>
-			<!-- script>
+			<script>
 			//<![CDATA[
 			$(function(){
-			  $( "div.ui-content" ).on( "swipeleft", swipeleftHandler );
+			  $( "body.ui-mobile-viewport" ).on( "swipeleft", swipeleftHandler );
 			 
 			  // Callback function references the event target and adds the 'swipeleft' class to it
 			  function swipeleftHandler( event ){
@@ -66,7 +67,7 @@
 			  }
 			});
 			//]]>
-			</script -->
+			</script>
 			<?
 			endif;
 			//allow the following script is not perfect, it works for most situations (

@@ -1,10 +1,6 @@
 $( document ).on( "pageinit", function( event ) {
-	$( "#CodePopUp" ).enhanceWithin().popup();
-	$( "#Scorecard" ).enhanceWithin().popup();  
 	$( "#userPopup" ).enhanceWithin().popup();  
 	$( "#menu" ).enhanceWithin().panel();  
-	//$( "#Scorecard" ).popup( "open" );
-
 	//formats the Lightbox (and makes it work on iPad!) (although not in use any longer)
 	$( ".poppedimg" ).on({
         popupbeforeposition: function() {
@@ -15,3 +11,11 @@ $( document ).on( "pageinit", function( event ) {
     });
 	
 });
+
+$(document).bind("mobileinit", function () {
+	$.event.special.swipe.scrollSupressionThreshold=100px;
+	$.event.special.swipe.durationThreshold = 5000ms;
+	$.event.special.swipe.horizontalDistanceThreshold = 2px;
+	$.event.special.swipe.horizontalDistanceThreshold = 1000px;
+});
+

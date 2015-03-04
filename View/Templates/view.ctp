@@ -7,6 +7,8 @@ if ($template['Template']['name']=='blog') echo $this->element('blog');
 if ($template['Template']['name']=='splash') echo $this->element('splash');
 if ($template['Template']['name']=='video') echo $this->element('youtube');
 if ($template['Template']['name']=='ag') echo $this->element('ag');
+//skip all of the comments in Kiosk mode
+if (Configure::read('enableKioskMode')!=1):
 ?>
 
 <div class="comments_container" style="clear:both;">
@@ -103,5 +105,6 @@ $(document).on('pagebeforeshow', function(){
 //]]>
 </script>
 <?
+endif;
 echo $this->element('jqm_footer');
 ?>

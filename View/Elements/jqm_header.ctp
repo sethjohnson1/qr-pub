@@ -20,8 +20,10 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 		<div class="ui-block-a">
 		<div class="top_logo">
 		<? 
+		if (Configure::read('enableKioskMode')!=1) $url='/';
+		else $url='#';
 		echo $this->Html->image('1-mobile-logo-copy.png',array(
-			'url'=>'/',
+			'url'=>$url,
 			'height'=>'80',
 			'alt'=>'Center of the West logo'
 		));
