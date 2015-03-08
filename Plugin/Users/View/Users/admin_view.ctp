@@ -6,6 +6,12 @@ foreach($user['Comment'] as $comment){
 	$avgrating=$comment['rating']+$avgrating;
 }
 $avgrating=$avgrating/count($user['Comment']);
+//now the score totals
+$total=0;
+$score=0;
+foreach ($totals['totals'] as $val) $total=$total+$val;
+foreach ($totals['counts'] as $val) $score=$score+$val;
+$percent=round(($score/$total)*100)
 ?>
 <div class="users form">
 <?
@@ -30,6 +36,8 @@ $avgrating=$avgrating/count($user['Comment']);
 		<li>Upvotes: <?=$user['User']['upvotes']?></li>
 		<li>Downvotes: <?=$user['User']['downvotes']?></li>
 		<li>Flags: <?=$user['User']['flags']?></li>
+		<li>Score: <?=$score.' / '.$total.' ('.$percent.'%)'?></li>
+		<li><?pr($totals['counts'])?></li>
 	</ul>
 	<br />
 	<h3>Comments</h3>

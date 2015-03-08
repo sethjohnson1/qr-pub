@@ -33,30 +33,15 @@ iScout | <? echo $this->fetch('title'); ?>
 		echo $this->fetch('css');
 		echo $this->fetch('meta');
 	?>
-<script type="text/javascript">
-var _gas = _gas || [];
-_gas.push(['_setAccount', 'UA-46559601-1']); 
-_gas.push(['_setDomainName', '.centerofthewest.org']);
-_gas.push(['_require', 'inpage_linkid','//www.google-analytics.com/plugins/ga/inpage_linkid.js']);
-_gas.push(['_trackPageview']);
-_gas.push(['_gasTrackForms']);
-_gas.push(['_gasTrackOutboundLinks']);
-_gas.push(['_gasTrackMaxScroll']);
-_gas.push(['_gasTrackDownloads']);
-_gas.push(['_gasTrackVideo']); _gas.push(['_gasTrackAudio']);
-_gas.push(['_gasTrackYoutube', {force: true}]);
-_gas.push(['_gasTrackMailto']);
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-(function() {
-var ga = document.createElement('script');
-ga.id = 'gas-script';
-ga.setAttribute('data-use-dcjs', 'true'); // CHANGE TO TRUE FOR DC.JS SUPPORT
-ga.type = 'text/javascript';
-ga.async = true;
-ga.src = '//cdnjs.cloudflare.com/ajax/libs/gas/1.11.0/gas.min.js';
-var s = document.getElementsByTagName('script')[0];
-s.parentNode.insertBefore(ga, s);
-})();
+  ga('create', 'UA-46559601-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 </head>
 <body>
