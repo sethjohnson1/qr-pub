@@ -3,7 +3,7 @@ App::uses('AppController', 'Controller');
 
 class AssetsController extends AppController {
 
-	public $components = array('Paginator','Clean');
+	public $components = array('Paginator');
 
 	public function admin_index() {
 		$this->Asset->recursive = 0;
