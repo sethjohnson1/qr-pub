@@ -150,12 +150,17 @@ class TemplatesController extends AppController {
 		//assuming this is set, it should be or something weird is happening
 			->to($this->Auth->user('email'))
 			->subject('iScout Virtual Tour')
-			->send(
+			->template('email_me_share', 'default')
+			->viewVars(array(
+			'url' => urldecode($url)
+			))
+			/*->send(
 				"
 I thought you might enjoy this Virtual Exhibit from the Buffalo Bill Center of the West. Here is a 
 shortened link to it:\n\n".urldecode($url)."\n\nYou can complete the entire tour online at ".
 Configure::read('globalSiteURL')." although it's much more awesome in person."
-			);
+			)*/
+			;
 		//$this->render(false);
 		$this->Session->setFlash('Your message was sent! Thank you.','flash_custom');
 		$this->redirect($this->referer());
