@@ -226,12 +226,13 @@ Configure::read('globalSiteURL')." although it's much more awesome in person."
 	public function admin_index($creator=null) {
 		$this->Prg->commonProcess();
 		$this->Template->recursive = 0;
+		$limit=100;
 		//superuser sees all!
 		if ($creator==Configure::read('globalSuperUser')){
-			$this->paginate = array('conditions' => $this->Template->parseCriteria($this->Prg->parsedParams()));
+			$this->paginate = array('limit'=>$limit,'conditions' => $this->Template->parseCriteria($this->Prg->parsedParams()));
 		}
 		else {
-			$this->paginate = array('conditions' => array($this->Template->parseCriteria($this->Prg->parsedParams()),
+			$this->paginate = array('limit'=>$limit,'conditions' => array($this->Template->parseCriteria($this->Prg->parsedParams()),
 			'AND'=>array('Template.creator'=>$creator)));
 		}
 		//no error handling needed, the paginator will just be empty
