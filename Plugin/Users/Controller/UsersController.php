@@ -275,12 +275,12 @@ class UsersController extends UsersAppController {
 			$this->redirect('/');
 		}
 	}
-	*/
+	
 
 
 	public function edit() {
 	}
-
+*/
 
 	public function admin_index() {
 		if ($this->{$this->modelClass}->Behaviors->loaded('Searchable')) {
@@ -392,9 +392,11 @@ class UsersController extends UsersAppController {
  *
  * @return void
  */
+ /*
 	public function admin_search() {
 		$this->search();
 	}
+	*/
 
 /**
  * User register action

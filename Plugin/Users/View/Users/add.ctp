@@ -10,6 +10,7 @@
  */
  echo $this->element('jqm_header');
 ?>
+<div class="ui-body ui-body-a ui-corner-all ui-shadow">
 <div class="users form">
 	<h2><?php echo __d('users', 'Create Account'); ?></h2>
 	<fieldset>
@@ -38,6 +39,7 @@
 		$link=$this->Html->link('Click here',array('action'=>'login'));
 		echo '<p>Already Registered? '.$link.' to login.';
 	?>
+</div>
 </div>
 <?php 
 //echo $this->element('Users.Users/sidebar'); 

@@ -10,6 +10,7 @@
  */
   echo $this->element('jqm_header');
 ?>
+<div class="ui-body ui-body-a ui-corner-all ui-shadow">
 <div class="users form">
 <h2><?php echo __d('users', 'Forgot your password?'); ?></h2>
 <p><?php echo __d('users', 'Please enter the email you used for registration and you\'ll get an email with further instructions.'); ?></p>
@@ -25,5 +26,6 @@
 	echo $this->Form->submit(__d('users', 'Submit'));
 	echo $this->Form->end();
 ?>
+</div>
 </div>
 <?php echo $this->element('jqm_user_footer'); ?>

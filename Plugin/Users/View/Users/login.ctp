@@ -1,5 +1,5 @@
 <? echo $this->element('jqm_header'); ?>
-
+<div class="ui-body ui-body-a ui-corner-all ui-shadow">
 <div class="users index">
 
 	<h2><?php echo __d('users', 'Login'); ?></h2>
@@ -32,6 +32,7 @@ echo '<p>' . $this->Html->link(__d('users', 'I forgot my password'), array('acti
 .'</p>';
 
 ?>
+</div>
 </div>
 <?php 
 //eventually put this sidebar stuff into bottom nav
