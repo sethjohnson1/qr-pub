@@ -143,8 +143,7 @@ class TemplatesController extends AppController {
 	someone else wants to help with this, as I doubt it will get used much
 	*/
 	public function email($id=null,$url=null){
-		//currently these look so much like SPAM I can't get Google not to filter them.
-		//possibly because they are coming from an IP though, it might be fine in production
+		//uses View/Email/text/email_me_share
 		$Email = new CakeEmail();
 		$Email->from(Configure::read('globalFromEmail'))
 		//assuming this is set, it should be or something weird is happening
@@ -154,13 +153,7 @@ class TemplatesController extends AppController {
 			->viewVars(array(
 			'url' => urldecode($url)
 			))
-			/*->send(
-				"
-I thought you might enjoy this Virtual Exhibit from the Buffalo Bill Center of the West. Here is a 
-shortened link to it:\n\n".urldecode($url)."\n\nYou can complete the entire tour online at ".
-Configure::read('globalSiteURL')." although it's much more awesome in person."
-			)*/
-			;
+			->send();
 		//$this->render(false);
 		$this->Session->setFlash('Your message was sent! Thank you.','flash_custom');
 		$this->redirect($this->referer());
