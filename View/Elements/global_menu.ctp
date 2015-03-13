@@ -3,13 +3,15 @@ $menu=array();
 $menu[0]['name']='Browse stops';
 $menu[0]['url']=array('plugin'=>'','controller'=>'templates','action'=>'browse');
 if (Configure::read('enableKioskMode')!=1) {
-	$menu[1]['name']='Score Card';
-	$menu[1]['url']=array('plugin'=>'','controller'=>'templates','action'=>'scorecard');
+	$menu[100]['name']='Score Card';
+	$menu[100]['url']=array('plugin'=>'','controller'=>'templates','action'=>'scorecard');
+	$menu[101]['name']='My Postcards';
+	$menu[101]['url']=array('plugin'=>'','controller'=>'templates','action'=>'postcard');
 }
-$menu[2]['name']='Give Feedback';
-$menu[2]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback');
-$menu[3]['name']='About iScout';
-$menu[3]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about');
+$menu[200]['name']='Give Feedback';
+$menu[200]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback');
+$menu[300]['name']='About iScout';
+$menu[300]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about');
 ?>
 
 <div id="menu" data-role="panel" data-position="left" data-display="reveal" data-theme="a">

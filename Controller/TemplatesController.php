@@ -49,6 +49,14 @@ class TemplatesController extends AppController {
 		$this->set('title_for_layout','Score Card');
 	}
 	
+	public function postcard() {
+		$this->loadModel('Rank');
+		$user=$this->Auth->user();
+		$dbranks=$this->Rank->find('all');
+		$this->set(compact('dbranks','test'));
+		$this->set('title_for_layout','My Postcards');
+	}
+	
 	public function feedback() {
 		if ($this->request->is('post')) {
 			//send an e-mail reads addresses from private config file

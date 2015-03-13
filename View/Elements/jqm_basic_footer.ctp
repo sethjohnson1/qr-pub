@@ -1,21 +1,26 @@
 	</div><!-- /content main -->
 	<div data-role="footer" data-position="fixed" data-id="myfooter" style="background-color:transparent;border:none;">
-	<!--right here we need 2 pull out Qs that 1 for score card and 1 for comments, then also design those panels-->
-		<div class="ui-grid-d" style="text-align:center;position: relative;top: 7px;">
-			<? 
-			//echo $this->Html->link('Score Card','#Scorecard',array('class'=>'ui-btn ui-icon-carat-u ui-btn-icon-top','data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'slideup'));
-			//echo $this->Html->link('Comments','#comments',array('class'=>'ui-btn ui-icon-carat-u ui-btn-icon-top','data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'slideup'));
+	<?if($this->request->action=='scorecard'  || $this->request->action=='postcard'):?>
+		<div class="ui-grid-a" style="text-align:center;position: relative;top: 7px;">
+		<?
+		if ($this->request->action=='scorecard'){
+			echo $this->Html->link('My Postcards',
+				array('action'=>'postcard'),
+				array(
+				//does nothing
+				'class'=>'buttonstyle',
+				'data-role'=>'button',
+				'data-icon'=>'arrow-r',
+				'data-iconpos'=>'right',
+				'data-prefetch'=>true,
+				'data-theme'=>'f'
+				));
+		}
+		if ($this->request->action=='postcard'){
+			
+		}
 			?>
-		</div>
-			<script>
-			//<![CDATA[
-			$(function(){
-			  $( "div.ui-content" ).on( "swiperight", swiperightHandler );
-				function swiperightHandler( event ){ 
-					$.mobile.back();
-				}
-			});
-			//]]>
-			</script>
+		</div><!-- /ui-grid -->
+		<? endif; //scorecard IF?>
 	</div><!-- /footer -->
 </div><!-- /page -->
