@@ -1,7 +1,12 @@
-<div id="userPopup" data-theme="a" data-overlay-theme="a">
+<?
+//make a unique ID for Popup if on a template page
+if (!isset($template['Template']['id'])) $template['Template']['id']=$this->params['action'];
+?>
+<div id="userPopup<?=$template['Template']['id']?>" data-theme="a" data-overlay-theme="a" data-role="popup">
 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div style="padding:10px 20px;">
 	<?
+	//debug($shorturl);
 	$width='300px;';
 	if (!$this->Session->read('Auth.User.id')) : 
 	echo '	<h3 align=center>Super-Easy Login:</h3>';
@@ -55,7 +60,7 @@
 		?>
 		<h3>Tell everyone how awesome your vacation is by sharing a link to this page.</h3>
 		<?
-	
+			
 			if ($user['provider']=='Twitter'){
 				echo $this->Html->link('Tweet','https://twitter.com/share?via=centerofthewest&hastags=iscout&text='.'Check out this cool exhibit'.'&url='.$shorturl, array(
 					'data-role'=>'button',
@@ -85,6 +90,9 @@
 				?>
 				<h3>We'll e-mail you a pre-formatted message that you can forward on.</h3>
 				<?
+				//sj - override $shorturl because it make e-mails Spammy
+				debug($shorturl);
+				debug($_SERVER['HTTP_HOST'].$this->here);
 				echo $this->Html->link('E-mail me',array('controller'=>'templates','action'=>'email',$template['Template']['id'],urlencode($shorturl)), array(
 					'data-role'=>'button',
 					'data-theme'=>'e',

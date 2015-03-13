@@ -11,10 +11,13 @@
 </style>
 <?
 
-echo $this->element('userPopup'); 
+
 echo $this->element('global_menu');
 if (!isset($template['Template']['id'])) $template['Template']['id']=$this->params['action'];
 ?>
+<script>
+
+</script>
 <div data-role="page" id="qrpage<?=$template['Template']['id']?>" data-theme="a">
 	<div data-role="header" data-position="fixed" style="border-bottom:9px solid #aa9c8f;background-color:#fff;">
 		<div class="ui-block-a">
@@ -71,7 +74,7 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 					$datatheme='a';
 					$dataicon='user';
 				}
-				echo $this->Html->link('Login','#userPopup',array(
+				echo $this->Html->link('Login','#userPopup'.$template['Template']['id'],array(
 					'data-role'=>'button',
 					'data-rel'=>'popup',
 					//change this based on provider 
@@ -152,7 +155,6 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 				data:$("#CodeForm<?=$template['Template']['id']?>").serialize(),
 				dataType:"html",
 				success:function (data, textStatus) {
-					//console.log(data);
 					window.location="<? echo Configure::read('globalSiteURL'); ?>/templates/code_button/"+data;
 				},
 				type:"POST",
@@ -165,8 +167,6 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 	
 	//listens for 'tab' or 'enter' - tab is necessary for Android (although this all may be moot considering count above)
 	$('input#Code3digitcode<?=$template['Template']['id']?>').on('keydown', function(e){
-	 //e.preventDefault();
-	console.log('down');
 		if(e.which === 9 || e.which===13) {
 			$.mobile.loading( 'show', {
 				text: 'Finding '+this.value+'...',
@@ -181,9 +181,6 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 					dataType:"html",
 					success:function (data, textStatus) {
 						$('#CodeForm<?=$template['Template']['id']?>').attr('id','bogus_id');
-						
-						//console.log(data);
-						//return false;
 						window.location="<? echo Configure::read('globalSiteURL'); ?>/templates/code_button/"+data;
 					},
 					type:"POST",
@@ -200,4 +197,6 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 	<div role="main" class="ui-content">
 	<?
 	echo $this->Session->flash();
+	//sj - moved this down here so we don't need "Enhance Within" which won't work across multiple pages
+	echo $this->element('userPopup'); 
 	?>
