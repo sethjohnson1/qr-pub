@@ -91,8 +91,7 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 				<h3>We'll e-mail you a pre-formatted message that you can forward on.</h3>
 				<?
 				//sj - override $shorturl because it make e-mails Spammy
-				debug($shorturl);
-				debug($_SERVER['HTTP_HOST'].$this->here);
+				$shorturl='http://'.$_SERVER['HTTP_HOST'].$this->here;
 				echo $this->Html->link('E-mail me',array('controller'=>'templates','action'=>'email',$template['Template']['id'],urlencode($shorturl)), array(
 					'data-role'=>'button',
 					'data-theme'=>'e',

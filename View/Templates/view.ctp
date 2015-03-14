@@ -56,7 +56,7 @@ if (Configure::read('enableKioskMode')!=1):
 <br />
 	<style type="text/css" scoped>
 		.big_comment_container{
-
+		
 		}
 
 		div[class^="commentsbox_"]{

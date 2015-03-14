@@ -4,8 +4,12 @@
 	max-width: 600px;
 	margin: 0 auto; 
    }
+   /*
+   margin-left makes it align with the bar on the logo
+   */
    .splashimg{
 		max-width: 100%;
+		margin-left: 2%;
    }
    .splash_container{
 		max-height:1100px;
