@@ -10,14 +10,15 @@ public $components = array('Session');
 	public function scoreTotals ($template, $userid){
 		$totals=array();
 		$model=ClassRegistry::init('Template');
-		$totals['totals']['BBM']=$model->find('count',array('conditions'=>array('Template.location'=>'BBM')));
-		$totals['totals']['CFM']=$model->find('count',array('conditions'=>array('Template.location'=>'CFM')));
-		$totals['totals']['DMNH']=$model->find('count',array('conditions'=>array('Template.location'=>'DMNH')));
-		$totals['totals']['PIM']=$model->find('count',array('conditions'=>array('Template.location'=>'PIM')));
-		$totals['totals']['WG']=$model->find('count',array('conditions'=>array('Template.location'=>'WG')));
-		$totals['totals']['HMRL']=$model->find('count',array('conditions'=>array('Template.location'=>'HMRL')));
-		$totals['totals']['Garden']=$model->find('count',array('conditions'=>array('Template.location'=>'Garden')));
-		$totals['totals']['NW']=$model->find('count',array('conditions'=>array('Template.location'=>'NW')));
+		$conds=array('Template.active'=>1,'Template.previd is null');
+		$totals['totals']['BBM']=$model->find('count',array('conditions'=>array('Template.location'=>'BBM',$conds)));
+		$totals['totals']['CFM']=$model->find('count',array('conditions'=>array('Template.location'=>'CFM',$conds)));
+		$totals['totals']['DMNH']=$model->find('count',array('conditions'=>array('Template.location'=>'DMNH',$conds)));
+		$totals['totals']['PIM']=$model->find('count',array('conditions'=>array('Template.location'=>'PIM',$conds)));
+		$totals['totals']['WG']=$model->find('count',array('conditions'=>array('Template.location'=>'WG',$conds)));
+		$totals['totals']['HMRL']=$model->find('count',array('conditions'=>array('Template.location'=>'HMRL',$conds)));
+		$totals['totals']['Garden']=$model->find('count',array('conditions'=>array('Template.location'=>'Garden',$conds)));
+		$totals['totals']['NW']=$model->find('count',array('conditions'=>array('Template.location'=>'NW',$conds)));
 		if (isset($userid)) {
 			$model=ClassRegistry::init('Scorecard');
 			if (isset($template['Template']['id'])){
