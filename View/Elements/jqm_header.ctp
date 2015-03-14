@@ -1,4 +1,4 @@
-<style type="text/css" scoped>
+<style type="text/css">
  .top_logo{
 	margin:6px 0px 0px 10px;
 	padding: 0px;
@@ -6,8 +6,38 @@
 	position:relative;
 	top: 14px;
 	float:left;
-	//border-bottom: 5px solid green;
 }
+
+/* the header height is smaller than the wrapper so the logo overcomes it */
+
+.header{
+	border-bottom: 9px solid #aa9c8f;
+	background-color: #ffffff !important;
+	height:91px;
+}
+
+.headerwrapper{
+	max-width:1100px;
+	margin:auto;
+	height:100px;
+}
+
+.ui-block-e{
+	min-width:26%;
+}
+
+.menubuttons{
+	float:right;
+	padding:11px;
+}
+
+form.CodeForm .input.number .ui-input-text{
+	//margin:0px !important;
+	width:120px;
+	font-size:17px !important;
+	//height:35px;
+}
+
 </style>
 <?
 
@@ -19,8 +49,8 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 
 </script>
 <div data-role="page" id="qrpage<?=$template['Template']['id']?>" data-theme="a">
-	<div data-role="header" data-position="fixed" style="border-bottom:9px solid #aa9c8f;background-color:#fff;">
-		<div class="ui-block-a">
+	<div data-role="header" data-position="fixed" class="header">
+	<div class="headerwrapper">
 		<div class="top_logo">
 		<? 
 		if (Configure::read('enableKioskMode')!=1) $url='/';
@@ -32,17 +62,11 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 		));
 		?>
 		</div>
-		</div>
-		<div class="ui-block-b">&nbsp;</div>
-		<div class="ui-block-c">&nbsp;</div>
-		<div class="ui-block-d">&nbsp;</div>
-		<div class="ui-block-e">
 			<? if (Configure::read('enableKioskMode')!=1):?>
-			<div class="ui-btn-right ui-grid-a">
-				<div align="center">
+				<div class="menubuttons">
 				<? 
 			
-				$btnstyle='margin:0px;border-left:none;padding:0 27px 0 0;';
+				$btnstyle='margin:0px;border-left:none;padding:0 32px 0 0;';
 				if (isset($user['provider'])){
 				
 					if ($user['provider']=='email' || $user['provider']=='kiosk'){
@@ -105,10 +129,6 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 				));
 			
 				?>
-				
-				</div>
-				
-				<div class="ui-block-solo ui-field-contain">
 					<? 
 					echo $this->Form->create('Code',array(
 						//necessary since manually ajaxing, otherwise Enter submit using defaults
@@ -124,19 +144,17 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 						));
 					echo $this->Form->input('3digitcode',array(
 						'type'=>'number',
-						'placeholder'=>' Code # ',	
+						'placeholder'=>' Enter Code ',
+						'class'=>'codeinput',
 						'id'=>'Code3digitcode'.$template['Template']['id'],
-						//'class'=>'Code3digitcode',
 						'label'=>false
 						));		
 	
 					echo $this->Form->end();
 					?>
-				</div>
-				
-			</div><!-- /button block -->
+			</div><!-- center div -->
+	
 			<?endif?>
-		</div><!-- /ui-block-e -->
 		<script type="text/javascript">
 //just know that without unique IDs (and class names don't work) everything falls apart  
 //auto-submit form after 3 characters
@@ -193,7 +211,8 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 	});
 
 	</script>
-	</div>
+	</div><!-- headerwrapper -->
+	</div><!-- header -->
 	<div role="main" class="ui-content">
 	<?
 	echo $this->Session->flash();

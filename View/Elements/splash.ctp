@@ -5,7 +5,7 @@
 	margin: 0 auto; 
    }
    /*
-   margin-left makes it align with the bar on the logo
+   margin-left makes it align with the bar on the logo, not always perfectly but close enough
    */
    .splashimg{
 		max-width: 100%;
