@@ -28,7 +28,7 @@
 
 .menubuttons{
 	float:right;
-	padding:11px;
+	padding:11px 23px 0 0;
 }
 
 form.CodeForm .input.number .ui-input-text{
@@ -36,6 +36,10 @@ form.CodeForm .input.number .ui-input-text{
 	width:120px;
 	font-size:17px !important;
 	//height:35px;
+}
+
+.toplogoimg{
+	border-bottom:1px solid white !important;
 }
 
 </style>
@@ -55,10 +59,11 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 		<? 
 		if (Configure::read('enableKioskMode')!=1) $url='/';
 		else $url='#';
-		echo $this->Html->image('1-mobile-logo-copy.png',array(
+		echo $this->Html->image('1-mobile-logo-copy-copy.png',array(
 			'url'=>$url,
 			'height'=>'80',
-			'alt'=>'Center of the West logo'
+			'alt'=>'Center of the West logo',
+			'class'=>'toplogoimg'
 		));
 		?>
 		</div>
@@ -213,7 +218,7 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 	</script>
 	</div><!-- headerwrapper -->
 	</div><!-- header -->
-	<div role="main" class="ui-content">
+	<div role="main" class="ui-content ui-body ui-body-a ui-shadow">
 	<?
 	echo $this->Session->flash();
 	//sj - moved this down here so we don't need "Enhance Within" which won't work across multiple pages
