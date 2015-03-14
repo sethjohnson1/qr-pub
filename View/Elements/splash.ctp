@@ -1,7 +1,7 @@
 <div class="splash_container ui-shadow ui-body ui-body-a">
  <style type="text/css" scoped>
    .splashimg_container{
-	max-width: 600px;
+	//max-width: 600px;
 	margin: 0 auto; 
    }
    /*
@@ -15,6 +15,7 @@
 		max-height:1100px;
 		max-width:1100px;
 		margin: 0 auto;
+		border-width:0px;
    }
 
 	

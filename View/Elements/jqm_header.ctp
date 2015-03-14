@@ -8,6 +8,10 @@
 	float:left;
 }
 
+	.ui-body-a{
+		border-width:0px;
+	}
+
 /* the header height is smaller than the wrapper so the logo overcomes it */
 
 .header{
@@ -39,7 +43,7 @@ form.CodeForm .input.number .ui-input-text{
 }
 
 .toplogoimg{
-	border-bottom:1px solid white !important;
+	//border-bottom:1px solid white !important;
 }
 
 </style>
