@@ -51,14 +51,20 @@ class TemplatesController extends AppController {
 	
 	public function postcard($crypt=null) {
 		if ($this->request->is('post')){
+			//first strip tags, otherwise we're welcoming some interesting Spam
+			
+			
 			//do some crazy URL-engineering, I split this on several lines to make it easy to understand
 			$key = Configure::read('Security.salt');
 			$data=json_encode($this->request->data['Template']);
 			$value= gzdeflate(Security::encrypt($data,$key),9);
 			$value=urlencode($value);
+			$this->set('prgdata',$this->request->data);
 			//also write a cookie
+			
 			$this->Cookie->write('postcard_crypt',$value);
 			$this->redirect(array('action'=>'postcard',$value));	
+			
 		}
 		if (isset($crypt)){
 			if ($crypt=='clear'){
@@ -68,11 +74,10 @@ class TemplatesController extends AppController {
 			//reverse the crazy-long URL
 			$crypt=json_decode(Security::decrypt(gzinflate(urldecode($crypt)),Configure::read('Security.salt')),true);
 		}
-		$prgdata=$this->request->data;
 		$this->loadModel('Rank');
 		$user=$this->Auth->user();
 		$dbranks=$this->Rank->find('all');
-		$this->set(compact('dbranks','test','prgdata','crypt'));
+		$this->set(compact('dbranks','test','crypt'));
 		$this->set('title_for_layout','My Postcards');
 	}
 	

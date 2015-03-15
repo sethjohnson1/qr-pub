@@ -52,6 +52,17 @@ class AppController extends Controller {
 			$this->Auth->login($user);
 		}
 	/* define colors, useful for Scorecard and Postcard at the moment */
+		$colors=array(
+			'BBM'=>'#6e3219',
+			'CFM'=>'#004250',
+			'DMNH'=>'#035642',
+			'WG'=>'#981e32',
+			'PIM'=>'#bd4f19',
+			'HMRL'=>'#532e60',
+			'Garden'=>'#c59217',
+			'tan'=>'#aa9c8f',
+			'NW'=>'#aa9c8f'
+		);
 		$bbm='#6e3219';
 		$cfm='#004250';
 		$dmnh='#035642';
@@ -60,7 +71,7 @@ class AppController extends Controller {
 		$hmrl='#532e60';
 		$garden='#c59217';
 		$tan='#aa9c8f';
-		$this->set(compact('bbm','cfm','dmnh','wg','pim','hmrl','garden'));
+		$this->set(compact('bbm','cfm','dmnh','wg','pim','hmrl','garden','colors'));
 		
 		//write the postcard cookie
 		$this->set('postcard_crypt',$this->Cookie->read('postcard_crypt'));
