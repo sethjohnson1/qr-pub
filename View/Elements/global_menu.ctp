@@ -20,7 +20,8 @@ $menu[300]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about'
 //quickfix for Scorecard
 $external=array();
 foreach ($menu as $val){
-	if ($val['name']=='Score Card') $external=array('rel'=>'external','class'=>'scorecard');
+	if ($val['name']=='Score Card' || $val['name']=='My Postcards') $external=array('rel'=>'external','class'=>'scorecard');
+	else $external='';
 	
 	echo '<li>'.$this->Html->link($val['name'],$val['url'],$external).'</li>';
 }

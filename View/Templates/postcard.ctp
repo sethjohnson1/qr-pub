@@ -26,7 +26,7 @@ $this->set(compact('percents','threshold'));
 	</p>
 	<?
 		echo $this->Form->create('Template');
-        echo $this->Form->input('name', array('div' => false,'empty'=>true,'placeholder'=>'Your name','label'=>false));
+        echo $this->Form->input('name', array('div' => false,'empty'=>true,'placeholder'=>'Subject / Title','label'=>false));
         echo $this->Form->input('message', array('div' => false,'empty'=>true,'placeholder'=>'Your short message','label'=>false));
         echo $this->Form->input('percents', array('type'=>'hidden','value'=>json_encode($percents)));
         echo $this->Form->submit(__('Make Tattoo', true), array('div' => false));
@@ -34,7 +34,7 @@ $this->set(compact('percents','threshold'));
 	
 	else :
 	?>
-	<h1><?=$crypt['name']?>'s Postcards</h1>
+	<h1><?=$crypt['name']?></h1>
 	<h3><em><?=$crypt['message']?></em></h3>
 	<? echo '['.$this->Html->link('Clear',array('action'=>'postcard','clear'),
 	array('rel'=>'external')).']';
