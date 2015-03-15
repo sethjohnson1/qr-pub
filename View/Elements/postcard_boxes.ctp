@@ -36,7 +36,21 @@ if ($percents[$museum] >= $threshold):
 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div class="postcardpop">
 	<?=$this->Html->image($img,array('alt'=>'Cool postcard!','class'=>'postcardpopimg'));?>
-	<h3>I am not even sure I like using popups here. Then again I am thinking</h3>
+	<h3>From: <?=$crypt['name']?></h3>
+	<p><?=$crypt['message']?></p>
+	<?
+	//debug($shorturl);
+	if (isset($user['provider'])){
+		if ($user['provider']=='Google'){
+			echo $this->Html->link('Google+','https://plus.google.com/share?url='.$shorturl, array(
+				'data-role'=>'button',
+				'data-theme'=>'c',
+				'data-icon'=>'iscout-whitegoogleplusicon',
+				'target'=>'_blank'
+			));
+		}
+	}
+	?>
 	</div>
 	</div>
 	<?
@@ -47,7 +61,12 @@ else :
 	?>
 	<div id="findmorepopup" data-theme="a" data-overlay-theme="a" data-role="popup">
 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-	<h3>Visit some more!</h3>
+	<div style="padding:40px">
+	<h3 align="center">This postcard is locked!</br /> Don't let that stop you. <br />
+	<?=$this->Html->link('Browse around',array('action'=>'browse'))?>
+	each museum to unlock them.
+	</h3>
+	</div>
 	</div>
 	<?
 endif;

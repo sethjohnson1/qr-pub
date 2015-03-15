@@ -50,9 +50,11 @@ class TemplatesController extends AppController {
 	}
 	
 	public function postcard($crypt=null) {
+		$user=$this->Auth->user();
 		if ($this->request->is('post')){
 			//first strip tags, otherwise we're welcoming some interesting Spam
-			
+			$this->request->data['Template']['name']=strip_tags($this->request->data['Template']['name'], '<em><strong>');
+			$this->request->data['Template']['message']=strip_tags($this->request->data['Template']['message'], '<em><strong>');
 			
 			//do some crazy URL-engineering, I split this on several lines to make it easy to understand
 			$key = Configure::read('Security.salt');
@@ -77,8 +79,9 @@ class TemplatesController extends AppController {
 		$this->loadModel('Rank');
 		$user=$this->Auth->user();
 		$dbranks=$this->Rank->find('all');
-		$this->set(compact('dbranks','test','crypt'));
+		$this->set(compact('dbranks','test','crypt','user'));
 		$this->set('title_for_layout','My Postcards');
+		$this->set('shorturl',$this->UrlShortener->get_bitly_short_url($this->here,'social',$user['provider']));
 	}
 	
 	public function feedback() {

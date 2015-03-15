@@ -17,6 +17,7 @@ $this->set(compact('percents','threshold'));
  ?>
 <div class="ui-body ui-body-a ui-corner-all ui-shadow">
 	<?
+	//debug($prgdata);
 	if (!isset($crypt)):
 	?>
 	<p>Good scouts reports their findings  . . . Especially with these handy Electronic Postcards you've earned.
@@ -32,7 +33,6 @@ $this->set(compact('percents','threshold'));
 	
 	else :
 	?>
-	<?debug($prgdata);?>
 	<h1><?=$crypt['name']?>'s Postcards</h1>
 	<h3><em><?=$crypt['message']?></em></h3>
 	<? echo '['.$this->Html->link('Clear',array('action'=>'postcard','clear'),

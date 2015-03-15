@@ -6,7 +6,6 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div style="padding:10px 20px;">
 	<?
-	//debug($shorturl);
 	$width='300px;';
 	if (!$this->Session->read('Auth.User.id')) : 
 	echo '	<h3 align=center>Super-Easy Login:</h3>';
@@ -85,7 +84,6 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 					'target'=>'_blank'
 				));
 			}
-			//
 			if ($user['provider']=='email'){
 				?>
 				<h3>We'll e-mail you a pre-formatted message that you can forward on.</h3>

@@ -896,17 +896,20 @@ class UsersController extends UsersAppController {
 
 	
 	public function dummyAuth($id){
-		$fuser=$this->User->findById(5);
-		$user['id']=$id;
-		$user['username']='BigDummyTestUser'.$id;
-		$user['provider']='Twitter';
-		//$user['upvotes']=null;
-		//$user['downvotes']=null;
-		//$user['flagged']=null;
-		
-		//$this->Auth->login($fuser['User']);
-		$this->Auth->login($user);
-		//$this->redirect($this->referer());
+	//great for testing.. Don't want it working in production
+		if (Configure::read('debug')>0){
+			$fuser=$this->User->findById(5);
+			$user['id']=$id;
+			$user['username']='BigDummyTestUser'.$id;
+			$user['provider']='Google';
+			//$user['upvotes']=null;
+			//$user['downvotes']=null;
+			//$user['flagged']=null;
+			
+			//$this->Auth->login($fuser['User']);
+			$this->Auth->login($user);
+			//$this->redirect($this->referer());
+		}
 	}
 	
 	
