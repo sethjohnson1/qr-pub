@@ -901,7 +901,7 @@ class UsersController extends UsersAppController {
 			$fuser=$this->User->findById(5);
 			$user['id']=$id;
 			$user['username']='BigDummyTestUser'.$id;
-			$user['provider']='Google';
+			$user['provider']='Twitter';
 			//$user['upvotes']=null;
 			//$user['downvotes']=null;
 			//$user['flagged']=null;

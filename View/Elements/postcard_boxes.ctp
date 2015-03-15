@@ -17,6 +17,7 @@
  .postcardpop{
 	max-width:73%;
 	margin: auto;
+	padding: 0 0 20px 0;
  }
  
  .postcardpopimg{
@@ -38,19 +39,7 @@ if ($percents[$museum] >= $threshold):
 	<?=$this->Html->image($img,array('alt'=>'Cool postcard!','class'=>'postcardpopimg'));?>
 	<h3>From: <?=$crypt['name']?></h3>
 	<p><?=$crypt['message']?></p>
-	<?
-	//debug($shorturl);
-	if (isset($user['provider'])){
-		if ($user['provider']=='Google'){
-			echo $this->Html->link('Google+','https://plus.google.com/share?url='.$shorturl, array(
-				'data-role'=>'button',
-				'data-theme'=>'c',
-				'data-icon'=>'iscout-whitegoogleplusicon',
-				'target'=>'_blank'
-			));
-		}
-	}
-	?>
+	<?=$this->element('social_buttons')?>
 	</div>
 	</div>
 	<?
