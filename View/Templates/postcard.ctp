@@ -27,6 +27,21 @@ foreach ($totals['counts'] as $key=>$val){
  
  </style>
 <div class="ui-body ui-body-a ui-corner-all ui-shadow">
+	<?
+	if (!isset($crypt)){
+		echo $this->Form->create('Template');
+        echo $this->Form->input('name', array('div' => false,'empty'=>true,'placeholder'=>'Your name','label'=>false));
+        echo $this->Form->input('percents', array('type'=>'hidden','value'=>json_encode($percents)));
+        echo $this->Form->submit(__('Customize', true), array('div' => false));
+        echo $this->Form->end();
+	}
+	else {
+		echo '<h1>'.$crypt['name'].' has earned the following postcards!</h1>';
+		
+		}
+		//debug($crypt);
+	?>
+
 			<p>A good scout reports  . . . Especially with these handy Electronic Postcards you've earned.
 				Visit stops at each museum to earn them all!
 			</p>
@@ -45,10 +60,12 @@ foreach ($totals['counts'] as $key=>$val){
 					$url='#bbmPop';
 					$class='squareimg';
 					?>
-<div id="bbmPop" data-theme="a" data-overlay-theme="a" data-role="popup">
-<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-<h3>yer postcard</h3>
-</div>
+					<div id="bbmPop" data-theme="a" data-overlay-theme="a" data-role="popup">
+					<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+					<h3>I am not even sure I like using popups here. Then again I am thinking</h3>
+					<?
+					?>
+					</div>
 					<?
 				}
 				else {
@@ -89,7 +106,8 @@ foreach ($totals['counts'] as $key=>$val){
 	</div><!-- /ui-grid -->
 </div><!-- ui-body -->
 	<? 
-	echo $this->Form->end();
+//	echo $this->Form->end();
+echo $this->Html->link('Reset',array('action'=>'postcard','clear'));
 
 
 

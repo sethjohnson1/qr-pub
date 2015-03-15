@@ -49,11 +49,30 @@ class TemplatesController extends AppController {
 		$this->set('title_for_layout','Score Card');
 	}
 	
-	public function postcard() {
+	public function postcard($crypt=null) {
+		if ($this->request->is('post')){
+			//do some crazy URL-engineering, I split this on several lines to make it easy to understand
+			$key = Configure::read('Security.salt');
+			$data=json_encode($this->request->data['Template']);
+			$value= gzdeflate(Security::encrypt($data,$key),9);
+			$value=urlencode($value);
+			//also write a cookie
+			$this->Cookie->write('postcard_crypt',$value);
+			$this->redirect(array('action'=>'postcard',$value));	
+		}
+		if (isset($crypt)){
+			if ($crypt=='clear'){
+				$this->Cookie->delete('postcard_crypt');
+				$this->redirect(array('action'=>'postcard'));
+			}
+			//reverse the crazy-long URL
+			$crypt=json_decode(Security::decrypt(gzinflate(urldecode($crypt)),Configure::read('Security.salt')),true);
+		}
+		$prgdata=$this->request->data;
 		$this->loadModel('Rank');
 		$user=$this->Auth->user();
 		$dbranks=$this->Rank->find('all');
-		$this->set(compact('dbranks','test'));
+		$this->set(compact('dbranks','test','prgdata','crypt'));
 		$this->set('title_for_layout','My Postcards');
 	}
 	

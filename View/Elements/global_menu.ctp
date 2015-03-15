@@ -6,7 +6,7 @@ if (Configure::read('enableKioskMode')!=1) {
 	$menu[100]['name']='Score Card';
 	$menu[100]['url']=array('plugin'=>'','controller'=>'templates','action'=>'scorecard');
 	$menu[101]['name']='My Postcards';
-	$menu[101]['url']=array('plugin'=>'','controller'=>'templates','action'=>'postcard');
+	$menu[101]['url']=array('plugin'=>'','controller'=>'templates','action'=>'postcard',$postcard_crypt);
 }
 $menu[200]['name']='Give Feedback';
 $menu[200]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback');
@@ -32,7 +32,7 @@ foreach ($menu as $val){
 	</li>
 	</ul>
 </div>
-<?//script below adss loader for score card click ?>
+<?//script below adds loader for score card click ?>
 <script>
 $( ".scorecard" ).click(function() {
 			$.mobile.loading( 'show', {

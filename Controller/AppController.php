@@ -61,7 +61,9 @@ class AppController extends Controller {
 		$garden='#c59217';
 		$tan='#aa9c8f';
 		$this->set(compact('bbm','cfm','dmnh','wg','pim','hmrl','garden'));
-
+		
+		//write the postcard cookie
+		$this->set('postcard_crypt',$this->Cookie->read('postcard_crypt'));
 	}
 	
 	public function blackhole($type) {

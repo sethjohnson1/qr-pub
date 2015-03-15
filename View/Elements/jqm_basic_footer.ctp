@@ -5,7 +5,7 @@
 		<?
 		if ($this->request->action=='scorecard'){
 			echo $this->Html->link('My Postcards',
-				array('action'=>'postcard'),
+				array('action'=>'postcard',$postcard_crypt),
 				array(
 				//does nothing
 				'class'=>'buttonstyle',
