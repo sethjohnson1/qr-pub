@@ -10,14 +10,24 @@
 				//does nothing
 				'class'=>'buttonstyle',
 				'data-role'=>'button',
-				'data-icon'=>'arrow-r',
+				'data-icon'=>'grid',
 				'data-iconpos'=>'right',
 				'data-prefetch'=>true,
 				'data-theme'=>'f'
 				));
 		}
 		if ($this->request->action=='postcard'){
-			
+			echo $this->Html->link('My Score Card',
+				array('action'=>'scorecard'),
+				array(
+				//does nothing
+				'class'=>'buttonstyle',
+				'data-role'=>'button',
+				'data-icon'=>'bullets',
+				'data-iconpos'=>'right',
+				'data-prefetch'=>true,
+				'data-theme'=>'f'
+				));
 		}
 			?>
 		</div><!-- /ui-grid -->

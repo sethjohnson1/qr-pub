@@ -1,3 +1,5 @@
+<?
+?>
 <style type="text/css">
  .top_logo{
 	margin:6px 0px 0px 10px;

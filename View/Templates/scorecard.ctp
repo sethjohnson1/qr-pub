@@ -1,14 +1,6 @@
 <? 
 echo $this->element('Scorecard',array($totals)); 
 echo $this->element('jqm_header');
-	//set colors, really should be done globally somewhere but onward.
-	$bbm='#6e3219';
-	$cfm='#004250';
-	$dmnh='#035642';
-	$wg='#981e32';
-	$pim='#bd4f19';
-	$hmrl='#532e60';
-	$garden='#c59217';
 
 	//grand totals, unset NW (Nowhere) for now
 	$total=0;
@@ -44,9 +36,36 @@ echo $this->element('jqm_header');
 	.icon_container{
 		width:65%;
 	}
+	
+	.glowtron {
+		-webkit-transition: text-shadow	.5s linear;
+		-moz-transition: text-shadow	.5s linear;
+		-ms-transition: text-shadow		.5s linear;
+		-o-transition: text-shadow		.5s	linear;
+		transition: text-shadow 1s	linear;
+		//-webkit-text-stroke: 1px;
+	}
+	.glowtron.glow {
+		text-shadow: 0 0 24px <?=$dmnh?>;
+		
+	}
+	.glowtron.glow2 {
+		text-shadow: 0 0 40px <?=$wg?>;
+		
+	}
 
+}
 
  </style>
+ 
+ <script>
+ $( document ).on( "pageinit", function( event ) {
+	 setInterval(function(){$('.glowtron').addClass('glow')}, 5);
+	 setInterval(function(){$('.glowtron').addClass('glow2')}, 50);
+	setInterval(function(){$('.glowtron').removeClass('glow')}, 200);
+	setInterval(function(){$('.glowtron').removeClass('glow2')}, 400);
+});
+ </script>
  
  
 		<div class="ui-body ui-body-a ui-corner-all ui-shadow">
@@ -56,7 +75,9 @@ echo $this->element('jqm_header');
 			<h1><?=$score.' / '.$total?></h1>
 			</div>
 		<div class="ui-block-b">
+			<div class="glowtron">
 			<h1 align="center" class="reveal">Tap for Rank</h1>
+			</div>
 			<div class="hidden_rank" style="display: none" >
 			<?	
 				//set these values for testing

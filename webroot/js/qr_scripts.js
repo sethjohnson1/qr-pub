@@ -1,4 +1,4 @@
-$( document ).on( "pageinit", function( event ) { 
+$( document ).on( "pageinit", function( event ) {
 	$( "#menu" ).enhanceWithin().panel();  
 	//formats the Lightbox (and makes it work on iPad!) (although not in use any longer)
 	$( ".poppedimg" ).on({

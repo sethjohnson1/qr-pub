@@ -51,6 +51,16 @@ class AppController extends Controller {
 			$user['provider']='kiosk';
 			$this->Auth->login($user);
 		}
+	/* define colors, useful for Scorecard and Postcard at the moment */
+		$bbm='#6e3219';
+		$cfm='#004250';
+		$dmnh='#035642';
+		$wg='#981e32';
+		$pim='#bd4f19';
+		$hmrl='#532e60';
+		$garden='#c59217';
+		$tan='#aa9c8f';
+		$this->set(compact('bbm','cfm','dmnh','wg','pim','hmrl','garden'));
 
 	}
 	
