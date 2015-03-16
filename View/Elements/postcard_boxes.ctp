@@ -1,6 +1,15 @@
+<?
+if ($percents[$museum] >= $threshold){
+	$borderstyle='double';
+}
+else {
+	$borderstyle='dotted';
+}
+
+$borderwidth='3px';
+?>
  <style type="text/css">
  .square{
-	border:3px dotted #766a62;
 	padding:10px;
 	margin: 7%;
 	border-radius: 7px;
@@ -26,7 +35,10 @@
  }
  
  </style>
-<div class="square"  style="border-color:<?=$colors[$museum]?>">
+ <?
+ //very intentional reasons for inline CSS here
+ ?>
+<div class="square"  style="border:<?=$borderwidth.' '.$borderstyle.' '.$colors[$museum]?>">
 <?
 if ($percents[$museum] >= $threshold):
 	$img=$museum.'_postcard.jpg';

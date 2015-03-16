@@ -23,7 +23,7 @@
 			echo $this->Form->end(__d('users', 'Submit'));
 		?>
 	</fieldset>
-	<? $register=$this->Html->link('Press this link to create one.','#userPopup',array(
+	<? $register=$this->Html->link('Press this link to create one.','#userPopuplogin',array(
 		'data-rel'=>'popup',
 		'data-position-to'=>'window'
 	));
