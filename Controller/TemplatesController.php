@@ -63,7 +63,6 @@ class TemplatesController extends AppController {
 			$value=urlencode($value);
 			$this->set('prgdata',$this->request->data);
 			//also write a cookie
-			
 			$this->Cookie->write('postcard_crypt',$value);
 			$this->redirect(array('action'=>'postcard',$value));	
 			
@@ -74,12 +73,12 @@ class TemplatesController extends AppController {
 				$this->redirect(array('action'=>'postcard'));
 			}
 			//reverse the crazy-long URL
-			$crypt=json_decode(Security::decrypt(gzinflate(urldecode($crypt)),Configure::read('Security.salt')),true);
+			$cryptdata=json_decode(Security::decrypt(gzinflate(urldecode($crypt)),Configure::read('Security.salt')),true);
 		}
 		$this->loadModel('Rank');
 		$user=$this->Auth->user();
 		$dbranks=$this->Rank->find('all');
-		$this->set(compact('dbranks','test','crypt','user'));
+		$this->set(compact('dbranks','test','crypt','cryptdata','user'));
 		$this->set('title_for_layout','My Postcards');
 		$this->set('shorturl',$this->UrlShortener->get_bitly_short_url($this->here,'social',$user['provider']));
 	}

@@ -51,7 +51,7 @@ class AssetsController extends AppController {
 					$uuid=String::uuid();
 					$asset['filename']=$uuid;
 					//this is where the url encoding should be fixed for the small number of items with LAME file names
-					copy('http://collectionimages.s3-website-us-west-1.amazonaws.com/1/'.urlencode($value['Treasure']['img']), 'img/uploads/'.$this->request->data['Asset']['template_id'].'_'.$uuid.'.jpg');
+					copy('http://collectionimages.s3-website-us-west-1.amazonaws.com/1/'.urlencode($img), 'img/uploads/'.$this->request->data['Asset']['template_id'].'_'.$uuid.'.jpg');
 					
 					
 					if ($this->Asset->save($asset)) {
