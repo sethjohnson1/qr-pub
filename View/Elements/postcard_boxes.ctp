@@ -49,8 +49,8 @@ if ($percents[$museum] >= $threshold):
 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div class="postcardpop">
 	<?=$this->Html->image($img,array('alt'=>'Cool postcard!','class'=>'postcardpopimg'));?>
-	<h3><?=$crypt['name']?></h3>
-	<p><?=$crypt['message']?></p>
+	<h3><?=$cryptdata['name']?></h3>
+	<p><?=$cryptdata['message']?></p>
 	<?=$this->element('social_buttons')?>
 	</div>
 	</div>
