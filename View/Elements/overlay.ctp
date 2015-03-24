@@ -6,7 +6,7 @@
 </style>
 <?
 	//grand totals, unset NW (Nowhere) for now
-	$total=0;
+/*	$total=0;
 	$score=0;
 	foreach ($totals['totals'] as $val)	$total=$val+$total;
 	foreach ($totals['counts'] as $val)	$score=$val+$score;
@@ -24,9 +24,5 @@ echo '<div>';
 <span class="ui-icon-star ui-btn-icon-notext staricon <?=$starred ?>"/></span>
 <?endfor?>
 </div>
-	//debug($total.' '.$score);
-/* for getting percents
-foreach ($totals['counts'] as $key=>$val){
-		$percents[$key]=$val/$totals['totals'][$key];
-	}
-*/
+
+*/?>
