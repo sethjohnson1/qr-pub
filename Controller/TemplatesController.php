@@ -176,16 +176,18 @@ class TemplatesController extends AppController {
 	sends an e-mail via userPopup, at this point it is very basic, I think I'll wait until
 	someone else wants to help with this, as I doubt it will get used much
 	*/
-	public function email($id=null,$url=null){
+	public function email($id=null,$url=null,$title=null,$name=null){
 		//uses View/Email/text/email_me_share
 		$Email = new CakeEmail();
-		$Email->from(Configure::read('globalFromEmail'))
-		//assuming this is set, it should be or something weird is happening
-			->to($this->Auth->user('email'))
-			->subject('iScout Virtual Tour')
-			->template('email_me_share', 'default')
+		$Email->config('default');
+		$Email->to($this->Auth->user('email'))
+			//->from(Configure::read('App.defaultEmail'))
+			->emailFormat('html')
+			->subject('iScout Virtual Tour from '.urldecode($name))
+			->template('email_me_share')
 			->viewVars(array(
-			'url' => urldecode($url)
+				'url' => urldecode($url),
+				'title' => urldecode($title)
 			))
 			->send();
 		//$this->render(false);
@@ -301,4 +303,5 @@ class TemplatesController extends AppController {
 	}
 	else throw new NotFoundException(__('Improper prefix'));
 	}
+	
 }

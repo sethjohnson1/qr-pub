@@ -29,7 +29,14 @@ if ($user['provider']=='email'){
 	<?
 	//sj - override $shorturl because it make e-mails Spammy
 	$shorturl='http://'.$_SERVER['HTTP_HOST'].$this->here;
-	echo $this->Html->link('E-mail me',array('controller'=>'templates','action'=>'email',$template['Template']['id'],urlencode($shorturl)), array(
+	
+	if (!isset($template['Template']['meta_title'])) $template['Template']['meta_title']='My virtual Postcards';
+//	debug($user);
+	
+	echo $this->Html->link('E-mail me',array(
+	'controller'=>'templates','action'=>'email',$template['Template']['id'],
+		urlencode($shorturl),urlencode($template['Template']['meta_title']),urlencode($user['username'])),
+	array(
 		'data-role'=>'button',
 		'data-theme'=>'e',
 		'data-ajax'=>'false'
