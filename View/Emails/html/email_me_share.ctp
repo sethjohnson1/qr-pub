@@ -17,7 +17,7 @@
 		<tr>
 			<td style="font-family: Verdana, sans-serif; font-size: 14px; color:#766a62; padding:10px;">
 			I'm having a great time with the Buffalo Bill Center of the West's iScout Virtual Tour and thought I'd share it with you!
-			I thought you might find this interesting:
+			I thought you might like this:
 			</td>
 		</tr>
 		<tr>
