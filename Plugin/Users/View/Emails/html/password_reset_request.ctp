@@ -38,7 +38,7 @@ $link=Router::url(array('admin' => false, 'plugin' => 'users','controller' => 'u
 		</tr>
 		<tr>
 		<td style="padding:10px;">
-		<?=$this->Html->image(Configure::read('globalSiteUrl').'/img/iScout-Icon-small.gif')?>
+		<?=$this->Html->image(Configure::read('globalSiteURL').'/img/iScout-Icon-small.gif')?>
 		</td>
 		</tr>
 	</table>
