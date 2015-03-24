@@ -24,11 +24,9 @@ $link=Router::url(array('admin' => false, 'plugin' => 'users','controller' => 'u
 		</tr>
 		<tr>
 			<td style="font-family: Verdana, sans-serif; font-size: 16px; padding:10px;">
-			<a style="color:#bd4f19" href="http://iscout.bbcw.org/users/reset_password/...">
 			
 			<?=$this->Html->link('Click this link to reset your password',$link,array('style'=>'color:#bd4f19'))?>
-			
-			</a>
+
 			</td>
 		</tr>
 		<tr>
