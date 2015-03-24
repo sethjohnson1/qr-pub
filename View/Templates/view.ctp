@@ -7,10 +7,11 @@ if ($template['Template']['name']=='blog') echo $this->element('blog');
 if ($template['Template']['name']=='splash') echo $this->element('splash');
 if ($template['Template']['name']=='video') echo $this->element('youtube');
 if ($template['Template']['name']=='ag') echo $this->element('ag');
-//skip all of the comments in Kiosk mode
+//skip all of the comments in Kiosk mode (and also overlay triggers)
 if (Configure::read('enableKioskMode')!=1):
+	//begin overlay check here
+	echo $this->element('overlay');
 ?>
-
 <div class="comments_container" style="clear:both;">
 <div class="ui-shadow ui-corner-all custom-corners comments_box">
 	<div class="ui-bar ui-bar-a">
