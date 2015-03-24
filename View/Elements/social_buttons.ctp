@@ -39,10 +39,18 @@ if ($user['provider']=='email'){
 	array(
 		'data-role'=>'button',
 		'data-theme'=>'e',
-		'data-ajax'=>'false'
+		'data-ajax'=>'false',
+		'class'=>'emailmsg'
 	));
-}
-
-
-			
+}		
 ?>
+<script>
+$( ".emailmsg" ).click(function() {
+			$.mobile.loading( 'show', {
+				text: 'Sending ...',
+				textVisible: true,
+				theme: 'a',
+				html: ""
+			}); 
+			});
+</script>
