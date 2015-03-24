@@ -751,8 +751,10 @@ class UsersController extends UsersAppController {
 			'from' => Configure::read('App.defaultEmail'),
 			'subject' => __d('users', Configure::read('bitlyCampaign').' Account verification'),
 			'template' => $this->_pluginDot() . 'account_verification',
-			'layout' => 'default',
-			'emailFormat' => CakeEmail::MESSAGE_TEXT
+			//'layout' => 'default',
+			'layout' => '',
+			'emailFormat' => 'html'
+			//'emailFormat' => CakeEmail::MESSAGE_TEXT
 		);
 
 		$options = array_merge($defaults, $options);
