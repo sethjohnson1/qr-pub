@@ -5,8 +5,12 @@
 	?>
 	<style>
 	.buttonstyle{
-		width:100px;
+		width:152px;
 		opacity: .92;
+		//height:200px;
+		font-size:104px !important;
+		margin: 0;
+		padding: 0;
 	}
 	</style>
 	<div data-role="footer" data-position="fixed" data-id="myfooter" style="background-color:transparent;border:none;">
@@ -15,16 +19,17 @@
 			<? 
 			//$buttonstyle='max-width: 100px; opacity: .92; min-width:';
 			if (isset($template['Template']['previd'])):
-				echo $this->Html->link('Previous',array('controller'=>'templates','action'=>'view',$template['Template']['previd']),
+				echo $this->Html->link('&#8666;',array('controller'=>'templates','action'=>'view',$template['Template']['previd']),
 				array(
 				'class'=>'buttonstyle',
 				'data-role'=>'button',
-				'data-icon'=>'arrow-l',
-				'data-iconpos'=>'left',
+				//'data-icon'=>'arrow-l',
+				//'data-iconpos'=>'left',
 				'data-transition'=>$transition,
 				//this can be changed back to 'e' for brown buttons
 				'data-theme'=>'g',
-				'data-direction'=>'reverse'
+				'data-direction'=>'reverse',
+				'escape'=>false
 				));
 			/*
 				swiping is only for Kiosk mode. it Doesn't work at all on iOS and isn't perfect anyway
@@ -48,16 +53,17 @@
 		<div class="ui-block-b">
 		<?
 			if (isset($template['Template']['nextid'])):
-				echo $this->Html->link('Next',array('controller'=>'templates','action'=>'view',$template['Template']['nextid'],'?'=>array('next'=>1)),
+				echo $this->Html->link('&#8667;',array('controller'=>'templates','action'=>'view',$template['Template']['nextid'],'?'=>array('next'=>1)),
 				array(
 				'class'=>'buttonstyle',
 				'data-role'=>'button',
-				'data-icon'=>'arrow-r',
-				'data-iconpos'=>'right',
+				//'data-icon'=>'arrow-r',
+				//'data-iconpos'=>'right',
 				'data-prefetch'=>true,
 				'data-transition'=>$transition,
 				//this can be changed back to 'e' for brown buttons
-				'data-theme'=>'g'
+				'data-theme'=>'g',
+				'escape'=>false
 				));
 			?>
 			<script>
