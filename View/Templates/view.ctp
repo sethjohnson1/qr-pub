@@ -106,5 +106,6 @@ $(document).on('pagebeforeshow', function(){
 </script>
 <?
 endif;
-echo $this->element('jqm_footer');
+if (Configure::read('enableKioskMode')==1) echo $this->element('jqm_kiosk_footer');
+else echo $this->element('jqm_footer');
 ?>

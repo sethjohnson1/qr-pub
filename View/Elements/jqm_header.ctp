@@ -59,6 +59,7 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 
 </script>
 <div data-role="page" id="qrpage<?=$template['Template']['id']?>" data-theme="a">
+	<?if (Configure::read('enableKioskMode')!=1):?>
 	<div data-role="header" data-position="fixed" class="header">
 	<div class="headerwrapper">
 		<div class="top_logo">
@@ -224,6 +225,7 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 	</script>
 	</div><!-- headerwrapper -->
 	</div><!-- header -->
+	<?endif?>
 	<div role="main" class="ui-content ui-body ui-body-a ui-shadow">
 	<?
 	echo $this->Session->flash();

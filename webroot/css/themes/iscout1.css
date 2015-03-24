@@ -24,7 +24,7 @@ button,
 .ui-btn {
 	font-size: 1em;
 	line-height: 1.3;
-	  font-family: sans-serif /*{global-font-family}*/;
+	   font-family: sans-serif /*{global-font-family}*/;
 }
 legend,
 .ui-input-text input,
@@ -952,7 +952,7 @@ html .ui-body-e .ui-btn:visited,
 html body .ui-group-theme-e .ui-btn:visited,
 html head + body .ui-btn.ui-btn-e:visited {
 	background-color: #6e3219 /*{e-bup-background-color}*/;
-	border-color: #6e3219 /*{e-bup-border}*/;
+	border-color: #9a4623 /*{e-bup-border}*/;
 	color: #fff /*{e-bup-color}*/;
 	text-shadow: 0 /*{e-bup-shadow-x}*/ 0 /*{e-bup-shadow-y}*/ 0 /*{e-bup-shadow-radius}*/ #f3f3f3 /*{e-bup-shadow-color}*/;
 }
@@ -963,7 +963,7 @@ html .ui-body-e .ui-btn:hover,
 html body .ui-group-theme-e .ui-btn:hover,
 html head + body .ui-btn.ui-btn-e:hover {
 	background-color: #37180c /*{e-bhover-background-color}*/;
-	border-color: #37180c /*{e-bhover-border}*/;
+	border-color: #4d2110 /*{e-bhover-border}*/;
 	color: #fff /*{e-bhover-color}*/;
 	text-shadow: 0 /*{e-bhover-shadow-x}*/ 0 /*{e-bhover-shadow-y}*/ 0 /*{e-bhover-shadow-radius}*/ #f3f3f3 /*{e-bhover-shadow-color}*/;
 }
@@ -974,7 +974,7 @@ html .ui-body-e .ui-btn:active,
 html body .ui-group-theme-e .ui-btn:active,
 html head + body .ui-btn.ui-btn-e:active {
 	background-color: #6e3219 /*{e-bdown-background-color}*/;
-	border-color: #6e3219 /*{e-bdown-border}*/;
+	border-color: #9a4623 /*{e-bdown-border}*/;
 	color: #fff /*{e-bdown-color}*/;
 	text-shadow: 0 /*{e-bdown-shadow-x}*/ 0 /*{e-bdown-shadow-y}*/ 0 /*{e-bdown-shadow-radius}*/ #f3f3f3 /*{e-bdown-shadow-color}*/;
 }
@@ -1003,7 +1003,7 @@ html .ui-body-e .ui-slider-track .ui-btn-active,
 html body .ui-group-theme-e .ui-slider-track .ui-btn-active,
 html body div.ui-slider-track.ui-body-e .ui-btn-active {
 	background-color: #37180c /*{e-active-background-color}*/;
-	border-color: #37180c /*{e-active-border}*/;
+	border-color: #4d2110 /*{e-active-border}*/;
 	color: #ffffff /*{e-active-color}*/;
 	text-shadow: 0 /*{e-active-shadow-x}*/ 1px /*{e-active-shadow-y}*/ 0 /*{e-active-shadow-radius}*/ #512c29 /*{e-active-shadow-color}*/;
 }
@@ -1116,7 +1116,7 @@ html .ui-body-f .ui-btn:visited,
 html body .ui-group-theme-f .ui-btn:visited,
 html head + body .ui-btn.ui-btn-f:visited {
 	background-color: #bd4f19 /*{f-bup-background-color}*/;
-	border-color: #bd4f19 /*{f-bup-border}*/;
+	border-color: #672b0d /*{f-bup-border}*/;
 	color: #FFF /*{f-bup-color}*/;
 	text-shadow: 0 /*{f-bup-shadow-x}*/ 0 /*{f-bup-shadow-y}*/ 0 /*{f-bup-shadow-radius}*/ #f3f3f3 /*{f-bup-shadow-color}*/;
 }
@@ -1127,7 +1127,7 @@ html .ui-body-f .ui-btn:hover,
 html body .ui-group-theme-f .ui-btn:hover,
 html head + body .ui-btn.ui-btn-f:hover {
 	background-color: #873812 /*{f-bhover-background-color}*/;
-	border-color: #873812 /*{f-bhover-border}*/;
+	border-color: #bd4e19 /*{f-bhover-border}*/;
 	color: #FFF /*{f-bhover-color}*/;
 	text-shadow: 0 /*{f-bhover-shadow-x}*/ 0 /*{f-bhover-shadow-y}*/ 0 /*{f-bhover-shadow-radius}*/ #f3f3f3 /*{f-bhover-shadow-color}*/;
 }
@@ -1138,7 +1138,7 @@ html .ui-body-f .ui-btn:active,
 html body .ui-group-theme-f .ui-btn:active,
 html head + body .ui-btn.ui-btn-f:active {
 	background-color: #bd4f19 /*{f-bdown-background-color}*/;
-	border-color: #bd4f19 /*{f-bdown-border}*/;
+	border-color: #672b0d /*{f-bdown-border}*/;
 	color: #FFF /*{f-bdown-color}*/;
 	text-shadow: 0 /*{f-bdown-shadow-x}*/ 0 /*{f-bdown-shadow-y}*/ 0 /*{f-bdown-shadow-radius}*/ #f3f3f3 /*{f-bdown-shadow-color}*/;
 }
@@ -1167,7 +1167,7 @@ html .ui-body-f .ui-slider-track .ui-btn-active,
 html body .ui-group-theme-f .ui-slider-track .ui-btn-active,
 html body div.ui-slider-track.ui-body-f .ui-btn-active {
 	background-color: #873812 /*{f-active-background-color}*/;
-	border-color: #873812 /*{f-active-border}*/;
+	border-color: #bd4e19 /*{f-active-border}*/;
 	color: #ffffff /*{f-active-color}*/;
 	text-shadow: 0 /*{f-active-shadow-x}*/ 0 /*{f-active-shadow-y}*/ 0 /*{f-active-shadow-radius}*/ #005599 /*{f-active-shadow-color}*/;
 }
@@ -1196,6 +1196,172 @@ html head + body .ui-body-f.ui-focus {
 	-moz-box-shadow: 0 0 12px #873812 /*{f-active-background-color}*/;
 	box-shadow: 0 0 12px #873812 /*{f-active-background-color}*/;
 }
+
+
+/* G
+-----------------------------------------------------------------------------------------------------------*/
+/* Bar: Toolbars, dividers, slider track */
+.ui-bar-g,
+.ui-page-theme-g .ui-bar-inherit,
+html .ui-bar-g .ui-bar-inherit,
+html .ui-body-g .ui-bar-inherit,
+html body .ui-group-theme-g .ui-bar-inherit {
+	background-color: #e9e9e9 /*{g-bar-background-color}*/;
+	border-color: #dddddd /*{g-bar-border}*/;
+	color: #333333 /*{g-bar-color}*/;
+	text-shadow: 0 /*{g-bar-shadow-x}*/ 1px /*{g-bar-shadow-y}*/ 0 /*{g-bar-shadow-radius}*/ #eeeeee /*{g-bar-shadow-color}*/;
+	font-weight: bold;
+}
+.ui-bar-g {
+	border-width: 1px;
+	border-style: solid;
+}
+/* Page and overlay */
+.ui-overlay-g,
+.ui-page-theme-g,
+.ui-page-theme-g .ui-panel-wrapper {
+	background-color: #f9f9f9 /*{g-page-background-color}*/;
+	border-color: #bbbbbb /*{g-page-border}*/;
+	color: #333333 /*{g-page-color}*/;
+	text-shadow: 0 /*{g-page-shadow-x}*/ 1px /*{g-page-shadow-y}*/ 0 /*{g-page-shadow-radius}*/ #f3f3f3 /*{g-page-shadow-color}*/;
+}
+/* Body: Read-only lists, text inputs, collapsible content */
+.ui-body-g,
+.ui-page-theme-g .ui-body-inherit,
+html .ui-bar-g .ui-body-inherit,
+html .ui-body-g .ui-body-inherit,
+html body .ui-group-theme-g .ui-body-inherit,
+html .ui-panel-page-container-g {
+	background-color: #ffffff /*{g-body-background-color}*/;
+	border-color: #dddddd /*{g-body-border}*/;
+	color: #333333 /*{g-body-color}*/;
+	text-shadow: 0 /*{g-body-shadow-x}*/ 1px /*{g-body-shadow-y}*/ 0 /*{g-body-shadow-radius}*/ #f3f3f3 /*{g-body-shadow-color}*/;
+}
+.ui-body-g {
+	border-width: 1px;
+	border-style: solid;
+}
+/* Links */
+.ui-page-theme-g a,
+html .ui-bar-g a,
+html .ui-body-g a,
+html body .ui-group-theme-g a {
+	color: #3388cc /*{g-link-color}*/;
+	font-weight: bold;
+}
+.ui-page-theme-g a:visited,
+html .ui-bar-g a:visited,
+html .ui-body-g a:visited,
+html body .ui-group-theme-g a:visited {
+    color: #3388cc /*{g-link-visited}*/;
+}
+.ui-page-theme-g a:hover,
+html .ui-bar-g a:hover,
+html .ui-body-g a:hover,
+html body .ui-group-theme-g a:hover {
+	color: #005599 /*{g-link-hover}*/;
+}
+.ui-page-theme-g a:active,
+html .ui-bar-g a:active,
+html .ui-body-g a:active,
+html body .ui-group-theme-g a:active {
+	color: #005599 /*{g-link-active}*/;
+}
+/* Button up */
+.ui-page-theme-g .ui-btn,
+html .ui-bar-g .ui-btn,
+html .ui-body-g .ui-btn,
+html body .ui-group-theme-g .ui-btn,
+html head + body .ui-btn.ui-btn-g,
+/* Button visited */
+.ui-page-theme-g .ui-btn:visited,
+html .ui-bar-g .ui-btn:visited,
+html .ui-body-g .ui-btn:visited,
+html body .ui-group-theme-g .ui-btn:visited,
+html head + body .ui-btn.ui-btn-g:visited {
+	background-color: #004250 /*{g-bup-background-color}*/;
+	border-color: #532e60 /*{g-bup-border}*/;
+	color: #FFF /*{g-bup-color}*/;
+	text-shadow: 0 /*{g-bup-shadow-x}*/ 0 /*{g-bup-shadow-y}*/ 0 /*{g-bup-shadow-radius}*/ #f3f3f3 /*{g-bup-shadow-color}*/;
+}
+/* Button hover */
+.ui-page-theme-g .ui-btn:hover,
+html .ui-bar-g .ui-btn:hover,
+html .ui-body-g .ui-btn:hover,
+html body .ui-group-theme-g .ui-btn:hover,
+html head + body .ui-btn.ui-btn-g:hover {
+	background-color: #03313a /*{g-bhover-background-color}*/;
+	border-color: #004250 /*{g-bhover-border}*/;
+	color: #FFF /*{g-bhover-color}*/;
+	text-shadow: 0 /*{g-bhover-shadow-x}*/ 0 /*{g-bhover-shadow-y}*/ 0 /*{g-bhover-shadow-radius}*/ #f3f3f3 /*{g-bhover-shadow-color}*/;
+}
+/* Button down */
+.ui-page-theme-g .ui-btn:active,
+html .ui-bar-g .ui-btn:active,
+html .ui-body-g .ui-btn:active,
+html body .ui-group-theme-g .ui-btn:active,
+html head + body .ui-btn.ui-btn-g:active {
+	background-color: #004250 /*{g-bdown-background-color}*/;
+	border-color: #532e60 /*{g-bdown-border}*/;
+	color: #FFF /*{g-bdown-color}*/;
+	text-shadow: 0 /*{g-bdown-shadow-x}*/ 0 /*{g-bdown-shadow-y}*/ 0 /*{g-bdown-shadow-radius}*/ #f3f3f3 /*{g-bdown-shadow-color}*/;
+}
+/* Active button */
+.ui-page-theme-g .ui-btn.ui-btn-active,
+html .ui-bar-g .ui-btn.ui-btn-active,
+html .ui-body-g .ui-btn.ui-btn-active,
+html body .ui-group-theme-g .ui-btn.ui-btn-active,
+html head + body .ui-btn.ui-btn-g.ui-btn-active,
+/* Active checkbox icon */
+.ui-page-theme-g .ui-checkbox-on:after,
+html .ui-bar-g .ui-checkbox-on:after,
+html .ui-body-g .ui-checkbox-on:after,
+html body .ui-group-theme-g .ui-checkbox-on:after,
+.ui-btn.ui-checkbox-on.ui-btn-g:after,
+/* Active flipswitch background */
+.ui-page-theme-g .ui-flipswitch-active,
+html .ui-bar-g .ui-flipswitch-active,
+html .ui-body-g .ui-flipswitch-active,
+html body .ui-group-theme-g .ui-flipswitch-active,
+html body .ui-flipswitch.ui-bar-g.ui-flipswitch-active,
+/* Active slider track */
+.ui-page-theme-g .ui-slider-track .ui-btn-active,
+html .ui-bar-g .ui-slider-track .ui-btn-active,
+html .ui-body-g .ui-slider-track .ui-btn-active,
+html body .ui-group-theme-g .ui-slider-track .ui-btn-active,
+html body div.ui-slider-track.ui-body-g .ui-btn-active {
+	background-color: #03313a /*{g-active-background-color}*/;
+	border-color: #004250 /*{g-active-border}*/;
+	color: #ffffff /*{g-active-color}*/;
+	text-shadow: 0 /*{g-active-shadow-x}*/ 0 /*{g-active-shadow-y}*/ 0 /*{g-active-shadow-radius}*/ #005599 /*{g-active-shadow-color}*/;
+}
+/* Active radio button icon */
+.ui-page-theme-g .ui-radio-on:after,
+html .ui-bar-g .ui-radio-on:after,
+html .ui-body-g .ui-radio-on:after,
+html body .ui-group-theme-g .ui-radio-on:after,
+.ui-btn.ui-radio-on.ui-btn-g:after {
+	border-color: #03313a /*{g-active-background-color}*/;
+}
+/* Focus */
+.ui-page-theme-g .ui-btn:focus,
+html .ui-bar-g .ui-btn:focus,
+html .ui-body-g .ui-btn:focus,
+html body .ui-group-theme-g .ui-btn:focus,
+html head + body .ui-btn.ui-btn-g:focus,
+/* Focus buttons and text inputs with div wrap */
+.ui-page-theme-g .ui-focus,
+html .ui-bar-g .ui-focus,
+html .ui-body-g .ui-focus,
+html body .ui-group-theme-g .ui-focus,
+html head + body .ui-btn-g.ui-focus,
+html head + body .ui-body-g.ui-focus {
+	-webkit-box-shadow: 0 0 12px #03313a /*{g-active-background-color}*/;
+	-moz-box-shadow: 0 0 12px #03313a /*{g-active-background-color}*/;
+	box-shadow: 0 0 12px #03313a /*{g-active-background-color}*/;
+}
+
+
 
 
 /* Structure */
