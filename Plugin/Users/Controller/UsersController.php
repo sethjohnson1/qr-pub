@@ -977,6 +977,12 @@ class UsersController extends UsersAppController {
 		}
 		//debug($incomingProfile);
 	}
+	
+	//sj -added this when ExtAuth plugin quit working with 
+	public function gauth() {
+		
+	}
+	
 	//this is used by ExtAuth AND by the email token login
 	private function __doAuthLogin($user) {
 		if ($this->Auth->login($user['User'])) {

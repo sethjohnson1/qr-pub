@@ -1,1 +1,1 @@
-{ "require": { "sc0ttyd/ext-auth": "dev-master" }, "config": { "vendor-dir": "Vendor/" } }
+{ "require": { "sc0ttyd/ext-auth": "dev-master","google/apiclient": "1.0.*@beta" }, "config": { "vendor-dir": "Vendor/" } }
