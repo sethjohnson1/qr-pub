@@ -49,12 +49,12 @@ if ($starrating>1) $a='another';
 <h3>Check your Score Card to see your Official iScout Title, receive some free advice, and view unlocked Postcards.</h3>
 <?
 		echo $this->Html->link('Check Score Card',array('plugin'=>'','controller'=>'templates','action'=>'scorecard'),array(
-			'data-role'=>'button','data-theme'=>'f','rel'=>'external','class'=>'scorecard'
+			'data-role'=>'button','data-theme'=>'h','rel'=>'external','class'=>'scorecard'
 			));
 			
 		echo $this->Html->link('Not now',array('#'),array(
 			'data-role'=>'button',
-			'data-theme'=>'c',
+			'data-theme'=>'i',
 			'data-rel'=>'back'
 			));
 ?>
@@ -87,5 +87,4 @@ $(":jqmData(role='page'):last").on("pageshow", function(event) {
 	$("#rankPopup<?=$template['Template']['id']?>", $(this)).popup("destroy");
 });
 </script>
-<?
-endif?>
+<?endif?>
