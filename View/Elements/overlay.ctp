@@ -73,7 +73,10 @@ if ($starrating>1) $a='another';
 <script type="text/javascript" language="JavaScript">
 	$(":jqmData(role='page'):last").on("pageshow", function(event) {
 	  $("#rankPopup<?$template['Template']['id']?>", $(this)).popup("open",{transition:"pop"});
-	  //also need to change the ID of the popup or something - otherwise it shows if the page is visited again
+	});
+	
+	$.on("pagehide", function(event) {
+	  $("#rankPopup<?$template['Template']['id']?>", $(this)).popup("close");
 	});
 	
 	$( ".scorecard" ).click(function() {
