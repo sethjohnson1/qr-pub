@@ -29,7 +29,7 @@ require_once 'Google/Service/Urlshortener.php';
  $client_id = Configure::read('ExtAuth.Provider.Google.key');
  $client_secret = Configure::read('ExtAuth.Provider.Google.secret');
  //eventually I will use the location here, just getting started
- $redirect_uri = Configure::read('globalSiteURL');
+ $redirect_uri = 'http://iscout.bbcw.org/auth_callback/google';
 
 /************************************************
   Make an API request on behalf of a user. In
