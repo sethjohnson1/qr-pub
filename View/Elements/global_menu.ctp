@@ -1,26 +1,29 @@
 <?
+//the key is the order that they appear
 $menu=array();
-$menu[0]['name']='Browse stops';
-$menu[0]['url']=array('plugin'=>'','controller'=>'templates','action'=>'browse');
+$menu[100]['name']='Browse stops';
+$menu[100]['url']=array('plugin'=>'','controller'=>'templates','action'=>'browse');
 if (Configure::read('enableKioskMode')!=1) {
-	$menu[100]['name']='Score Card';
-	$menu[100]['url']=array('plugin'=>'','controller'=>'templates','action'=>'scorecard');
-	$menu[101]['name']='My Postcards';
-	$menu[101]['url']=array('plugin'=>'','controller'=>'templates','action'=>'postcard',$postcard_crypt);
+	$menu[200]['name']='My Score Card';
+	$menu[200]['url']=array('plugin'=>'','controller'=>'templates','action'=>'scorecard');
+	$menu[201]['name']='My Postcards';
+	$menu[201]['url']=array('plugin'=>'','controller'=>'templates','action'=>'postcard',$postcard_crypt);
 }
-$menu[200]['name']='Give Feedback';
-$menu[200]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback');
-$menu[300]['name']='About iScout';
-$menu[300]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about');
+$menu[300]['name']='Give Feedback';
+$menu[300]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback');
+$menu[0]['name']='About iScout';
+$menu[0]['url']=array('plugin'=>'','controller'=>'templates','action'=>'about');
+ksort($menu);
 ?>
 
 <div id="menu" data-role="panel" data-position="left" data-display="reveal" data-theme="a">
 <ul data-role="listview">
 <?
+
 //quickfix for Scorecard
 $external=array();
 foreach ($menu as $val){
-	if ($val['name']=='Score Card' || $val['name']=='My Postcards') $external=array('rel'=>'external','class'=>'scorecard');
+	if ($val['name']=='My Score Card' || $val['name']=='My Postcards') $external=array('rel'=>'external','class'=>'scorecard');
 	else $external='';
 	
 	echo '<li>'.$this->Html->link($val['name'],$val['url'],$external).'</li>';
@@ -29,7 +32,7 @@ foreach ($menu as $val){
 	?>
 	
 	<li><a href="#" data-rel="close" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete 
-	ui-btn-icon-right ui-btn-inline">Close panel</a>
+	ui-btn-icon-right ui-btn-inline">Close Panel</a>
 	</li>
 	</ul>
 </div>

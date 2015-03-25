@@ -4,7 +4,6 @@ echo $this->element('jqm_header');
 if (Configure::read('enableKioskMode')!=1) :
 $browselink=$this->Html->link('here',array('action'=>'browse'));
 $feedbacklink=$this->Html->link('feedback',array('action'=>'feedback'));
-debug($_SERVER['HTTP_HOST']);
  ?>
 		<div class="ui-body ui-body-a ui-corner-all ui-shadow">
 			<h3>About iScout</h3>
