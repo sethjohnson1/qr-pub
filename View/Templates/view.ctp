@@ -1,7 +1,5 @@
 <?
 echo $this->element('jqm_header');
-
-//debug($template);
 if ($template['Template']['name']=='vgal' || $template['Template']['name']=='tn') echo $this->element('vgal');
 if ($template['Template']['name']=='blog') echo $this->element('blog');
 if ($template['Template']['name']=='splash') echo $this->element('splash');

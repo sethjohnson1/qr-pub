@@ -154,7 +154,22 @@ class TemplatesController extends AppController {
 		//override AppController value
 		if (!isset($template['Template']['previd'])) $totals=$this->Scorecard->scoreTotals($template,$user['id']);
 		else $totals='';
-		$this->set(compact('user','comments','template','usercomment','template_redir','totals','id'));
+		//now do some counting for overlays
+		$total=0;
+		$score=0;
+		foreach ($totals['totals'] as $val)	$total=$val+$total;
+		foreach ($totals['counts'] as $val)	$score=$val+$score;
+		//now 0 to 5 score
+		$starrating=round(($score/$total)/.2);
+		$lastrating=$this->Cookie->read('lastrating');
+		if (!isset($lastrating)) $lastrating=0;
+		if ($starrating > $lastrating){
+			$this->Cookie->write('lastrating',$starrating);
+			$this->set('show',1);
+		}
+		
+		
+		$this->set(compact('user','comments','template','usercomment','template_redir','totals','id','starrating','lastrating'));
 		
 		//URL shortener - will return BAD_REQUEST unless on live domain
 		$this->set('shorturl',$this->UrlShortener->get_bitly_short_url($this->here,'social',$user['provider']));									
@@ -169,6 +184,7 @@ class TemplatesController extends AppController {
 			$this->Scorecard->deleteAll(array("Scorecard.id LIKE '".$user['id']."_%'"), false);
 		}
 		$this->Session->delete('counts');
+		$this->Cookie->delete('lastrating');
 		$this->redirect(array('controller'=>'templates','plugin'=>'','action'=>'scorecard'));
 	}
 	

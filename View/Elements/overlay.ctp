@@ -1,18 +1,8 @@
 <?
-	//grand totals, unset NW (Nowhere) for now
-	$total=0;
-	$score=0;
-	foreach ($totals['totals'] as $val)	$total=$val+$total;
-	foreach ($totals['counts'] as $val)	$score=$val+$score;
-	
-	//now 0 to 5 score
-	$starrating=round(($score/$total)/.2);
-	
-	//now determine if this visit CHANGED the rank, in which case we want to show the popup
-	$lastrating=round((($score-1)/$total)/.2);
+
 	
 	//disabled just for testing
-	if ($starrating > $lastrating):
+	if (isset($show)):
 	?>
 <style>
 	.rankpop{
@@ -32,7 +22,7 @@
 	}
 
 </style>
-<div id="rankPopup<?$template['Template']['id']?>" data-theme="a" data-overlay-theme="a" data-role="popup" data-history="false" class="rankpop">
+<div id="rankPopup<?=$template['Template']['id']?>" data-theme="a" data-overlay-theme="a" data-role="popup" data-history="false" class="rankpop">
 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 <?
 $a='an';
@@ -71,13 +61,12 @@ if ($starrating>1) $a='another';
 </div><!-- rankPopup -->
 
 <script type="text/javascript" language="JavaScript">
+
+
 	$(":jqmData(role='page'):last").on("pageshow", function(event) {
-	  $("#rankPopup<?$template['Template']['id']?>", $(this)).popup("open",{transition:"pop"});
-	});
-	
-	$.on("pagehide", function(event) {
-	  $("#rankPopup<?$template['Template']['id']?>", $(this)).popup("close");
-	});
+	  $("#rankPopup<?=$template['Template']['id']?>", $(this)).popup("open",{transition:"pop"});
+	});	
+
 	
 	$( ".scorecard" ).click(function() {
 			$.mobile.loading( 'show', {
@@ -89,4 +78,14 @@ if ($starrating>1) $a='another';
 	});
 </script>
 
-<?endif?>
+<?
+//finally, if we're here and NOT popping up, then destroy any that might be around (for example they returned to a page where it popped up
+else:
+?>
+<script>
+$(":jqmData(role='page'):last").on("pageshow", function(event) {
+	$("#rankPopup<?=$template['Template']['id']?>", $(this)).popup("destroy");
+});
+</script>
+<?
+endif?>
