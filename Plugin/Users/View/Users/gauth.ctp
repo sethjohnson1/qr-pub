@@ -15,7 +15,7 @@ require_once 'src/contrib/Google_Oauth2Service.php';
 //session_start();
 
 $gClient = new Google_Client();
-$gClient->setApplicationName('Login to Sanwebe.com');
+$gClient->setApplicationName('iScout Tour');
 $gClient->setClientId($google_client_id);
 $gClient->setClientSecret($google_client_secret);
 $gClient->setRedirectUri($google_redirect_url);
@@ -83,5 +83,5 @@ if(isset($authUrl)) //user is not logged in, show login button
 } 
 else // user logged in 
 {
-	debug($user);
+	print_r($user);
 }
