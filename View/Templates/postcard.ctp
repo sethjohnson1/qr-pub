@@ -31,8 +31,8 @@ $this->set(compact('percents','threshold'));
 	//	debug($postcard_crypt);
 	if (!isset($crypt)):
 	?>
-	<p>Good scouts reports their findings  . . . Especially with these handy Electronic Postcards you've earned.
-		Visit or browse stops at each museum to earn them all.
+	<p>Good scouts reports their findings  . . . And you can too with these handy Electronic Postcards you've earned.
+		Visit or browse stops in each of our museums to earn them all.
 	</p>
 	<?
 		echo $this->Form->create('Template');
