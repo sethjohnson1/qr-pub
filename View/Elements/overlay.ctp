@@ -2,11 +2,12 @@
 
 	
 	//disabled just for testing
-	if (isset($show)):
+	//if (isset($show)):
 	?>
 <style>
 	.rankpop{
 		padding:20px;
+		margin-top:5%;
 	}
 	
 	.staricon{
@@ -20,15 +21,27 @@
 		margin:0 auto;
 		width: 135px;
 	}
+	
+	.disccontainer{
+		max-height: 50%;
+		margin: 0 auto;
+	}
+	
+	.discimg{
+		width: 100%;
+	}
 
 </style>
-<div id="rankPopup<?=$template['Template']['id']?>" data-theme="a" data-overlay-theme="a" data-role="popup" data-history="false" class="rankpop">
+<div id="rankPopup<?=$template['Template']['id']?>" data-theme="a" data-overlay-theme="a" data-role="popup" data-history="false" data-position-to="window" class="rankpop">
 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 <?
 $a='an';
 if ($starrating<5):
 if ($starrating>1) $a='another';
 ?>
+<div class="disccontainer">
+<?=$this->Html->image('star_'.$starrating.'.png',array('class'=>'discimg'))?>
+</div>
 <h1>Good job!</h1>
 <h3>You've visited enough stops to earn <?=$a?> iScout Star.</h3>
 <?else:?>
@@ -80,11 +93,11 @@ if ($starrating>1) $a='another';
 
 <?
 //finally, if we're here and NOT popping up, then destroy any that might be around (for example they returned to a page where it popped up
-else:
+/*else:
 ?>
 <script>
 $(":jqmData(role='page'):last").on("pageshow", function(event) {
 	$("#rankPopup<?=$template['Template']['id']?>", $(this)).popup("destroy");
 });
 </script>
-<?endif?>
+<?endif*/?>
