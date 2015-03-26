@@ -2,12 +2,12 @@
 
 	
 	//disabled just for testing
-	//if (isset($show)):
+	if (isset($show)):
 	?>
 <style>
 	.rankpop{
 		padding:20px;
-		margin-top:5%;
+		//margin-top:5%;
 	}
 	
 	.staricon{
@@ -23,8 +23,8 @@
 	}
 	
 	.disccontainer{
-		max-height: 50%;
 		margin: 0 auto;
+		max-width:250px;
 	}
 	
 	.discimg{
@@ -42,13 +42,12 @@ if ($starrating>1) $a='another';
 <div class="disccontainer">
 <?=$this->Html->image('star_'.$starrating.'.png',array('class'=>'discimg'))?>
 </div>
-<h1>Good job!</h1>
 <h3>You've visited enough stops to earn <?=$a?> iScout Star.</h3>
 <?else:?>
 <h1>Great work!</h1>
 <h3>You've earned the distinguished five-star iScout Rank.</h3>
 <?endif?>
-<div class="starcontainer">
+<!-- div class="starcontainer">
 <?
 	for ($x=0;$x<=4; $x++):
 		if ($starrating > $x) $starred='starred';
@@ -58,8 +57,8 @@ if ($starrating>1) $a='another';
 
 <span class="ui-icon-star ui-btn-icon-notext staricon <?=$starred ?>"/></span>
 <?endfor?>
-</div><!-- starcontainer -->
-<h3>Check your Score Card to see your Official iScout Title, receive some free advice, and view unlocked Postcards.</h3>
+</div --><!-- starcontainer -->
+<h3 class="ui-mini">Check your Score Card to see your Official iScout Title, receive some free advice, and view unlocked Postcards.</h3>
 <?
 		echo $this->Html->link('Check Score Card',array('plugin'=>'','controller'=>'templates','action'=>'scorecard'),array(
 			'data-role'=>'button','data-theme'=>'h','rel'=>'external','class'=>'scorecard'
@@ -93,11 +92,11 @@ if ($starrating>1) $a='another';
 
 <?
 //finally, if we're here and NOT popping up, then destroy any that might be around (for example they returned to a page where it popped up
-/*else:
+else:
 ?>
 <script>
 $(":jqmData(role='page'):last").on("pageshow", function(event) {
 	$("#rankPopup<?=$template['Template']['id']?>", $(this)).popup("destroy");
 });
 </script>
-<?endif*/?>
+<?endif?>
