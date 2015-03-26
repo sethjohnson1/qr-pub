@@ -11,6 +11,8 @@
 
 App::uses('CakeEmail', 'Network/Email');
 App::uses('UsersAppController', 'Users.Controller');
+//require_once 'src/Google_Client.php';
+//require_once 'src/contrib/Google_Oauth2Service.php';
 
 /**
  * Users Users Controller
@@ -67,8 +69,7 @@ class UsersController extends UsersAppController {
 		'Security',
 		'Users.RememberMe',
 		'ExtAuth.ExtAuth',
-		'Scorecard',
-		'Users.Gauth'
+		'Scorecard'
 	);
 
 /**
@@ -946,9 +947,57 @@ class UsersController extends UsersAppController {
 	
 	//sj -added this when ExtAuth plugin quit working with Google
 	public function gauth() {
-		$authUrl=$this->Gauth->getProfile();
-		
+		//good help here: http://www.sanwebe.com/2012/11/login-with-google-api-php
+		//include google api files - sj will try to clean up to only files I modified - moving forward for now
+		//the src is in webroot folder
+		require_once 'gauth/src/Google_Client.php';
+		require_once 'gauth/src/contrib/Google_Oauth2Service.php';
+
+		$gClient = new Google_Client();
+		$gClient->setApplicationName('iScout Tour');
+		$gClient->setClientId(Configure::read('ExtAuth.Provider.Google.key'));
+		$gClient->setClientSecret(Configure::read('ExtAuth.Provider.Google.secret'));
+		$gClient->setRedirectUri(Configure::read('globalSiteURL').'/users/gauth');
+
+		$google_oauthV2 = new Google_Oauth2Service($gClient);
+
+		//If code is empty, redirect user to google authentication page for code.
+		//Code is required to aquire Access Token from google
+		//Once we have access token, assign token to session variable
+		//and we can redirect user back to page and login.
+		if (isset($_GET['code'])) 
+		{ 
+			$gClient->authenticate($_GET['code']);
+			$_SESSION['token'] = $gClient->getAccessToken();
+			header('Location: ' . filter_var(Configure::read('globalSiteURL').'/users/gauth', FILTER_SANITIZE_URL));
+			return;
+		}
+
+
+		if (isset($_SESSION['token'])) 
+		{ 
+			$gClient->setAccessToken($_SESSION['token']);
+		}
+
+
+		if ($gClient->getAccessToken()) 
+		{
+			  //For logged in user, get details from google using access token
+			  $user 				= $google_oauthV2->userinfo->get();
+			  $_SESSION['token'] 	= $gClient->getAccessToken();
+			  //rejoin the party here, after a little fix-up to match the way everything else was working
+			  $user['oid']='https://plus.google.com/'.$user['id'];
+			 $this->__successfulExtAuth($user, $_SESSION['token']);
+		}
+		else 
+		{
+			//For Guest user, get google login url
+			$authUrl = $gClient->createAuthUrl();
+			$this->redirect($authUrl);
+		}
+		//debug($user);
 		$this->set(compact('authUrl'));
+	
 	}
 	
 	

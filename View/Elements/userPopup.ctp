@@ -16,7 +16,7 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 			'class'=>'socialbutton',
 			'data-icon'=>'iscout-whitefbicon'
 			));
-		echo $this->Html->link('Google',array('plugin'=>'users','controller'=>'users','action'=>'auth_login','Google'),array(
+		echo $this->Html->link('Google',array('plugin'=>'users','controller'=>'users','action'=>'gauth'),array(
 			'data-role'=>'button',
 			'data-theme'=>'c',
 			'rel'=>'external',
