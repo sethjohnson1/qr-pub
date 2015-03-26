@@ -67,7 +67,8 @@ class UsersController extends UsersAppController {
 		'Security',
 		'Users.RememberMe',
 		'ExtAuth.ExtAuth',
-		'Scorecard'
+		'Scorecard',
+		'Users.Gauth'
 	);
 
 /**
@@ -917,7 +918,7 @@ class UsersController extends UsersAppController {
 	}
 	
 	
-	//now for the ExtAuth stuff
+	//now for the ExtAuth stuff and Google
 	
 	public function auth_login($provider) {
 		$result = $this->ExtAuth->login($provider);
@@ -941,6 +942,13 @@ class UsersController extends UsersAppController {
 			$this->Session->setFlash($result['message'],'flash_custom');
 			$this->redirect($this->Auth->loginAction);
 		}
+	}
+	
+	//sj -added this when ExtAuth plugin quit working with Google
+	public function gauth() {
+		$authUrl=$this->Gauth->getProfile();
+		
+		$this->set(compact('authUrl'));
 	}
 	
 	
@@ -978,10 +986,6 @@ class UsersController extends UsersAppController {
 		//debug($incomingProfile);
 	}
 	
-	//sj -added this when ExtAuth plugin quit working with 
-	public function gauth() {
-		
-	}
 	
 	//this is used by ExtAuth AND by the email token login
 	private function __doAuthLogin($user) {

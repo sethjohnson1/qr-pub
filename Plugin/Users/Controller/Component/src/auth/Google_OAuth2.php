@@ -132,9 +132,9 @@ class Google_OAuth2 extends Google_Auth {
         'redirect_uri=' . urlencode($this->redirectUri),
         'client_id=' . urlencode($this->clientId),
         'scope=' . urlencode($scope),
-        //sj - settings below 'access_type=' . urlencode($this->accessType),
+        //'access_type=' . urlencode($this->accessType),
         'access_type=' . urlencode('online'),
-		//sj - see below 'approval_prompt=' . urlencode($this->approvalPrompt)
+		//'approval_prompt=' . urlencode($this->approvalPrompt)
         'approval_prompt=' . urlencode('auto')
     );
 

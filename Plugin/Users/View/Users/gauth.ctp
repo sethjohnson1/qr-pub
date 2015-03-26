@@ -1,5 +1,5 @@
 <?php
-
+/*
 ########## Google Settings.. Client ID, Client Secret from https://cloud.google.com/console #############
 $google_client_id 		= Configure::read('ExtAuth.Provider.Google.key');
 $google_client_secret 	= Configure::read('ExtAuth.Provider.Google.secret');
@@ -67,6 +67,7 @@ else
 	//For Guest user, get google login url
 	$authUrl = $gClient->createAuthUrl();
 }
+*/
 
 //HTML page start
 echo '<!DOCTYPE HTML><html>';

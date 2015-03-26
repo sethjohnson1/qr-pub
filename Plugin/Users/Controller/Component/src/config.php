@@ -70,7 +70,7 @@ $apiConfig = array(
       'oauth2' => array(
           'scope' => array(
               'https://www.googleapis.com/auth/userinfo.profile',
-           //sj - disabled   'https://www.googleapis.com/auth/userinfo.email',
+           //   'https://www.googleapis.com/auth/userinfo.email',
           )
       ),
       'plus' => array('scope' => 'https://www.googleapis.com/auth/plus.me'),
