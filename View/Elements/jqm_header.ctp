@@ -28,9 +28,11 @@
 	height:100px;
 }
 
+/* sj - not sure why this was here, probably something dumb left from LJ
 .ui-block-e{
 	min-width:26%;
 }
+*/
 
 .menubuttons{
 	float:right;

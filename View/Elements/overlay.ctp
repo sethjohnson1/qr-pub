@@ -2,7 +2,7 @@
 
 	
 	//disabled just for testing
-	if (isset($show)):
+//	if (isset($show)):
 	?>
 <style>
 	.rankpop{
@@ -42,8 +42,9 @@ if ($starrating<5):
 </div>
 <h3>You've visited enough stops to earn an iScout Star!</h3>
 <?else:?>
-<h1>Great work!</h1>
-<h3>You've earned the distinguished five-star iScout Rank.</h3>
+<h3>Great scouting!
+You've earned our Top iScout Rank with all five stars
+Take one last look at your Score Card, your postcards, and share your achievement!</h3>
 <?endif?>
 <!-- div class="starcontainer">
 <?
@@ -68,7 +69,7 @@ Check your Score Card for your official title, some free advice, and the postcar
 			'data-role'=>'button',
 			'data-theme'=>'i',
 			'data-rel'=>'back',
-			'style'=>'opacity:.95'
+			'style'=>'opacity:.75'
 			));
 ?>
 </div><!-- rankPopup -->
@@ -93,11 +94,11 @@ Check your Score Card for your official title, some free advice, and the postcar
 
 <?
 //finally, if we're here and NOT popping up, then destroy any that might be around (for example they returned to a page where it popped up
-else:
+/*else:
 ?>
 <script>
 $(":jqmData(role='page'):last").on("pageshow", function(event) {
 	$("#rankPopup<?=$template['Template']['id']?>", $(this)).popup("destroy");
 });
 </script>
-<?endif?>
+<?endif*/?>

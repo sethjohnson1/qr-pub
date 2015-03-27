@@ -7,6 +7,7 @@ echo $this->element('jqm_header');
 	$score=0;
 	foreach ($totals['totals'] as $val)	$total=$val+$total;
 	foreach ($totals['counts'] as $val)	$score=$val+$score;
+	$starrating=round(($score/$total)/.2);
 	
 ?>
  
@@ -51,6 +52,13 @@ echo $this->element('jqm_header');
 	}
 	.glowtron.glow2 {
 		text-shadow: 0 0 40px <?=$wg?>;
+	}
+	.badgecontainer{
+		padding:10px;
+	}
+	
+	.badgeimg{
+		width:100%;
 		
 	}
 
@@ -83,13 +91,48 @@ echo $this->element('jqm_header');
 				//set these values for testing
 				//$total=50;
 				//$score=40;
-				$this->set(compact('total','score'));
+				$this->set(compact('total','score','starrating'));
 				
-				echo $this->element('rank',array($total,$score));
+				echo $this->element('rank',array($total,$score,$starrating));
 			?>
-		</div>
 			</div>
 		</div>
+		</div>
+		<?
+		//for testing
+		//$starrating=2;
+		?>
+		<div class="ui-grid-d score">
+			<?
+			$letters=array(1=>'a',2=>'b',3=>'c',4=>'d',5=>'e');
+			for ($x=1;$x<=5;$x++):
+				if ($starrating >= $x) $badge='star_'.$x.'.png';
+				else $badge='star_0.png';
+				?>
+			<div class="ui-block-<?=$letters[$x]?>">
+				<div class="badgecontainer">
+				<?=$this->Html->image($badge,array('class'=>'badgeimg'))?>
+				
+				</div>
+			</div>
+			<?endfor?>
+			<!--div class="ui-block-b">
+				<div class="badgecontainer">
+				</div>
+			</div>
+			<div class="ui-block-c">
+				<div class="badgecontainer">
+				</div>
+			</div>
+			<div class="ui-block-d">
+				<div class="badgecontainer">
+				</div>
+			</div>
+			<div class="ui-block-e">
+				<div class="badgecontainer">
+				</div>
+			</div -->
+		</div><!-- ui-grid-d -->
 		<div class="ui-grid-a score" style="color:<?=$bbm?>;">
 			<div class="ui-block-a">
 			<? // the width for each one is calculated by widest image (draper at 282px) divided by width (if less than 53% just use that). There is probably a better way, moving on for now  ?>

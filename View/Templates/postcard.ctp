@@ -26,9 +26,6 @@ $this->set(compact('percents','threshold'));
  ?>
 <div class="ui-body ui-body-a ui-corner-all ui-shadow">
 	<?
-	//debug($crypt);
-	//	debug($cryptdata);
-	//	debug($postcard_crypt);
 	if (!isset($crypt)):
 	?>
 	<p>Good scouts reports their findings  . . . And you can too with these handy Electronic Postcards you've earned.

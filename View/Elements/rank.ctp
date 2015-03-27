@@ -1,6 +1,6 @@
 <?
-//first give them a 0 to 5 score
-$starrating=round(($score/$total)/.2);
+//first give them a 0 to 5 score - Already doing this elsewhere
+//$starrating=round(($score/$total)/.2);
 $ranks=array();
 
 //construct DB info into easy array where 0-5 key corresponded with the star value
