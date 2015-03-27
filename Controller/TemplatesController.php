@@ -118,7 +118,6 @@ class TemplatesController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('ajax')) {
 			if (isset($this->request->data['Code']['3digitcode'])){
-			//debug($this->request->data);
 				$template_redir=$this->Template->find('first',array(
 					'conditions'=>array('Template.code'=>$this->request->data['Code']['3digitcode']),
 					'recursive'=>-1

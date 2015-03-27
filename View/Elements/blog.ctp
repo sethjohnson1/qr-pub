@@ -19,23 +19,11 @@ foreach ($template['Asset'] as $asset){
 <? // HTML5 scoped CSS all over ?>
 
  <style type="text/css" scoped>
-   /*div[id^="attachment_"]{
-		float: left;
-		padding: 5px;
-		margin: 10px 10px;
-		max-width: 90%;
-		
+   div[id^="attachment_"]{
+		max-width: 50%;
 	}
 
-	.blog_container div:nth-child(odd) {
-		margin-left:10px;
-		float:right;
-	}
-	
-	img{
-		width:100%;
-		height: 100%;
-	}*/
+
 	/* =WordPress Core
 -------------------------------------------------------------- 
 .alignnone {
@@ -105,13 +93,13 @@ sj - modified these from WordPress CSS to always center
     margin: 0 auto;
 }
 
+/* sj modified this for images to be responsive */
 .wp-caption img {
     border: 0 none;
     height: auto;
     margin: 0;
-    max-width: 98.5%;
     padding: 0;
-    width: auto;
+    width: 98.5%;
 }
 
 .wp-caption p.wp-caption-text {
@@ -142,6 +130,8 @@ sj - modified these from WordPress CSS to always center
 	//<![CDATA[
 	//enhance the images with JQM classes
 	$( 'div[id^="attachment_"]' ).addClass( "ui-shadow ui-body ui-body-a ui-mini" );
+	//style contains fixed-pixel widths, so needs to be eliminated
+	$( 'div[id^="attachment_"]' ).removeAttr( 'style' );
 	//]]>
 </script>
 
