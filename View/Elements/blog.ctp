@@ -21,6 +21,7 @@ foreach ($template['Asset'] as $asset){
  <style type="text/css" scoped>
    div[id^="attachment_"]{
 		max-width: 50%;
+		margin: auto;
 	}
 
 
