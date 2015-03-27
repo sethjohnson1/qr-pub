@@ -1,7 +1,7 @@
 <?
 //the key is the order that they appear
 $menu=array();
-$menu[100]['name']='Browse stops';
+$menu[100]['name']='Browse Stops';
 $menu[100]['url']=array('plugin'=>'','controller'=>'templates','action'=>'browse');
 if (Configure::read('enableKioskMode')!=1) {
 	$menu[200]['name']='My Score Card';
