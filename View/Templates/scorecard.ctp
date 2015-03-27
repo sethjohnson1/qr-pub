@@ -100,7 +100,7 @@ echo $this->element('jqm_header');
 		</div>
 		<?
 		//for testing
-		//$starrating=2;
+		//$starrating=3;
 		?>
 		<div class="ui-grid-d score">
 			<?
