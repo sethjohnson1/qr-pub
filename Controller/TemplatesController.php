@@ -182,7 +182,7 @@ class TemplatesController extends AppController {
 			$this->loadModel('Scorecard');
 			$this->Scorecard->deleteAll(array("Scorecard.id LIKE '".$user['id']."_%'"), false);
 		}
-		$this->Session->delete('counts');
+		$this->Cookie->delete('counts');
 		$this->Cookie->delete('lastrating');
 		$this->redirect(array('controller'=>'templates','plugin'=>'','action'=>'scorecard'));
 	}

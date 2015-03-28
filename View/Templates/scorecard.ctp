@@ -78,8 +78,6 @@ echo $this->element('jqm_header');
 	setInterval(function(){$('.glowtron').removeClass('glow2')}, 400);
 });
  </script>
- 
- 
 		<div class="ui-body ui-body-a ui-corner-all ui-shadow">
 		<div class="ui-grid-a score" style="">
 			<div class="ui-block-a">

@@ -5,7 +5,7 @@ for getting the scorecard totals
 App::uses('Component', 'Controller');
 class ScorecardComponent extends Component {
 
-public $components = array('Session');
+public $components = array('Cookie');
 	
 	public function scoreTotals ($template, $userid){
 		$totals=array();
@@ -20,7 +20,26 @@ public $components = array('Session');
 		$totals['totals']['Garden']=$model->find('count',array('conditions'=>array('Template.location'=>'Garden',$conds)));
 		$totals['totals']['NW']=$model->find('count',array('conditions'=>array('Template.location'=>'NW',$conds)));
 		if (isset($userid)) {
+			//how to load model on Component (very handy!)
 			$model=ClassRegistry::init('Scorecard');
+			
+			//first count anything in the Cookie variable and save it to DB, then remove that Cookie var
+			$cookie=$this->Cookie->read('counts');
+			if (isset($cookie)){
+				foreach ($cookie as $key=>$val){
+					//if ($key=='BBM'){
+						foreach ($val as $id=>$true){
+							$scoredata['id']=$userid.'_'.$id;
+							$scoredata['location']=$key;
+							if ($model->save($scoredata)){}
+						//}
+					}
+				}
+				//get rid of Cookie so this doesn't happen over and over
+				$this->Cookie->delete('counts');
+			}
+			
+			//this is the save that occurs as the visit stuff (normal save)
 			if (isset($template['Template']['id'])){
 				//combine user_id and template to make a unique identifier (but also cannot be counted over and over)
 				$scoreid=$userid.'_'.$template['Template']['id'];
@@ -41,20 +60,19 @@ public $components = array('Session');
 			$totals['counts']['NW']=$model->find('count',array('conditions'=>array("Scorecard.id LIKE '".$userid."_%'",'Scorecard.location'=>'NW')));
 		}
 		else {
-		//use Session variables if no logged on user
-			//first write the session, using the ID of the template to prevent double-counting
-			//CakeSession::write('counts.'.$template['Template']['location'].'.'.$template['Template']['id'], true);
-			if (isset($template['Template']['id'])) $this->Session->write(
+		//use Cookie variables if no logged on user
+			//first write the cookie, using the ID of the template to prevent double-counting
+			if (isset($template['Template']['id'])) $this->Cookie->write(
 			'counts.'.$template['Template']['location'].'.'.$template['Template']['id'], true);
-			$totals['counts']=$this->Session->read('counts');
-			$totals['counts']['BBM']=count($this->Session->read('counts.BBM'));
-			$totals['counts']['CFM']=count($this->Session->read('counts.CFM'));
-			$totals['counts']['DMNH']=count($this->Session->read('counts.DMNH'));
-			$totals['counts']['PIM']=count($this->Session->read('counts.PIM'));
-			$totals['counts']['WG']=count($this->Session->read('counts.WG'));
-			$totals['counts']['HMRL']=count($this->Session->read('counts.HMRL'));
-			$totals['counts']['Garden']=count($this->Session->read('counts.Garden'));
-			$totals['counts']['NW']=count($this->Session->read('counts.NW'));
+			$totals['counts']=$this->Cookie->read('counts');
+			$totals['counts']['BBM']=count($this->Cookie->read('counts.BBM'));
+			$totals['counts']['CFM']=count($this->Cookie->read('counts.CFM'));
+			$totals['counts']['DMNH']=count($this->Cookie->read('counts.DMNH'));
+			$totals['counts']['PIM']=count($this->Cookie->read('counts.PIM'));
+			$totals['counts']['WG']=count($this->Cookie->read('counts.WG'));
+			$totals['counts']['HMRL']=count($this->Cookie->read('counts.HMRL'));
+			$totals['counts']['Garden']=count($this->Cookie->read('counts.Garden'));
+			$totals['counts']['NW']=count($this->Cookie->read('counts.NW'));
 		}
 		//for now we don't want to count "Nowhere"
 		unset($totals['totals']['NW']);
