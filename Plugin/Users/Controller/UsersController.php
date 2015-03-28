@@ -914,7 +914,8 @@ class UsersController extends UsersAppController {
 			
 			//$this->Auth->login($fuser['User']);
 			$this->Auth->login($user);
-			//$this->redirect($this->referer());
+			if ($this->Session->read('location')) $this->redirect($this->Session->read('location'));
+			else $this->redirect('/');
 		}
 	}
 	
@@ -1036,7 +1037,7 @@ class UsersController extends UsersAppController {
 	}
 	
 	
-	//this is used by ExtAuth AND by the email token login
+	//this is used by ExtAuth AND by the email token login AND gauth
 	private function __doAuthLogin($user) {
 		if ($this->Auth->login($user['User'])) {
 			$user['User']['last_login'] = date('Y-m-d H:i:s');
