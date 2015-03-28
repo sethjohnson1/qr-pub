@@ -23,19 +23,18 @@ public $components = array('Cookie');
 			//how to load model on Component (very handy!)
 			$model=ClassRegistry::init('Scorecard');
 			
-			//first count anything in the Cookie variable and save it to DB, then remove that Cookie var
+			//first add Cookie variable to user data them remove it
 			$cookie=$this->Cookie->read('counts');
+			//array lends itself to nice nested loop
 			if (isset($cookie)){
 				foreach ($cookie as $key=>$val){
-					//if ($key=='BBM'){
-						foreach ($val as $id=>$true){
-							$scoredata['id']=$userid.'_'.$id;
-							$scoredata['location']=$key;
-							if ($model->save($scoredata)){}
-						//}
+					foreach ($val as $id=>$true){
+						$scoredata['id']=$userid.'_'.$id;
+						$scoredata['location']=$key;
+						if ($model->save($scoredata)){}
 					}
 				}
-				//get rid of Cookie so this doesn't happen over and over
+				//get rid of Cookie so this only happens once
 				$this->Cookie->delete('counts');
 			}
 			
