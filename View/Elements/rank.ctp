@@ -1,6 +1,5 @@
 <?
-//first give them a 0 to 5 score - Already doing this elsewhere
-//$starrating=round(($score/$total)/.2);
+//$small is set to hide certain elements for the popups
 $ranks=array();
 
 //construct DB info into easy array where 0-5 key corresponded with the star value
@@ -32,6 +31,7 @@ foreach($dbranks as $key=>$rank){
 <br />
 <?
 //now draw the stars
+if (!isset($small)):
 for ($x=0;$x<=4; $x++):
 	if ($starrating > $x) $starred='starred';
 	else $starred='';
@@ -41,6 +41,7 @@ for ($x=0;$x<=4; $x++):
 
 <?
 endfor;
+endif;
 ?>
 			
 </h1>

@@ -62,6 +62,7 @@ echo $this->element('jqm_header');
 	}
 	.badgepopup{
 		padding: 20px;
+		max-width:400px;
 	}
 	
 
@@ -91,12 +92,8 @@ echo $this->element('jqm_header');
 			</div>
 			<div class="hidden_rank" style="display: none" >
 			<?	
-				//set these values for testing
-				//$total=50;
-				//$score=40;
-				$this->set(compact('total','score','starrating'));
-				
-				echo $this->element('rank',array($total,$score,$starrating));
+				$this->set(compact('starrating'));
+				echo $this->element('rank',array($starrating));
 			?>
 			</div>
 		</div>
@@ -110,8 +107,14 @@ echo $this->element('jqm_header');
 			//for the ui-grid
 			$letters=array(1=>'a',2=>'b',3=>'c',4=>'d',5=>'e');
 			for ($x=1;$x<=5;$x++):
-				if ($starrating >= $x) $badge='star_'.$x.'.png';
-				else $badge='star_0.png';
+				if ($starrating >= $x){
+					$badge='star_'.$x.'.png';
+					$showtext=$x;
+				}
+				else {
+					$badge='star_0.png';
+					$showtext=0;
+				}
 				?>
 			<div class="ui-block-<?=$letters[$x]?>">
 				<div class="badgecontainer">
@@ -127,8 +130,18 @@ echo $this->element('jqm_header');
 				<div id="badgePopup<?=$x?>" data-theme="a" data-overlay-theme="a" data-role="popup" data-position-to="window" class="badgepopup">
 				<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 				<?=$this->Html->image($badge,array('class'=>'badgeimg'))?>
+				<?
+				//show the rank for fun (why not?!)
+				echo $this->element('rank',array('starrating'=>$showtext,'small'=>1));
+				?>
+				<?=$this->Html->link('I\'m Honored',array('#'),array(
+					'data-role'=>'button',
+					'data-theme'=>'e',
+					'data-rel'=>'back',
+					//'style'=>'opacity:.75'
+			))?>
 				</div>
-				
+
 				</div>
 			</div>
 			<?endfor?>

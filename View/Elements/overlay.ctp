@@ -72,7 +72,9 @@ Check your Score Card for your official title, some free advice, and the postcar
 <script type="text/javascript" language="JavaScript">
 
 /* this method worked great on everything except iOS, where it only worked on Ajax loaded pages
-(and since all the codes DO NOT use ajax, it was basically worthless on iOS */
+(and since all the codes DO NOT use ajax, it was basically worthless on iOS.
+Must be enabled for android to work though...
+ */
 
 /*	$(":jqmData(role='page'):last").on("pageshow", function(event) {
 	  $("#rankPopup<?=$template['Template']['id']?>", $(this)).popup("open",{transition:"pop"});
@@ -87,8 +89,7 @@ Check your Score Card for your official title, some free advice, and the postcar
 		},1);
 	});
 	*/
-	//this really simple method has worked on every device so far, surprised never mentioned elsewhere
-	//there is a link above with no text - sort of hacky but moving on (note: the delay is necessary!)
+	//this hacky method of waiting and then clicking a link works on iOS and desktop NOT android!
 	setTimeout(function(){$("#clickOpen").click()},1000);
 
 	$( ".scorecard" ).click(function() {
