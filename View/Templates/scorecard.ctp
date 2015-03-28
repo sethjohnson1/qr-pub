@@ -59,8 +59,11 @@ echo $this->element('jqm_header');
 	
 	.badgeimg{
 		width:100%;
-		
 	}
+	.badgepopup{
+		padding: 20px;
+	}
+	
 
 }
 
@@ -104,6 +107,7 @@ echo $this->element('jqm_header');
 		?>
 		<div class="ui-grid-d score">
 			<?
+			//for the ui-grid
 			$letters=array(1=>'a',2=>'b',3=>'c',4=>'d',5=>'e');
 			for ($x=1;$x<=5;$x++):
 				if ($starrating >= $x) $badge='star_'.$x.'.png';
@@ -111,27 +115,23 @@ echo $this->element('jqm_header');
 				?>
 			<div class="ui-block-<?=$letters[$x]?>">
 				<div class="badgecontainer">
+				<?=
+				$this->Html->link(
+				$this->Html->image($badge,array('class'=>'badgeimg')),'#badgePopup'.$x,array(
+				'escape'=>false,
+				'data-rel'=>'popup',
+				'data-transition'=>'pop'))
+				
+				?>
+				
+				<div id="badgePopup<?=$x?>" data-theme="a" data-overlay-theme="a" data-role="popup" data-position-to="window" class="badgepopup">
+				<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 				<?=$this->Html->image($badge,array('class'=>'badgeimg'))?>
+				</div>
 				
 				</div>
 			</div>
 			<?endfor?>
-			<!--div class="ui-block-b">
-				<div class="badgecontainer">
-				</div>
-			</div>
-			<div class="ui-block-c">
-				<div class="badgecontainer">
-				</div>
-			</div>
-			<div class="ui-block-d">
-				<div class="badgecontainer">
-				</div>
-			</div>
-			<div class="ui-block-e">
-				<div class="badgecontainer">
-				</div>
-			</div -->
 		</div><!-- ui-grid-d -->
 		<div class="ui-grid-a score" style="color:<?=$bbm?>;">
 			<div class="ui-block-a">

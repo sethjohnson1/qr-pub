@@ -87,8 +87,8 @@ Check your Score Card for your official title, some free advice, and the postcar
 		},1);
 	});
 	*/
-	//this really simple method has worked on every device fine, surprised never mentioned elsewhere
-	//there is a small link drawn above with no text - sort of hacky but moving on (note: the delay is necessary!)
+	//this really simple method has worked on every device so far, surprised never mentioned elsewhere
+	//there is a link above with no text - sort of hacky but moving on (note: the delay is necessary!)
 	setTimeout(function(){$("#clickOpen").click()},1000);
 
 	$( ".scorecard" ).click(function() {
