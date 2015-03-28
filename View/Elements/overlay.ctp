@@ -1,9 +1,6 @@
 <?
-
-	
-	//disabled just for testing
 	if (isset($show)):
-	?>
+?>
 <style>
 	.rankpop{
 		padding:20px;
@@ -32,7 +29,15 @@
 	}
 
 </style>
-<div id="rankPopup<?=$template['Template']['id']?>" data-theme="a" data-overlay-theme="a" data-role="popup" data-history="false" data-position-to="window" class="rankpop">
+<?
+/*
+the link below is clicked using JS further down to open the popup - this was the only thing that worked on iOS
+using unique ID for clickOpen might be necessary if problems occur
+*/
+?>
+<a id="clickOpen" href="#rankPopup<?=$template['Template']['id']?>" data-rel="popup" data-transition="pop"></a>
+
+<div id="rankPopup<?=$template['Template']['id']?>" data-theme="a" data-overlay-theme="a" data-role="popup" data-position-to="window" class="rankpop">
 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 <?
 if ($starrating<5):
@@ -46,17 +51,7 @@ if ($starrating<5):
 You've earned our Top iScout Rank with all five stars
 Take one last look at your Score Card, your postcards, and share your achievement!</h3>
 <?endif?>
-<!-- div class="starcontainer">
-<?
-	for ($x=0;$x<=4; $x++):
-		if ($starrating > $x) $starred='starred';
-		else $starred='';
-	
-?>
 
-<span class="ui-icon-star ui-btn-icon-notext staricon <?=$starred ?>"/></span>
-<?endfor?>
-</div --><!-- starcontainer -->
 <h3 class="ui-mini">
 Check your Score Card for your official title, some free advice, and the postcards you’ve unlocked!
 </h3>
@@ -76,12 +71,26 @@ Check your Score Card for your official title, some free advice, and the postcar
 
 <script type="text/javascript" language="JavaScript">
 
+/* this method worked great on everything except iOS, where it only worked on Ajax loaded pages
+(and since all the codes DO NOT use ajax, it was basically worthless on iOS */
 
-	$(":jqmData(role='page'):last").on("pageshow", function(event) {
+/*	$(":jqmData(role='page'):last").on("pageshow", function(event) {
 	  $("#rankPopup<?=$template['Template']['id']?>", $(this)).popup("open",{transition:"pop"});
 	});	
+*/
 
-	
+//this one worked a little better but would load popups on preloaded next page
+/*	$("#qrpage<?=$template['Template']['id']?>").on("pageshow", function () {
+		var popup = setInterval(function(){
+			$("#rankPopup<?=$template['Template']['id']?>").popup("open");
+			clearInterval(popup);
+		},1);
+	});
+	*/
+	//this really simple method has worked on every device fine, surprised never mentioned elsewhere
+	//there is a small link drawn above with no text - sort of hacky but moving on (note: the delay is necessary!)
+	setTimeout(function(){$("#clickOpen").click()},1000);
+
 	$( ".scorecard" ).click(function() {
 			$.mobile.loading( 'show', {
 				text: 'Tallying ...',
@@ -90,6 +99,7 @@ Check your Score Card for your official title, some free advice, and the postcar
 				html: ""
 			}); 
 	});
+	
 </script>
 
 <?
@@ -100,5 +110,6 @@ else:
 $(":jqmData(role='page'):last").on("pageshow", function(event) {
 	$("#rankPopup<?=$template['Template']['id']?>", $(this)).popup("destroy");
 });
+
 </script>
 <?endif?>
