@@ -22,7 +22,7 @@
 		echo $this->Form->input('youtubeid',array('label'=>'YouTubeID'));
 		$asset_text='';
 		if (isset($template['Asset'][0]['asset_text'])) $asset_text=$template['Asset'][0]['asset_text'];
-		echo $this->Form->input('Attribute.asset_text',array('value'=>$asset_text));
+		echo $this->Form->input('Attribute.asset_text',array('value'=>$asset_text,'type'=>'textarea'));
 		
 	}
 	else if ($type=='ag'){
