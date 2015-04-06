@@ -24,6 +24,24 @@ foreach ($template['Asset'] as $asset){
 		margin: auto;
 	}
 
+	/* for responsive embedded YouTube vids */
+	
+.video-container {
+	border: 2px solid black;
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
 
 	/* =WordPress Core
 -------------------------------------------------------------- 
