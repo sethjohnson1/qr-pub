@@ -5,34 +5,29 @@
 iScout | <? echo $this->fetch('title'); ?>
 	</title>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- meta name="viewport" content="width=device-width, initial-scale=1" -->
 	
 	
 	<?
-	
-	/*
-		the iscroll scripts must be enabled if you want to go back that way.....
-	*/
 		echo $this->Html->meta('description', $meta_description );
 		echo $this->Html->css('jquery.mobile-1.4.5');	
 		echo $this->Html->css('themes/iscout1.min');		
-		echo $this->Html->css('themes/jquery.mobile.icons.min');		
-		//echo $this->Html->css('jquery.mobile.iscrollview');		
-		//echo $this->Html->css('jquery.mobile.iscrollview-pull');		
+		echo $this->Html->css('themes/jquery.mobile.icons.min');			
 		echo $this->Html->css('style');		
 		
 		
 		
 		echo $this->Html->script('jquery-1.11.2.min');
-		echo $this->Html->script('jquery.mobile-1.4.5.min');		
-		//echo $this->Html->script('iscroll');		
-		//echo $this->Html->script('jquery.mobile.iscrollview');		
+		echo $this->Html->script('jquery.mobile-1.4.5.min');				
 		echo $this->Html->script('qr_scripts');
 		
 		echo $this->fetch('script');
 		echo $this->fetch('css');
 		echo $this->fetch('meta');
+	//viewport must be AFTER JQM script call or it will override with user-scalable:no
 	?>
+	
+<meta content="width=device-width; initial-scale=1.0; maximum-scale=3.0; user-scalable=1;" name="viewport">
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

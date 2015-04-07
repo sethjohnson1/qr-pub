@@ -152,19 +152,22 @@ class TemplatesController extends AppController {
 		$usercomment=$this->Comment->userComment($id,$user['id']);
 		//override AppController value
 		if (!isset($template['Template']['previd'])) $totals=$this->Scorecard->scoreTotals($template,$user['id']);
-		else $totals='';
+		else $totals['totals']='';
+		//debug($totals);
 		//now do some counting for overlays
 		$total=0;
 		$score=0;
-		foreach ($totals['totals'] as $val)	$total=$val+$total;
-		foreach ($totals['counts'] as $val)	$score=$val+$score;
-		//now 0 to 5 score
-		$starrating=round(($score/$total)/.2);
-		$lastrating=$this->Cookie->read('lastrating');
-		if (!isset($lastrating)) $lastrating=0;
-		if ($starrating > $lastrating){
-			$this->Cookie->write('lastrating',$starrating);
-			$this->set('show',1);
+		if (!empty($totals['totals'])){
+			foreach ($totals['totals'] as $val)	$total=$val+$total;
+			foreach ($totals['counts'] as $val)	$score=$val+$score;
+			//now 0 to 5 score
+			$starrating=round(($score/$total)/.2);
+			$lastrating=$this->Cookie->read('lastrating');
+			if (!isset($lastrating)) $lastrating=0;
+			if ($starrating > $lastrating){
+				$this->Cookie->write('lastrating',$starrating);
+				$this->set('show',1);
+			}
 		}
 		
 		

@@ -12,12 +12,13 @@ $( document ).on( "pageinit", function( event ) {
 });
 
 //only used on the kiosks at the moment, helps the Samsungs a little.. Still sucks
-$(document).bind("mobileinit", function () {
+$(document).bind("mobileinit", function (event) {
 	$.event.special.swipe.scrollSupressionThreshold=100;
 	$.event.special.swipe.durationThreshold = 5000;
 	$.event.special.swipe.horizontalDistanceThreshold = 2;
 	$.event.special.swipe.horizontalDistanceThreshold = 1000;
 	
+	//$.extend($.mobile.zoom, {locked:false,enabled:true});
 	
 });
 
