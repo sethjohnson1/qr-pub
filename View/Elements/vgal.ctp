@@ -36,6 +36,7 @@ always set our own width instead of the generic "ui-responsive"
 		margin: 0 auto;
 	}
 
+
   </style>
 
 <h3 class="ui-shadow ui-bar ui-bar-a"><? echo $title ?><br/>
@@ -78,6 +79,7 @@ always set our own width instead of the generic "ui-responsive"
 <?
 endforeach;
 ?>
+
 </div><!-- /vgal_container -->
 <script type="text/javascript">
 	//<![CDATA[

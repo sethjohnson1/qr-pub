@@ -27,7 +27,7 @@ iScout | <? echo $this->fetch('title'); ?>
 	//viewport must be AFTER JQM script call or it will override with user-scalable:no
 	?>
 	
-<meta content="width=device-width; initial-scale=1.0; maximum-scale=3.0; user-scalable=1;" name="viewport">
+<meta content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=1" name="viewport">
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
