@@ -21,6 +21,8 @@ $borderwidth='3px';
  
  .locked{
 	opacity: .1;
+	max-width:76%;
+	padding-left:10%;
  }
  
  .postcardpop{

@@ -48,31 +48,22 @@ $this->set(compact('percents','threshold'));
 	?>
 	<div class="ui-grid-b">
 		<div class="ui-block-a">
-			<?=$this->element('postcard_boxes',array('museum'=>'NW'))?>
-		</div>
-		<div class="ui-block-b">
 			<?=$this->element('postcard_boxes',array('museum'=>'BBM'))?>
 		</div>
-		<div class="ui-block-c">
+		<div class="ui-block-b">
 			<?=$this->element('postcard_boxes',array('museum'=>'CFM'))?>
 		</div>
-		<div class="ui-block-a">
+		<div class="ui-block-c">
 			<?=$this->element('postcard_boxes',array('museum'=>'DMNH'))?>
 		</div>
-		<div class="ui-block-b">
+		<div class="ui-block-a">
 			<?=$this->element('postcard_boxes',array('museum'=>'WG'))?>
 		</div>
-		<div class="ui-block-c">
+		<div class="ui-block-b">
 			<?=$this->element('postcard_boxes',array('museum'=>'PIM'))?>
 		</div>
-		<div class="ui-block-a">
-			<?=$this->element('postcard_boxes',array('museum'=>'HMRL'))?>
-		</div>
-		<div class="ui-block-b">
-			<?=$this->element('postcard_boxes',array('museum'=>'Garden'))?>
-		</div>
 		<div class="ui-block-c">
-			<?=$this->element('postcard_boxes',array('museum'=>'NW'))?>
+			<?=$this->element('postcard_boxes',array('museum'=>'HMRL'))?>
 		</div>
 		
 	</div><!-- /ui-grid -->
