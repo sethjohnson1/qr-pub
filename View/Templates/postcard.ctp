@@ -24,6 +24,11 @@ else {
 $threshold=.8;
 $this->set(compact('percents','threshold'));
  ?>
+<style>
+.permalink{
+	font-size:10pt !important;
+}
+</style> 
 <div class="ui-body ui-body-a ui-corner-all ui-shadow">
 	<?
 	if (!isset($crypt)):
@@ -40,12 +45,21 @@ $this->set(compact('percents','threshold'));
         echo $this->Form->end();
 	else :
 	?>
+<style>
+.ui-input-text{
+	width:150px !important;
+}
+</style>
 	<h1><?=$cryptdata['name']?></h1>
 	<h3><em><?=$cryptdata['message']?></em></h3>
-	<? echo '['.$this->Html->link('Clear',array('action'=>'postcard','clear'),
-	array('rel'=>'external')).']';
-	endif;
-	?>
+	<p class="ui-mini"><strong>Permalink:</strong></label>
+	<input data-enhance="false" class="permalink" type="text" value="<?=$shorturl?>" onclick="this.select();" readonly="readonly" />
+	</p>
+	<p class="ui-mini">
+	<?='['.$this->Html->link('Start Over',array('action'=>'postcard','clear'),
+	array('rel'=>'external')).'] (Permalink will remain valid)'?>
+	</p>
+	<?endif?>
 	<div class="ui-grid-b">
 		<div class="ui-block-a">
 			<?=$this->element('postcard_boxes',array('museum'=>'BBM'))?>

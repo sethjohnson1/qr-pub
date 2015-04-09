@@ -36,6 +36,10 @@ $borderwidth='3px';
 	padding: 15px 0 0 0;
  }
  
+ .museumpopup{
+	max-width: 800px;
+ }
+ 
  </style>
  <?
  //very intentional reasons for inline CSS here
@@ -47,7 +51,7 @@ if ($percents[$museum] >= $threshold):
 	$url='#'.$museum.'popup';
 	$class='squareimg';
 	?>
-	<div id="<?=$museum?>popup" data-theme="a" data-overlay-theme="a" data-role="popup">
+	<div id="<?=$museum?>popup" data-position-to="window" data-theme="a" data-overlay-theme="a" data-role="popup" class="museumpopup">
 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div class="postcardpop">
 	<?=$this->Html->image($img,array('alt'=>'Cool postcard!','class'=>'postcardpopimg'));?>
