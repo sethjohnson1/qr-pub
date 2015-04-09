@@ -51,8 +51,17 @@ if ($percents[$museum] >= $threshold):
 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div class="postcardpop">
 	<?=$this->Html->image($img,array('alt'=>'Cool postcard!','class'=>'postcardpopimg'));?>
+	<?
+	if (isset($cryptdata)):
+	?>
 	<h3><?=$cryptdata['name']?></h3>
 	<p><?=$cryptdata['message']?></p>
+	<?else:?>
+	<h3>Your message here!</h3>
+	<p>Use the <em>Tattoo Message</em> button to create a permanent link to your custom text.<br/>
+	<strong>Create and share as many as you want!</strong> You won't break our server (we think).
+	</p>
+	<?endif?>
 	<?=$this->element('social_buttons')?>
 	</div>
 	</div>

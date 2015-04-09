@@ -36,7 +36,7 @@ $this->set(compact('percents','threshold'));
         echo $this->Form->input('name', array('div' => false,'empty'=>true,'placeholder'=>'Subject / Title','label'=>false));
         echo $this->Form->input('message', array('div' => false,'empty'=>true,'placeholder'=>'Your short message','label'=>false));
         echo $this->Form->input('percents', array('type'=>'hidden','value'=>json_encode($percents)));
-        echo $this->Form->submit(__('Make Tattoo', true), array('div' => false));
+        echo $this->Form->submit(__('Tattoo Message', true), array('div' => false));
         echo $this->Form->end();
 	else :
 	?>
