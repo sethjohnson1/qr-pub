@@ -218,62 +218,11 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 	});
 
 	</script>
-	<?else: //this is the Kiosk header?>
-	<style>
-	.ui-slider{
-		margin: 21px auto !important;
-		//for the text label
-		//margin: -30px 0  0 64px !important;
-		width:70%;
-	}
-	.ui-slider-input{
-		display:none !important;
-	}
-	.zoomlabel{
-		margin: auto;
-		width:70%;
-		height:20px;
-		border: 0px !important;
-	}
-	label{
-		font-weight:bold !important;
-		font-size:15pt !important;
-	}
-	.magnify{
-		float:left;
-		height:53px;
-		padding-left:15%;
-		margin: -13px 0 0 0;
-	}
-	.magnify img{
-		height:100%;
-	}
-	</style>
-	<!--div class="zoomlabel ui-field-contain">
-	<label for="zoomslider">Text size:</label>
-	<input class="zoomslider" name="zoomslider" type="range" data-highlight="true" data-track-theme="a" data-theme="g" value="1" min="1" max="5" step=".1" />
-	</div-->
-	<div class="magnify">
-	<?=$this->Html->image('magnify2.png',array())?>
-	</div>
-	<input id="zoomslider" type="range" data-highlight="true" data-track-theme="a" data-theme="g" value="1" min="1" max="5" step=".1" />
-	<input id="zoomslider2" type="range" data-highlight="true" data-track-theme="a" data-theme="g" value="1" min="1" max="5" step=".1" />
 
-	<script>
-	$( document ).on( "pagecreate", function( event, ui ) {
-	$( "#zoomslider" ).bind( "change", function(event, ui) {
-		$('p,h1,h2,h3,h4,.vgalchild').animate({ 'zoom': $("#zoomslider").val() }, 30 );
-		console.log($("#zoomslider").val());
-	});
-		$( "#zoomslider2" ).bind( "change", function(event, ui) {
-		$('p,h1,h2,h3,h4,.vgalchild').animate({ 'zoom': $("#zoomslider2").val() }, 30 );
-		console.log($("#zoomslider2").val());
-	});
-	});
-	</script>
-	<?endif?>
+
 	</div><!-- headerwrapper -->
 	</div><!-- header -->
+	<?endif?>
 	<div role="main" class="ui-content ui-body ui-body-a ui-shadow">
 	<?
 	echo $this->Session->flash();
