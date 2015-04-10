@@ -141,7 +141,7 @@ sj - modified these from WordPress CSS to always center
 		//debug($img);
 	}
 	//using strip_tags for now, someday it would be nice to make the thumbnails expand.. but...
-	if (Configure::read('enableKioskMode')==1) $wp_content['asset_text']=strip_tags($wp_content['asset_text'],'<img><div><p><h3>');
+	if (!empty($kioskmode)) $wp_content['asset_text']=strip_tags($wp_content['asset_text'],'<img><div><p><h3>');
 	echo $wp_content['asset_text'];
 ?>
 <script type="text/javascript">

@@ -1,7 +1,7 @@
 <? 
 echo $this->element('jqm_header');
 
-if (Configure::read('enableKioskMode')!=1) :
+if (empty($kioskmode)) :
 $browselink=$this->Html->link('here',array('action'=>'browse'));
 $feedbacklink=$this->Html->link('feedback',array('action'=>'feedback'));
  ?>

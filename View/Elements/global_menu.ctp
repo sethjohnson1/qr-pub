@@ -3,12 +3,12 @@
 $menu=array();
 $menu[100]['name']='Browse Stops';
 $menu[100]['url']=array('plugin'=>'','controller'=>'templates','action'=>'browse');
-if (Configure::read('enableKioskMode')!=1) {
-	$menu[200]['name']='My Score Card';
-	$menu[200]['url']=array('plugin'=>'','controller'=>'templates','action'=>'scorecard');
-	$menu[201]['name']='My Postcards';
-	$menu[201]['url']=array('plugin'=>'','controller'=>'templates','action'=>'postcard',$postcard_crypt);
-}
+
+$menu[200]['name']='My Score Card';
+$menu[200]['url']=array('plugin'=>'','controller'=>'templates','action'=>'scorecard');
+$menu[201]['name']='My Postcards';
+$menu[201]['url']=array('plugin'=>'','controller'=>'templates','action'=>'postcard',$postcard_crypt);
+
 $menu[300]['name']='Give Feedback';
 $menu[300]['url']=array('plugin'=>'','controller'=>'templates','action'=>'feedback');
 $menu[0]['name']='About iScout';

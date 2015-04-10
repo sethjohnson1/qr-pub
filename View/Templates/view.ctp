@@ -34,7 +34,7 @@ if ($template['Template']['name']=='splash') echo $this->element('splash');
 if ($template['Template']['name']=='video') echo $this->element('youtube');
 if ($template['Template']['name']=='ag') echo $this->element('ag');
 //skip all of the comments in Kiosk mode (and also overlay triggers)
-if (Configure::read('enableKioskMode')!=1):
+if (empty($kioskmode)):
 	//begin overlay check here
 	echo $this->element('overlay');
 ?>
@@ -133,6 +133,6 @@ $(document).on('pagebeforeshow', function(){
 </script>
 <?
 endif;
-if (Configure::read('enableKioskMode')==1) echo $this->element('jqm_kiosk_footer');
+if (!empty($kioskmode)) echo $this->element('jqm_kiosk_footer');
 else echo $this->element('jqm_footer');
 ?>

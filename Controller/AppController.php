@@ -44,8 +44,10 @@ class AppController extends Controller {
 			//debug($this->request->query['next']);
 		$this->set('totals',$this->Scorecard->scoreTotals(null,$user['id']));
 		
+		//this must be set to variable to avoid errors when checking for empty
+		$kioskmode=Configure::read('enableKioskMode');
 		//Authenticate a kiosk user 
-		if (Configure::read('enableKioskMode')==1){
+		if (!empty($kioskmode)){
 			$user['id']='kioskUser';
 			$user['username']='KioskUser';
 			$user['provider']='kiosk';
@@ -71,7 +73,7 @@ class AppController extends Controller {
 		$hmrl='#532e60';
 		$garden='#c59217';
 		$tan='#aa9c8f';
-		$this->set(compact('bbm','cfm','dmnh','wg','pim','hmrl','garden','colors'));
+		$this->set(compact('bbm','cfm','dmnh','wg','pim','hmrl','garden','colors','kioskmode'));
 		
 		//write the postcard cookie
 		$this->set('postcard_crypt',$this->Cookie->read('postcard_crypt'));

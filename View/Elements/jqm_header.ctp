@@ -55,12 +55,13 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 
 </script>
 <div data-role="page" id="qrpage<?=$template['Template']['id']?>" data-theme="a">
-<?if (Configure::read('enableKioskMode')!=1) $headerclass='header';
+<?if (empty($kioskmode)) $headerclass='header';
 	else $headerclass='kiosk-header';
 ?>
+	<?if (empty($kioskmode)):?>
 	<div data-role="header" data-position="fixed" class="<?=$headerclass?>">
 	<div class="headerwrapper">
-	<?if (Configure::read('enableKioskMode')!=1):?>
+	
 		<div class="top_logo">
 		<? 
 		echo $this->Html->image('1-mobile-logo-copy-copy.png',array(
