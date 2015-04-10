@@ -19,6 +19,13 @@
 		opacity: .7;
 		margin: 0 auto;
 	}
+	
+	.fontspan{
+		font-size:14pt;
+		position: relative;
+		bottom: -4px;
+		padding-right:6px;
+	}
 	</style>
 	<div class="kiosk-footer" data-role="footer" data-position="fixed" data-id="myfooter">
 		<div class="ui-grid-b" style="text-align:center;position: relative;top: 7px;">
@@ -58,7 +65,10 @@
 			<?endif;?>
 		</div>
 		<div class="ui-block-b">
-		<span style="font-size:13pt;">A</span>
+		<span class="fontspan" style="zoom: 1">A</span>
+		<span class="fontspan" style="zoom: 2">A</span>
+		<span class="fontspan" style="zoom: 3">A</span>
+		<span class="fontspan" style="zoom: 4">A</span>
 		</div>
 		<div class="ui-block-c">
 		<?
