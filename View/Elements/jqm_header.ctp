@@ -17,7 +17,7 @@
 /* the header height is smaller than the wrapper so the logo overcomes it */
 
 .kiosk-header{
-	height:37px;
+	height:53px;
 	background-color: #ffffff !important;
 }
 .header{
@@ -32,11 +32,6 @@
 	height:100px;
 }
 
-/* sj - not sure why this was here, probably something dumb left from LJ
-.ui-block-e{
-	min-width:26%;
-}
-*/
 
 .menubuttons{
 	float:right;
@@ -44,15 +39,10 @@
 }
 
 form.CodeForm .input.number .ui-input-text{
-	//margin:0px !important;
 	width:120px;
 	font-size:17px !important;
-	//height:35px;
 }
 
-.toplogoimg{
-	//border-bottom:1px solid white !important;
-}
 
 </style>
 <?
@@ -230,8 +220,9 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 	<?else: //this is the Kiosk header?>
 	<style>
 	.ui-slider{
-		//margin:auto !important;
-		margin: -30px 0  0 64px !important;
+		margin: 21px auto !important;
+		//for the text label
+		//margin: -30px 0  0 64px !important;
 		width:70%;
 	}
 	.ui-slider-input{
@@ -246,17 +237,37 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 	label{
 		font-weight:bold !important;
 		font-size:15pt !important;
-		width:
+	}
+	.magnify{
+		float:left;
+		height:53px;
+		padding-left:15%;
+		margin: -13px 0 0 0;
+	}
+	.magnify img{
+		height:100%;
 	}
 	</style>
-	<div class="zoomlabel ui-field-contain">
+	<!--div class="zoomlabel ui-field-contain">
 	<label for="zoomslider">Text size:</label>
 	<input class="zoomslider" name="zoomslider" type="range" data-highlight="true" data-track-theme="a" data-theme="g" value="1" min="1" max="5" step=".1" />
+	</div-->
+	<div class="magnify">
+	<?=$this->Html->image('magnify2.png',array())?>
 	</div>
+	<input id="zoomslider" type="range" data-highlight="true" data-track-theme="a" data-theme="g" value="1" min="1" max="5" step=".1" />
+	<input id="zoomslider2" type="range" data-highlight="true" data-track-theme="a" data-theme="g" value="1" min="1" max="5" step=".1" />
+
 	<script>
-	$( ".zoomslider" ).bind( "change", function(event, ui) {
-		$('p,h1,h2,h3,h4').animate({ 'zoom': $(".zoomslider").val() }, 30 );
-		//console.log($(".zoomslider").val());
+	$( document ).on( "pagecreate", function( event, ui ) {
+	$( "#zoomslider" ).bind( "change", function(event, ui) {
+		$('p,h1,h2,h3,h4,.vgalchild').animate({ 'zoom': $("#zoomslider").val() }, 30 );
+		console.log($("#zoomslider").val());
+	});
+		$( "#zoomslider2" ).bind( "change", function(event, ui) {
+		$('p,h1,h2,h3,h4,.vgalchild').animate({ 'zoom': $("#zoomslider2").val() }, 30 );
+		console.log($("#zoomslider2").val());
+	});
 	});
 	</script>
 	<?endif?>
