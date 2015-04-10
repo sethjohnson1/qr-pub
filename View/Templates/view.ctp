@@ -2,7 +2,8 @@
 echo $this->element('jqm_header');
 
 ?>
-<script>
+<!-- script>
+
 $(function() {      
       $(".ui-page").swipe( {
         pinchIn:function(event, direction, distance, duration, fingerCount, pinchZoom)
@@ -25,7 +26,7 @@ $(function() {
         pinchThreshold:0  
       });
     });
-</script>
+</script-->
 <?
 
 if ($template['Template']['name']=='vgal' || $template['Template']['name']=='tn') echo $this->element('vgal');
