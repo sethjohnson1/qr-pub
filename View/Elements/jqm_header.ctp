@@ -16,6 +16,10 @@
 
 /* the header height is smaller than the wrapper so the logo overcomes it */
 
+.kiosk-header{
+	height:37px;
+	background-color: #ffffff !important;
+}
 .header{
 	border-bottom: 9px solid #aa9c8f;
 	background-color: #ffffff !important;
@@ -61,22 +65,22 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 
 </script>
 <div data-role="page" id="qrpage<?=$template['Template']['id']?>" data-theme="a">
-	<?if (Configure::read('enableKioskMode')!=1):?>
-	<div data-role="header" data-position="fixed" class="header">
+<?if (Configure::read('enableKioskMode')!=1) $headerclass='header';
+	else $headerclass='kiosk-header';
+?>
+	<div data-role="header" data-position="fixed" class="<?=$headerclass?>">
 	<div class="headerwrapper">
+	<?if (Configure::read('enableKioskMode')!=1):?>
 		<div class="top_logo">
 		<? 
-		if (Configure::read('enableKioskMode')!=1) $url='/';
-		else $url='#';
 		echo $this->Html->image('1-mobile-logo-copy-copy.png',array(
-			'url'=>$url,
+			'url'=>'/',
 			'height'=>'80',
 			'alt'=>'Center of the West logo',
 			'class'=>'toplogoimg'
 		));
 		?>
 		</div>
-			<? if (Configure::read('enableKioskMode')!=1):?>
 				<div class="menubuttons">
 				<? 
 			
@@ -167,8 +171,6 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 					echo $this->Form->end();
 					?>
 			</div><!-- center div -->
-	
-			<?endif?>
 		<script type="text/javascript">
 //just know that without unique IDs (and class names don't work) everything falls apart  
 //auto-submit form after 3 characters
@@ -225,9 +227,41 @@ if (!isset($template['Template']['id'])) $template['Template']['id']=$this->para
 	});
 
 	</script>
+	<?else: //this is the Kiosk header?>
+	<style>
+	.ui-slider{
+		//margin:auto !important;
+		margin: -30px 0  0 64px !important;
+		width:70%;
+	}
+	.ui-slider-input{
+		display:none !important;
+	}
+	.zoomlabel{
+		margin: auto;
+		width:70%;
+		height:20px;
+		border: 0px !important;
+	}
+	label{
+		font-weight:bold !important;
+		font-size:15pt !important;
+		width:
+	}
+	</style>
+	<div class="zoomlabel ui-field-contain">
+	<label for="zoomslider">Text size:</label>
+	<input class="zoomslider" name="zoomslider" type="range" data-highlight="true" data-track-theme="a" data-theme="g" value="1" min="1" max="5" step=".1" />
+	</div>
+	<script>
+	$( ".zoomslider" ).bind( "change", function(event, ui) {
+		$('p,h1,h2,h3,h4').animate({ 'zoom': $(".zoomslider").val() }, 30 );
+		//console.log($(".zoomslider").val());
+	});
+	</script>
+	<?endif?>
 	</div><!-- headerwrapper -->
 	</div><!-- header -->
-	<?endif?>
 	<div role="main" class="ui-content ui-body ui-body-a ui-shadow">
 	<?
 	echo $this->Session->flash();

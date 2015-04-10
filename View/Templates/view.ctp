@@ -1,5 +1,33 @@
 <?
 echo $this->element('jqm_header');
+
+?>
+<script>
+$(function() {      
+      $(".ui-page").swipe( {
+        pinchIn:function(event, direction, distance, duration, fingerCount, pinchZoom)
+        {
+          //$(this).text("You pinched " +direction + " by " + distance +"px, zoom scale is "+pinchZoom);
+         // $('.ui-content').animate({ 'zoom': pinchZoom }, 'slow');
+          $('.ui-content').animate({ 'zoom': pinchZoom });
+
+        },
+        pinchOut:function(event, direction, distance, duration, fingerCount, pinchZoom)
+        {
+          //$('.box').text("You pinched " +direction + " by " + distance +"px, zoom scale is "+pinchZoom);
+		  if (pinchZoom < 1){pinchZoom=1;}
+		  $('.ui-content').animate({ 'zoom': pinchZoom }, 'fast');
+        },
+        /*pinchStatus:function(event, phase, direction, distance , duration , fingerCount, pinchZoom) {
+          $(this).html("Pinch zoom scale "+pinchZoom+"  <br/>Distance pinched "+distance+" <br/>Direction " + direction);
+        },*/
+        fingers:2,  
+        pinchThreshold:0  
+      });
+    });
+</script>
+<?
+
 if ($template['Template']['name']=='vgal' || $template['Template']['name']=='tn') echo $this->element('vgal');
 if ($template['Template']['name']=='blog') echo $this->element('blog');
 if ($template['Template']['name']=='splash') echo $this->element('splash');
