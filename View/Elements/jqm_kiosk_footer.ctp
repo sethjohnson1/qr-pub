@@ -5,17 +5,17 @@
 	?>
 	<style>
 	.buttonstyle{
-		width:152px;
+		width:187px;
 		//opacity: .92;
 		//height:200px;
-		font-size:104px !important;
+		font-size:82px !important;
 		margin: 0;
-		padding: 0;
+		padding: 0 60px;
 	}
 	
 	.kiosk-footer{
 		background-color: #ffffff !important;
-		width: 69% !important;
+		//width: 69% !important;
 		opacity: .7;
 		margin: 0 auto;
 	}
@@ -23,7 +23,7 @@
 	.fontspan{
 		font-size:14pt;
 		position: relative;
-		bottom: -4px;
+		bottom: -2px;
 		padding-right:6px;
 	}
 	</style>
@@ -65,10 +65,10 @@
 			<?endif;?>
 		</div>
 		<div class="ui-block-b">
-		<span class="fontspan" style="zoom: 1">A</span>
-		<span class="fontspan" style="zoom: 2">A</span>
-		<span class="fontspan" style="zoom: 3">A</span>
-		<span class="fontspan" style="zoom: 4">A</span>
+		<span class="fontspan" style="zoom: 1" onclick="$('p,h1,h2,h3,h4').animate({ 'zoom': 1 }, 10 );">A</span>
+		<span class="fontspan" style="zoom: 2" onclick="$('p,h1,h2,h3,h4').animate({ 'zoom': 2 }, 10 );">A</span>
+		<span class="fontspan" style="zoom: 3" onclick="$('p,h1,h2,h3,h4').animate({ 'zoom': 3 }, 10 );">A</span>
+		<span class="fontspan" style="zoom: 4" onclick="$('p,h1,h2,h3,h4').animate({ 'zoom': 4 }, 10 );">A</span>
 		</div>
 		<div class="ui-block-c">
 		<?
