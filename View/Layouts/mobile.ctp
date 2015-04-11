@@ -45,4 +45,5 @@ iScout | <? echo $this->fetch('title'); ?>
 	<?php echo $this->fetch('content'); 
 	?>
 </body>
+
 </html>
