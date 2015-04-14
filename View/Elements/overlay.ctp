@@ -39,12 +39,13 @@ using unique ID for clickOpen might be necessary if problems occur
 
 <div id="rankPopup<?=$template['Template']['id']?>" data-theme="a" data-overlay-theme="a" data-role="popup" data-position-to="window" class="rankpop">
 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-<?
-if ($starrating<5):
-?>
 <div class="disccontainer">
 <?=$this->Html->image('star_'.$starrating.'.png',array('class'=>'discimg'))?>
 </div>
+<?
+if ($starrating<5):
+?>
+
 <h3>You've visited enough stops to earn an iScout Star!</h3>
 <?else:?>
 <h3>Great scouting!
