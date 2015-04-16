@@ -1,4 +1,6 @@
 	</div><!-- /content main -->
+	<? // this div makes room for the footer so you can scroll below it?>
+	<div style="height:100px"></div>
 		<!--div id="overlay"><p>hey</p></div-->
 	<? 
 	if ($template['Template']['name']=='vgal'|| $template['Template']['name']=='tn') echo $this->element('vgal_lightbox');  
@@ -123,12 +125,13 @@
 	<script type="text/javascript">
 
 	var overlay = document.getElementById('overlay2');
-
+/*
 	window.addEventListener('scroll', function(e){
   		//document.getElementById('report-scale').innerHTML = document.documentElement.clientWidth/window.innerWidth + " " + window.innerWidth/document.documentElement.clientWidth;
         //document.getElementById('report-left').innerHTML = window.pageXOffset;
         //document.getElementById('report-bottom').innerHTML = window.pageYOffset;
-
+		
+		//this is not working exactly right and I need to get kiosks into production
         overlay.style.position = 'absolute';
         overlay.style.left = window.pageXOffset + 'px';
         overlay.style.bottom = document.documentElement.clientHeight - (window.pageYOffset + window.innerHeight) + 'px';
@@ -136,6 +139,7 @@
 
 
 	});
+	*/
 
 
 	</script>
