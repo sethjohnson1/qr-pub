@@ -1,6 +1,6 @@
 	</div><!-- /content main -->
 	<? // this div makes room for the footer so you can scroll below it?>
-	<div style="height:100px"></div>
+	<div style="height:125px"></div>
 		<!--div id="overlay"><p>hey</p></div-->
 	<? 
 	if ($template['Template']['name']=='vgal'|| $template['Template']['name']=='tn') echo $this->element('vgal_lightbox');  
