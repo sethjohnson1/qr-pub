@@ -141,7 +141,9 @@ sj - modified these from WordPress CSS to always center
 		//debug($img);
 	}
 	//using strip_tags for now, someday it would be nice to make the thumbnails expand.. but...
-	if (!empty($kioskmode)) $wp_content['asset_text']=strip_tags($wp_content['asset_text'],'<img><div><p><h3><iframe>');
+	//for now Q&D fix to get the CFM map working, which is the 2nd condition of the IF statement
+	if (!empty($kioskmode) && $template['Template']['id']!=65) $wp_content['asset_text']=strip_tags($wp_content['asset_text'],'<img><div><p><h3><iframe>');
+	//debug($template);
 	echo $wp_content['asset_text'];
 ?>
 <script type="text/javascript">
