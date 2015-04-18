@@ -37,9 +37,10 @@ $this->set(compact('percents','threshold'));
 		Visit or browse stops in each of our museums to earn them all.
 	</p>
 	<?
+	//just using HTML5 validation since this never actually goes to the DB
 		echo $this->Form->create('Template');
-        echo $this->Form->input('name', array('div' => false,'empty'=>true,'placeholder'=>'Subject / Title','label'=>false));
-        echo $this->Form->input('message', array('div' => false,'empty'=>true,'placeholder'=>'Your short message','label'=>false));
+        echo $this->Form->input('name', array('div' => false,'empty'=>true,'placeholder'=>'Subject / Title','label'=>false,'maxlength'=>'43'));
+        echo $this->Form->input('message', array('div' => false,'empty'=>true,'placeholder'=>'Your short message','label'=>false,'maxlength'=>'236'));
         echo $this->Form->input('percents', array('type'=>'hidden','value'=>json_encode($percents)));
         echo $this->Form->submit(__('Tattoo Message', true), array('div' => false));
         echo $this->Form->end();
