@@ -33,7 +33,7 @@ $this->set(compact('percents','threshold'));
 	<?
 	if (!isset($crypt)):
 	?>
-	<p>Good scouts reports their findings  . . . And you can too with these handy Electronic Postcards you've earned.
+	<p>Good scouts report their findings  . . . And you can too with these handy Electronic Postcards you've earned.
 		Visit or browse stops in each of our museums to earn them all.
 	</p>
 	<?
