@@ -50,11 +50,18 @@ synopsis
    </div>
 </div><!-- /youtube_container -->
 <div class="text_container">
+<? //first check taxonomic - which would mean an HTML override 
+if (empty($asset['taxonomic'])):
+?>
 <p><strong><?=$asset['commonname'].'. <em>'. $asset['name'].'.</em> '.$asset['daterange']?></strong><br />
 <?=$asset['asset_text'].', '.$asset['dimensions'].'. '.$asset['creditline']?></p>
 <p><strong>Transcript:</strong> <?=$asset['synopsis']?></p>
 <p class="ui-mini" align="center"><em><?=$asset['inscription']?></em></p>
-</div>
+<?else:
+echo $asset['taxonomic'];
+endif;
+?>
+</div><!-- /text container -->
 </div><!-- /ag_container -->
 <!-- div class="ui-body ui-body-a ui-shadow">
 <h3>

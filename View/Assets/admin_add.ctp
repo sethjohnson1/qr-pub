@@ -27,12 +27,24 @@
 	}
 	else if ($type=='ag'){
 		echo '<h3>Please be careful, once submitted you cannot edit (but rather have to re-enter everything)</h3>';
+		echo $this->Form->button('Override',array('id'=>'ag_toggle','type'=>'button'));
+		?>
+		<div id="ag_normal">
+		<?
 		echo $this->Form->input('name',array('label'=>'Title'));  
 		echo $this->Form->input('commonname',array('label'=>'Maker','type'=>'text')); 
 		echo $this->Form->input('daterange',array('type'=>'text')); 
 		echo $this->Form->input('asset_text',array('label'=>'Medium','type'=>'text'));
 		echo $this->Form->input('dimensions',array('type'=>'text'));
 		echo $this->Form->input('creditline',array('type'=>'text'));
+		?>
+		</div><!-- /ag_normal -->
+		<div id="ag_override" style="display:none;">
+		<?
+		echo $this->Form->input('taxonomic',array('label'=>'HTML'));
+		?>
+		</div><!-- /ag_override -->
+		<?
 		echo $this->Form->input('synopsis',array('label'=>'Transcript')); 
 		echo $this->Form->input('filename',array('label'=>'YouTubeID')); 
 		echo $this->Form->input('inscription',array('type'=>'text','value'=>'Audio courtesy of Acoustiguide'));
@@ -91,6 +103,12 @@ $('input:submit').click(function(){
 	$('h2.statusMessage').text("Submitting the magic. Please wait...");
 	$('input:submit').attr("style","display: none;" );	
 });
+
+$('#ag_toggle').click(function(){
+	$('#ag_override').toggle();	
+	$('#ag_normal').toggle();	
+});
+
 
 /*
 $('.assetSubmit').toggle(function(){

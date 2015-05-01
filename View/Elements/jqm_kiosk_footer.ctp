@@ -1,6 +1,10 @@
+	<?$tbheight=52;?>
+	<div style="height:<?=$tbheight?>px"></div>
 	</div><!-- /content main -->
-	<? // this div makes room for the footer so you can scroll below it?>
-	<div style="height:125px"></div>
+	<? // this div makes room for the footer so you can scroll below it
+		// it DOESN'T WORK with the experimental viewport JS below
+	?>
+	<!-- div style="height:56px"></div -->
 		<!--div id="overlay"><p>hey</p></div-->
 	<? 
 	if ($template['Template']['name']=='vgal'|| $template['Template']['name']=='tn') echo $this->element('vgal_lightbox');  
@@ -29,9 +33,9 @@
 		bottom: -2px;
 		padding-right:6px;
 	}
-	#overlay2 {
+	.overlay2 {
 			position: fixed;
-			bottom: 0;
+			//bottom: 52px !important;
 			left: 0;
 			width: 100%;
 			padding: 20px;
@@ -44,7 +48,7 @@
 			z-index:1000;
 		}
 	</style>
-	<div id="overlay2">
+	<div id="overlay2<?=$template['Template']['id']?>" class="overlay2">
 	<div class="ui-grid-b" style="text-align:center;position: relative;top: 7px;">
 		<div class="ui-block-a">
 			<? 
@@ -98,7 +102,8 @@
 				'data-transition'=>$transition,
 				//this can be changed back to 'e' for brown buttons
 				'data-theme'=>'g',
-				'escape'=>false
+				'escape'=>false,
+				//'onclick'=>'resetOverlay()'
 				));
 			?>
 			<script>
@@ -124,21 +129,40 @@
 	
 	<script type="text/javascript">
 
-	var overlay = document.getElementById('overlay2');
-/*
+	var overlay<?=$template['Template']['id']?> = document.getElementById("overlay2<?=$template['Template']['id']?>");
+
 	window.addEventListener('scroll', function(e){
   		//document.getElementById('report-scale').innerHTML = document.documentElement.clientWidth/window.innerWidth + " " + window.innerWidth/document.documentElement.clientWidth;
         //document.getElementById('report-left').innerHTML = window.pageXOffset;
         //document.getElementById('report-bottom').innerHTML = window.pageYOffset;
 		
 		//this is not working exactly right and I need to get kiosks into production
-        overlay.style.position = 'absolute';
-        overlay.style.left = window.pageXOffset + 'px';
-        overlay.style.bottom = document.documentElement.clientHeight - (window.pageYOffset + window.innerHeight) + 'px';
-        overlay.style["-webkit-transform"] = "scale(" + window.innerWidth/document.documentElement.clientWidth + ")";
+        overlay<?=$template['Template']['id']?>.style.position = 'absolute';
+        overlay<?=$template['Template']['id']?>.style.left = window.pageXOffset + 'px';
+		//sj -adjusted this with $tbheight value
+		console.log((document.documentElement.clientHeight - (window.pageYOffset + window.innerHeight))+ 'px');
+        overlay<?=$template['Template']['id']?>.style.bottom = (document.documentElement.clientHeight - (window.pageYOffset + window.innerHeight))+<?=$tbheight?> + 'px';
+        overlay<?=$template['Template']['id']?>.style["-webkit-transform"] = "scale(" + window.innerWidth/document.documentElement.clientWidth + ")";
 
 
 	});
+	
+	$( document ).on( "pagechange", function( event ) {
+		
+		overlay<?=$template['Template']['id']?>.style.position = 'absolute';
+        overlay<?=$template['Template']['id']?>.style.left = window.pageXOffset + 'px';
+        overlay<?=$template['Template']['id']?>.style.bottom = document.documentElement.clientHeight - (window.pageYOffset + window.innerHeight) + 'px';
+        overlay<?=$template['Template']['id']?>.style["-webkit-transform"] = "scale(" + window.innerWidth/document.documentElement.clientWidth + ")";
+	
+		
+	});
+	
+/*	function resetOverlay() {
+		overlay.style.position = 'absolute';
+        overlay.style.left = window.pageXOffset + 'px';
+        overlay.style.bottom = document.documentElement.clientHeight - (window.pageYOffset + window.innerHeight) + 'px';
+        overlay.style["-webkit-transform"] = "scale(" + window.innerWidth/document.documentElement.clientWidth + ")";
+	}
 	*/
 
 
