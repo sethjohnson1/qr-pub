@@ -32,7 +32,12 @@ iScout | <? echo $this->fetch('title'); ?>
 		
 	?>
 	<!-- meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no" -->
-<script>
+<?
+//sj - no analytics for kioskMode, it was causing really inflated numbers
+$km=Configure::read('enableKioskMode');
+if (empty($km)):
+?>
+	<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -42,6 +47,7 @@ iScout | <? echo $this->fetch('title'); ?>
   ga('send', 'pageview');
 
 </script>
+<?endif?>
 </head>
 <body>
 	<?php echo $this->Session->flash(); ?>
