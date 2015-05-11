@@ -31,7 +31,7 @@ iScout | <? echo $this->fetch('title'); ?>
 		
 		
 	?>
-	<!-- meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no" -->
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
 <?
 //sj - no analytics for kioskMode, it was causing really inflated numbers
 $km=Configure::read('enableKioskMode');

@@ -4,7 +4,7 @@
 	<? // this div makes room for the footer so you can scroll below it
 		// it DOESN'T WORK with the experimental viewport JS below
 	?>
-	<!-- div style="height:56px"></div -->
+	<div style="height:56px"></div>
 		<!--div id="overlay"><p>hey</p></div-->
 	<? 
 	if ($template['Template']['name']=='vgal'|| $template['Template']['name']=='tn') echo $this->element('vgal_lightbox');  
@@ -33,8 +33,10 @@
 		bottom: -2px;
 		padding-right:6px;
 	}
+	
 	.overlay2 {
 			position: fixed;
+			bottom: 0;
 			//bottom: 52px !important;
 			left: 0;
 			width: 100%;
@@ -47,6 +49,7 @@
 			-webkit-transform-origin: 0 100%;
 			z-index:1000;
 		}
+		
 	</style>
 	<div id="overlay2<?=$template['Template']['id']?>" class="overlay2">
 	<div class="ui-grid-b" style="text-align:center;position: relative;top: 7px;">
@@ -130,7 +133,7 @@
 	<script type="text/javascript">
 
 	var overlay<?=$template['Template']['id']?> = document.getElementById("overlay2<?=$template['Template']['id']?>");
-
+/*
 	window.addEventListener('scroll', function(e){
   		//document.getElementById('report-scale').innerHTML = document.documentElement.clientWidth/window.innerWidth + " " + window.innerWidth/document.documentElement.clientWidth;
         //document.getElementById('report-left').innerHTML = window.pageXOffset;
@@ -156,7 +159,7 @@
 	
 		
 	});
-	
+	*/
 /*	function resetOverlay() {
 		overlay.style.position = 'absolute';
         overlay.style.left = window.pageXOffset + 'px';
