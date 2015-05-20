@@ -31,7 +31,7 @@ class CommentsUsersController extends AppController {
 					$userdata['id']=$user['id'];
 					$userdata['flags']=$user['flags'];
 					$userdata['flags']++;
-					$this->CommentsUser->User->create();
+					//$this->CommentsUser->User->create();
 					if ($this->CommentsUser->User->save($userdata));
 				}
 				$commentsuser=$this->CommentsUser->find('first',array(
@@ -163,7 +163,8 @@ class CommentsUsersController extends AppController {
 				
 				));
 				//first save user totals, they are simply cumulative
-				$this->CommentsUser->User->create();
+				//no, don't make a new user!
+				//$this->CommentsUser->User->create();
 				$votedata['id']=$this->Auth->user('id');
 				if ($vote==1){
 					$votedata['upvotes']=$user['upvotes'];
