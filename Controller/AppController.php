@@ -46,10 +46,11 @@ class AppController extends Controller {
 		
 		//this must be set to variable to avoid errors when checking for empty
 		$kioskmode=Configure::read('enableKioskMode');
-		//Authenticate a kiosk user 
+		
+		//Authenticate a kiosk user - very basic right now
 		if (!empty($kioskmode)){
 			$user['id']='kioskUser';
-			$user['username']='KioskUser';
+			$user['username']='Museum Visitor';
 			$user['provider']='kiosk';
 			$this->Auth->login($user);
 		}

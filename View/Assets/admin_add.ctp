@@ -54,7 +54,7 @@
 	}
 	else if ($type=='element'){
 		echo $this->Form->input('element_name');
-		echo $this->Form->input('allow_comments',array('type'=>'checkbox','checked'=>true,'label'=>'Show default comments box'));
+		echo $this->Form->checkbox('allow_comments');
 	}
 	else {
 		echo ' Template type not found. Something has gone wrong. Go back to the beginning or ask for help if you keep getting here.';	
