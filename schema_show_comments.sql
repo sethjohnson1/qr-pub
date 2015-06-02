@@ -1,0 +1,1 @@
+alter table assets add column allow_comments tinyint default 1 after id;

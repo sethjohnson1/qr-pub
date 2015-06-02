@@ -34,8 +34,10 @@ if ($template['Template']['name']=='blog') echo $this->element('blog');
 if ($template['Template']['name']=='splash') echo $this->element('splash');
 if ($template['Template']['name']=='video') echo $this->element('youtube');
 if ($template['Template']['name']=='ag') echo $this->element('ag');
-//skip all of the comments in Kiosk mode (and also overlay triggers)
-if (empty($kioskmode)):
+if ($template['Template']['name']=='element') echo $this->element('templates/'.$template['Asset'][0]['filename']);
+
+//allow comments only if not kioskmode and Allow comments on (which DB defaults to)
+if (empty($kioskmode) && $template['Asset'][0]['allow_comments']==1):
 	//begin overlay check here
 	echo $this->element('overlay');
 ?>

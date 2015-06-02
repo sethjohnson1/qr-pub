@@ -52,6 +52,10 @@
 	else if ($type=='tn'){
 		echo $this->Form->input('xml',array('label'=>'Paste XML here','type'=>'textarea','accept-charset'=>'UTF-8'));	
 	}
+	else if ($type=='element'){
+		echo $this->Form->input('element_name');
+		echo $this->Form->input('allow_comments',array('type'=>'checkbox','checked'=>true,'label'=>'Show default comments box'));
+	}
 	else {
 		echo ' Template type not found. Something has gone wrong. Go back to the beginning or ask for help if you keep getting here.';	
 	}	

@@ -213,7 +213,7 @@ class AssetsController extends AppController {
 				$xml = simplexml_load_string($this->request->data['Asset']['xml']);
 				$json = json_encode($xml);
 				$vgal = json_decode($json,TRUE);
-				debug($vgal);
+				//debug($vgal);
 				//loop through treasures to save and copy image and all treasure data
 				foreach ($vgal['treasure'] as $key=>$value){
 					foreach ($value as $field=>$trdata){
@@ -245,6 +245,23 @@ class AssetsController extends AppController {
 				//use filename for title and filemime for Author
 				$asset['filename']=$vgal['info']['title'];
 				$asset['filemime']=$vgal['info']['creator'];
+				
+				if ($this->Asset->save($asset)){
+					$this->Session->setFlash(__('Saved the vgal'));
+					return $this->redirect(array('admin'=>true,'controller'=>'templates','action' => 'index',$creator));
+				}
+				else $this->Session->setFlash(__('Something went horribly wrong.'));			
+			}
+			if ($type=='element'){
+				
+				$this->Asset->deleteAll(array('Asset.template_id'=>$id));
+				$asset=array();
+				$this->Asset->create();
+				$asset['template_id']=$this->request->data['Asset']['template_id'];
+				$asset['name']='element';
+				//using filename here as the element name, reserving asset_text if something else might be needed
+				$asset['filename']=$this->request->data['Asset']['element_name'];
+				$asset['allow_comments']=$this->request->data['Asset']['allow_comments'];
 				
 				if ($this->Asset->save($asset)){
 					$this->Session->setFlash(__('Saved the vgal'));
