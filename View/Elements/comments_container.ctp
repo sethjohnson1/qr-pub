@@ -54,7 +54,6 @@
 
 		<? 
 		if(empty($user))$user='';
-		$hide_stuff
 		echo $this->element('commentswidget',array($comments,$user));?>
 
 	</div>
