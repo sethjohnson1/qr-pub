@@ -33,6 +33,7 @@ echo $this->Form->create('Template',
 		//previd gets filled in automatically
 		if (isset($edit)) echo $this->Form->input('previd',array('label'=>'Prev ID. Only needed if something has gone wrong with linking.'));
 		echo $this->Form->input('code',array('label'=>'Navigation Code. This is only here for the Whitney and will be hidden soon'));
+		echo $this->Form->input('sortorder',array('label'=>'Sort order (optional, recommend using large numbers (i.e. 1000,2000,3000)'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
