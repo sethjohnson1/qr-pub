@@ -1,7 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 class CommentsUsersController extends AppController {
-	public $components = array('Paginator','Comment');
+	public $components = array('Paginator','Comment','Notify');
 	public function beforeFilter() {
 		parent::beforeFilter();
 	//	$this->Security->blackHoleCallback = 'blackhole';
@@ -95,7 +95,7 @@ class CommentsUsersController extends AppController {
 		//if ($this->request->is('ajax')){
 			if ($this->Auth->user()){
 				$user=$this->Auth->user();
-				//first see if this is an existing comment, unless in kiosk mode
+				//first see if this is an existing comment, unless kiosk user (the is_kiosk variable is misleading, it means "Is kiosk user"
 				$kname=explode('_',$user['id']);
 				if ($kname[0]!='kiosk'){
 				$commentdata=$this->CommentsUser->Comment->find('first',array(
@@ -103,30 +103,31 @@ class CommentsUsersController extends AppController {
 					'conditions'=>array('Comment.template_id'=>$this->request->data['sComment']['id'],'Comment.user_id'=>$user['id'])
 				));
 				$is_kiosk='';
-				$hide_stuff='';
 				}
 				else{
 					$is_kiosk=Configure::read('enableKioskMode');
-					//need a way to make this more portable, moving on for now
-					$hide_stuff='lost_gun';
+					$user['oid']='kiosk';
 				}
 				if (isset($commentdata['Comment']['id'])){
 					$comment['id']=$commentdata['Comment']['id'];
+					$comment['hidden']=$commentdata['Comment']['hidden'];
+					$comment['secret_uuid']=$commentdata['Comment']['secret_uuid'];
 				}
 				else {
-					$uuid=String::uuid();
-					$comment['id']=$uuid;
+					$this->CommentsUser->Comment->create();
+					$comment['id']=String::uuid();
+					$comment['secret_uuid']=String::uuid();
+					$comment['hidden']=0;
 				}
 				$comment['thoughts']=$this->request->data['sComment']['comment'];
 				$comment['rating']=$this->request->data['sComment']['rating'];
 				$comment['user_id']=$this->Auth->user('id');
-				//this would be better passed in hidden field!
 				$comment['template_id']=$this->request->data['sComment']['id'];
-				$comment['hidden']=0;
 				if (isset($parentid)) $comment['parent_id']=$parentid;
-				$this->CommentsUser->Comment->create();
+				//$this->CommentsUser->Comment->create();
 				if ($this->CommentsUser->Comment->save($comment)){
 						$this->Session->setFlash('Your comment was noted.','flash_custom',array(),'commentFlash');
+						$this->Notify->emailAdmin($comment,$user);
 				}
 			}
 			else {
@@ -135,7 +136,7 @@ class CommentsUsersController extends AppController {
 			}
 			//Comment component..
 			$comments=$this->Comment->getComments($id,$user['id']);
-			$this->set(compact('comment','comments','user','id','is_kiosk','hide_stuff'));
+			$this->set(compact('comment','comments','user','id','is_kiosk'));
 			$this->render('comment_add','ajax');
 			
 		//}
@@ -164,15 +165,12 @@ class CommentsUsersController extends AppController {
 				));
 				$user=$user['User'];
 				$is_kiosk='';
-				$hide_stuff='';
 			}
 			else{
 				$user=$this->Auth->user();
 				$user['id']=$user['id'].'_'.$this->request->data[$id]['time_stamp'];
 				$is_kiosk=Configure::read('enableKioskMode');
-				//need a way to make this more portable, moving on for now
-				$hide_stuff='lost_gun';
-				//$commentuser='';
+
 			}
 				$data['user_id']=$user['id'];
 				$data['comment_id']=$id;
@@ -262,12 +260,13 @@ class CommentsUsersController extends AppController {
 			else {
 				$this->Session->setFlash('You must be logged in to upvote and downvote.','flash_custom',array(),'commentFlash');
 				$user['id']=null;
+				$is_kiosk='';
 			}
 			//return only the single comment
 			$comment=$this->Comment->getComment($id,$user['id']);
 			$js_time_stamp='';
 			if (isset($this->request->data[$id]['time_stamp'])) $js_time_stamp=$this->request->data[$id]['time_stamp'];
-			$this->set(compact('comment','user','is_kiosk','hide_stuff','js_time_stamp'));
+			$this->set(compact('comment','user','is_kiosk','js_time_stamp'));
 			$this->render('comment_single','ajax');
 		//}
 	
@@ -310,6 +309,20 @@ class CommentsUsersController extends AppController {
 			$this->set(compact('comments','user'));
 			$this->render('comment_add','ajax');
 		//}
-	}	
+	}
+
+	//used for hiding or un-hiding comments via e-mail link
+	public function secret_toggle($id, $secret) {
+		$comment=$this->CommentsUser->Comment->find('first',array('conditions'=>array('Comment.id'=>$id,'Comment.secret_uuid'=>$secret),'fields'=>'Comment.*'));
+		if (!$comment['Comment']['hidden']) $comment['Comment']['hidden']=true;
+		else $comment['Comment']['hidden']=false;
+		if ($this->CommentsUser->Comment->save($comment['Comment'])){
+			echo 'HIDDEN = '.intval($comment['Comment']['hidden']);
+		}
+		//debug($comment);
+		
+		$this->autoRender = false;
+	
+	}
 }
 

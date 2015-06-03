@@ -170,8 +170,7 @@ class TemplatesController extends AppController {
 				$this->set('show',1);
 			}
 		}
-		
-		
+
 		$this->set(compact('user','comments','template','usercomment','template_redir','totals','id','starrating','lastrating'));
 		
 		//URL shortener - will return BAD_REQUEST unless on live domain

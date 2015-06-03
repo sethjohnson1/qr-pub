@@ -1,6 +1,7 @@
 <div class="container<? echo $comment['Comment']['id'] ?>" >
 <?
 //$is_kiosk means it's a Kiosk
+if ($comment['Comment']['rating']==999) $hide_stuff='lost_gun';
 //$hide_stuff means to hide things - whether kiosk or not
 $flagged=false;
 $mine='notmine';
@@ -8,18 +9,25 @@ $utoggle='enabled';
 $dtoggle='enabled';
 $upvoted=false;
 $downvoted=false;
+
 if (isset($comment['Comment']['User']['username'])){
-	$formattedname=explode('^',$comment['Comment']['User']['username']);
-	$formattedname[0]=str_replace('_',' ',$formattedname[0]);
+
+		$formattedname=explode('^',$comment['Comment']['User']['username']);
+		$formattedname[0]=str_replace('_',' ',$formattedname[0]);
+	
 }
-else if (!empty($is_kiosk) && !empty($user['username'])) $formattedname[0]=$user['username'];
+//else if (!empty($is_kiosk) && !empty($user['username'])) $formattedname[0]=$user['username'];
 else $formattedname[0]='Anonymous';
+
+$kname=explode('_',$comment['Comment']['user_id']);
+if ($kname[0]=='kiosk') $formattedname[0]='Museum Visitor';
 
 echo $this->Form->create($comment['Comment']['id'],array('class'=>'comment'.$comment['Comment']['id']));
 //use the JS timestamp - this makes it possible for each *page view* to be unique for the kiosk (value is set using JS on container element)
 $stamp_val='';
 if (isset($js_time_stamp)) $stamp_val=$js_time_stamp;
 if (!empty($is_kiosk)) echo $this->Form->input('time_stamp',array('type'=>'hidden','value'=>$stamp_val,'class'=>'js_time_stamp_field'));
+$this->Form->unlockField('time_stamp');
 //see if its their own comment
 if (!empty($user['id']) && $comment['Comment']['user_id']==$user['id']) $mine='mine';
 else echo $this->Session->flash('commentFlash');

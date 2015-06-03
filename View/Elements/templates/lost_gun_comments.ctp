@@ -1,9 +1,17 @@
+<?
+$thoughts='';
+$btn_text='Add';
+if (isset($usercomment['Comment']['thoughts']) && isset($usercomment['User']['id'])){
+ $thoughts=$usercomment['Comment']['thoughts'];
+ $btn_text='Update';
+ }
+?>
 <script>
 $( document ).on( "pagecontainershow", function( event, ui ) {
 	//cleanup and redisplay
 	$('.lost_gun_comments').show();
 	$('.lost_gun_success').hide();
-	$('#lost_gun_input').val('');
+	$('#lost_gun_input').val('<?=$thoughts?>');
 	$('.js_time_stamp_field').val(Date.now());
 	$('.class<?=Configure::read('enableKioskMode')?>').removeAttr('disabled');
 });
@@ -16,24 +24,13 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 <? 
 	$allow=1;
 	echo $this->Form->create('sComment',array('class'=>'sCommentViewForm'.$id));
-	if (isset($usercomment['Comment']['thoughts'])) {
-		$thoughts=$usercomment['Comment']['thoughts'];
-		$rating=$usercomment['Comment']['rating'];
-		$labelcomment='Edit your comment and rating';
-	}
-	else { 
-		$thoughts='';
-		$rating=3;
-		$labelcomment='Add a comment and rating';
-	}
-	//echo heading here
 	echo $this->Form->input('id',array('type'=>'hidden','value'=>$template['Template']['id']));		
-	//echo $this->Form->input('time_stamp',array('type'=>'input','value'=>''));		
-	
-	echo $this->Form->input('rating',array('type'=>'hidden','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>$rating,'label'=>'Your Approval rating'));		
-	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'placeholder'=>'Tell your story of the magical, mystical Lost Gun of the Something-or-other','label'=>false,'id'=>'lost_gun_input'));		
+
+	//set rating very high so we can use it as a flag to know to hide it in single_comment_view
+	echo $this->Form->input('rating',array('type'=>'hidden','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>999,'label'=>'Your Approval rating'));		
+	echo $this->Form->input('comment',array('type'=>'textarea','placeholder'=>'Tell your story of the magical, mystical Lost Gun of the Something-or-other','label'=>false,'id'=>'lost_gun_input'));		
 	if (isset($user['id'])){
-		echo $this->Form->input('Add',array('type'=>'button','class'=>'comment_add'.$id,'id'=>'comment_add','label'=>false));	
+		echo $this->Form->input($btn_text,array('type'=>'button','class'=>'comment_add'.$id,'id'=>'comment_add','label'=>false));	
 	}
 	else {
 		$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
@@ -67,7 +64,7 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 
 		<? 
 		if(empty($user))$user='';
-		echo $this->element('commentswidget',array($comments,$user,'is_kiosk'=>Configure::read('enableKioskMode'),'hide_stuff'=>'lost_gun'));?>
+		echo $this->element('commentswidget',array($comments,$user,'is_kiosk'=>Configure::read('enableKioskMode')));?>
 
 	</div>
 </div>
