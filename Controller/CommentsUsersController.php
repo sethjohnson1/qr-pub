@@ -95,11 +95,21 @@ class CommentsUsersController extends AppController {
 		//if ($this->request->is('ajax')){
 			if ($this->Auth->user()){
 				$user=$this->Auth->user();
-				//first see if this is an existing comment
+				//first see if this is an existing comment, unless in kiosk mode
+				$kname=explode('_',$user['id']);
+				if ($kname[0]!='kiosk'){
 				$commentdata=$this->CommentsUser->Comment->find('first',array(
 					'recursive'=>-1,
 					'conditions'=>array('Comment.template_id'=>$this->request->data['sComment']['id'],'Comment.user_id'=>$user['id'])
 				));
+				$is_kiosk='';
+				$hide_stuff='';
+				}
+				else{
+					$is_kiosk=Configure::read('enableKioskMode');
+					//need a way to make this more portable, moving on for now
+					$hide_stuff='lost_gun';
+				}
 				if (isset($commentdata['Comment']['id'])){
 					$comment['id']=$commentdata['Comment']['id'];
 				}
@@ -125,7 +135,7 @@ class CommentsUsersController extends AppController {
 			}
 			//Comment component..
 			$comments=$this->Comment->getComments($id,$user['id']);
-			$this->set(compact('comment','comments','user','id'));
+			$this->set(compact('comment','comments','user','id','is_kiosk','hide_stuff'));
 			$this->render('comment_add','ajax');
 			
 		//}
@@ -136,6 +146,7 @@ class CommentsUsersController extends AppController {
 	public function comment_up($id = null, $templateid=null, $vote=null) {
 		//if ($this->request->is('ajax')){
 			if ($this->Auth->user()){
+				$kname=explode('_',$this->Auth->user('id'));
 	/*
 			The important thing to note here is that there are THREE saves, in this order:
 			$data is the CommentsUser data
@@ -146,25 +157,32 @@ class CommentsUsersController extends AppController {
 	*/
 				//find the user rather than first method for proper vote totals
 				//$user=$this->Auth->user();
+			if ($kname[0]!='kiosk'){
 				$user=$this->CommentsUser->User->find('first',array(
 					'conditions'=>array('User.id'=>$this->Auth->user('id')),
 					'recursive'=>-1	
 				));
 				$user=$user['User'];
-				$data['user_id']=$this->Auth->user('id');
+				$is_kiosk='';
+				$hide_stuff='';
+			}
+			else{
+				$user=$this->Auth->user();
+				$user['id']=$user['id'].'_'.$this->request->data[$id]['time_stamp'];
+				$is_kiosk=Configure::read('enableKioskMode');
+				//need a way to make this more portable, moving on for now
+				$hide_stuff='lost_gun';
+				//$commentuser='';
+			}
+				$data['user_id']=$user['id'];
 				$data['comment_id']=$id;
-				$commentuser=$this->CommentsUser->find('first',array(
-					'conditions'=>array('CommentsUser.comment_id'=>$id,'CommentsUser.user_id'=>$this->Auth->user('id')),
-					'recursive'=>-1
-				));
-				$commentdata=$this->CommentsUser->Comment->find('first',array(
-				'recursive'=>-1,
-				'conditions'=>array('Comment.id'=>$id)
-				
-				));
+				$commentdata=$this->CommentsUser->Comment->find('first',array('recursive'=>-1,'conditions'=>array('Comment.id'=>$id)));
+				$commentuser=$this->CommentsUser->find('first',array('conditions'=>array('CommentsUser.comment_id'=>$id,'CommentsUser.user_id'=>$user['id']),'recursive'=>-1));
 				//first save user totals, they are simply cumulative
 				//no, don't make a new user!
 				//$this->CommentsUser->User->create();
+				//need to fix this - don't save the User if Kiosk
+				if ($kname[0]!='kiosk'){
 				$votedata['id']=$this->Auth->user('id');
 				if ($vote==1){
 					$votedata['upvotes']=$user['upvotes'];
@@ -175,6 +193,8 @@ class CommentsUsersController extends AppController {
 					$votedata['downvotes']++;
 				}
 					if ($this->CommentsUser->User->save($votedata,array('validate' => false)));
+					
+				}
 					
 				$this->CommentsUser->create();
 				if(!empty($commentuser)){
@@ -189,7 +209,7 @@ class CommentsUsersController extends AppController {
 						}
 						else {
 							$commentdata['Comment']['upvotes']=$commentdata['Comment']['upvotes']+1;
-							$votedata['upvotes']=$votedata['upvotes']+1;
+							//$votedata['upvotes']=$votedata['upvotes']+1;
 							unset($commentdata['Comment']['downvotes']);
 							$data['upvoted']=true;
 						}
@@ -204,9 +224,7 @@ class CommentsUsersController extends AppController {
 							}
 							else {
 								$commentdata['Comment']['downvotes']=$commentdata['Comment']['downvotes']+1;
-								//$votedata['downvotes']=$votedata['downvotes']+1;
 								unset($commentdata['Comment']['upvotes']);
-								//unset($votedata['upvotes']);
 								$data['downvoted']=true;
 							}
 					}
@@ -247,7 +265,9 @@ class CommentsUsersController extends AppController {
 			}
 			//return only the single comment
 			$comment=$this->Comment->getComment($id,$user['id']);
-			$this->set(compact('comment','user'));
+			$js_time_stamp='';
+			if (isset($this->request->data[$id]['time_stamp'])) $js_time_stamp=$this->request->data[$id]['time_stamp'];
+			$this->set(compact('comment','user','is_kiosk','hide_stuff','js_time_stamp'));
 			$this->render('comment_single','ajax');
 		//}
 	

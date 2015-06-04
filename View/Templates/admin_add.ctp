@@ -19,6 +19,9 @@ echo $this->Form->create('Template',
 		//else echo $this->Form->input('name',array('type'=>'hidden'));
 		echo $this->Form->input('location',array('type'=>'select','options'=>$locations));
 		echo $this->Form->input('active',array('checked'=>'checked'));
+		if (isset($this->request->data['Template']['allow_comments'])) echo $this->Form->input('allow_comments');
+		else echo $this->Form->input('allow_comments',array('checked'=>'checked'));
+		
 		if ($creator==Configure::read('globalSuperUser'))
 		echo $this->Form->input('creator',array('label'=>'Creator. Name must match to link templates'));
 		else

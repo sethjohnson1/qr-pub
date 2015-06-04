@@ -49,7 +49,7 @@ class AppController extends Controller {
 		
 		//Authenticate a kiosk user - very basic right now
 		if (!empty($kioskmode)){
-			$user['id']='kioskUser';
+			$user['id']='kiosk_'.$kioskmode;
 			$user['username']='Museum Visitor';
 			$user['provider']='kiosk';
 			$this->Auth->login($user);

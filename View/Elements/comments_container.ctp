@@ -1,18 +1,9 @@
-<script>
-$( document ).on( "pagecontainershow", function( event, ui ) {
-	//cleanup and redisplay
-	$('.lost_gun_comments').show();
-	$('.lost_gun_success').hide();
-	$('#lost_gun_input').val('');
-	$('.js_time_stamp_field').val(Date.now());
-	$('.class<?=Configure::read('enableKioskMode')?>').removeAttr('disabled');
-});
-</script>
 <div class="comments_container" style="clear:both;">
-<div class="ui-shadow ui-corner-all custom-corners comments_box lost_gun_comments">
-
+<div class="ui-shadow ui-corner-all custom-corners comments_box">
+	<div class="ui-bar ui-bar-a">
+		<h2>Comment and Rate</h2>
+	</div>
 	<div class="ui-body ui-body-a">
-	<h1>What do you think happened?</h1>
 <? 
 	$allow=1;
 	echo $this->Form->create('sComment',array('class'=>'sCommentViewForm'.$id));
@@ -28,10 +19,9 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 	}
 	//echo heading here
 	echo $this->Form->input('id',array('type'=>'hidden','value'=>$template['Template']['id']));		
-	//echo $this->Form->input('time_stamp',array('type'=>'input','value'=>''));		
 	
-	echo $this->Form->input('rating',array('type'=>'hidden','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>$rating,'label'=>'Your Approval rating'));		
-	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'placeholder'=>'Tell your story of the magical, mystical Lost Gun of the Something-or-other','label'=>false,'id'=>'lost_gun_input'));		
+	echo $this->Form->input('rating',array('type'=>'range','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>$rating,'label'=>'Your Approval rating'));		
+	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'label'=>'Your thoughts'));		
 	if (isset($user['id'])){
 		echo $this->Form->input('Add',array('type'=>'button','class'=>'comment_add'.$id,'id'=>'comment_add','label'=>false));	
 	}
@@ -44,9 +34,6 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 	echo $this->Form->end();
 	?>
 	</div>
-</div>
-<div class="ui-shadow ui-corner-all custom-corners lost_gun_success" style="display: none;">
-<h1>Great now look through and vote on your favorites!</h1>
 </div>
 <br />
 	<style type="text/css" scoped>
@@ -61,13 +48,13 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 	</style>
 <div class="big_comment_container ui-shadow ui-corner-all custom-corners">
 	<div class="ui-bar ui-bar-a">
-		<h2>Other stories</h2>
+		<h2>Comments</h2>
 	</div>
 	<div class="ui-body ui-body-a comments<? echo $id; ?>">
 
 		<? 
 		if(empty($user))$user='';
-		echo $this->element('commentswidget',array($comments,$user,'is_kiosk'=>Configure::read('enableKioskMode'),'hide_stuff'=>'lost_gun'));?>
+		echo $this->element('commentswidget',array($comments,$user));?>
 
 	</div>
 </div>
@@ -81,9 +68,6 @@ $(document).on('pagebeforeshow', function(){
 		dataType:"html",
 		success:function (data, textStatus) {
 			$(".comments<? echo $id ?>").html(data).trigger('create');
-			//hide the box
-			$('.lost_gun_comments').fadeToggle();
-			$('.lost_gun_success').fadeToggle();
 		},
 		type:"POST",
 		url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_add/<? echo $template['Template']['id']; ?>"});

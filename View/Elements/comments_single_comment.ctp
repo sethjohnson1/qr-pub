@@ -1,6 +1,7 @@
 <div class="container<? echo $comment['Comment']['id'] ?>" >
 <?
-
+//$is_kiosk means it's a Kiosk
+//$hide_stuff means to hide things - whether kiosk or not
 $flagged=false;
 $mine='notmine';
 $utoggle='enabled';
@@ -11,10 +12,14 @@ if (isset($comment['Comment']['User']['username'])){
 	$formattedname=explode('^',$comment['Comment']['User']['username']);
 	$formattedname[0]=str_replace('_',' ',$formattedname[0]);
 }
-else $formattedname[0]='SethTest';
+else if (!empty($is_kiosk) && !empty($user['username'])) $formattedname[0]=$user['username'];
+else $formattedname[0]='Anonymous';
 
 echo $this->Form->create($comment['Comment']['id'],array('class'=>'comment'.$comment['Comment']['id']));
-
+//use the JS timestamp - this makes it possible for each *page view* to be unique for the kiosk (value is set using JS on container element)
+$stamp_val='';
+if (isset($js_time_stamp)) $stamp_val=$js_time_stamp;
+if (!empty($is_kiosk)) echo $this->Form->input('time_stamp',array('type'=>'hidden','value'=>$stamp_val,'class'=>'js_time_stamp_field'));
 //see if its their own comment
 if (!empty($user['id']) && $comment['Comment']['user_id']==$user['id']) $mine='mine';
 else echo $this->Session->flash('commentFlash');
@@ -36,11 +41,9 @@ else {
 	$flagvalue=1;
 	$flaglabel='Flag';
 	}
-//someday this could be combined a little, this is one Meal of an IF statement and is used Twice!
-/*if(($flagged==true || $comment['Comment']['flags']>=4) ||
- (isset($cookie_flags[$comment['Comment']['id']]) && empty($user['id']) )) $cheight=100;
-else 
-*/
+
+if (!isset($comment['Comment']['upvotes'])) $comment['Comment']['upvotes']=0;
+if (!isset($comment['Comment']['downvotes'])) $comment['Comment']['downvotes']=0;
 
 $cheight=160;
 
@@ -183,7 +186,7 @@ $cheight=160;
 			'data-iconshadow'=>'true',
 			'data-iconpos'=>'notext',
 			'data-corners'=>'false',
-			'class'=>'comment_up'.$comment['Comment']['id'],
+			'class'=>array('comment_up'.$comment['Comment']['id'],'class'.$is_kiosk),
 			$utoggle
 		));?>
 		<div class="upvote"><?=$comment['Comment']['upvotes']?></div>
@@ -206,13 +209,14 @@ $cheight=160;
 			'data-iconshadow'=>'true',
 			'data-iconpos'=>'notext',
 			'data-corners'=>'false',
-			'class'=>'comment_down'.$comment['Comment']['id'],
+			'class'=>array('comment_down'.$comment['Comment']['id'],'class'.$is_kiosk),
 			$dtoggle
 		));			
 		?>
 		
 		<div class="downvote"><?=$comment['Comment']['downvotes'] ?></div>
 		</div>
+		<?if (empty($is_kiosk)):?>
 		<div class="votes">
 		<?	echo $this->Form->input($flaglabel,array(
 			'div'=>false,
@@ -228,14 +232,15 @@ $cheight=160;
 		echo $this->Form->input('pflag',array('type'=>'hidden','value'=>'flag'));
 		?>
 		</div>
-		
+		<?endif?>
 	</div><!-- /comment_buttons -->
 
 		<div class="comment_text">
 		<div class="comment_header">
-		<div class="comment_rate">
-				<strong><?=$formattedname[0] ?></strong>
 		
+		<div class="comment_rate">
+				<p><strong><?=$formattedname[0] ?></strong></p>
+		<?if (empty($hide_stuff)):?>
 		
 		<?
 		for ($x=0;$x<=4; $x++):
@@ -247,9 +252,10 @@ $cheight=160;
 
 		<?
 		endfor;
+		endif;
 		?>
-		
 		</div>
+		<?if (empty($is_kiosk)):?>
 		<div class="comment_destructive"><?
 
 
@@ -270,12 +276,14 @@ $cheight=160;
 				
 			));
 		}
-		?> </div>
+		?>
+		</div>
+		<?endif?>
 		</div>
 		
 		
 
-		<div class="comment_thoughts"><? echo $comment['Comment']['thoughts'] ?></div>
+		<div class="comment_thoughts"><p><? echo $comment['Comment']['thoughts'] ?></p></div>
 		</div>
 		<!-- /div -->
 		</div><!-- /the_comment -->
@@ -313,7 +321,7 @@ $(document).off('click', '.comment_hide<? echo $comment['Comment']['id']; ?>').o
 $(document).off('click', '.comment_up<? echo $comment['Comment']['id']; ?>').on('click', '.comment_up<? echo $comment['Comment']['id']; ?>',function(e) {
 	$.ajax({
 	async:true,
-	data:$(".<? echo $comment['Comment']['id']; ?>CommentAddForm").serialize(),
+	data:$(".comment<? echo $comment['Comment']['id']; ?>").serialize(),
 	dataType:"html",
 	success:function (data, textStatus) {
 		$(".container<? echo $comment['Comment']['id']  ?>").fadeOut(0).html(data).trigger('create').fadeIn(500);
@@ -326,7 +334,7 @@ $(document).off('click', '.comment_up<? echo $comment['Comment']['id']; ?>').on(
 $(document).off('click', '.comment_down<? echo $comment['Comment']['id']; ?>').on('click', '.comment_down<? echo $comment['Comment']['id']; ?>',function(e) {
 	$.ajax({
 	async:true,
-	data:$(".<? echo $comment['Comment']['id']; ?>CommentAddForm").serialize(),
+	data:$(".comment<? echo $comment['Comment']['id']; ?>").serialize(),
 	dataType:"html",
 	success:function (data, textStatus) {
 		$(".container<? echo $comment['Comment']['id'] ?>").fadeOut(0).html(data).trigger('create').fadeIn(500);
