@@ -28,7 +28,7 @@ class TemplatesController extends AppController {
 		if ($key=='NW') continue;
 			$stops[$key]=$this->Template->find('all',array(
 			'conditions'=>array('Template.active'=>1,'Template.location'=>$key,'Template.previd is null'),
-			'recursive'=>-1,'order'=>'Template.sortorder desc'));
+			'recursive'=>-1,'order'=>'Template.code'));
 		}
 		$this->set(compact('stops'));
 		$this->set('title_for_layout', 'Browse');
