@@ -137,9 +137,7 @@ sj - modified these from WordPress CSS to always center
 	//the desc might be somewhere in the API call not saved, moving on for now..
 	$this->set('meta_description', $wp_title['asset_text'] );
 	$this->set('title_for_layout', $wp_title['asset_text']); 
-	foreach($wp_img as $img){
-		//debug($img);
-	}
+
 	//using strip_tags for now, someday it would be nice to make the thumbnails expand.. but...
 	//for now Q&D fix to get the CFM map working, which is the 2nd condition of the IF statement
 	if (!empty($kioskmode) && $template['Template']['id']!=65) $wp_content['asset_text']=strip_tags($wp_content['asset_text'],'<img><div><p><h3><iframe>');

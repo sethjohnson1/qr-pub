@@ -110,7 +110,8 @@ class TemplatesController extends AppController {
 		if (!empty($code)){
 			if ($id !=0){
 				$this->Session->setFlash('Viewing Code '.$code,'flash_custom');
-				return $this->redirect(array('controller'=>'templates','action'=>'view',$id));
+				//need to trim this, space gets in somehow, prob from JS serialize
+				return $this->redirect(array('controller'=>'templates','action'=>'view',trim($id)));
 			}
 			else {
 				$this->Session->setFlash('Sorry, code '.$code.' did not work','flash_custom');
