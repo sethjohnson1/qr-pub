@@ -43,6 +43,11 @@ if (empty($kioskmode) && $template['Template']['allow_comments']==1):
 	
 	echo $this->element('comments_container');
 endif;
-if (!empty($kioskmode)) echo $this->element('jqm_kiosk_footer');
+if (!empty($kioskmode)){
+ //sj -testing pinch zoom here, just made copy 
+ if ($kioskmode=='pinch') echo $this->element('jqm_kiosk_footer_pinch');
+ else echo $this->element('jqm_kiosk_footer');
+ 
+ }
 else echo $this->element('jqm_footer');
 ?>
