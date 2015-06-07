@@ -25,7 +25,7 @@ class CommentComponent extends Component {
 		$options['fields']=array('CommentsUser.*','Comment.*');
 		//no, better to sort the array, this is meaningless
 		$options['order']=array('Comment.diff desc');
-		$options['conditions']=array('CommentsUser.user_id'=>$userid,'Comment.template_id'=>$templateid,'Comment.hidden != 1');
+		$options['conditions']=array('CommentsUser.user_id'=>$userid,'Comment.template_id'=>$templateid,'Comment.hidden != 1','Comment.admin_hidden != 1');
 
 		$comment=$model->find('all',$options);
 		//now loop through and extract the ids to exclude from the next query
@@ -36,7 +36,7 @@ class CommentComponent extends Component {
 		
 		$model=ClassRegistry::init('Comment');
 		$comment2=$model->find('all',array(
-			'conditions'=>array('Comment.hidden != 1','Comment.template_id'=>$templateid,'AND'=>array($exclusions)),
+			'conditions'=>array('Comment.hidden != 1','Comment.admin_hidden != 1','Comment.template_id'=>$templateid,'AND'=>array($exclusions)),
 			'recursive'=>1,
 			'fields'=>array('Comment.*','User.*'),
 			'limit'=>200,

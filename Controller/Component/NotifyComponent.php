@@ -14,6 +14,7 @@ class NotifyComponent extends Component {
 	//999 is the lost gun, so put Ashley's e-mail there, going to me now for testing
 	$to='web@centerofthewest.org';
 	$to='sethj@centerofthewest.org';
+	$to='seth@sethjohnson.net';
 	if ($comment['rating']==999) $to='sethj@centerofthewest.org'; 
 	
 	$notice='';

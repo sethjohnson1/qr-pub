@@ -54,7 +54,10 @@ echo $this->Form->input('rating',array('type'=>'range','data-highlight'=>'true',
 
 		<? 
 		if(empty($user))$user='';
-		echo $this->element('commentswidget',array($comments,$user));?>
+		if (count($comments)>0) echo $this->element('commentswidget',array($comments,$user));
+		else echo '<p><em>No comments here yet - you could be the first!</em></p>';
+		
+		?>
 
 	</div>
 </div>

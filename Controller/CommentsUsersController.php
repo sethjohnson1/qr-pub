@@ -108,23 +108,24 @@ class CommentsUsersController extends AppController {
 				}
 				if (isset($commentdata['Comment']['id'])){
 					$comment['id']=$commentdata['Comment']['id'];
-					$comment['hidden']=$commentdata['Comment']['hidden'];
 					$comment['secret_uuid']=$commentdata['Comment']['secret_uuid'];
 				}
 				else {
 					$this->CommentsUser->Comment->create();
 					$comment['id']=String::uuid();
 					$comment['secret_uuid']=String::uuid();
-					$comment['hidden']=0;
 				}
 				$comment['thoughts']=$this->request->data['sComment']['comment'];
 				$comment['rating']=$this->request->data['sComment']['rating'];
 				$comment['user_id']=$this->Auth->user('id');
 				$comment['template_id']=$this->request->data['sComment']['id'];
+				$comment['hidden']=0;
 				if (isset($parentid)) $comment['parent_id']=$parentid;
 				//$this->CommentsUser->Comment->create();
 				if ($this->CommentsUser->Comment->save($comment)){
-						$this->Session->setFlash('Your comment was noted.','flash_custom',array(),'commentFlash');
+						if ($commentdata['Comment']['admin_hidden']==1) $stxt='Your comment is awaiting approval';
+						else $stxt='Your comment was noted.';
+						$this->Session->setFlash($stxt,'flash_custom',array(),'commentFlash');
 						$this->Notify->emailAdmin($comment,$user);
 				}
 			}
@@ -309,10 +310,10 @@ class CommentsUsersController extends AppController {
 	//used for hiding or un-hiding comments via e-mail link
 	public function secret_toggle($id, $secret) {
 		$comment=$this->CommentsUser->Comment->find('first',array('conditions'=>array('Comment.id'=>$id,'Comment.secret_uuid'=>$secret),'fields'=>'Comment.*'));
-		if (!$comment['Comment']['hidden']) $comment['Comment']['hidden']=true;
-		else $comment['Comment']['hidden']=false;
+		if (!$comment['Comment']['admin_hidden']) $comment['Comment']['admin_hidden']=true;
+		else $comment['Comment']['admin_hidden']=false;
 		if ($this->CommentsUser->Comment->save($comment['Comment'])){
-			echo 'HIDDEN = '.intval($comment['Comment']['hidden']);
+			echo 'HIDDEN = '.intval($comment['Comment']['admin_hidden']);
 		}
 		//debug($comment);
 		
