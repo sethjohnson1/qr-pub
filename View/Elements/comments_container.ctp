@@ -1,7 +1,7 @@
 <div class="comments_container" style="clear:both;">
 <div class="ui-shadow ui-corner-all custom-corners comments_box">
 	<div class="ui-bar ui-bar-a">
-		<h2>Comment and Rate</h2>
+		<h2>Your thoughts</h2>
 	</div>
 	<div class="ui-body ui-body-a">
 <? 
@@ -14,19 +14,19 @@
 	}
 	else { 
 		$thoughts='';
-		$rating=3;
+		$rating=0;
 		$labelcomment='Add a comment and rating';
 	}
 	//echo heading here
 	echo $this->Form->input('id',array('type'=>'hidden','value'=>$template['Template']['id']));		
-	
-	echo $this->Form->input('rating',array('type'=>'range','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>$rating,'label'=>'Your Approval rating'));		
-	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'label'=>'Your thoughts'));		
+			
+	echo $this->Form->input('comment',array('type'=>'textarea','value'=>$thoughts,'label'=>false,'placeholder'=>'Type comment or question here'));
+echo $this->Form->input('rating',array('type'=>'range','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>$rating,'label'=>'Rate 1 to 5 (optional)'));	
 	if (isset($user['id'])){
 		echo $this->Form->input('Add',array('type'=>'button','class'=>'comment_add'.$id,'id'=>'comment_add','label'=>false));	
 	}
 	else {
-		$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
+		$loginlink = $this->Html->link('Login is simple.','#userPopup'.$template['Template']['id'],array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
 		echo 'To ensure the fidelity of information supplied, you must login first.<br />'
 		.$loginlink.'<br />';
 	}

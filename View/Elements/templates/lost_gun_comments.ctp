@@ -13,7 +13,7 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 	$('.lost_gun_success').hide();
 	$('#lost_gun_input').val('<?=$thoughts?>');
 	$('.js_time_stamp_field').val(Date.now());
-	$('.class<?=Configure::read('enableKioskMode')?>').removeAttr('disabled');
+	$('.class<?=$kioskmode?>').removeAttr('disabled');
 });
 </script>
 <div class="comments_container" style="clear:both;">
@@ -64,7 +64,7 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 
 		<? 
 		if(empty($user))$user='';
-		echo $this->element('commentswidget',array($comments,$user,'is_kiosk'=>Configure::read('enableKioskMode')));?>
+		echo $this->element('commentswidget',array($comments,$user));?>
 
 	</div>
 </div>

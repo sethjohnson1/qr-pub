@@ -95,17 +95,15 @@ class CommentsUsersController extends AppController {
 		//if ($this->request->is('ajax')){
 			if ($this->Auth->user()){
 				$user=$this->Auth->user();
-				//first see if this is an existing comment, unless kiosk user (the is_kiosk variable is misleading, it means "Is kiosk user"
+				//first see if this is an existing comment, unless kiosk user (which means they were Auth'd at kiosk)
 				$kname=explode('_',$user['id']);
 				if ($kname[0]!='kiosk'){
 				$commentdata=$this->CommentsUser->Comment->find('first',array(
 					'recursive'=>-1,
 					'conditions'=>array('Comment.template_id'=>$this->request->data['sComment']['id'],'Comment.user_id'=>$user['id'])
 				));
-				$is_kiosk='';
 				}
 				else{
-					$is_kiosk=Configure::read('enableKioskMode');
 					$user['oid']='kiosk';
 				}
 				if (isset($commentdata['Comment']['id'])){
@@ -136,7 +134,7 @@ class CommentsUsersController extends AppController {
 			}
 			//Comment component..
 			$comments=$this->Comment->getComments($id,$user['id']);
-			$this->set(compact('comment','comments','user','id','is_kiosk'));
+			$this->set(compact('comment','comments','user','id'));
 			$this->render('comment_add','ajax');
 			
 		//}
@@ -164,12 +162,10 @@ class CommentsUsersController extends AppController {
 					'recursive'=>-1	
 				));
 				$user=$user['User'];
-				$is_kiosk='';
 			}
 			else{
 				$user=$this->Auth->user();
 				$user['id']=$user['id'].'_'.$this->request->data[$id]['time_stamp'];
-				$is_kiosk=Configure::read('enableKioskMode');
 
 			}
 				$data['user_id']=$user['id'];
@@ -260,13 +256,12 @@ class CommentsUsersController extends AppController {
 			else {
 				$this->Session->setFlash('You must be logged in to upvote and downvote.','flash_custom',array(),'commentFlash');
 				$user['id']=null;
-				$is_kiosk='';
 			}
 			//return only the single comment
 			$comment=$this->Comment->getComment($id,$user['id']);
 			$js_time_stamp='';
 			if (isset($this->request->data[$id]['time_stamp'])) $js_time_stamp=$this->request->data[$id]['time_stamp'];
-			$this->set(compact('comment','user','is_kiosk','js_time_stamp'));
+			$this->set(compact('comment','user','js_time_stamp'));
 			$this->render('comment_single','ajax');
 		//}
 	

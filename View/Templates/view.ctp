@@ -40,6 +40,7 @@ if ($template['Template']['name']=='element') echo $this->element('templates/'.$
 if (empty($kioskmode) && $template['Template']['allow_comments']==1):
 	//begin overlay check here
 	echo $this->element('overlay');
+	
 	echo $this->element('comments_container');
 endif;
 if (!empty($kioskmode)) echo $this->element('jqm_kiosk_footer');

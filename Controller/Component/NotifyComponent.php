@@ -11,9 +11,10 @@ class NotifyComponent extends Component {
 
 	public function emailAdmin($comment,$user){
 	
-	//999 is the lost gun, so put Ashley's e-mail here
+	//999 is the lost gun, so put Ashley's e-mail there, going to me now for testing
 	$to='web@centerofthewest.org';
-	if ($comment['rating']==999) $to='seth@sethjohnson.net'; 
+	$to='sethj@centerofthewest.org';
+	if ($comment['rating']==999) $to='sethj@centerofthewest.org'; 
 	
 	$notice='';
 	if ($comment['hidden']) $notice=" ** This comment was already hidden, if you wish to UNHIDE it click the link below, otherwise do nothing ** \n\n";

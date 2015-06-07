@@ -1,6 +1,6 @@
 <div class="container<? echo $comment['Comment']['id'] ?>" >
 <?
-//$is_kiosk means it's a Kiosk
+//$kioskmode is set on AppController
 if ($comment['Comment']['rating']==999) $hide_stuff='lost_gun';
 //$hide_stuff means to hide things - whether kiosk or not
 $flagged=false;
@@ -16,7 +16,6 @@ if (isset($comment['Comment']['User']['username'])){
 		$formattedname[0]=str_replace('_',' ',$formattedname[0]);
 	
 }
-//else if (!empty($is_kiosk) && !empty($user['username'])) $formattedname[0]=$user['username'];
 else $formattedname[0]='Anonymous';
 
 $kname=explode('_',$comment['Comment']['user_id']);
@@ -26,7 +25,7 @@ echo $this->Form->create($comment['Comment']['id'],array('class'=>'comment'.$com
 //use the JS timestamp - this makes it possible for each *page view* to be unique for the kiosk (value is set using JS on container element)
 $stamp_val='';
 if (isset($js_time_stamp)) $stamp_val=$js_time_stamp;
-if (!empty($is_kiosk)) echo $this->Form->input('time_stamp',array('type'=>'hidden','value'=>$stamp_val,'class'=>'js_time_stamp_field'));
+if (!empty($kioskmode)) echo $this->Form->input('time_stamp',array('type'=>'hidden','value'=>$stamp_val,'class'=>'js_time_stamp_field'));
 $this->Form->unlockField('time_stamp');
 //see if its their own comment
 if (!empty($user['id']) && $comment['Comment']['user_id']==$user['id']) $mine='mine';
@@ -55,6 +54,36 @@ if (!isset($comment['Comment']['downvotes'])) $comment['Comment']['downvotes']=0
 
 $cheight=160;
 
+//make an avatar
+//default value
+$avatar='truckerhat-114.png';
+if ($kioskmode=='cfm') $avatar='cfm_logo.svg';
+//first do special Facebook picture, async AJAX call after getting ID and fixing URL
+if (isset($comment['Comment']['User']['provider']) && $comment['Comment']['User']['provider']=='Facebook'):
+//remove URL but leave slashes on either end and use as part of URL
+	$fbid=$comment['Comment']['User']['oid'];
+	$prefix = 'https://www.facebook.com/app_scoped_user_id';
+	if (substr($fbid, 0, strlen($prefix)) == $prefix) $fbid = substr($fbid, strlen($prefix));
+	$fburl='https://graph.facebook.com'.$fbid.'picture?redirect=false&height=200&width=200';
+	//make it empty to avoid bad request first
+	$comment['Comment']['User']['picture']=false;
+	?>
+	<script>
+	$(document).ready(function() { 
+		$.ajax({
+		async:true,
+		dataType:"jsonp",
+		success:function (data, textStatus) {
+			fburl=data['data']['url'];
+			$('#avatar<?=$comment['Comment']['id']?>').attr('src', fburl);},
+		url:"<?=$fburl?>"});
+		return false;
+	});
+	</script>
+<?
+endif;
+if (!empty($comment['Comment']['User']['email'])) $avatar=$this->Gravatar->get_gravatar($comment['Comment']['User']['email'],true,$comment['Comment']['User']['username']);
+else if (!empty($comment['Comment']['User']['picture'])) $avatar=$comment['Comment']['User']['picture'];
 
 ?>	
 	<style type="text/css" scoped>
@@ -194,7 +223,7 @@ $cheight=160;
 			'data-iconshadow'=>'true',
 			'data-iconpos'=>'notext',
 			'data-corners'=>'false',
-			'class'=>array('comment_up'.$comment['Comment']['id'],'class'.$is_kiosk),
+			'class'=>array('comment_up'.$comment['Comment']['id'],'class'.$kioskmode),
 			$utoggle
 		));?>
 		<div class="upvote"><?=$comment['Comment']['upvotes']?></div>
@@ -217,14 +246,14 @@ $cheight=160;
 			'data-iconshadow'=>'true',
 			'data-iconpos'=>'notext',
 			'data-corners'=>'false',
-			'class'=>array('comment_down'.$comment['Comment']['id'],'class'.$is_kiosk),
+			'class'=>array('comment_down'.$comment['Comment']['id'],'class'.$kioskmode),
 			$dtoggle
 		));			
 		?>
 		
 		<div class="downvote"><?=$comment['Comment']['downvotes'] ?></div>
 		</div>
-		<?if (empty($is_kiosk)):?>
+		<?if (empty($kioskmode)):?>
 		<div class="votes">
 		<?	echo $this->Form->input($flaglabel,array(
 			'div'=>false,
@@ -247,8 +276,10 @@ $cheight=160;
 		<div class="comment_header">
 		
 		<div class="comment_rate">
-				<p><strong><?=$formattedname[0] ?></strong></p>
-		<?if (empty($hide_stuff)):?>
+				<p>
+				<?=$this->Html->image($avatar,array('alt'=>'user avatar','style'=>'width:60px;float:left; padding-right:5px;','class'=>'img-responsive img-rounded','id'=>'avatar'.$comment['Comment']['id'],'onerror'=>'this.src=\'img/truckerhat-114.png\'; this.onerror=null;'))?>
+				<strong><?=$formattedname[0] ?></strong></p>
+		<?if (empty($hide_stuff) && $comment['Comment']['rating']>0):?>
 		
 		<?
 		for ($x=0;$x<=4; $x++):
@@ -263,7 +294,7 @@ $cheight=160;
 		endif;
 		?>
 		</div>
-		<?if (empty($is_kiosk)):?>
+		<?if (empty($kioskmode)):?>
 		<div class="comment_destructive"><?
 
 
