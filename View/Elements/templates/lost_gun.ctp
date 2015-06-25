@@ -3,7 +3,7 @@ Tell us what YOU think happened to this gun!<br />
 Leave a comment after the video or tap the blue arrow to skip it
 </h1>
 <video onclick="playPause()" id="rifle" style="width:100%;">
-  <source src="<?=Configure::read('globalSiteURL').'vid/rifle.mp4'?>" type="video/mp4">
+  <source src="<?=Configure::read('globalSiteURL').'/vid/rifle.mp4'?>" type="video/mp4">
 
 Your browser does not support the video tag.
 </video>
