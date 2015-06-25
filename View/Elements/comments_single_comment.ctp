@@ -1,4 +1,4 @@
-<div class="container<? echo $comment['Comment']['id'] ?>" >
+<div class="container<?=$comment['Comment']['id']?>" name="container<?=$comment['Comment']['id']?>" >
 <?
 //$kioskmode is set on AppController
 if ($comment['Comment']['rating']==999) $hide_stuff='lost_gun';

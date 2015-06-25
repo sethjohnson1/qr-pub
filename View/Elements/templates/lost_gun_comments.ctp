@@ -79,14 +79,23 @@ $(document).on('pagebeforeshow', function(){
 		data:$(".sCommentViewForm<? echo $id; ?>").serialize(),
 		dataType:"html",
 		success:function (data, textStatus) {
+			console.log(data);
 			$(".comments<? echo $id ?>").html(data).trigger('create');
 			//hide the box
 			$('.lost_gun_comments').fadeToggle();
 			$('.lost_gun_success').fadeToggle();
+			
+			$('html, body').animate({
+				scrollTop: $("#div1").offset().top
+            }, 2000);
+			
+			
 		},
 		type:"POST",
 		url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_add/<? echo $template['Template']['id']; ?>"});
 		return false;
     }); 
 });
+
+
 </script>
