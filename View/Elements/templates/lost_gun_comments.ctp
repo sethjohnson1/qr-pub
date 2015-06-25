@@ -1,10 +1,12 @@
 <?
 $thoughts='';
 $btn_text='Add';
+/* something wrong here
 if (isset($usercomment['Comment']['thoughts']) && isset($usercomment['User']['id'])){
  $thoughts=$usercomment['Comment']['thoughts'];
  $btn_text='Update';
  }
+ */
 ?>
 <script>
 $( document ).on( "pagecontainershow", function( event, ui ) {
@@ -28,7 +30,7 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 
 	//set rating very high so we can use it as a flag to know to hide it in single_comment_view
 	echo $this->Form->input('rating',array('type'=>'hidden','data-highlight'=>'true','min'=>'0','max'=>'5','value'=>999,'label'=>'Your Approval rating'));		
-	echo $this->Form->input('comment',array('type'=>'textarea','placeholder'=>'Tell your story of the magical, mystical Lost Gun of the Something-or-other','label'=>false,'id'=>'lost_gun_input'));		
+	echo $this->Form->input('comment',array('type'=>'textarea','placeholder'=>'Tell us the story of what you think happened to this Winchester Model 1873 Rifle','label'=>false,'id'=>'lost_gun_input'));		
 	if (isset($user['id'])){
 		echo $this->Form->input($btn_text,array('type'=>'button','class'=>'comment_add'.$id,'id'=>'comment_add','label'=>false));	
 	}

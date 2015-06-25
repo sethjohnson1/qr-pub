@@ -123,7 +123,7 @@ class CommentsUsersController extends AppController {
 				if (isset($parentid)) $comment['parent_id']=$parentid;
 				//$this->CommentsUser->Comment->create();
 				if ($this->CommentsUser->Comment->save($comment)){
-						if ($commentdata['Comment']['admin_hidden']==1) $stxt='Your comment is awaiting approval';
+						if (isset($commentdata) && $commentdata['Comment']['admin_hidden']==1) $stxt='Your comment is awaiting approval';
 						else $stxt='Your comment was noted.';
 						$this->Session->setFlash($stxt,'flash_custom',array(),'commentFlash');
 						$this->Notify->emailAdmin($comment,$user);
