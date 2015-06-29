@@ -16,7 +16,7 @@ if (isset($comment['Comment']['User']['username'])){
 		$formattedname[0]=str_replace('_',' ',$formattedname[0]);
 	
 }
-else $formattedname[0]='Anonymous';
+else $formattedname[0]='You must login first, working on this';
 
 $kname=explode('_',$comment['Comment']['user_id']);
 if ($kname[0]=='kiosk') $formattedname[0]='Museum Visitor';

@@ -3,8 +3,8 @@ Tell us what YOU think happened to this gun!<br />
 Leave a comment after the video or tap the arrow to skip it
 </h1>
 
-<video onclick="playPause()" id="rifle" style="width:100%;" poster="<?=$this->webroot?>/img/lost_gun_overlay.jpg">
-  <source src="<?=Configure::read('globalSiteURL').'vid/rifle.mp4'?>" poster="lostgun.jpg" type="video/mp4">
+<video onclick="playPause()" id="rifle" style="width:100%;" poster="<?=Configure::read('globalSiteURL')?>/img/lost_gun_overlay.jpg">
+  <source src="<?=Configure::read('globalSiteURL').'/vid/rifle.mp4'?>" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 

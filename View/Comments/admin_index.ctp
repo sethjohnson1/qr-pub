@@ -13,6 +13,7 @@
 			<th><?php echo $this->Paginator->sort('modified'); ?></th>
 			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('hidden'); ?></th>
+			<th><?php echo $this->Paginator->sort('admin_hidden'); ?></th>
 			<th><?php echo $this->Paginator->sort('responded'); ?></th>
 			<th><?php echo $this->Paginator->sort('flags'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
@@ -29,6 +30,7 @@
 			<?php echo $this->Html->link($comment['User']['given_name'], array('plugin'=>'users','controller' => 'users', 'action' => 'view', $comment['User']['id'])); ?>
 		</td>
 		<td><?php echo h($comment['Comment']['hidden']); ?>&nbsp;</td>
+		<td><?php echo h($comment['Comment']['admin_hidden']); ?>&nbsp;</td>
 		<td><?php echo h($comment['Comment']['responded']); ?>&nbsp;</td>
 		<td><?php echo h($comment['Comment']['flags']); ?>&nbsp;</td>
 		<td class="actions">
