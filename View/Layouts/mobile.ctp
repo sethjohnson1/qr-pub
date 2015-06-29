@@ -16,10 +16,10 @@ iScout | <? echo $this->fetch('title'); ?>
 		
 		echo $this->Html->script('jquery-1.11.2.min');
 		echo $this->Html->script('jquery.mobile-1.4.5.min');
-		//important to load this AFTER as it overrides JQM swiping (which basically sucks)
+		//important to load this AFTER as it overrides JQM swiping (which basically sucks) - wait they are all bad
 		//echo $this->Html->script('jquery.touchSwipe.min');			
 		echo $this->Html->script('qr_scripts');
-		
+		echo $this->Html->script('jquery.animatedscroll-1.1.5.min');
 		echo $this->fetch('script');
 		echo $this->fetch('css');
 		echo $this->fetch('meta');

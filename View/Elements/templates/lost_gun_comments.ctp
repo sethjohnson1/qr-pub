@@ -36,7 +36,7 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 	}
 	else {
 	$loginlink='';
-		//$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
+		$loginlink = $this->Html->link('Login is simple.','#userPopup'.$id,array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
 		echo 'To ensure the fidelity of information supplied, you must login first.<br />'
 		.$loginlink.'<br />';
 	}
@@ -45,9 +45,7 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 	?>
 	</div>
 </div>
-<div class="ui-shadow ui-corner-all custom-corners lost_gun_success" style="display: none;">
-<h1>Great now look through and vote on your favorites!</h1>
-</div>
+
 <br />
 	<style type="text/css" scoped>
 		.big_comment_container{
@@ -70,6 +68,11 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 		echo $this->element('commentswidget',array($comments,$user));?>
 
 	</div>
+	<div class="ui-shadow ui-corner-all custom-corners lost_gun_success" style="display: none; padding-bottom:22px;">
+<h1>Great now look through and vote on your favorites!</h1>
+
+</div>
+	<div id="bottomofcomments"></div>
 </div>
 </div>
 <script type="text/javascript">
@@ -80,22 +83,21 @@ $(document).on('pagebeforeshow', function(){
 		data:$(".sCommentViewForm<? echo $id; ?>").serialize(),
 		dataType:"html",
 		success:function (data, textStatus) {
-			console.log(data);
-			$(".comments<? echo $id ?>").html(data).trigger('create');
+			//console.log(data);
+			$(".comments<?=$id ?>").html(data).trigger('create');
 			//hide the box
 			$('.lost_gun_comments').fadeToggle();
-			$('.lost_gun_success').fadeToggle();
+			$('.lost_gun_success').fadeToggle();	
 			
-			$('html, body').animate({
-				scrollTop: $("#div1").offset().top
-            }, 2000);
-			
-			
+			//scroll to comment, would love to somehow return the last insert ID but for now just go to the bottom
+			//$('html,body').animate({scrollTop: $('.container557f119a-1ad8-4177-949e-e909ac1000b5').offset().top});
+			$('html,body').animate({scrollTop: $('#bottomofcomments').offset().top});
 		},
 		type:"POST",
 		url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_add/<? echo $template['Template']['id']; ?>"});
 		return false;
-    }); 
+    });
+
 });
 
 

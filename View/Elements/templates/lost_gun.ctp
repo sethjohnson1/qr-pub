@@ -7,22 +7,8 @@ Leave a comment after the video or tap the arrow to skip it
   <source src="<?=Configure::read('globalSiteURL').'vid/rifle.mp4'?>" poster="lostgun.jpg" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-<!-- button onclick="playPause()">Play/Pause</button --> 
-<?
-/*
-found this on SO, looks promising but not tested at all
 
-<video width="320" height="240">
-  <source src="movie.mp4" type="video/mp4">
-</video>
-<script>
-  $(document).ready(function(){
-    $('video').on('ended',function(){
-      console.log('Video has ended!');
-    });
-  });
-</script>
-*/
+<?
 
 ?>
 
