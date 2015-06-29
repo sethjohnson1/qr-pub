@@ -35,7 +35,8 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 		echo $this->Form->input($btn_text,array('type'=>'button','class'=>'comment_add'.$id,'id'=>'comment_add','label'=>false));	
 	}
 	else {
-		$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
+	$loginlink='';
+		//$loginlink = $this->Html->link('Login is simple.','#userPopup',array('data-rel'=>'popup','data-position-to'=>'window','data-transition'=>'pop'));
 		echo 'To ensure the fidelity of information supplied, you must login first.<br />'
 		.$loginlink.'<br />';
 	}
