@@ -76,8 +76,15 @@ $( document ).on( "pagecontainershow", function( event, ui ) {
 </div>
 </div>
 <script type="text/javascript">
-$(document).on('pagebeforeshow', function(){       
+$(document).on('pagebeforeshow', function(){
+	
     $(document).off('click', '.comment_add<? echo $id; ?>').on('click', '.comment_add<? echo $id; ?>',function(e) {
+	var x = $('#lost_gun_input').val();
+	//console.log(x);
+	   if (x == null || x == "") {
+   }
+   else{
+		
 		$.ajax({
 		async:true,
 		data:$(".sCommentViewForm<? echo $id; ?>").serialize(),
@@ -94,9 +101,12 @@ $(document).on('pagebeforeshow', function(){
 			$('html,body').animate({scrollTop: $('#bottomofcomments').offset().top});
 		},
 		type:"POST",
-		url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_add/<? echo $template['Template']['id']; ?>"});
+		url:"<? echo Configure::read('globalSiteURL'); ?>/commentsUsers/comment_add/<? echo $template['Template']['id']; ?>"
+		});
+   }
 		return false;
     });
+	
 
 });
 

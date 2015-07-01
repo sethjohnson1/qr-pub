@@ -91,6 +91,8 @@ class CommentsUsersController extends AppController {
 	FLAW: HTML tags are currently not stripped out, mainly because I plan to use them. The SecurityComponent should prevent anything bad from happening,
 	but if not then we'll strip HTML tags too
 	   */
+	   
+
 	//be sure to turn this on in production
 		//if ($this->request->is('ajax')){
 			if ($this->Auth->user()){
