@@ -8,8 +8,9 @@ class CommentsController extends AppController {
 
 	public function admin_index($creator=null) {
 		$this->Comment->recursive = 0;
-		if ($creator != Configure::read('globalSuperUser'))
-		$this->paginate=array('conditions'=>array('Template.creator'=>$creator));
+		$conditions='';
+		if ($creator != Configure::read('globalSuperUser')) $conditions=array('Template.creator'=>$creator);
+		$this->paginate=array('limit'=>100,'conditions'=>$conditions);
 		$comments=$this->Paginator->paginate();
 		$this->set(compact('comments', 'creator'));
 	}
