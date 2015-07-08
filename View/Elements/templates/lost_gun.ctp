@@ -1,6 +1,5 @@
 <h1>
-Tell us what YOU think happened to this gun!<br />
-Leave a comment after the video or tap the arrow to skip it
+This Winchester Model 1873 lever action rifle was found leaning against a tree in Great Basin National Park. Tell us what YOU think happened to this gun!
 </h1>
 
 <video onclick="playPause()" id="rifle" style="width:100%;" poster="<?=Configure::read('globalSiteURL')?>/img/lost_gun_overlay.jpg">
