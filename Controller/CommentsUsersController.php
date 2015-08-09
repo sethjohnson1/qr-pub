@@ -96,6 +96,7 @@ class CommentsUsersController extends AppController {
 	//be sure to turn this on in production
 		//if ($this->request->is('ajax')){
 			if ($this->Auth->user()){
+				$nosave=0;
 				$user=$this->Auth->user();
 				//first see if this is an existing comment, unless kiosk user (which means they were Auth'd at kiosk)
 				$kname=explode('_',$user['id']);
@@ -106,6 +107,14 @@ class CommentsUsersController extends AppController {
 				));
 				}
 				else{
+					//this prevents multiple submissions, kiosk comments need at least 20 seconds in between
+					$time=$this->CommentsUser->Comment->find('first',array('fields'=>array('Comment.created'),'order'=>'Comment.created desc'));
+					$then=strtotime($time['Comment']['created']);
+					//system clock is 12 hours different than mySQL stamps
+					$now=strtotime(date("Y-m-d h:i:s"))+43200;
+					if ($now-$then<20) $nosave=1;
+					
+					//assign an oid so it's defined for the kiosk user
 					$user['oid']='kiosk';
 				}
 				if (isset($commentdata['Comment']['id'])){
@@ -123,12 +132,17 @@ class CommentsUsersController extends AppController {
 				$comment['template_id']=$this->request->data['sComment']['id'];
 				$comment['hidden']=0;
 				if (isset($parentid)) $comment['parent_id']=$parentid;
-				//$this->CommentsUser->Comment->create();
-				if ($this->CommentsUser->Comment->save($comment)){
-						if (isset($commentdata) && $commentdata['Comment']['admin_hidden']==1) $stxt='Your comment is awaiting approval';
-						else $stxt='Your comment was noted.';
-						$this->Session->setFlash($stxt,'flash_custom',array(),'commentFlash');
-						$this->Notify->emailAdmin($comment,$user);
+				if ($nosave!=1){
+					if ($this->CommentsUser->Comment->save($comment)){
+							if (isset($commentdata) && $commentdata['Comment']['admin_hidden']==1) $stxt='Your comment is awaiting approval';
+							else $stxt='Your comment was noted.';
+							$this->Session->setFlash($stxt,'flash_custom',array(),'commentFlash');
+							$this->Notify->emailAdmin($comment,$user);
+							//remove duplicates if it's a kiosk user, otherwise it updated anyway, this is kind of Q&D
+							if ($kname[0]=='kiosk'){
+							//$dups=$this->CommentsUser->Comment->find('all', array('fields' => array('Comment.thoughts', 'count(*) as TotalVotes'),'group' => array('Comment.thoughts HAVING COUNT(*) >= 1')));
+							}
+					}
 				}
 			}
 			else {

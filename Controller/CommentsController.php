@@ -13,6 +13,15 @@ class CommentsController extends AppController {
 		$this->paginate=array('limit'=>100,'conditions'=>$conditions);
 		$comments=$this->Paginator->paginate();
 		$this->set(compact('comments', 'creator'));
+		
+		
+		//this will remove duplicates
+		$this->Comment->find('all', array('fields' => array('Comment.thoughts', 'count(*) as Total'),'group' => array('Comment.thoughts HAVING COUNT(*) > 1')));
+		foreach ($dups as $key=>$val){
+			$numtimes=$val[0]['Total']-1;
+			$this->Comment->query('DELETE FROM comments WHERE thoughts="'.$val['Comment']['thoughts'].'" LIMIT '.$numtimes);
+		}
+		
 	}
 
 	public function admin_edit($id = null) {
