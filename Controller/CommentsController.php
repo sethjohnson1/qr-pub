@@ -16,7 +16,7 @@ class CommentsController extends AppController {
 		
 		
 		//this will remove duplicates
-		$this->Comment->find('all', array('fields' => array('Comment.thoughts', 'count(*) as Total'),'group' => array('Comment.thoughts HAVING COUNT(*) > 1')));
+		$dups=$this->Comment->find('all', array('fields' => array('Comment.thoughts', 'count(*) as Total'),'group' => array('Comment.thoughts HAVING COUNT(*) > 1')));
 		foreach ($dups as $key=>$val){
 			$numtimes=$val[0]['Total']-1;
 			$this->Comment->query('DELETE FROM comments WHERE thoughts="'.$val['Comment']['thoughts'].'" LIMIT '.$numtimes);
