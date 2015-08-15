@@ -19,11 +19,22 @@ foreach ($template['Asset'] as $asset){
 <? // HTML5 scoped CSS all over ?>
 
  <style type="text/css" scoped>
-   div[id^="attachment_"]{
-		max-width: 50%;
-		margin: auto;
+  div[id^="attachment_"]{
+		//max-width: 50%;
+		margin: auto auto 1em auto;
 	}
+	
 
+   img[class^="wp-image-"], img[class*=" wp-image-"]{
+		max-width: 50%;
+		margin: auto auto 1em auto;
+		display: block;
+		background: #fff;
+    border: 1px solid #f0f0f0;
+    max-width: 96%; /* Image does not overflow the content area */
+    padding: 5px 3px 10px;
+    text-align: center;
+	}
 	/* for responsive embedded YouTube vids */
 	
 .video-container {
@@ -54,6 +65,7 @@ div.aligncenter {
     margin: 5px auto 5px auto;
 }
 
+/*
 .alignright {
     float: right;
     margin: 5px 0 20px 20px;
@@ -68,6 +80,7 @@ div.aligncenter {
     display: block;
     margin: 5px auto 5px auto;
 }
+
 
 a img.alignright {
     float: right;
@@ -97,18 +110,22 @@ a img.aligncenter {
     text-align: center;
 }
 
+
+
 .wp-caption.alignnone {
     margin: 5px 20px 20px 0;
 }
+*/
 /*
 sj - modified these from WordPress CSS to always center
 */
+
 .wp-caption.alignleft {
-    margin: 0 auto;
+    margin: auto auto 1em auto;
 }
 
 .wp-caption.alignright {
-    margin: 0 auto;
+    margin: auto auto 1em auto;
 }
 
 /* sj modified this for images to be responsive */
@@ -124,7 +141,7 @@ sj - modified these from WordPress CSS to always center
 	font-style: italic;
 	margin-bottom: 1em;
 }
-*/
+
 	
   </style>
 <h3 class="ui-shadow ui-bar ui-bar-a"><? echo $wp_title['asset_text']; ?><br/>
