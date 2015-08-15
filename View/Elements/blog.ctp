@@ -34,6 +34,7 @@ foreach ($template['Asset'] as $asset){
     max-width: 96%; /* Image does not overflow the content area */
     padding: 5px 3px 10px;
     text-align: center;
+	height:100%;
 	}
 	/* for responsive embedded YouTube vids */
 	
