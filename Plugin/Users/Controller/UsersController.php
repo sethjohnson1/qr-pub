@@ -66,7 +66,7 @@ class UsersController extends UsersAppController {
 		'Session',
 		'Cookie',
 		'Paginator',
-		'Security',
+	//	'Security',
 		'Users.RememberMe',
 		'ExtAuth.ExtAuth',
 		'Scorecard'
