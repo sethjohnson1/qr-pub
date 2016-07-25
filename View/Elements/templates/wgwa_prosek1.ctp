@@ -1,30 +1,33 @@
 <style type="text/css" scoped>
-.infodiv{
-	display:none;
-}
+
 #interact{
 	display:none;
 }
+.slide{
+	padding:10px;
+}
 .animals{
 	margin: 0 auto; 
-	text-align: right;
-	float: left;
-	display:inline;
 }
 .animals>ul{
 	font-size:1em;
 	list-style-type: none;
+
 }
+
 .infodiv{
+	display:none;
 	border:1px solid #766a62;
 	background-color: #ebe1dd;
-	margin:41px;
+	margin:85px 41px 41px 41px;
 	padding:10px;
 	border-radius: 3px;
 	-webkit-box-shadow: 5px 4px 6px 0px #999;
 	-moz-box-shadow: 5px 4px 6px 0px #999;
 	box-shadow: 5px 4px 6px 0px #999;
 	color: black;
+	float: left;
+	width:410px;
 }
 #myContainer { 
 	border:1px solid #696969;
@@ -33,16 +36,69 @@
 	height:760px; 
 	*/
 	/*for nabi */
-	width:260px; 
-	height:260px; 
+	width:510px; 
+	height:510px; 
 	float: left;
 	display:inline;
 	margin:auto;
 } 
+
+.animal_buttons>tbody>tr>td, .explore {
+  background: #981e32;
+  background-image: -webkit-linear-gradient(top, #981e32, #701424);
+  background-image: -moz-linear-gradient(top, #981e32, #701424);
+  background-image: -ms-linear-gradient(top, #981e32, #701424);
+  background-image: -o-linear-gradient(top, #981e32, #701424);
+  background-image: linear-gradient(to bottom, #981e32, #701424);
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  font-size: 1em;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  color:white;
+  -webkit-text-shadow: none;
+	-moz-text-shadow: none;
+	text-shadow: none;
+	font-weight:bold;
+	text-align:center;
+}
+.animal_buttons{
+	width:100%;
+	border-spacing: 5px;
+}
+.animal_buttons>tbody>tr>td:hover, .explore:hover{
+  background: #701424;
+  background-image: -webkit-linear-gradient(top, #701424, #5e101e);
+  background-image: -moz-linear-gradient(top, #701424, #5e101e);
+  background-image: -ms-linear-gradient(top, #701424, #5e101e);
+  background-image: -o-linear-gradient(top, #701424, #5e101e);
+  background-image: linear-gradient(to bottom, #701424, #5e101e);
+  text-decoration: none;
+  cursor: pointer;
+  color: #bd4f19;
+}
+
+.explore{
+	color:#ffffff !important;
+	margin: 0 auto;
+    display: block;
+    width: 86%;
+}
+
+.fullview{
+	position: absolute;
+	top:461px;
+	right:415px;
+}
+
 </style>
 
 <?=$this->Html->script('ZoomifyImageViewerPro-v4-min.js')?>
-<script type="text/javascript"> Z.showImage("myContainer", "https://centerofthewest.org/zoomify_treasures/james_prosek_yellowstone_composition_no_1", "zNavigatorVisible=0&zToolbarVisible=0&zLogoVisible=0&zSliderVisible=0&zFullPageVisible=0&zFullScreenVisible=0&zProgressVisible=0&zTooltipsVisible=0&zPanButtonsVisible=0&zDebug=0"); </script>
+<script type="text/javascript"> Z.showImage("myContainer", "https://centerofthewest.org/zoomify_treasures/james_prosek_yellowstone_composition_no_1", "zImageProperties=<IMAGE_PROPERTIES WIDTH='13480' HEIGHT='13525' NUMTILES='3804' NUMIMAGES='1' VERSION='1.8' TILESIZE='256'/>&zNavigatorVisible=0&zToolbarVisible=0&zLogoVisible=0&zSliderVisible=0&zFullPageVisible=0&zFullScreenVisible=0&zProgressVisible=0&zTooltipsVisible=0&zPanButtonsVisible=0&zDebug=0"); </script>
 </head>
 <body>
 <div id="intro" class="slide">
@@ -57,35 +113,12 @@
 <p style="padding-left:115px; margin-top:-12px;">- James Prosek
 </p>
 <hr style="clear:both">
-<h1><a href="#painting" class="toggle">Explore or something</a></h1>
+<h1><a href="#painting" class="toggle explore">Explore the Painting</a></h1>
 </div>
 <div id="interact" class="slide">
 <a name="painting"></a>
 <div id="myContainer"></div>
-<div class="animals">
 
-<? //zoomify4 uses decimals for zoom value ?>
-<!-- a href="#painting" id="crane" onmousedown="Z.Viewport.zoomAndPanToView(862,1564,.50);">Sandhill Crane</a> | <a href="#painting" id="antelope" onmousedown="Z.Viewport.zoomAndPanToView(7400,2456,.30);">Pronghorn</a> | <a href="#painting" id="blackbird" onmousedown="Z.Viewport.zoomAndPanToView(12162,2953,100);">Red-winged Blackbird</a> | <a href="#painting" id="tanager" onmousedown="Z.Viewport.zoomAndPanToView(4464,4597,100);">Western Tanager</a> | <a href="#painting" id="trout" onmousedown="Z.Viewport.zoomAndPanToView(4895,6255.3,100);">Yellowstone Cutthroat Trout</a> | <a href="#painting" id="curlew" onmousedown="Z.Viewport.zoomAndPanToView(9097,6456,100);">Long-billed Curlew</a> | <a href="#painting" id="hummingbird" onmousedown="Z.Viewport.zoomAndPanToView(846,7456,100);">Calliope Hummingbird</a> | <a href="#painting" id="butterfly" onmousedown="Z.Viewport.zoomAndPanToView(10126,8058,100);">Monarch Butterfly</a> | <a href="#painting" id="pelican" onmousedown="Z.Viewport.zoomAndPanToView(8257,9078,.43);">American White Pelican</a> | <a href="#painting" id="hawk" onmousedown="Z.Viewport.zoomAndPanToView(2014,12522,.90);">Swainson's Hawk</a> | <a href="#painting" id="owl" onmousedown="Z.Viewport.zoomAndPanToView(5728,11173,100);">Burrowing Owl</a> | <a href="#painting" id="duck" onmousedown="Z.Viewport.zoomAndPanToView(10716,11545,100);">Harlequin Duck</a><br /><a id="general" href="#painting" onmousedown="Z.Viewport.reset()">Full View</a -->
-
-<ul>
-<li><a href="#painting" id="crane" onmousedown="Z.Viewport.zoomAndPanToView(862,1564,.50);">Sandhill Crane</a></li>
-<li><a href="#painting" id="antelope" onmousedown="Z.Viewport.zoomAndPanToView(7400,2456,.30);">Pronghorn</a></li>
-<li><a href="#painting" id="blackbird" onmousedown="Z.Viewport.zoomAndPanToView(12162,2953,100);">Red-winged Blackbird</a></li>
-<li><a href="#painting" id="tanager" onmousedown="Z.Viewport.zoomAndPanToView(4464,4597,100);">Western Tanager</a></li>
-<li><a href="#painting" id="trout" onmousedown="Z.Viewport.zoomAndPanToView(4895,6255.3,100);">Yellowstone Cutthroat Trout</a></li>
-<li><a href="#painting" id="curlew" onmousedown="Z.Viewport.zoomAndPanToView(9097,6456,100);">Long-billed Curlew</a></li>
-<li><a href="#painting" id="hummingbird" onmousedown="Z.Viewport.zoomAndPanToView(846,7456,100);">Calliope Hummingbird</a></li>
-<li><a href="#painting" id="butterfly" onmousedown="Z.Viewport.zoomAndPanToView(10126,8058,100);">Monarch Butterfly</a></li>
-<li><a href="#painting" id="pelican" onmousedown="Z.Viewport.zoomAndPanToView(8257,9078,.43);">American White Pelican</a></li>
-<li><a href="#painting" id="hawk" onmousedown="Z.Viewport.zoomAndPanToView(2014,12522,.90);">Swainson's Hawk</a></li>
-<li><a href="#painting" id="owl" onmousedown="Z.Viewport.zoomAndPanToView(5728,11173,100);">Burrowing Owl</a></li>
-<li><a href="#painting" id="duck" onmousedown="Z.Viewport.zoomAndPanToView(10716,11545,100);">Harlequin Duck</a></li>
-</ul>
-<br /><a id="general" href="#painting" onmousedown="Z.Viewport.reset()">Full View</a>
-
-</div>
-
-<div style="clear:both"></div>
 <div id="craneinfo" class="infodiv">
 <p>Sandhill Cranes, the most common of the world's cranes, are generally found in North America, but range as far south as Mexico and Cuba and as far west as Siberia. Some Sandhill Cranes call Yellowstone home in the summer and spend the winter in the Rio Grande Valley of New Mexico and Mexico.
 </p>
@@ -158,8 +191,35 @@ Harlequin Ducks range between America's interior, as far east as Yellowstone Nat
 Click the animal names to learn more.
 </p>
 </div>
+<h3 class="fullview"><a id="general" href="#painting" onmousedown="Z.Viewport.reset()">Full View</a></h3>
+<div style="clear:both"></div>
+<div class="animals">
+<? //zoomify4 uses decimals for zoom value ?>
+<table class="animal_buttons">
+<tbody>
+<tr>
+<td id="crane" onmousedown="Z.Viewport.zoomAndPanToView(862,1564,.365);">Sandhill Crane</td>
+<td id="antelope" onmousedown="Z.Viewport.zoomAndPanToView(7400,2456,.30);">Pronghorn</td>
+<td id="blackbird" onmousedown="Z.Viewport.zoomAndPanToView(12162,2953,100);">Red-winged Blackbird</td>
+<td id="tanager" onmousedown="Z.Viewport.zoomAndPanToView(4464,4597,100);">Western Tanager</td>
+</tr>
+<tr>
+<td id="trout" onmousedown="Z.Viewport.zoomAndPanToView(4895,6255.3,.7);">Yellowstone Cutthroat Trout</td>
+<td id="curlew" onmousedown="Z.Viewport.zoomAndPanToView(9047,6456,100);">Long-billed Curlew</td>
+<td id="hummingbird" onmousedown="Z.Viewport.zoomAndPanToView(846,7456,100);">Calliope Hummingbird</td>
+<td id="butterfly" onmousedown="Z.Viewport.zoomAndPanToView(10126,8058,100);">Monarch Butterfly</td>
+</tr>
+<tr>
+<td id="pelican" onmousedown="Z.Viewport.zoomAndPanToView(8257,9078,.3135);">American White Pelican</td>
+<td id="hawk" onmousedown="Z.Viewport.zoomAndPanToView(2014,12522,.81);">Swainson's Hawk</td>
+<td id="owl" onmousedown="Z.Viewport.zoomAndPanToView(5728,11173,100);">Burrowing Owl</td>
+<td id="duck" onmousedown="Z.Viewport.zoomAndPanToView(10716,11545,.81);">Harlequin Duck</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>Photography: Tim Nighswander/IMAGING4ART</p>
-<h1><a href="" class="toggle">Go Back</a></h1>
+<h1><a href="" class="toggle explore">Go Back</a></h1>
 </div>
 
 <script type="text/javascript">
