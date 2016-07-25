@@ -282,7 +282,7 @@ class AssetsController extends AppController {
 		//if ($this->request->is('ajax')) {
 		$ch = curl_init();
 		$timeout = 5;
- 		curl_setopt($ch,CURLOPT_URL,'http://centerofthewest.org/wp-json/posts/'.$this->request->data['Asset']['blogid']);
+ 		curl_setopt($ch,CURLOPT_URL,'https://centerofthewest.org/wp-json/posts/'.$this->request->data['Asset']['blogid']);
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
 		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
 		$data = curl_exec($ch);

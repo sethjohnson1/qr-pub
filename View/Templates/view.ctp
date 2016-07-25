@@ -46,6 +46,7 @@ endif;
 if (!empty($kioskmode)){
  //sj -testing pinch zoom here, just made copy 
  if ($kioskmode=='pinch') echo $this->element('jqm_kiosk_footer_pinch');
+ else if ($kioskmode=='wgwa') echo $this->element('jqm_kiosk_footer_wgwa');
  else echo $this->element('jqm_kiosk_footer');
  
  }
