@@ -218,7 +218,7 @@ Click the animal names to learn more.
 </tbody>
 </table>
 </div>
-<p>Photography: Tim Nighswander/IMAGING4ART</p>
+<p style="text-align:center">Photography: Tim Nighswander/IMAGING4ART</p>
 <h1><a href="" class="toggle explore">Go Back</a></h1>
 </div>
 
