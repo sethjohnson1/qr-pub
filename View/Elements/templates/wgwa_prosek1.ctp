@@ -210,9 +210,9 @@ Click the animal names to learn more.
 <td id="butterfly" onmousedown="Z.Viewport.zoomAndPanToView(10126,8058,100);">Monarch Butterfly</td>
 </tr>
 <tr>
-<td id="pelican" onmousedown="Z.Viewport.zoomAndPanToView(8257,9078,.3135);">American White Pelican</td>
+<td id="pelican" onmousedown="Z.Viewport.zoomAndPanToView(8403,8893,.4);">American White Pelican</td>
 <td id="hawk" onmousedown="Z.Viewport.zoomAndPanToView(2014,12522,.81);">Swainson's Hawk</td>
-<td id="owl" onmousedown="Z.Viewport.zoomAndPanToView(5728,11173,100);">Burrowing Owl</td>
+<td id="owl" onmousedown="Z.Viewport.zoomAndPanToView(5731,11092,100);">Burrowing Owl</td>
 <td id="duck" onmousedown="Z.Viewport.zoomAndPanToView(10716,11545,.81);">Harlequin Duck</td>
 </tr>
 </tbody>
