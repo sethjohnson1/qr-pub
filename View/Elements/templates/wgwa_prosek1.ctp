@@ -102,8 +102,8 @@
 </head>
 <body>
 <div id="intro" class="slide">
-<h1>Yellowstone Composition No. 1</h1>
-<h3><em>By James Prosek</em></h3>
+<h1><em>Yellowstone Composition No. 1</em> – By James Prosek</h1>
+
 <p>Yellowstone's reach extends farther than most of us realize. Populations of elk migrate from within the Park to outlying areas and back again each year, sometimes traveling more than a hundred miles to access food and to reproduce. However, the journeys of elk might be considered fairly "local" when compared to some other Yellowstone species' migrations of hundreds or even thousands of miles. </p>
 
 <p>In <em>Yellowstone Composition No. 1</em>, artist James Prosek highlights twelve of Yellowstone's long-distance migrants in brilliant color and exquisite detail. By scattering the twelve vibrant creatures amongst almost seven hundred others depicted in silhouette, Prosek suggests that not only are these migrant species interconnected with Yellowstone's resident populations, but also that Yellowstone's wildlife is dependent upon a much larger geographical area beyond the Park's boundaries.
