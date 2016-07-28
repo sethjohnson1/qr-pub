@@ -4,7 +4,7 @@
 	display:none;
 }
 .slide{
-	padding:30px 10px 10px 10px;
+	padding:45px 10px 10px 10px;
 }
 .animals{
 	margin: 0 auto; 
@@ -93,6 +93,11 @@
 	position: absolute;
 	top:461px;
 	right:415px;
+}
+.creditline{
+	position: absolute;
+	top:467px;
+	right:58px;
 }
 
 </style>
@@ -218,7 +223,7 @@ Click the animal names to learn more.
 </tbody>
 </table>
 </div>
-<p style="text-align:center">Photography: Tim Nighswander/IMAGING4ART</p>
+<p style="text-align:center" class="creditline">Photography: Tim Nighswander/IMAGING4ART</p>
 <h1><a href="" class="toggle explore">Go Back</a></h1>
 </div>
 
