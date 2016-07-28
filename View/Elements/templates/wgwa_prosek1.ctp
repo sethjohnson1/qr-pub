@@ -4,7 +4,7 @@
 	display:none;
 }
 .slide{
-	padding:10px;
+	padding:30px 10px 10px 10px;
 }
 .animals{
 	margin: 0 auto; 
