@@ -1,3 +1,5 @@
+THIS IS OLD AND CAN BE DELETED SOON 
+======================
 QR Pub
 ===========
 When installing make sure to modify private_sample to private
